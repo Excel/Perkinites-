@@ -4,7 +4,7 @@
 		public static const hp	= new Array(75, 90, 60, 100);
 		public static const dmg	= new Array(3, 3, 3, 3);
 		public static const armor = new Array(0, 0, 0, 0);
-		public static const speed = new Array(32, 20, 32, 32);
+		public static const speed = new Array(16, 16, 16, 16);
 		
 		public static function getName(id:int):String {
 			return names[id];
