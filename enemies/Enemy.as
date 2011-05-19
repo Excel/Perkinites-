@@ -17,7 +17,7 @@ package enemies{
 
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-	public class Enemy extends Action {
+	public class Enemy extends GameUnit {
 
 		static public var list:Array=[];
 		public var Name;
@@ -63,17 +63,16 @@ package enemies{
 			//super();
 
 			//Enemy
-			Name=":D";
-			eHealth=1000;
-			maxHealth=1000;
-			barrier=0;
-			maxBarrier=50;
-			AP=1;
-			speed=5;
-			xspeed=speed;
-			yspeed=speed;
-			collideCountC=0;
-			collideCountP=0;
+			Name		= ":D";
+			maxHealth	= eHealth	=1000;
+			barrier		= 0;
+			maxBarrier	= 50;
+			AP			= 1;
+			speed		= 5;
+			xspeed		= speed;
+			yspeed		= speed;
+			collideCountC = 0;
+			collideCountP = 0;
 			/*pxpos=0;
 			pypos=0;
 

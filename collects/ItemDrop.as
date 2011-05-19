@@ -10,7 +10,7 @@ package collects{
 	import flash.ui.Keyboard;
 
 
-	public class ItemDrop extends Action {
+	public class ItemDrop extends GameUnit {
 
 		public var exist;//how long this exists
 		public var item;//the item to give

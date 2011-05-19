@@ -27,8 +27,8 @@ package game{
 		 * moveCount - current index of move
 		 * waitCount - current time after a move has finished
 		 * maxWaitCount - time between moves
-		 * tileMap - area of Action to move around in
-		 * pauseAction - pause the movement of the Action
+		 * tileMap - area of GameUnit to move around in
+		 * pauseAction - pause the movement of the GameUnit
 		 * overridePause - used for cutscenes and shit
 		 * superPause - pauses everything for like menus and stuff - doesn't conflict with pauseAction
 		 */
@@ -51,7 +51,7 @@ package game{
 
 		/**
 		 *
-		 * dir - direction of Action
+		 * dir - direction of GameUnit
 		 */
 		public var dir:int;
 
@@ -79,7 +79,7 @@ package game{
 		public var charIndex:int;
 
 
-		public function Action() {
+		public function GameUnit() {
 			activate=0;
 
 			moveArray=[];

@@ -26,8 +26,16 @@ package abilities{
 		 * EP - Effect Points
 		 * SP - Speed Points
 		 */
-		public var EP:int;
-		public var SP:int;
+		/*public var EP:int;
+		public var SP:int;*/
+		private var hpPercChange:int;
+		private var hpLumpChange:int;
+		private var atkSpeedPerc:int;
+		private var mvSpeedPerc:int;
+		private var atkDmgPerc:int;
+		private var atkDmgLump:int;
+		private var cdPercChange:int;
+		
 		/**
 		 * Info
 		 */
@@ -43,31 +51,37 @@ package abilities{
 		/**
 		 * What kind of ability it is
 		 */
-		public var bomber;
-		public var dasher;
-		public var ranger;
-		public var targeter;
-		public var other;
-		public var passive;
+		public var bomber:Boolean;
+		public var dasher:Boolean;
+		public var ranger:Boolean;
+		public var targeter:Boolean;
+		public var other:Boolean;
+		public var passive:Boolean;
 		
 		/**
 		 * Targets
 		 */
 		 public var targets:Array;
 
-		public function Ability() {
-			Name=":]";
-			description=":O";
-			index = 1;
-			EP=0;
-			SP = 0;
-			cooldown=0;
-			maxCooldown=0;
-			uses=0;
-			maxUses=0;
+		public function Ability(id:int) {
+			Name	=	AbilityDatabase.getName(id);
+			description = AbilityDatabase.getDescription(id);
+			index	= AbilityDatabase.getIndex(id);
+			
+			hpPercChange= AbilityDatabase.getHPPercChange(id);
+			hpLumpChange= AbilityDatabase.getHPLumpChange(id);
+			atkSpeedPerc= AbilityDatabase.getAtkSpeedPerc(id);
+			mvSpeedPerc	= AbilityDatabase.getMvSpeedPerc(id);
+			atkDmgPerc	= AbilityDatabase.getAtkDmgPerc(id);
+			atkDmgLump	= AbilityDatabase.getAtkDmgLump(id);
+			cdPercChange= AbilityDatabase.getCDPercChange(id);
+			
+			maxCooldown = cooldown = AbilityDatabase.getCooldown(id);
+			uses	= 0;
+			maxUses	= 0;
 			canHotkey=false;
-			delay = 10;
-			bomber = dasher = ranger = targeter = other = passive = 0;
+			delay	= 10;
+			bomber	= dasher = ranger = targeter = other = passive = false;
 		}
 		public function activate(xpos, ypos) {
 		}

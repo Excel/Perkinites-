@@ -19,7 +19,7 @@ package abilities{
 
 		public function CM_Cheer() {
 			super();
-			Name="Update";
+			Name="Cheer";
 			description="Restores a small amount of HP to Christina every five seconds.";
 			EP=0;
 			cooldown=0;

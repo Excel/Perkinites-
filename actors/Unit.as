@@ -18,7 +18,7 @@ package actors{
 	import ui.screens.*;
 	import util.*;
 
-	public class Unit extends Action {
+	public class Unit extends GameUnit {
 
 		/**
 		 * The team currently fighting
@@ -112,7 +112,7 @@ package actors{
 		static public var maxDashSpeed=32;
 
 		/**
-		 * Action Booleans
+		 * GameUnit Booleans
 		 */
 
 		public var additional:Boolean;
@@ -127,15 +127,16 @@ package actors{
 		public var animate=0;
 		public var pauseMovement:Boolean;
 
-		public function Unit() {
-
-			Name=":D";
-			HP=100;
-			maxHP=100;
-			AP=3;
-			DP=0;
-			LP=1;
-			speed=8;
+		public function Unit(id:int) {
+			if (id == undefined)
+				id = 0;
+			
+			Name 	= ActorDatabase.getName(id);
+			maxHP = HP	= ActorDatabase.getHP(id);
+			AP		= ActorDatabase.getDmg(id);
+			DP		= ActorDatabase.getArmor(id);
+			LP = 1;
+			speed	= ActorDatabase.getSpeed(id);
 			dashSpeed=32;
 			xtile=0;//Math.floor(x/SuperLevel.tileWidth);
 			ytile=0;//Math.floor(y/SuperLevel.tileHeight);
@@ -217,7 +218,7 @@ package actors{
 				var menu = new Menu();
 				stage.addChild(menu);
 				menu.enableKeyHandler();
-				Action.superPause=true;
+				GameUnit.superPause=true;
 			}
 		}
 		public function switchUnits(bypass) {
