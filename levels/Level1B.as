@@ -75,7 +75,7 @@
 
 		override public function buildEvents() {
 			//set up Hero
-			Unit.currentUnit = new CK();
+			Unit.currentUnit = new Unit(0);
 			var u=Unit.currentUnit;
 			Unit.level=this;
 			Unit.tileMap=this.tileMap;
@@ -84,7 +84,7 @@
 			mapClip.addChild(u);
 			u.begin();
 
-			Unit.partnerUnit = new CM();
+			Unit.partnerUnit = new Unit(1);
 			var u2=Unit.partnerUnit;
 			u2.x=300;
 			u2.y=200;
@@ -96,7 +96,7 @@
 			c.x=340;
 			c.y=150;
 			c.level=this;
-			Action.tileMap=this.tileMap;
+			GameUnit.tileMap=this.tileMap;
 			mapClip.addChild(c);
 			c.begin();
 
@@ -105,7 +105,7 @@
 			/*addEventListener(Event.ENTER_FRAME,talkingHandler);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 			*/
-			var cutscene = new Action();
+			var cutscene = new GameUnit();
 			cutscene.names.push("Unknown Invader");
 			cutscene.messages.push("Who DARES trespass on MY territory?");
 			cutscene.names.push("Unknown Invader");

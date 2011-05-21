@@ -107,9 +107,6 @@ package actors{
 		 * Speed of the Unit
 		 */
 		//public var speed;
-		public var dashSpeed;
-		static public var maxSpeed=20;
-		static public var maxDashSpeed=32;
 
 		/**
 		 * GameUnit Booleans
@@ -128,20 +125,19 @@ package actors{
 		public var pauseMovement:Boolean;
 
 		public function Unit(id:int) {
-			if (id == undefined)
-				id = 0;
-			
-			Name 	= ActorDatabase.getName(id);
-			maxHP = HP	= ActorDatabase.getHP(id);
-			AP		= ActorDatabase.getDmg(id);
-			DP		= ActorDatabase.getArmor(id);
-			LP = 1;
-			speed	= ActorDatabase.getSpeed(id);
-			dashSpeed=32;
+			/*if (id==undefined) {
+			id=0;
+			}*/
+
+			Name=ActorDatabase.getName(id);
+			maxHP=HP=ActorDatabase.getHP(id);
+			AP=ActorDatabase.getDmg(id);
+			DP=ActorDatabase.getArmor(id);
+			LP=1;
+			speed=ActorDatabase.getSpeed(id);
 			xtile=0;//Math.floor(x/SuperLevel.tileWidth);
 			ytile=0;//Math.floor(y/SuperLevel.tileHeight);
 			dir=8;
-			//hk1 = new CY_Update();
 			commands=[];
 
 			additional=false;
@@ -244,7 +240,11 @@ package actors{
 		}
 		public function switchHotKeys() {
 			if (KeyDown.keyIsDown(additionalKey)&&additionalDelay>=0) {
-				additional=! additional;
+				if (additional) {
+					additional=false;
+				} else {
+					additional=true;
+				}
 				additionalDelay=-5;
 			}
 		}

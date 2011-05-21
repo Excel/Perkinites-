@@ -19,18 +19,18 @@
 		public var difficultyArray:Array;
 
 		public var arrowGlowFilters:Array;
-		function StageSelect(l ,p) {
+		function StageSelect(l, p) {
 			x=0;
 			y=0;
 			level=1;
-			maxLevel=2;
+			maxLevel=3;
 			diff=0;
-
-			p.addChild(this);
 			decide=false;
+			
+			p.addChild(this);
 			enableKeyHandler();
 			stageArray=new Array("Perkins Hall","KK","CIT","JWW","Sciences Library","???","???");
-			bossArray=new Array("Unknown Intruder","KK","CIT","JWW","???","Helix","???");
+			bossArray=new Array("Unknown Intruder","DH","UN","KA","???","Helix D.","???");
 			difficultyArray = new Array([1, 4, 7, 9],
 			  [1, 4, 7, 10],
 			  [1, 5, 7, 10],
@@ -106,8 +106,9 @@
 			var sound = new se_timeout();
 			sound.play();
 
-			updateDifficulty();
-			updateText();
+				updateDifficulty();
+				updateText();
+				updateIcons();
 		}
 		public function upHandler2(e) {
 			arrow2.x=433.8;

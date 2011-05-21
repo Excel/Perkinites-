@@ -36,7 +36,7 @@
 				
 				disableKeyHandler();
 				this.parent.removeChild(this);
-				Action.superPause = false;
+				GameUnit.superPause = false;
 				Unit.menuDelay = -5;
 			}
 		}
@@ -49,7 +49,7 @@
 			SuperLevel.diff=diff;
 			disableKeyHandler();
 			stage.removeChild(this);
-			Action.superPause = false;
+			GameUnit.superPause = false;
 		}
 
 

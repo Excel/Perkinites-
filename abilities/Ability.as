@@ -21,13 +21,6 @@ package abilities{
 		public var description;
 		public var index;
 
-		/**
-		 * Numerical Stats of the Unit
-		 * EP - Effect Points
-		 * SP - Speed Points
-		 */
-		/*public var EP:int;
-		public var SP:int;*/
 		private var hpPercChange:int;
 		private var hpLumpChange:int;
 		private var atkSpeedPerc:int;

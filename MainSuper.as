@@ -1,7 +1,24 @@
-﻿
+﻿import flash.events.Event;
+import flash.display.Stage;
+
+import actors.*;
+import attacks.*;
+import enemies.*;
+import game.*;
+import icons.*;
+import levels.*;
+import ui.*;
+import ui.screens.*;
+import util.*;
+
+//Screens
+
+var titleScreen = new TitleScreen();
+var lostFocusScreen = new LostFocusScreen();
 var level=new Level1B();
 stage.addChild(level);
 
+stage.addChild(titleScreen);
 var Z_KEY="Z".charCodeAt(0);
 var X_KEY="X".charCodeAt(0);
 var C_KEY="C".charCodeAt(0);
@@ -14,8 +31,8 @@ var count=0;
 KeyDown.init(stage);
 
 
-Unit.currentUnit = new Unit();
-Unit.partnerUnit = new Unit();
+Unit.currentUnit=new Unit(0);
+Unit.partnerUnit=new Unit(0);
 var guide = new Guide();
 stage.addEventListener(Event.ENTER_FRAME, countHandler);
 stage.addEventListener(Event.ENTER_FRAME,setUp);
@@ -23,6 +40,8 @@ stage.addEventListener(MouseEvent.MOUSE_DOWN, moveHandler);
 
 stage.addEventListener(MouseEvent.MOUSE_WHEEL,cancelActionHandler);
 stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
+
+stage.addEventListener(Event.DEACTIVATE, onLostFocus);
 function countHandler(e) {
 	count++;
 	/*guide.x=Unit.currentUnit.x-ScreenRect.getX();
@@ -39,6 +58,17 @@ function countHandler(e) {
 }
 
 
+
+function onLostFocus(e) {
+	stage.addChild(lostFocusScreen);
+	GameUnit.superPause=true;
+	lostFocusScreen.addEventListener(MouseEvent.CLICK, onFocusRegain);
+}
+function onFocusRegain(e) {
+	stage.removeChild(lostFocusScreen);
+	GameUnit.superPause=false;
+	lostFocusScreen.removeEventListener(MouseEvent.CLICK, onFocusRegain);
+}
 function moveHandler(e) {
 	count++;
 	Unit.currentUnit.mxpos=this.parent.mouseX+ScreenRect.getX();
@@ -99,7 +129,7 @@ uHUD.visible=false;
 eHUD.visible=false;
 friendshipBar.visible=false;
 
-var stageSelect=new StageSelect(1,stage);
+//var stageSelect=new StageSelect(1,stage);
 //Hide objects
 
 roundDisplay.visible=false;

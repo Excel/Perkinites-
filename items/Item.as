@@ -40,17 +40,15 @@ package items{
 		public var targets:Array;
 		 */
 		public function Item() {
-			super();
+			super(0);
 			Name=":]";
 			description=":O";
-			EP=0;
-			SP=0;
 			cooldown=0;
 			maxCooldown=0;
 			uses=0;
 			maxUses=0;
 			canHotkey=true;
-			bomber=dasher=ranger=targeter=other=passive=0;
+			bomber=dasher=ranger=targeter=other=passive=false;
 		}
 		override public function activate(xpos, ypos) {
 			if (uses>0) {
