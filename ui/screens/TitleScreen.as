@@ -8,11 +8,8 @@
 
 	public class TitleScreen extends MovieClip {
 
-		public var frame:int;
-
 		function TitleScreen() {
 
-			frame=0;
 
 			continueButton.buttonText.text="Continue";
 			configButton.buttonText.text="Config";
@@ -27,7 +24,6 @@
 			newButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler1);
 			continueButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler2);
 			configButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler3);
-			addEventListener(Event.ENTER_FRAME, gameHandler);
 
 		}
 
@@ -63,15 +59,6 @@
 		public function outHandler3(e) {
 			configButton.filters=[];
 		}
-		function gameHandler(e) {
-			frame++;
-			if (frame%24) {
 
-			}
-		}
-
-		function matrixHandler(e) {
-
-		}
 	}
 }

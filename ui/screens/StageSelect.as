@@ -26,7 +26,7 @@
 			maxLevel=3;
 			diff=0;
 			decide=false;
-			
+
 			p.addChild(this);
 			enableKeyHandler();
 			stageArray=new Array("Perkins Hall","KK","CIT","JWW","Sciences Library","???","???");
@@ -106,9 +106,9 @@
 			var sound = new se_timeout();
 			sound.play();
 
-				updateDifficulty();
-				updateText();
-				updateIcons();
+			updateDifficulty();
+			updateText();
+			updateIcons();
 		}
 		public function upHandler2(e) {
 			arrow2.x=433.8;
@@ -169,10 +169,12 @@
 					sound = new se_chargeup();
 					sound.play();
 					SuperLevel.setLevel=level;
-
 					SuperLevel.diff=diff;
 					disableKeyHandler();
+
+					stage.addChild(new PlayerSelect());
 					stage.removeChild(this);
+
 				}
 
 				updateDifficulty();
@@ -189,6 +191,8 @@
 
 			SuperLevel.diff=diff;
 			disableKeyHandler();
+			stage.addChild(new PlayerSelect());
+
 			stage.removeChild(this);
 		}
 
@@ -211,13 +215,13 @@
 					difficultyDescription.text="Units deal 1.5x damage.\n\nEnemies deal 1x damage.";
 					break;
 				case 1 :
-				difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 1x damage.";
+					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 1x damage.";
 					break;
 				case 2 :
-				difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 2x damage.";
+					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 2x damage.";
 					break;
 				case 3 :
-				difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 3x damage.";
+					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 3x damage.";
 					break;
 			}
 		}

@@ -135,7 +135,7 @@ friendshipBar.visible=false;
 roundDisplay.visible=false;
 
 function setUp(e) {
-	if (SuperLevel.setLevel>0&&SuperLevel.diff>-1) {
+	if (ActionConstants.startLevel) {
 		transition.alpha=1;
 		transition.visible=false;
 
