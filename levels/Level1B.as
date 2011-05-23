@@ -75,7 +75,6 @@
 
 		override public function buildEvents() {
 			//set up Hero
-			Unit.currentUnit = new Unit(0);
 			var u=Unit.currentUnit;
 			Unit.level=this;
 			Unit.tileMap=this.tileMap;
@@ -84,7 +83,7 @@
 			mapClip.addChild(u);
 			u.begin();
 
-			Unit.partnerUnit = new Unit(1);
+
 			var u2=Unit.partnerUnit;
 			u2.x=300;
 			u2.y=200;

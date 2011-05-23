@@ -28,7 +28,7 @@
 		}
 
 		public function newGame(e) {
-			var stageSelect = new StageSelect(1, stage);
+				var stageSelect=new StageSelect(1,0, stage);
 			stage.removeChild(this);
 		}
 		public function continueGame(e) {

@@ -11,7 +11,7 @@
 		public var level:int;
 		static public var maxLevel:int;
 		public var diff:int;
-		static public var Ananya:Boolean;
+		static public var Ananya:Boolean = false;
 
 		public var decide:Boolean;
 		public var stageArray:Array;
@@ -19,16 +19,18 @@
 		public var difficultyArray:Array;
 
 		public var arrowGlowFilters:Array;
-		function StageSelect(l, p) {
+		function StageSelect(l:int, d:int, stage:Object) {
 			x=0;
 			y=0;
-			level=1;
+			level=l;
 			maxLevel=3;
-			diff=0;
+			if (d==-1) {
+				diff=0;
+			} else {
+				diff=d;
+			}
 			decide=false;
 
-			p.addChild(this);
-			enableKeyHandler();
 			stageArray=new Array("Perkins Hall","KK","CIT","JWW","Sciences Library","???","???");
 			bossArray=new Array("Unknown Intruder","DH","UN","KA","???","Helix D.","???");
 			difficultyArray = new Array([1, 4, 7, 9],
@@ -52,12 +54,13 @@
 			arrow2.addEventListener(MouseEvent.MOUSE_DOWN, downHandler2);
 			arrow2.addEventListener(MouseEvent.MOUSE_UP, upHandler2);
 
-			Ananya=false;
-
 			difficultyIcon.gotoAndStop(1);
 			updateText();
 			updateDifficulty();
 			updateIcons();
+
+			stage.addChild(this);
+			enableKeyHandler();
 		}
 		public function downHandler1(e) {
 			/*var gf1=new GlowFilter(0xFFFFFF,100,3,3,5,15,false,false);
@@ -81,9 +84,6 @@
 			updateIcons();
 		}
 		public function upHandler1(e) {
-			/*var gf2=new GlowFilter(0x000000,100,2,2,5,15,false,false);
-			arrow1.filters = [gf2];
-			*/
 			arrow1.x=206;
 			arrow1.y=198.5;
 			arrow1.scaleX=1;
@@ -91,9 +91,6 @@
 
 		}
 		public function downHandler2(e) {
-			/*var gf=new GlowFilter(0xFFFFFF,100,3,3,5,3,false,false);
-			arrow2.filters.push(gf);
-			*/
 			arrow2.x=429.5;
 			arrow2.y=219.3;
 			arrow2.scaleX=0.75;
@@ -172,7 +169,7 @@
 					SuperLevel.diff=diff;
 					disableKeyHandler();
 
-					stage.addChild(new PlayerSelect());
+					var playerSelect=new PlayerSelect(stage);
 					stage.removeChild(this);
 
 				}
@@ -191,8 +188,7 @@
 
 			SuperLevel.diff=diff;
 			disableKeyHandler();
-			stage.addChild(new PlayerSelect());
-
+			var playerSelect=new PlayerSelect(stage);
 			stage.removeChild(this);
 		}
 

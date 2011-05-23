@@ -5,7 +5,6 @@ import actors.*;
 import attacks.*;
 import enemies.*;
 import game.*;
-import icons.*;
 import levels.*;
 import ui.*;
 import ui.screens.*;
@@ -19,6 +18,8 @@ var level=new Level1B();
 stage.addChild(level);
 
 stage.addChild(titleScreen);
+
+var FPS = new FPSDisplay(stage, 0, 0);
 var Z_KEY="Z".charCodeAt(0);
 var X_KEY="X".charCodeAt(0);
 var C_KEY="C".charCodeAt(0);
