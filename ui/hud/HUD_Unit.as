@@ -21,12 +21,13 @@
 			currentScore=0;
 			maxHPWidth=hpbar.HP.width;
 
+			qIcon.gotoAndStop(1);
+			wIcon.gotoAndStop(1);
+			eIcon.gotoAndStop(1);
 			aIcon.gotoAndStop(1);
 			sIcon.gotoAndStop(1);
 			dIcon.gotoAndStop(1);
-			cIcon.gotoAndStop(1);
 
-			addText.visible=false;
 			addEventListener(Event.ENTER_FRAME, gameHandler);
 		}
 
@@ -42,7 +43,6 @@
 
 		public function updateHKeys() {
 			if (Unit.currentUnit.additional) {
-				addText.visible=true;
 				if (Unit.currentUnit.ahk1!=null) {
 					aIcon.gotoAndStop(Unit.currentUnit.ahk1.index);
 					aCount.visible=true;
@@ -71,7 +71,6 @@
 
 
 			} else {
-				addText.visible=false;
 				if (Unit.currentUnit.hk1!=null) {
 					aIcon.gotoAndStop(Unit.currentUnit.hk1.index);
 					aCount.visible=true;

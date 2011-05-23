@@ -44,7 +44,6 @@
 			button2.filters=[];
 			button3.filters=[];
 			button4.filters=[];
-
 		}
 		public function pageHandler2(e) {
 			gotoPage(2);

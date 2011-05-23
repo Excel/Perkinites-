@@ -29,12 +29,15 @@ package actors{
 		/**
 		 * Key Commands
 		 */
-		static public var switchKey="Q".charCodeAt(0);
+		static public var switchKey="R".charCodeAt(0);
 		static public var attackKey="C".charCodeAt(0);
-		static public var hotKey1="A".charCodeAt(0);
-		static public var hotKey2="S".charCodeAt(0);
-		static public var hotKey3="D".charCodeAt(0);
+		static public var hotKey1="Q".charCodeAt(0);
+		static public var hotKey2="W".charCodeAt(0);
+		static public var hotKey3="E".charCodeAt(0);
 		static public var additionalKey="W".charCodeAt(0);
+		static public var hotKey4="A".charCodeAt(0);
+		static public var hotKey5="S".charCodeAt(0);
+		static public var hotKey6="D".charCodeAt(0);
 		static public var friendshipKey="Z".charCodeAt(0);
 		static public var menuKey="X".charCodeAt(0);
 		/**

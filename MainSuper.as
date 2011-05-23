@@ -151,11 +151,11 @@ function setUp(e) {
 		stage.addChild(eHUD);
 		stage.addChild(friendshipBar);
 
-		Mouse.hide();
+		/*Mouse.hide();
 		stage.addChild(new Cursor());
 		guide = new Guide();
 		stage.addChild(guide);
-
+*/
 		uHUD.visible=true;
 		eHUD.visible=true;
 		friendshipBar.visible=true;
