@@ -6,12 +6,15 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	import flash.ui.*;
+	import flash.filters.GlowFilter;
 
 	public class PlayerDisplay extends MovieClip {
 
 		var index;
+		var gf1;
 		function PlayerDisplay() {
 			index=0;
+			gf1=new GlowFilter(0xFF9900,100,20,20,1,5,true,false);
 			gotoAndStop(1);
 			button1.buttonText.text="1";
 			button2.buttonText.text="2";
@@ -26,40 +29,85 @@
 
 		public function setUnitIndex(i:int) {
 			index=i;
-			//portrait.gotoAndStop(index+1);
-			//WHY THIS NOT WORK
-			/*HPCount.text=ActorDatabase.getHP(index)+"";
-			APCount.text=ActorDatabase.getDmg(index)+"";
-			SPCount.text=ActorDatabase.getSpeed(index)+"";
-			*/
+			update();
 		}
 
-		//THERE IS AN EASIER WAY TO DO THIS 
-		//THIS WILL BE CHANGED WHEN NOT LAZY
-		//SORRY SORRY SORRY :(
+		public function displayAgain() {
+			this.visible=true;
+			button1.filters=[gf1];
+		}
+
+
 		public function pageHandler(e) {
-			e.target.parent.gotoAndStop(1);
 			gotoPage(1);
-			button1.filters=[];
+			button1.filters=[gf1];
 			button2.filters=[];
 			button3.filters=[];
 			button4.filters=[];
+
 		}
 		public function pageHandler2(e) {
-			e.target.parent.gotoAndStop(2);
 			gotoPage(2);
+			button1.filters=[];
+			button2.filters=[gf1];
+			button3.filters=[];
+			button4.filters=[];
+
+
 		}
 		public function pageHandler3(e) {
-			e.target.parent.gotoAndStop(3);
 			gotoPage(3);
+			button1.filters=[];
+			button2.filters=[];
+			button3.filters=[gf1];
+			button4.filters=[];
 		}
 		public function pageHandler4(e) {
-			e.target.parent.gotoAndStop(4);
 			gotoPage(4);
+			button1.filters=[];
+			button2.filters=[];
+			button3.filters=[];
+			button4.filters=[gf1];
+		}
+
+		public function update() {
+
+			switch (currentFrame) {
+				case 1 :
+					portrait.gotoAndStop(index+1);
+					break;
+				case 2 :
+					HPCount.text=ActorDatabase.getHP(index)+"";
+					APCount.text=ActorDatabase.getDmg(index)+"";
+					SPCount.text=ActorDatabase.getSpeed(index)+"";
+					CPCount.text=ActorDatabase.getCarry(index)+"";
+					weaponName.text=ActorDatabase.getWeapon(index);
+
+					wIcon.gotoAndStop(index+1);
+					break;
+				case 3 :
+					//edit this later
+					icon1.gotoAndStop(1);
+					icon2.gotoAndStop(1);
+					icon3.gotoAndStop(1);
+					icon4.gotoAndStop(1);
+					icon5.gotoAndStop(1);
+					break;
+				case 4 :
+					ffName.text=ActorDatabase.getFFName(index);
+					ffDescription.text=ActorDatabase.getFFDescription(index);
+					ffBonus.text=ActorDatabase.getFFBonus(index);
+					
+					ffIcon.gotoAndStop(Math.ceil((index+1)/2));
+					
+					break;
+			}
+
 		}
 
 		public function gotoPage(i:int) {
 			gotoAndStop(i);
+			update();
 		}
 	}
 }

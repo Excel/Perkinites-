@@ -15,7 +15,6 @@
 		public var pn1:int;
 
 		function PlayerSelect(stage:Object) {
-			trace("GOTTA FIX PLAYER DISPLAY");
 			x=0;
 			y=0;
 			entries = new Array();
@@ -122,8 +121,14 @@
 
 			playerDisplay1.setUnitIndex(pn1);
 			playerDisplay2.setUnitIndex(pn1+1);
-			playerDisplay1.visible=true;
-			playerDisplay2.visible=true;
+			
+			if(!playerDisplay1.visible){
+				playerDisplay1.displayAgain();
+			}
+			if(!playerDisplay2.visible){
+				playerDisplay2.displayAgain();
+			}
+
 		}
 		
 		function startLevel(e) {

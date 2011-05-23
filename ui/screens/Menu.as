@@ -13,6 +13,9 @@
 		public var level:int;
 		static public var maxLevel:int;
 		public var diff:int;
+		
+		
+		public var optionArray:Array;
 
 		public var decide:Boolean;
 		function Menu() {
@@ -20,6 +23,13 @@
 			y=0;
 			diff=0;
 
+
+			optionArray=new Array("Configure yo Boost Items to get Stat Bonuses! :)",
+								  "View yo stock and configure your Items for yo Hotkeys! :)",
+								  "Configure yo Special Abilities for yo Hotkeys! :)",
+								  "Check yo active Perkinites! You got this gurrrrrrrrrl! ;)",
+								  "Check yo other Perkinites! You got this Chicken McNugget! ;)");
+			gotoAndStop(1);
 			updateText();
 		}
 
@@ -42,7 +52,7 @@
 		}
 
 		public function selectHandler(e) {
-			var sound = new se_chargeup();
+			/*var sound = new se_chargeup();
 			sound.play();
 			SuperLevel.setLevel=level;
 
@@ -50,13 +60,14 @@
 			disableKeyHandler();
 			stage.removeChild(this);
 			GameUnit.superPause = false;
+			*/
 		}
 
 
 		public function resetText() {
 		}
 		public function updateText() {
-			levelDisplay.text=Unit.maxLP;
+			/*levelDisplay.text=Unit.maxLP;
 			expDisplay.text=Unit.EXP;
 			nextDisplay.text =(Unit.maxLP * 100 - Unit.EXP)+""; //fix
 			unitName1.text=Unit.currentUnit.Name;
@@ -69,6 +80,7 @@
 			HPDisplay2.text=Unit.partnerUnit.HP;
 			APDisplay2.text=Unit.partnerUnit.AP;
 			SPDisplay2.text=Unit.partnerUnit.speed;
+			*/
 		}
 
 	}
