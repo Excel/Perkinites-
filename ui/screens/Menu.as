@@ -19,13 +19,13 @@
 			y=0;
 
 
-			optionArray=new Array("Check yo active Perkinites! You got this gurrrrrrrrrl! ;)",
-			  "Configure yo Boost Items to get Stat Bonuses! :)",
-			  "View yo stock and configure your Items for yo Hotkeys! :)",
-			  "Configure yo Special Abilities for yo Hotkeys! :)",
-			  "Check yo friends! You got this Chicken McNugget! ;)");
+			optionArray=new Array("\nCheck yo active Perkinites! You got this gurrrrrrrrrl! ;)",
+			  "\nConfigure yo Boost Items to get Stat Bonuses! :)",
+			  "\nView yo stock and configure your Items for yo Hotkeys! :)",
+			  "\nConfigure yo Special Abilities for yo Hotkeys! :)",
+			  "\nCheck yo friends! You got this Chicken McNugget! ;)");
 			gotoPage(1);
-			
+
 			arrow.gotoAndStop(1);
 
 			statusOption.addEventListener(MouseEvent.CLICK, pageHandler);
@@ -33,7 +33,12 @@
 			itemsOption.addEventListener(MouseEvent.CLICK, pageHandler3);
 			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler4);
 			friendsOption.addEventListener(MouseEvent.CLICK, pageHandler5);
-			
+
+			configOption.addEventListener(MouseEvent.CLICK, configHandler);
+			saveOption.addEventListener(MouseEvent.CLICK, saveHandler);
+			loadOption.addEventListener(MouseEvent.CLICK, loadHandler);
+			exitOption.addEventListener(MouseEvent.CLICK, exitHandler);
+
 		}
 
 		public function enableKeyHandler() {
@@ -50,23 +55,34 @@
 
 		public function pageHandler(e) {
 			gotoPage(1);
-			arrow.y=89;
+			arrow.y=71;
+			hover.y=64;
 		}
 		public function pageHandler2(e) {
 			gotoPage(2);
-			arrow.y=89+32;
+			arrow.y=71+32;
+			hover.y=64+32;
 		}
 		public function pageHandler3(e) {
 			gotoPage(3);
-			arrow.y=89+32*2;
+			arrow.y=71+32*2;
+			hover.y=64+32*2;
 		}
 		public function pageHandler4(e) {
 			gotoPage(4);
-			arrow.y=89+32*3;
+			arrow.y=71+32*3;
+			hover.y=64+32*3;
 		}
 		public function pageHandler5(e) {
 			gotoPage(5);
-			arrow.y=89+32*4;
+			arrow.y=71+32*4;
+			hover.y=64+32*4;
+		}
+		public function configHandler(e) {
+		}
+		public function saveHandler(e) {
+		}
+		public function loadHandler(e) {
 		}
 		public function exitHandler(e) {
 			exit();
@@ -102,15 +118,25 @@
 					HPCount2.text=Unit.partnerUnit.HP;
 					APCount2.text=Unit.partnerUnit.AP;
 					SPCount2.text=Unit.partnerUnit.speed;
+
+
+					freezeFaces();
 					break;
 				case 2 :
 					optionDisplay.text="Boosts";
+					freezeFaces();
 					break;
 				case 3 :
 					optionDisplay.text="Items";
+					freezeHotkeys();
+					setPassives();
+					setInventory(true);
 					break;
 				case 4 :
 					optionDisplay.text="Abilities";
+					freezeHotkeys();
+					setPassives();
+					setInventory(false);
 					break;
 				case 5 :
 					optionDisplay.text="Friends";
@@ -119,6 +145,39 @@
 
 
 
+		}
+
+		public function freezeHotkeys() {
+			thingIcon.gotoAndStop(1);
+			
+			qIcon1.gotoAndStop(1);
+			wIcon1.gotoAndStop(1);
+			eIcon1.gotoAndStop(1);
+			aIcon1.gotoAndStop(1);
+			sIcon1.gotoAndStop(1);
+			dIcon1.gotoAndStop(1);
+			qIcon2.gotoAndStop(1);
+			wIcon2.gotoAndStop(1);
+			eIcon2.gotoAndStop(1);
+			aIcon2.gotoAndStop(1);
+			sIcon2.gotoAndStop(1);
+			dIcon2.gotoAndStop(1);
+		}
+		public function freezeFaces() {
+			faceIcon1.gotoAndStop(1);
+			faceIcon2.gotoAndStop(2);
+		}
+		public function setPassives() {
+			passive1.source=passiveList1;
+			passive2.source=passiveList2;
+		}
+		public function setInventory(useItems:Boolean) {
+			inventory.source=inventoryList;
+			if (useItems) {
+
+			} else {
+
+			}
 		}
 		public function updateText() {
 			/*levelDisplay.text=Unit.maxLP;
