@@ -36,66 +36,63 @@
 			updateHP();
 			updateName();
 			updateScore();
-			
+
 			updateHKeys();
 			//updateProfile();
 		}
 
 		public function updateHKeys() {
-			if (Unit.currentUnit.additional) {
-				if (Unit.currentUnit.ahk1!=null) {
-					aIcon.gotoAndStop(Unit.currentUnit.ahk1.index);
-					aCount.visible=true;
-					aCount.text=Unit.currentUnit.ahk1.uses;
-				} else {
-					aIcon.gotoAndStop(1);
-					aCount.visible=false;
-				}
-				if (Unit.currentUnit.ahk2!=null) {
-					sIcon.gotoAndStop(Unit.currentUnit.ahk2.index);
-					sCount.visible=true;
-					sCount.text=Unit.currentUnit.ahk2.uses;
-				} else {
-					sIcon.gotoAndStop(1);
-					sCount.visible=false;
-				}
-				if (Unit.currentUnit.ahk3!=null) {
-					dIcon.gotoAndStop(Unit.currentUnit.ahk3.index);
-					dCount.visible=true;
-					dCount.text=Unit.currentUnit.ahk3.uses;
-				} else {
-					dIcon.gotoAndStop(1);
-					dCount.visible=false;
 
-				}
-
-
+			if (Unit.currentUnit.hk1!=null) {
+				qIcon.gotoAndStop(Unit.currentUnit.hk1.index);
+				qCount.visible=true;
+				qCount.text=Unit.currentUnit.hk1.uses;
 			} else {
-				if (Unit.currentUnit.hk1!=null) {
-					aIcon.gotoAndStop(Unit.currentUnit.hk1.index);
-					aCount.visible=true;
-					aCount.text=Unit.currentUnit.hk1.uses;
-				} else {
-					aIcon.gotoAndStop(1);
-					aCount.visible=false;
-				}
-				if (Unit.currentUnit.hk2!=null) {
-					sIcon.gotoAndStop(Unit.currentUnit.hk2.index);
-					sCount.visible=true;
-					sCount.text=Unit.currentUnit.hk2.uses;
-				} else {
-					sIcon.gotoAndStop(1);
-					sCount.visible=false;
-				}
-				if (Unit.currentUnit.hk3!=null) {
-					dIcon.gotoAndStop(Unit.currentUnit.hk3.index);
-					dCount.visible=true;
-					dCount.text=Unit.currentUnit.hk3.uses;
-				} else {
-					dIcon.gotoAndStop(1);
-					dCount.visible=false;
-				}
+				qIcon.gotoAndStop(1);
+				qCount.visible=false;
 			}
+			if (Unit.currentUnit.hk2!=null) {
+				wIcon.gotoAndStop(Unit.currentUnit.hk2.index);
+				wCount.visible=true;
+				wCount.text=Unit.currentUnit.hk2.uses;
+			} else {
+				wIcon.gotoAndStop(1);
+				wCount.visible=false;
+			}
+			if (Unit.currentUnit.hk3!=null) {
+				eIcon.gotoAndStop(Unit.currentUnit.hk3.index);
+				eCount.visible=true;
+				eCount.text=Unit.currentUnit.hk3.uses;
+			} else {
+				eIcon.gotoAndStop(1);
+				eCount.visible=false;
+			}
+
+			if (Unit.currentUnit.hk4!=null) {
+				aIcon.gotoAndStop(Unit.currentUnit.hk4.index);
+				aCount.visible=true;
+				aCount.text=Unit.currentUnit.hk4.uses;
+			} else {
+				aIcon.gotoAndStop(1);
+				aCount.visible=false;
+			}
+			if (Unit.currentUnit.hk5!=null) {
+				sIcon.gotoAndStop(Unit.currentUnit.hk5.index);
+				sCount.visible=true;
+				sCount.text=Unit.currentUnit.hk5.uses;
+			} else {
+				sIcon.gotoAndStop(1);
+				sCount.visible=false;
+			}
+			if (Unit.currentUnit.hk6!=null) {
+				dIcon.gotoAndStop(Unit.currentUnit.hk6.index);
+				dCount.visible=true;
+				dCount.text=Unit.currentUnit.hk6.uses;
+			} else {
+				dIcon.gotoAndStop(1);
+				dCount.visible=false;
+			}
+
 
 		}
 		public function updateHP() {

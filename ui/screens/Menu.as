@@ -2,28 +2,44 @@
 
 	import flash.display.MovieClip;
 	import flash.events.*;
+	import flash.geom.Rectangle;
 	import flash.ui.*;
 
 	import actors.*;
 	import game.*;
+	import items.*;
 	//Enriquez Iglesias
 	import levels.*;
 	public class Menu extends MovieClip {
 
 		public var optionArray:Array;
+		public var toggleArray1:Array;
+		public var toggleArray2:Array;
 
 		public var decide:Boolean;
 		function Menu() {
 			trace("There's a bug with menu and lost focus because they share the same pausing boolean. we should probably make respective booleans to handle this instead. D:");
+			trace("Equipping items to hotkeys is on its way.");
+			trace("You can only drag to hotkey A at the moment. THERE ARE SEVERAL BUGS I CAN FIX LATER");
 			x=0;
 			y=0;
-
 
 			optionArray=new Array("\nCheck yo active Perkinites! You got this gurrrrrrrrrl! ;)",
 			  "\nConfigure yo Boost Items to get Stat Bonuses! :)",
 			  "\nView yo stock and configure your Items for yo Hotkeys! :)",
 			  "\nConfigure yo Special Abilities for yo Hotkeys! :)",
-			  "\nCheck yo friends! You got this Chicken McNugget! ;)");
+			  "\nConfigure yo Player's Actions as a Partner Unit! You got this Chicken McNugget! ;)");
+
+			toggleArray1=new Array("Frequently",
+			   "Occasionally",
+			"Seldomly",
+			"Never");
+
+			toggleArray2=new Array("Beatdown",
+			   "Attack with Caution",
+			"Grab Happy Orbs",
+			"Follow the Leader");
+
 			gotoPage(1);
 
 			arrow.gotoAndStop(1);
@@ -119,7 +135,6 @@
 					APCount2.text=Unit.partnerUnit.AP;
 					SPCount2.text=Unit.partnerUnit.speed;
 
-
 					freezeFaces();
 					break;
 				case 2 :
@@ -139,17 +154,14 @@
 					setInventory(false);
 					break;
 				case 5 :
-					optionDisplay.text="Friends";
+					optionDisplay.text="Partners";
+					freezeHotkeys();
+					updateToggles();
 					break;
 			}
-
-
-
 		}
 
 		public function freezeHotkeys() {
-			thingIcon.gotoAndStop(1);
-			
 			qIcon1.gotoAndStop(1);
 			wIcon1.gotoAndStop(1);
 			eIcon1.gotoAndStop(1);
@@ -162,7 +174,33 @@
 			aIcon2.gotoAndStop(1);
 			sIcon2.gotoAndStop(1);
 			dIcon2.gotoAndStop(1);
+
+			if (currentFrame==5) {
+				asIcon1.gotoAndStop(1);
+				asIcon2.gotoAndStop(1);
+			} else {
+				thingIcon.gotoAndStop(1);
+			}
 		}
+
+		public function updateToggles() {
+			qToggle1.buttonText.text=toggleArray1[0];
+			qToggle2.buttonText.text=toggleArray1[0];
+			wToggle1.buttonText.text=toggleArray1[0];
+			wToggle2.buttonText.text=toggleArray1[0];
+			eToggle1.buttonText.text=toggleArray1[0];
+			eToggle2.buttonText.text=toggleArray1[0];
+			aToggle1.buttonText.text=toggleArray1[0];
+			aToggle2.buttonText.text=toggleArray1[0];
+			sToggle1.buttonText.text=toggleArray1[0];
+			sToggle2.buttonText.text=toggleArray1[0];
+			dToggle1.buttonText.text=toggleArray1[0];
+			dToggle2.buttonText.text=toggleArray1[0];
+
+			asToggle1.buttonText.text=toggleArray2[0];
+			asToggle2.buttonText.text=toggleArray2[0];
+		}
+
 		public function freezeFaces() {
 			faceIcon1.gotoAndStop(1);
 			faceIcon2.gotoAndStop(2);
@@ -173,28 +211,57 @@
 		}
 		public function setInventory(useItems:Boolean) {
 			inventory.source=inventoryList;
+			var xOffset=16;
+			var yOffset=8;
 			if (useItems) {
-
+				var i;
+				for (i = 0; i < Unit.Items.length; i++) {
+					if (i%7==0&&i!=0) {
+						xOffset=16;
+						yOffset+=36;
+					}
+					var itemIcon = new AbilityIcon();
+					itemIcon.gotoAndStop(Unit.Items[i].index);
+					itemIcon.x=xOffset;
+					itemIcon.y=yOffset;
+					inventoryList.addChild(itemIcon);
+					itemIcon.addEventListener(MouseEvent.MOUSE_DOWN, moveIconHandler);
+					xOffset+=32;
+				}
 			} else {
 
 			}
 		}
-		public function updateText() {
-			/*levelDisplay.text=Unit.maxLP;
-			expDisplay.text=Unit.EXP;
-			nextDisplay.text =(Unit.maxLP * 100 - Unit.EXP)+""; //fix
-			unitName1.text=Unit.currentUnit.Name;
-			unitName2.text=Unit.partnerUnit.Name;
-			
-			HPDisplay1.text=Unit.currentUnit.HP;
-			APDisplay1.text=Unit.currentUnit.AP;
-			SPDisplay1.text=Unit.currentUnit.speed;
-			
-			HPDisplay2.text=Unit.partnerUnit.HP;
-			APDisplay2.text=Unit.partnerUnit.AP;
-			SPDisplay2.text=Unit.partnerUnit.speed;
-			*/
+
+		public function moveIconHandler(e) {
+			var obj=e.target;
+
+			if (obj.parent!=stage) {
+				stage.addChild(obj);
+				obj.x=mouseX-16;
+				obj.y=mouseY-16;
+				obj.addEventListener(MouseEvent.MOUSE_UP, releaseIcon);
+			}
+			//make this easier to use when mouse goes off screen :(
+			obj.startDrag(false, new Rectangle(8,8,600-8,480-48));
+
+
 		}
 
+		public function releaseIcon(e) {
+			var obj=e.target;
+
+			if (obj.hitTestObject(aIcon1)) {
+				aIcon1.gotoAndStop(obj.currentFrame);
+				Unit.currentUnit.hk4=new Item_Drink(5);
+			} else if (obj.hitTestObject(aIcon2)) {
+				aIcon2.gotoAndStop(obj.currentFrame);
+				Unit.partnerUnit.hk4=new Item_Drink(5);
+			}
+			stage.removeChild(obj);
+			obj.stopDrag();
+			setInventory(true);
+			obj.removeEventListener(MouseEvent.MOUSE_UP, releaseIcon);
+		}
 	}
 }

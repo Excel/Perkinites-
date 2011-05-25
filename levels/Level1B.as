@@ -104,7 +104,7 @@
 			/*addEventListener(Event.ENTER_FRAME,talkingHandler);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 			*/
-			var cutscene = new GameUnit();
+			/*var cutscene = new GameUnit();
 			cutscene.names.push("Unknown Invader");
 			cutscene.messages.push("Who DARES trespass on MY territory?");
 			cutscene.names.push("Unknown Invader");
@@ -122,15 +122,21 @@
 			cutscene.moveArray.push(FunctionUtils.thunkify(cutscene.forceAction, c, c.turnLeft));
 			cutscene.moveArray.push(cutscene.eraseAction);
 			
+			//mapClip.addChild(cutscene);
+			*/
 			var itemdrop = new ItemDrop(0, new Item_Drink(5), null);
 			itemdrop.x = 300;
 			itemdrop.y = 300;
-			mapClip.addChild(cutscene);
 			mapClip.addChild(itemdrop);
+			
+			var itemdrop2 = new ItemDrop(0, new Item_Drink(15), null);
+			itemdrop2.x = 300;
+			itemdrop2.y = 400;
+			mapClip.addChild(itemdrop2);
+			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, VCamHandler);
 			makeHappiness();
 			//stage.addEventListener(Event.ENTER_FRAME, gameHandler);
-			//c.begin();
 			//numberOnTimer.start();
 		}
 
