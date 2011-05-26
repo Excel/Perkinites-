@@ -94,9 +94,9 @@ package actors{
 		public var hk6;
 		public var finale;
 		public var commands;
-		static public var pCommands=[];
-		static public var Items=[];
-
+		
+		public var passiveItems:Array;
+		public var passiveCommands:Array;
 		/**
 		 * Position of the Unit
 		 */
@@ -139,6 +139,9 @@ package actors{
 			ytile=0;//Math.floor(y/SuperLevel.tileHeight);
 			dir=8;
 			commands=[];
+			
+			passiveItems = [];
+			passiveCommands = [];
 
 			attacking=false;
 			moving=false;
@@ -376,7 +379,7 @@ package actors{
 				}
 			}
 			if (Unit.currentUnit.HP<=0&&Unit.partnerUnit.HP<=0) {
-				trace("Game over, fool.");
+				stage.addChild(new GameOverDisplay());
 				Unit.currentUnit.end();
 				Unit.partnerUnit.end();
 			} else if (Unit.currentUnit.HP<=0) {

@@ -10,8 +10,10 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.*;
+	import flash.net.SharedObject;
 	import flash.ui.*;
 	import flash.ui.Keyboard;
+
 
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
@@ -109,12 +111,12 @@
 			cutscene.messages.push("Who DARES trespass on MY territory?");
 			cutscene.names.push("Unknown Invader");
 			cutscene.messages.push("Filthy scum will be shot down on sight. You hear me!? ON SIGHT.");
-
+			
 			cutscene.names.push("CM");
 			cutscene.messages.push("Daaaang, this girl is ANGRY.");
 			cutscene.names.push("CK");
 			cutscene.messages.push("Okay, H said that she was on the second floor. Let's move, people!");
-
+			
 			cutscene.moveArray.push(cutscene.displayMessage);
 			cutscene.moveArray.push(cutscene.displayMessage);
 			cutscene.moveArray.push(cutscene.displayMessage);
@@ -124,18 +126,34 @@
 			
 			//mapClip.addChild(cutscene);
 			*/
-			var itemdrop = new ItemDrop(0, new Item_Drink(5), null);
-			itemdrop.x = 300;
-			itemdrop.y = 300;
+			var itemdrop=new ItemDrop(0,new Item(0,5),null);
+			itemdrop.x=300;
+			itemdrop.y=300;
 			mapClip.addChild(itemdrop);
-			
-			var itemdrop2 = new ItemDrop(0, new Item_Drink(15), null);
-			itemdrop2.x = 300;
-			itemdrop2.y = 400;
+
+			var itemdrop2=new ItemDrop(0,new Item(1,10),null);
+			itemdrop2.x=300;
+			itemdrop2.y=400;
 			mapClip.addChild(itemdrop2);
-			
+
+			var itemdrop3=new ItemDrop(0,new Item(2,5),null);
+			itemdrop3.x=300;
+			itemdrop3.y=500;
+			mapClip.addChild(itemdrop3);
+
+			var itemdrop4=new ItemDrop(0,new Item(4,5),null);
+			itemdrop4.x=300;
+			itemdrop4.y=501;
+			mapClip.addChild(itemdrop4);
+
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, VCamHandler);
 			makeHappiness();
+
+			/*var retry = SharedObject.getLocal("Retry Level");
+			retry.data.currentUnit = Unit.currentUnit;
+			retry.data.partnerUnit = Unit.partnerUnit;
+			retry.flush();
+			*/
 			//stage.addEventListener(Event.ENTER_FRAME, gameHandler);
 			//numberOnTimer.start();
 		}

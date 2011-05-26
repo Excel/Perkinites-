@@ -21,13 +21,13 @@ package abilities{
 		public var description;
 		public var index;
 
-		private var hpPercChange:int;
-		private var hpLumpChange:int;
-		private var atkSpeedPerc:int;
-		private var mvSpeedPerc:int;
-		private var atkDmgPerc:int;
-		private var atkDmgLump:int;
-		private var cdPercChange:int;
+		public var hpPercChange:int;
+		public var hpLumpChange:int;
+		public var atkSpeedPerc:int;
+		public var mvSpeedPerc:int;
+		public var atkDmgPerc:int;
+		public var atkDmgLump:int;
+		public var cdPercChange:int;
 		
 		/**
 		 * Info
@@ -37,7 +37,7 @@ package abilities{
 		public var maxCooldown:int;
 		public var uses:int;
 		public var maxUses:int;//number of uses before cooldown
-		public var canHotkey:Boolean;//whether or not the ability/command can be equipped to a hotkey or passive
+		public var active:Boolean;//whether or not the ability can be equipped to a hotkey or passive
 		public var delay:int; //wait time before using again immediately
 		static public var tileMap;
 		
@@ -49,7 +49,6 @@ package abilities{
 		public var ranger:Boolean;
 		public var targeter:Boolean;
 		public var other:Boolean;
-		public var passive:Boolean;
 		
 		/**
 		 * Targets
@@ -72,9 +71,9 @@ package abilities{
 			maxCooldown = cooldown = AbilityDatabase.getCooldown(id);
 			uses	= 0;
 			maxUses	= 0;
-			canHotkey=false;
+			active=false;
 			delay	= 10;
-			bomber	= dasher = ranger = targeter = other = passive = false;
+			bomber	= dasher = ranger = targeter = other = false;
 		}
 		public function activate(xpos, ypos) {
 		}

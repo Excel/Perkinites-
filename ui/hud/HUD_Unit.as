@@ -1,5 +1,7 @@
 ﻿package ui.hud{
 	import actors.*;
+	import abilities.*;
+	import items.*;
 	import util.*;
 
 	import flash.display.MovieClip;
@@ -42,57 +44,104 @@
 		}
 
 		public function updateHKeys() {
-
+			var index;
 			if (Unit.currentUnit.hk1!=null) {
-				qIcon.gotoAndStop(Unit.currentUnit.hk1.index);
-				qCount.visible=true;
-				qCount.text=Unit.currentUnit.hk1.uses;
+				var hk1=Unit.currentUnit.hk1;
+				if (hk1 is Item) {
+					index=ItemDatabase.getDatabaseIndex(hk1.Name);
+					qIcon.useCount.text=ItemDatabase.getUses(index)+"";
+				} else if (hk1 is Ability) {
+					qIcon.useCount.text=hk1.uses;
+				}
+				qIcon.gotoAndStop(hk1.index);
+				qIcon.useCount.visible=true;
+
 			} else {
 				qIcon.gotoAndStop(1);
-				qCount.visible=false;
+				qIcon.useCount.visible=false;
 			}
+
+
 			if (Unit.currentUnit.hk2!=null) {
-				wIcon.gotoAndStop(Unit.currentUnit.hk2.index);
-				wCount.visible=true;
-				wCount.text=Unit.currentUnit.hk2.uses;
+				var hk2=Unit.currentUnit.hk2;
+				if (hk2 is Item) {
+					index=ItemDatabase.getDatabaseIndex(hk2.Name);
+					wIcon.useCount.text=ItemDatabase.getUses(index)+"";
+				} else if (hk2 is Ability) {
+					wIcon.useCount.text=hk2.uses;
+				}
+				wIcon.gotoAndStop(hk2.index);
+				wIcon.useCount.visible=true;
+
 			} else {
 				wIcon.gotoAndStop(1);
-				wCount.visible=false;
+				wIcon.useCount.visible=false;
 			}
+
 			if (Unit.currentUnit.hk3!=null) {
-				eIcon.gotoAndStop(Unit.currentUnit.hk3.index);
-				eCount.visible=true;
-				eCount.text=Unit.currentUnit.hk3.uses;
+				var hk3=Unit.currentUnit.hk3;
+				if (hk3 is Item) {
+					index=ItemDatabase.getDatabaseIndex(hk3.Name);
+					eIcon.useCount.text=ItemDatabase.getUses(index)+"";
+				} else if (hk3 is Ability) {
+					eIcon.useCount.text=hk3.uses;
+				}
+				eIcon.gotoAndStop(hk3.index);
+				eIcon.useCount.visible=true;
+
 			} else {
 				eIcon.gotoAndStop(1);
-				eCount.visible=false;
+				eIcon.useCount.visible=false;
 			}
+
 
 			if (Unit.currentUnit.hk4!=null) {
-				aIcon.gotoAndStop(Unit.currentUnit.hk4.index);
-				aCount.visible=true;
-				aCount.text=Unit.currentUnit.hk4.uses;
+				var hk4=Unit.currentUnit.hk4;
+				if (hk4 is Item) {
+					index=ItemDatabase.getDatabaseIndex(hk4.Name);
+					aIcon.useCount.text=ItemDatabase.getUses(index)+"";
+				} else if (hk4 is Ability) {
+					aIcon.useCount.text=hk4.uses;
+				}
+				aIcon.gotoAndStop(hk4.index);
+				aIcon.useCount.visible=true;
+
 			} else {
 				aIcon.gotoAndStop(1);
-				aCount.visible=false;
-			}
-			if (Unit.currentUnit.hk5!=null) {
-				sIcon.gotoAndStop(Unit.currentUnit.hk5.index);
-				sCount.visible=true;
-				sCount.text=Unit.currentUnit.hk5.uses;
-			} else {
-				sIcon.gotoAndStop(1);
-				sCount.visible=false;
-			}
-			if (Unit.currentUnit.hk6!=null) {
-				dIcon.gotoAndStop(Unit.currentUnit.hk6.index);
-				dCount.visible=true;
-				dCount.text=Unit.currentUnit.hk6.uses;
-			} else {
-				dIcon.gotoAndStop(1);
-				dCount.visible=false;
+				aIcon.useCount.visible=false;
 			}
 
+
+			if (Unit.currentUnit.hk5!=null) {
+				var hk5=Unit.currentUnit.hk5;
+				if (hk5 is Item) {
+					index=ItemDatabase.getDatabaseIndex(hk5.Name);
+					sIcon.useCount.text=ItemDatabase.getUses(index)+"";
+				} else if (hk5 is Ability) {
+					sIcon.useCount.text=hk5.uses;
+				}
+				sIcon.gotoAndStop(hk5.index);
+				sIcon.useCount.visible=true;
+
+			} else {
+				sIcon.gotoAndStop(1);
+				sIcon.useCount.visible=false;
+			}
+			if (Unit.currentUnit.hk6!=null) {
+				var hk6=Unit.currentUnit.hk6;
+				if (hk6 is Item) {
+					index=ItemDatabase.getDatabaseIndex(hk6.Name);
+					dIcon.useCount.text=ItemDatabase.getUses(index)+"";
+				} else if (hk6 is Ability) {
+					dIcon.useCount.text=hk6.uses;
+				}
+				dIcon.gotoAndStop(hk6.index);
+				dIcon.useCount.visible=true;
+
+			} else {
+				dIcon.gotoAndStop(1);
+				dIcon.useCount.visible=false;
+			}
 
 		}
 		public function updateHP() {

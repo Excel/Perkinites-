@@ -9,6 +9,8 @@ package items{
 	import abilities.*;
 
 	public class Item extends Ability {
+		public var id;
+		public var amount;
 		/*
 		static public var FPS:int=24;
 		
@@ -39,26 +41,35 @@ package items{
 		
 		public var targets:Array;
 		 */
-		public function Item() {
+
+		//having an amount of 0 means this item is being assigned to the hotkey
+		//uses are called in the ItemDatabase and not through the individual Item
+		//may rewrite that particular segment to have it make more sense
+		public function Item(id:int, amount:int) {
 			super(0);
-			Name=":]";
-			description=":O";
-			cooldown=0;
-			maxCooldown=0;
-			uses=0;
-			maxUses=0;
-			canHotkey=true;
-			bomber=dasher=ranger=targeter=other=passive=false;
+			this.id=id;
+			Name=ItemDatabase.getName(id);
+			description=ItemDatabase.getDescription(id);
+			index=ItemDatabase.getIndex(id);
+
+			hpPercChange=ItemDatabase.getHPPercChange(id);
+			hpLumpChange=ItemDatabase.getHPLumpChange(id);
+			atkSpeedPerc=ItemDatabase.getAtkSpeedPerc(id);
+			mvSpeedPerc=ItemDatabase.getMvSpeedPerc(id);
+			atkDmgPerc=ItemDatabase.getAtkDmgPerc(id);
+			atkDmgLump=ItemDatabase.getAtkDmgLump(id);
+			cdPercChange=ItemDatabase.getCDPercChange(id);
+
+			maxCooldown=cooldown=ItemDatabase.getCooldown(id);
+			if (amount!=0) {
+				uses=amount;
+			}
+			maxUses=9;
 		}
 		override public function activate(xpos, ypos) {
-			if (uses>0) {
-				useAbility();
-				uses--;
+			if (ItemDatabase.uses[id]>0) {
+				ItemDatabase.uses[id]-=1;
 			}
 		}
-
-		public function useAbility() {
-		}
-
 	}
 }

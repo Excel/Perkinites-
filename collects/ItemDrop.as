@@ -3,6 +3,7 @@ package collects{
 
 	import actors.*;
 	import game.*;
+	import items.*;
 	import ui.*;
 
 	import flash.events.Event;
@@ -54,19 +55,30 @@ package collects{
 				if (sound!=null) {
 					sound.play();
 				}
+				/*
 				for (var i = 0; i < Unit.Items.length; i++) {
-					if (Unit.Items[i].Name==item.Name) {
-						if (Unit.Items[i].uses+item.uses<Unit.Items[i].maxUses) {
-							Unit.Items[i].uses+=item.uses;
-						} else {
-							Unit.Items[i].uses=Unit.Items[i].maxUses;
-						}
-						break;
-					}
+				if (Unit.Items[i].Name==item.Name) {
+				if (Unit.Items[i].uses+item.uses<Unit.Items[i].maxUses) {
+				Unit.Items[i].uses+=item.uses;
+				} else {
+				Unit.Items[i].uses=Unit.Items[i].maxUses;
+				}
+				break;
+				}
 				}
 				if (i==Unit.Items.length) {
-					Unit.Items.push(item);
+				Unit.Items.push(item);
+				
+				}*/
 
+				var i=ItemDatabase.getDatabaseIndex(item.Name);
+				var getDisplay = new GetDisplay(i, item.uses);
+				stage.addChild(getDisplay);
+				var addUses = ItemDatabase.getUses(i) + item.uses;
+				if (addUses<ItemDatabase.getMaxUses(i)) {
+					ItemDatabase.uses[i] = addUses;
+				} else {
+					ItemDatabase.uses[i]=ItemDatabase.getMaxUses(i);
 				}
 				this.removeEventListener(Event.ENTER_FRAME, gameHandler);
 				this.removeEventListener(Event.ENTER_FRAME, endHandler);

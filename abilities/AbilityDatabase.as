@@ -35,6 +35,8 @@
 		public static const slowDurations=new Array(0,0,0,0,0,0,0);
 		public static const slowPercents=new Array(0,0,0,0,0,0,0,0);
 
+		public static const actives=new Array(true,true,true,true,true,true,true,true);
+
 		public static function getName(id:int):String {
 			return names[id];
 		}
@@ -50,8 +52,8 @@
 		public static function getCooldown(id:int):int {
 			return cooldowns[id];
 		}
-		
-		
+
+
 		public static function getHPPercChange(id:int):int {
 			return hpPercChange[id];
 		}
@@ -83,6 +85,11 @@
 		public static function getSlowPercent(id:int):int {
 			return slowPercents[id];
 		}
+
+		public static function getActive(id:int):Boolean {
+			return actives[id];
+		}
+
 
 
 	}
