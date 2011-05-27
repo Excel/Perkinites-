@@ -110,7 +110,7 @@ package enemies{
 		override public function gameHandler(e) {
 		}
 		public function collideHandler(e) {
-			if (!superPause) {
+			if (!superPause && !menuPause) {
 				if (this.hitTestObject(Unit.currentUnit)) {
 					if (collideCountC%3==0) {
 						Unit.currentUnit.updateHP(1);

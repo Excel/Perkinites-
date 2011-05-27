@@ -90,7 +90,7 @@ package enemies{
 		}
 
 		override public function gameHandler(e) {
-			if (! pauseAction && !superPause) {
+			if (! pauseAction && !superPause && !menuPause) {
 				if (moveCount>=moveArray.length) {
 					prevMoveCount=-1;
 					moveCount=0;

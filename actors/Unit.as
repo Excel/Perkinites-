@@ -51,7 +51,7 @@ package actors{
 		public var hk3Delay=0;
 		public var hk4Delay=0;
 		public var hk5Delay=0;
-		public var hk6Delay=0;		
+		public var hk6Delay=0;
 		/**
 		 * Numerical Stats for the Units
 		 * FP - Friendship Points (max 10000)
@@ -94,9 +94,14 @@ package actors{
 		public var hk6;
 		public var finale;
 		public var commands;
-		
+
+		static public var abilityAmounts:Array =AbilityDatabase.amounts;
+		//work on implementing this
+		static public var itemAmounts:Array=ItemDatabase.uses;
+
+
 		public var passiveItems:Array;
-		public var passiveCommands:Array;
+		public var passiveAbilities:Array;
 		/**
 		 * Position of the Unit
 		 */
@@ -139,9 +144,9 @@ package actors{
 			ytile=0;//Math.floor(y/SuperLevel.tileHeight);
 			dir=8;
 			commands=[];
-			
-			passiveItems = [];
-			passiveCommands = [];
+
+			passiveItems=[];
+			passiveAbilities=[];
 
 			attacking=false;
 			moving=false;
@@ -150,6 +155,28 @@ package actors{
 			//Unit.Items.push(new Item_Drink(5));
 		}
 
+		public function setHotkey(id:int, a) {
+			switch (id) {
+				case 1 :
+					hk1=a;
+					break;
+				case 2 :
+					hk2=a;
+					break;
+				case 3 :
+					hk3=a;
+					break;
+				case 4 :
+					hk4=a;
+					break;
+				case 5 :
+					hk5=a;
+					break;
+				case 6 :
+					hk6=a;
+					break;
+			}
+		}
 		public function begin() {
 			addEventListener(Event.ENTER_FRAME,gameHandler);
 			mxpos=x;
@@ -167,7 +194,7 @@ package actors{
 			if (FP>10000) {
 				FP=10000;
 			}
-			if (! pauseAction&&! superPause) {
+			if (! pauseAction&& !superPause && !menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 					movePlayer();
 					switchUnits(false);
@@ -217,7 +244,7 @@ package actors{
 				var menu = new Menu();
 				stage.addChild(menu);
 				menu.enableKeyHandler();
-				GameUnit.superPause=true;
+				GameUnit.menuPause=true;
 			}
 		}
 		public function switchUnits(bypass) {
@@ -250,18 +277,18 @@ package actors{
 		}
 
 		public function useHotKey2() {
-				if (KeyDown.keyIsDown(hotKey2)&&hk2!=null&&hk2Delay>=0) {
-					hk2Delay=-1*hk2.delay;
-					hk2.activate(x, y);
+			if (KeyDown.keyIsDown(hotKey2)&&hk2!=null&&hk2Delay>=0) {
+				hk2Delay=-1*hk2.delay;
+				hk2.activate(x, y);
 			}
 		}
 		public function useHotKey3() {
 			if (KeyDown.keyIsDown(hotKey3)&&hk3!=null&&hk3Delay>=0) {
-					hk3Delay=-1*hk3.delay;
-					hk3.activate(x, y);
-				}
+				hk3Delay=-1*hk3.delay;
+				hk3.activate(x, y);
+			}
 		}
-		
+
 		public function useHotKey4() {
 			if (KeyDown.keyIsDown(hotKey4)&&hk4!=null&&hk4Delay>=0) {
 				hk4Delay=-1*hk4.delay;
@@ -270,18 +297,18 @@ package actors{
 		}
 
 		public function useHotKey5() {
-				if (KeyDown.keyIsDown(hotKey5)&&hk5!=null&&hk5Delay>=0) {
-					hk5Delay=-1*hk5.delay;
-					hk5.activate(x, y);
+			if (KeyDown.keyIsDown(hotKey5)&&hk5!=null&&hk5Delay>=0) {
+				hk5Delay=-1*hk5.delay;
+				hk5.activate(x, y);
 			}
 		}
 		public function useHotKey6() {
 			if (KeyDown.keyIsDown(hotKey6)&&hk3!=null&&hk6Delay>=0) {
-					hk6Delay=-1*hk6.delay;
-					hk6.activate(x, y);
-				}
+				hk6Delay=-1*hk6.delay;
+				hk6.activate(x, y);
+			}
 		}
-		
+
 		public function useComboAttack() {
 			if (KeyDown.keyIsDown(attackKey)&&! KeyDown.keyIsDown(friendshipKey)&&attackDelay>=0) {
 				attackDelay=-5;

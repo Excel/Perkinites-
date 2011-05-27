@@ -1,6 +1,7 @@
 ﻿
 package collects{
 
+	import abilities.*;
 	import actors.*;
 	import game.*;
 	import items.*;
@@ -11,15 +12,15 @@ package collects{
 	import flash.ui.Keyboard;
 
 
-	public class ItemDrop extends GameUnit {
+	public class PrizeDrop extends GameUnit {
 
 		public var exist;//how long this exists
-		public var item;//the item to give
+		public var prize;//the item to give
 		public var sound;//the sound to make
-		public function ItemDrop(e, i, s) {
+		public function PrizeDrop(e, p, s) {
 
 			exist=24*e;
-			item=i;
+			prize=p;
 			if (s!=null) {
 				sound=s;
 			}
@@ -55,31 +56,30 @@ package collects{
 				if (sound!=null) {
 					sound.play();
 				}
-				/*
-				for (var i = 0; i < Unit.Items.length; i++) {
-				if (Unit.Items[i].Name==item.Name) {
-				if (Unit.Items[i].uses+item.uses<Unit.Items[i].maxUses) {
-				Unit.Items[i].uses+=item.uses;
-				} else {
-				Unit.Items[i].uses=Unit.Items[i].maxUses;
-				}
-				break;
-				}
-				}
-				if (i==Unit.Items.length) {
-				Unit.Items.push(item);
-				
-				}*/
+				var getDisplay;
+				var addUses;
+				if (prize is Item) {
+					var i=ItemDatabase.getDatabaseIndex(prize.Name);
+					getDisplay=new GetDisplay(i,prize.amount, "Item");
 
-				var i=ItemDatabase.getDatabaseIndex(item.Name);
-				var getDisplay = new GetDisplay(i, item.uses);
-				stage.addChild(getDisplay);
-				var addUses = ItemDatabase.getUses(i) + item.uses;
-				if (addUses<ItemDatabase.getMaxUses(i)) {
-					ItemDatabase.uses[i] = addUses;
-				} else {
-					ItemDatabase.uses[i]=ItemDatabase.getMaxUses(i);
+					addUses=Unit.itemAmounts[i]+prize.amount;
+					if (addUses<ItemDatabase.getMaxUses(i)) {
+						Unit.itemAmounts[i]=addUses;
+					} else {
+						Unit.itemAmounts[i]=ItemDatabase.getMaxUses(i);
+					}
+
+				} else if (prize is Ability) {
+					var a=AbilityDatabase.getDatabaseIndex(prize.Name);
+					getDisplay=new GetDisplay(a,prize.amount, "Ability");
+					addUses=Unit.abilityAmounts[a]+prize.amount;
+					if (addUses<9) {
+						Unit.abilityAmounts[a]=addUses;
+					} else {
+						Unit.abilityAmounts[a]=9;
+					}
 				}
+				stage.addChild(getDisplay);
 				this.removeEventListener(Event.ENTER_FRAME, gameHandler);
 				this.removeEventListener(Event.ENTER_FRAME, endHandler);
 				this.parent.removeChild(this);

@@ -1,4 +1,5 @@
 ﻿package levels{
+	import abilities.*;
 	import actors.*;
 	import attacks.*;
 	import collects.*;
@@ -126,28 +127,33 @@
 			
 			//mapClip.addChild(cutscene);
 			*/
-			var itemdrop=new ItemDrop(0,new Item(0,5),null);
+			var itemdrop=new PrizeDrop(0,new Item(0,5),null);
 			itemdrop.x=300;
 			itemdrop.y=300;
 			mapClip.addChild(itemdrop);
 
-			var itemdrop2=new ItemDrop(0,new Item(1,10),null);
+			var itemdrop2=new PrizeDrop(0,new Item(1,10),null);
 			itemdrop2.x=300;
 			itemdrop2.y=400;
 			mapClip.addChild(itemdrop2);
 
-			var itemdrop3=new ItemDrop(0,new Item(2,5),null);
+			var itemdrop3=new PrizeDrop(0,new Ability(1,5),null);
 			itemdrop3.x=300;
-			itemdrop3.y=500;
+			itemdrop3.y=200;
 			mapClip.addChild(itemdrop3);
 
-			var itemdrop4=new ItemDrop(0,new Item(4,5),null);
+			var itemdrop4=new PrizeDrop(0,new Item(2,5),null);
 			itemdrop4.x=300;
-			itemdrop4.y=501;
+			itemdrop4.y=500;
 			mapClip.addChild(itemdrop4);
+			
+			var itemdrop5=new PrizeDrop(0,new Ability(0,5),null);
+			itemdrop5.x=300;
+			itemdrop5.y=550;
+			mapClip.addChild(itemdrop5);
 
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, VCamHandler);
-			makeHappiness();
+			//makeHappiness();
 
 			/*var retry = SharedObject.getLocal("Retry Level");
 			retry.data.currentUnit = Unit.currentUnit;

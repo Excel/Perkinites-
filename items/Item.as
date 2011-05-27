@@ -9,8 +9,6 @@ package items{
 	import abilities.*;
 
 	public class Item extends Ability {
-		public var id;
-		public var amount;
 		/*
 		static public var FPS:int=24;
 		
@@ -45,9 +43,9 @@ package items{
 		//having an amount of 0 means this item is being assigned to the hotkey
 		//uses are called in the ItemDatabase and not through the individual Item
 		//may rewrite that particular segment to have it make more sense
-		public function Item(id:int, amount:int) {
-			super(0);
-			this.id=id;
+		public function Item(id:int, a:int) {
+			super(0, 0);
+			this.id = id;
 			Name=ItemDatabase.getName(id);
 			description=ItemDatabase.getDescription(id);
 			index=ItemDatabase.getIndex(id);
@@ -61,14 +59,14 @@ package items{
 			cdPercChange=ItemDatabase.getCDPercChange(id);
 
 			maxCooldown=cooldown=ItemDatabase.getCooldown(id);
-			if (amount!=0) {
-				uses=amount;
+			if (a!=0) {
+				amount = a;
 			}
 			maxUses=9;
 		}
 		override public function activate(xpos, ypos) {
-			if (ItemDatabase.uses[id]>0) {
-				ItemDatabase.uses[id]-=1;
+			if (Unit.itemAmounts[id]>0) {
+				Unit.itemAmounts[id]-=1;
 			}
 		}
 	}

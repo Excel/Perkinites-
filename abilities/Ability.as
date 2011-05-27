@@ -16,10 +16,15 @@ package abilities{
 		 * Name - Name of the Ability
 		 * Description - Description of the Ability
 		 * index - Frame index of the display Icon
+		 * id - ID in the database or something
+		 * amount - Number of copies of the same ability given in a Prize Drop
 		 */
 		public var Name;
 		public var description;
 		public var index;
+		
+		public var id;
+		public var amount;
 
 		public var hpPercChange:int;
 		public var hpLumpChange:int;
@@ -55,10 +60,11 @@ package abilities{
 		 */
 		 public var targets:Array;
 
-		public function Ability(id:int) {
+		public function Ability(id:int, a:int) {
 			Name	=	AbilityDatabase.getName(id);
 			description = AbilityDatabase.getDescription(id);
 			index	= AbilityDatabase.getIndex(id);
+			this.id = id;
 			
 			hpPercChange= AbilityDatabase.getHPPercChange(id);
 			hpLumpChange= AbilityDatabase.getHPLumpChange(id);
@@ -69,6 +75,7 @@ package abilities{
 			cdPercChange= AbilityDatabase.getCDPercChange(id);
 			
 			maxCooldown = cooldown = AbilityDatabase.getCooldown(id);
+			amount = a;
 			uses	= 0;
 			maxUses	= 0;
 			active=false;

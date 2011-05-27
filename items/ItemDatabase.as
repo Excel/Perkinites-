@@ -20,8 +20,7 @@
 		// icon frame in fla
 		public static const index=new Array(2,3,4,5,6,7,8);
 
-		//public static const uses=new Array(0,0,0,0,0,0,0);
-		public static var uses=new Array(0,0,0,0,0,0,0);
+		public static const uses=new Array(0,0,0,0,0,0,0);
 		public static var maxUses = new Array(9,9,9,9,9,9,9);
 		public static const cooldowns=new Array(5,5,5,5,5,5,5,5);
 

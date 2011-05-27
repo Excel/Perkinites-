@@ -1,5 +1,6 @@
 ﻿package ui{
 	
+	import abilities.*;
 	import items.*;
 
 	import flash.display.MovieClip;
@@ -8,11 +9,19 @@
 	public class GetDisplay extends MovieClip {
 
 		public var frame:int;
-		function GetDisplay(id:int, a:int) {
+		function GetDisplay(id:int, a:int, type:String) {
 			x = -160;
 			frame = 0;
+			if(type == "Item"){
 			itemName.text = ItemDatabase.getName(id);
 			getIcon.gotoAndStop(ItemDatabase.getIndex(id));
+			typeName.text = "ITEM";
+			}
+			else{
+				itemName.text = AbilityDatabase.getName(id);
+				getIcon.gotoAndStop(AbilityDatabase.getIndex(id));
+				typeName.text = "ABILITY";
+			}
 			getIcon.useCount.visible = false;
 			amount.text = a+"X";
 			this.alpha = 0;
@@ -28,7 +37,10 @@
 				this.alpha += 1/8;
 				x+=20;
 			}
-			else if (frame > 32){
+			else if (frame >= 40 && frame < 48){
+				this.alpha -=1/8;
+			}
+			else if (frame >= 48){
 				removeEventListener(Event.ENTER_FRAME, gameHandler);
 				this.parent.removeChild(this);
 			}

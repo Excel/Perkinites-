@@ -17,9 +17,10 @@
 		":O", ":O", ":O");
 
 		// icon frame in fla
-		public static const index=new Array(1,1,1,1,1,1,1);
+		public static const index=new Array(3,4,1,1,1,1,1);
 
 		public static const uses=new Array(1,1,1,1,1,1,1,1);
+		public static const amounts = new Array(0,0,0,0,0,0,0,0);
 		public static const cooldowns=new Array(10,10,10,10,10,10,10,10);
 		public static const delays=new Array(10,10,10,10,10,10,10,10);
 
@@ -88,6 +89,10 @@
 
 		public static function getActive(id:int):Boolean {
 			return actives[id];
+		}
+		
+		public static function getDatabaseIndex(name:String):int{
+			return names.indexOf(name);
 		}
 
 

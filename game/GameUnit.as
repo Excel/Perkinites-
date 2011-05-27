@@ -30,7 +30,8 @@ package game{
 		 * tileMap - area of GameUnit to move around in
 		 * pauseAction - pause the movement of the GameUnit
 		 * overridePause - used for cutscenes and shit
-		 * superPause - pauses everything for like menus and stuff - doesn't conflict with pauseAction
+		 * superPause - pauses everything for like, special custcene attacks or something - doesn't conflict with pauseAction
+		 * menuPause - pauses everything for like menus and stuff
 		 */
 		public var moveArray:Array;
 		public var prevMoveCount:int;
@@ -40,6 +41,7 @@ package game{
 		public var pauseAction:Boolean;
 		public var overridePause:Boolean;//don't know if this needs to be used
 		static public var superPause:Boolean;
+		static public var menuPause:Boolean = false;
 		static public var tileMap;
 
 		/**
@@ -387,7 +389,7 @@ package game{
 		 */
 
 		public function gameHandler(e) {
-			if (! pauseAction && !superPause) {
+			if (! pauseAction && !superPause && !menuPause) {
 				if (moveCount>=moveArray.length) {
 					prevMoveCount=-1;
 					moveCount=0;
@@ -439,7 +441,7 @@ package game{
 		}
 
 		public function moveHandler(e) {
-			if (! pauseAction && !superPause) {
+			if (! pauseAction && !superPause && !menuPause) {
 				if (pxpos<0) {
 					pxpos=0;
 				}
