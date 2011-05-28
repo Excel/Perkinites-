@@ -79,6 +79,8 @@
 			saveOption.addEventListener(MouseEvent.CLICK, saveHandler);
 			loadOption.addEventListener(MouseEvent.CLICK, loadHandler);
 			exitOption.addEventListener(MouseEvent.CLICK, exitHandler);
+						
+			//stage.focus = null;
 
 		}
 
@@ -130,11 +132,21 @@
 				hover.y=64+32*4;
 			}
 		}
-		public function configHandler(e) {
+		public function configHandler(e) {			
+			//disableKeyHandler();
+			
 		}
 		public function saveHandler(e) {
+			
+			disableKeyHandler();
+			var filescreen=new FileScreen(false,this,stage);
+			stage.removeChild(this);
 		}
 		public function loadHandler(e) {
+			
+			disableKeyHandler();
+			var filescreen=new FileScreen(true,this,stage);
+			stage.removeChild(this);
 		}
 		public function exitHandler(e) {
 			exit();
@@ -474,10 +486,10 @@
 			if (obj.type=="Item") {
 				index=ItemDatabase.index.indexOf(obj.currentFrame);
 				if (ItemDatabase.getActive(index)) {
-				stage.removeChild(pCover1);
-				stage.removeChild(pCover2);
+					stage.removeChild(pCover1);
+					stage.removeChild(pCover2);
 				} else {
-				stage.removeChild(aCover);
+					stage.removeChild(aCover);
 				}
 
 
@@ -517,10 +529,10 @@
 			} else if (obj.type == "Ability") {
 				index=AbilityDatabase.index.indexOf(obj.currentFrame);
 				if (AbilityDatabase.getActive(index)) {
-				stage.removeChild(pCover1);
-				stage.removeChild(pCover2);
+					stage.removeChild(pCover1);
+					stage.removeChild(pCover2);
 				} else {
-				stage.removeChild(aCover);
+					stage.removeChild(aCover);
 				}
 
 				if (obj.hitTestObject(passiveList1)) {
@@ -611,7 +623,7 @@
 
 			stage.removeChild(pCover1);
 			stage.removeChild(pCover2);
-			
+
 			var backToInventory=true;
 
 			for (i = 0; i < hotkeyIconArray.length; i++) {

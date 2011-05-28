@@ -28,14 +28,21 @@
 		}
 
 		public function newGame(e) {
-				var stageSelect=new StageSelect(1,0, stage);
+			var stageSelect=new StageSelect(1,0,stage);
 			stage.removeChild(this);
 		}
 		public function continueGame(e) {
+			var filescreen=new FileScreen(true,this,stage);
 			stage.removeChild(this);
 		}
 		public function config(e) {
 			stage.removeChild(this);
+		}
+		public function enableKeyHandler(){
+			
+		}
+		public function disableKeyHandler(){
+			
 		}
 
 		public function overHandler1(e) {

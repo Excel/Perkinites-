@@ -12,6 +12,7 @@ import util.*;
 
 //Screens
 
+stage.stageFocusRect = false;
 var titleScreen = new TitleScreen();
 var lostFocusScreen = new LostFocusScreen();
 var level=new Level1B();

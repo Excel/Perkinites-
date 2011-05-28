@@ -35,6 +35,9 @@
 
 			stage.addChild(this);
 			enableKeyHandler();
+			
+			
+			stage.focus = null;
 
 
 		}
