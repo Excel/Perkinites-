@@ -30,12 +30,22 @@
 
 		}
 		public function loadGame(e){
-					
+			disableKeyHandler();
+			var filescreen=new FileScreen(true,this,stage);
+			removeDisplay();
 		}
 		
 		public function removeDisplay(){
 			this.parent.removeChild(this);
 		}
+		
+		public function enableKeyHandler(){
+			
+		}
+		public function disableKeyHandler(){
+			
+		}
+		
 
 	}
 }

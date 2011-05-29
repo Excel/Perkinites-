@@ -73,9 +73,7 @@
 				stage.addChild(prevScreen);
 				prevScreen.enableKeyHandler();
 				stage.removeChild(this);
-
 			}
-
 		}
 
 		public function checkEntry(e) {
