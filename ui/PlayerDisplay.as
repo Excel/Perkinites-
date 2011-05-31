@@ -25,6 +25,12 @@
 			button2.addEventListener(MouseEvent.CLICK, pageHandler2);
 			button3.addEventListener(MouseEvent.CLICK, pageHandler3);
 			button4.addEventListener(MouseEvent.CLICK, pageHandler4);
+
+
+			button1.mouseChildren=false;
+			button2.mouseChildren=false;
+			button3.mouseChildren=false;
+			button4.mouseChildren=false;
 		}
 
 		public function setUnitIndex(i:int) {
@@ -39,6 +45,8 @@
 
 
 		public function pageHandler(e) {
+
+
 			gotoPage(1);
 			button1.filters=[gf1];
 			button2.filters=[];
@@ -96,9 +104,9 @@
 					ffName.text=ActorDatabase.getFFName(index);
 					ffDescription.text=ActorDatabase.getFFDescription(index);
 					ffBonus.text=ActorDatabase.getFFBonus(index);
-					
+
 					ffIcon.gotoAndStop(Math.ceil((index+1)/2));
-					
+
 					break;
 			}
 

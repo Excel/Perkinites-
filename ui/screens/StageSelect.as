@@ -1,17 +1,19 @@
 ﻿package ui.screens{
 
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.*;
-	import flash.ui.*;
 	import flash.filters.GlowFilter;
+	import flash.ui.Keyboard;
 
+	import game.*;
 	import levels.*;
-	public class StageSelect extends MovieClip {
+	public class StageSelect extends BaseScreen {
 
 		public var level:int;
 		static public var maxLevel:int;
 		public var diff:int;
-		static public var Ananya:Boolean = false;
+		static public var Ananya:Boolean=false;
 
 		public var decide:Boolean;
 		public var stageArray:Array;
@@ -19,16 +21,16 @@
 		public var difficultyArray:Array;
 
 		public var arrowGlowFilters:Array;
-		function StageSelect(l:int, d:int, stage:Object) {
-			x=0;
-			y=0;
-			level=l;
-			maxLevel=3;
-			if (d==-1) {
-				diff=0;
-			} else {
-				diff=d;
+		function StageSelect(level:int, diff:int, stageRef:Stage) {
+			this.level=level;
+			this.diff=diff;
+			if (this.diff==-1) {
+				this.diff=0;
 			}
+			this.stageRef=stageRef;
+
+			maxLevel=GameVariables.maxStageLevel;
+
 			decide=false;
 
 			stageArray=new Array("Perkins Hall","KK","CIT","JWW","Sciences Library","???","???");
@@ -59,9 +61,7 @@
 			updateDifficulty();
 			updateIcons();
 
-			stage.addChild(this);
-			enableKeyHandler();			
-			stage.focus = null;
+			load();
 		}
 		public function downHandler1(e) {
 			/*var gf1=new GlowFilter(0xFFFFFF,100,3,3,5,15,false,false);
@@ -114,13 +114,8 @@
 			arrow2.scaleX=1;
 			arrow2.scaleY=1;
 		}
-		public function enableKeyHandler() {
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function disableKeyHandler() {
-			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function keyHandler(e) {
+
+		override public function keyHandler(e:KeyboardEvent):void {
 			var sound;
 			if (decide) {
 			} else {
@@ -163,15 +158,13 @@
 				} else if (e.keyCode == "X".charCodeAt(0)) {
 					sound = new se_timeout();
 					sound.play();
-				} else if (e.keyCode == "C".charCodeAt(0)) {
+				} else if (e.keyCode == Keyboard.SPACE) {
 					sound = new se_chargeup();
 					sound.play();
 					SuperLevel.setLevel=level;
-					SuperLevel.diff=diff;
-					disableKeyHandler();
-
-					var playerSelect=new PlayerSelect(stage);
-					stage.removeChild(this);
+					SuperLevel.diff=diff;//change this
+					GameVariables.difficulty=diff;
+					unload(new PlayerSelect(stageRef));
 
 				}
 
@@ -186,11 +179,9 @@
 			var sound = new se_chargeup();
 			sound.play();
 			SuperLevel.setLevel=level;
-
 			SuperLevel.diff=diff;
-			disableKeyHandler();
-			var playerSelect=new PlayerSelect(stage);
-			stage.removeChild(this);
+			GameVariables.difficulty=diff;
+			unload(new PlayerSelect(stageRef));
 		}
 
 		public function updateDifficulty() {
@@ -198,10 +189,7 @@
 			difficultyIcon.diffLevel.text=difficultyArray[level-1][diff];
 		}
 
-		public function resetText() {
-			stageNumber.text="???";
-			stageName.text="???";
-		}
+
 		public function updateText() {
 			stageNumber.text=level+"";
 			stageName.text=stageArray[level-1];

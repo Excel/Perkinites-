@@ -24,20 +24,9 @@ package enemies{
 
 		public function DrunkGuy() {
 			//super
-			super();
-
-			//Enemy
-			this.Name="Drunk Guy";
-			this.eHealth=500;
-			this.maxHealth=500;
-			this.barrier=0;
-			this.maxBarrier=0;
-
-			this.AP=2;
-			this.speed=2;
-			this.xspeed=2;
-			this.yspeed=2;
-			this.eHP.text=this.eHealth;
+			super(5);
+			
+			this.eHP.text=this.HP;
 
 			count=0;
 			pukeCount=0;
@@ -61,15 +50,15 @@ package enemies{
 			if (barrier>0) {
 				barrier-=damage;
 			} else {
-				eHealth-=damage;
+				HP-=damage;
 			}
-			if (0>=eHealth) {
+			if (0>=HP) {
 				kill();
 			}
 			if (barrier>0) {
 				eHP.text=barrier;
 			} else {
-				eHP.text=eHealth;
+				eHP.text=HP;
 			}
 			HUD_Enemy.updateTarget(this);
 		}

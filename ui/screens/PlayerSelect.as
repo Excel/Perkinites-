@@ -1,25 +1,29 @@
 ﻿package ui.screens{
 
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.*;
-	import flash.ui.*;
 	import flash.filters.GlowFilter;
+	import flash.ui.Keyboard;
 
 	import actors.*;
 	import game.*;
 	import levels.*;
-	public class PlayerSelect extends MovieClip {
+
+	public class PlayerSelect extends BaseScreen {
 
 		public var entries:Array;
 		public var teamSelected:Boolean;
 		public var pn1:int;
 
-		function PlayerSelect(stage:Object) {
-			x=0;
-			y=0;
+		function PlayerSelect(stageRef:Stage) {
+			this.stageRef=stageRef;
+
+
 			entries = new Array();
 			teamSelected=false;
-			pn1=-1;
+			pn1=Unit.currentUnit.id;
+
 
 			showEntries();
 			scrollPane.source=playerList;
@@ -33,31 +37,41 @@
 			playerDisplay1.visible=false;
 			playerDisplay2.visible=false;
 
-			stage.addChild(this);
-			enableKeyHandler();
-			
-			
-			stage.focus = null;
+			if (pn1!=-1) {
+				beginButton.filters=[];
+				teamSelected=true;
+				beginButton.addEventListener(MouseEvent.MOUSE_OVER, overHandler);
+				beginButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler);
+				beginButton.addEventListener(MouseEvent.CLICK, startLevel);
 
+				unitName1.visible=true;
+				unitName2.visible=true;
+				unitName1.text=ActorDatabase.getName(pn1);
+				unitName2.text=ActorDatabase.getName(pn1+1);
+
+				playerDisplay1.setUnitIndex(pn1);
+				playerDisplay2.setUnitIndex(pn1+1);
+
+				if (! playerDisplay1.visible) {
+					playerDisplay1.displayAgain();
+				}
+				if (! playerDisplay2.visible) {
+					playerDisplay2.displayAgain();
+				}
+			}
+
+			load();
 
 		}
 
-		public function enableKeyHandler() {
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function disableKeyHandler() {
-			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function keyHandler(e) {
+
+		override public function keyHandler(e:KeyboardEvent):void {
 			var sound;
 
 			if (e.keyCode=="X".charCodeAt(0)) {
 				sound = new se_timeout();
 				sound.play();
-				disableKeyHandler();
-				var stageSelect=new StageSelect(SuperLevel.setLevel,SuperLevel.diff,stage);
-				stage.removeChild(this);
-
+				unload(new StageSelect(SuperLevel.setLevel, GameVariables.difficulty, stageRef));
 			}
 
 		}
@@ -76,10 +90,10 @@
 			//Must only show available Units, not all Units!
 			for (var i = 0; i < names.length; i+=2) {
 				var entry = new Entry();
-				entry.playerName1.text = names[i];
-				entry.playerName2.text = names[i+1];
-				entry.id = i;
-				
+				entry.playerName1.text=names[i];
+				entry.playerName2.text=names[i+1];
+				entry.id=i;
+
 				//GOTTA ADD LISTENERS TO ENTRIES AND GOTTA FIX THEM
 				entry.addEventListener(MouseEvent.MOUSE_OVER, entryOverHandler);
 				entry.addEventListener(MouseEvent.MOUSE_OUT, entryOutHandler);
@@ -87,11 +101,11 @@
 
 				//GOTTA ADD
 				playerList.addChild(entry);
-				entry.mouseChildren = false;
-				entry.x = 0;
-				entry.y = yOffset;
+				entry.mouseChildren=false;
+				entry.x=0;
+				entry.y=yOffset;
 				entries.push(entry);
-				yOffset += 16;
+				yOffset+=16;
 			}
 
 		}
@@ -104,8 +118,8 @@
 			e.target.filters=[];
 		}
 		function clickHandler(e) {
-			var btn = e.target;
-			
+			var btn=e.target;
+
 			var sound = new se_timeout();
 			sound.play();
 			beginButton.filters=[];
@@ -115,8 +129,8 @@
 			beginButton.addEventListener(MouseEvent.CLICK, startLevel);
 			unitName1.visible=true;
 			unitName2.visible=true;
-			
-			pn1 = btn.id;
+
+			pn1=btn.id;
 			//pn1=ActorDatabase.names.indexOf(e.target.playerName1.text);
 
 			unitName1.text=ActorDatabase.getName(pn1);
@@ -124,28 +138,27 @@
 
 			playerDisplay1.setUnitIndex(pn1);
 			playerDisplay2.setUnitIndex(pn1+1);
-			
-			if(!playerDisplay1.visible){
+
+			if (! playerDisplay1.visible) {
 				playerDisplay1.displayAgain();
 			}
-			if(!playerDisplay2.visible){
+			if (! playerDisplay2.visible) {
 				playerDisplay2.displayAgain();
 			}
-
-		}
-		
-		function startLevel(e) {
-			var sound = new se_chargeup();
-			sound.play();
-			trace("this will start the level in a non-gimmicky way eventually");
-			disableKeyHandler();
-			stage.removeChild(this);
-			ActionConstants.startLevel=true;
 
 			Unit.currentUnit=new Unit(pn1);
 			Unit.partnerUnit=new Unit(pn1+1);
 
+		}
 
+		function startLevel(e) {
+			var sound = new se_chargeup();
+			sound.play();
+			unload();
+			GameVariables.startLevel=true;
+
+			Unit.currentUnit=new Unit(pn1);
+			Unit.partnerUnit=new Unit(pn1+1);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿package ui{
 
 	import actors.*;
+	import ui.screens.*;
 	
 	import flash.display.MovieClip;
 	import flash.events.*;
@@ -8,7 +9,8 @@
 	import flash.filters.GlowFilter;
 	import flash.net.SharedObject;
 	
-	public class GameOverDisplay extends MovieClip {
+	//will rework this later
+	public class GameOverDisplay extends BaseScreen {
 
 		function GameOverDisplay() {
 			//var gf1=new GlowFilter(0xFF9900,100,20,20,1,5,true,false);
@@ -39,12 +41,7 @@
 			this.parent.removeChild(this);
 		}
 		
-		public function enableKeyHandler(){
-			
-		}
-		public function disableKeyHandler(){
-			
-		}
+
 		
 
 	}

@@ -31,18 +31,9 @@ package enemies{
 
 		public function CL() {
 			//super
-			super();
+			super(6);
 
-			//Enemy
-			this.Name="Clarissa";
-			this.eHealth=700;
-			this.maxHealth=700;
-			this.barrier=0;
-			this.maxBarrier=50;
-
-			this.AP=1;
-			this.speed=5;
-			this.eHP.text=this.eHealth;
+			this.eHP.text=this.HP;
 
 			count=0;
 			pattern=1;
@@ -91,15 +82,15 @@ package enemies{
 			if (barrier>0) {
 				barrier-=damage;
 			} else {
-				eHealth-=damage;
+				HP-=damage;
 			}
-			if (0>=eHealth) {
+			if (0>=HP) {
 				kill();
 			}
 			if (barrier>0) {
 				eHP.text=barrier;
 			} else {
-				eHP.text=eHealth;
+				eHP.text=HP;
 			}
 		}
 

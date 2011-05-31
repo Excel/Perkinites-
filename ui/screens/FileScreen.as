@@ -1,19 +1,23 @@
 ﻿package ui.screens{
 
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.*;
-	import flash.ui.*;
 	import flash.filters.GlowFilter;
 
 
-	public class FileScreen extends MovieClip {
+	public class FileScreen extends BaseScreen {
 
 		public var loadGame;
 		public var prevScreen;
 		public var frame;
 		public var checkedEntry;
 		public var chosenEntry;
-		function FileScreen(loadGame:Boolean, prevScreen, stage:Object) {
+		function FileScreen(loadGame:Boolean, prevScreen:BaseScreen, stageRef:Stage = null) {
+
+			this.loadGame=loadGame;
+			this.prevScreen=prevScreen;
+			this.stageRef=stageRef;
 
 			file1.gotoAndStop(1);
 			file2.gotoAndStop(1);
@@ -30,12 +34,10 @@
 			//move the arrow to the most recently saved
 			arrow.y=169;
 
-			this.loadGame=loadGame;
-			this.prevScreen=prevScreen;
+
 			frame=0;
 			deleteButton.buttonText.text="Delete Game";
 			popup.alpha=0;
-
 
 			deleteButton.addEventListener(MouseEvent.CLICK, deleteEntry);
 			back.addEventListener(MouseEvent.CLICK, goBack);
@@ -49,30 +51,17 @@
 				optionDescription.text="Save your game by clicking on a file entry! It's always good to save your progress for the benefit of the happiness! :)";
 				optionDisplay.text="Save to which file?";
 			}
-			stage.addChild(this);
 			confirm.visible=false;
 
-			enableKeyHandler();
-			stage.focus=null;
+			load();
 		}
 
-
-
-		public function enableKeyHandler() {
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function disableKeyHandler() {
-			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function keyHandler(e) {
+		override public function keyHandler(e:KeyboardEvent):void {
 			var sound;
 			if (e.keyCode=="X".charCodeAt(0)) {
 				sound = new se_timeout();
 				sound.play();
-				disableKeyHandler();
-				stage.addChild(prevScreen);
-				prevScreen.enableKeyHandler();
-				stage.removeChild(this);
+				unload(prevScreen);
 			}
 		}
 
@@ -215,10 +204,7 @@
 
 		}
 		public function goBack(e) {
-			disableKeyHandler();
-			stage.addChild(prevScreen);
-			prevScreen.enableKeyHandler();
-			stage.removeChild(this);
+			unload(prevScreen);
 		}
 
 		public function showPopup(e) {

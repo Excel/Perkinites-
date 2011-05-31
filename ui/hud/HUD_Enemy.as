@@ -27,19 +27,19 @@
 		public static function updateTarget(enemy) {
 			if (currentEnemy!=enemy) {
 				currentEnemy=enemy;
-				currentHP=enemy.maxHealth;
+				currentHP=enemy.maxHP;
 			}
 		}
 		public function updateHP() {
 			if (currentHP>=0) {
-				ehpbar.HPCount.text=currentEnemy.eHealth;
-				if (currentHP<currentEnemy.eHealth) {
+				ehpbar.HPCount.text=currentEnemy.HP;
+				if (currentHP<currentEnemy.HP) {
 					currentHP++;
-				} else if (currentHP > currentEnemy.eHealth) {
+				} else if (currentHP > currentEnemy.HP) {
 					currentHP--;
 				}
-				ehpbar.HP.x = 54.8 + maxHPWidth*(currentEnemy.maxHealth-currentHP)/currentEnemy.maxHealth;
-				ehpbar.HP.width=maxHPWidth*currentHP/currentEnemy.maxHealth;
+				ehpbar.HP.x = 54.8 + maxHPWidth*(currentEnemy.maxHP-currentHP)/currentEnemy.maxHP;
+				ehpbar.HP.width=maxHPWidth*currentHP/currentEnemy.maxHP;
 			} else {
 				ehpbar.HPCount.text="000";
 			}

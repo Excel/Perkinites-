@@ -1,18 +1,20 @@
 ﻿package ui.screens{
 
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
+	import flash.display.Stage;
 	import flash.events.*;
-	import flash.geom.Rectangle;
+	import flash.filters.GlowFilter;
 	import flash.ui.*;
 
+	import flash.display.Sprite;
+	import flash.geom.Rectangle;
+	
 	import abilities.*;
 	import actors.*;
 	import game.*;
 	import items.*;
-	//Enriquez Iglesias
 	import levels.*;
-	public class Menu extends MovieClip {
+	public class Menu extends BaseScreen {
 
 		public var hotkeyArray:Array;
 		public var hotkeyIconArray:Array;
@@ -25,7 +27,9 @@
 		public var pCover2;
 
 		public var decide:Boolean;
-		function Menu() {
+		function Menu(stageRef:Stage = null) {
+			this.stageRef = stageRef;
+			
 			trace("Equipping abilities/items should work now! Once the databases get updated though, I have to go back to this again... =___=");
 			trace("EVERYTHING ELSE STILL NEEDS UPDATING");
 			x=0;
@@ -80,18 +84,12 @@
 			loadOption.addEventListener(MouseEvent.CLICK, loadHandler);
 			exitOption.addEventListener(MouseEvent.CLICK, exitHandler);
 						
-			//stage.focus = null;
+			load();
 
 		}
 
 
-		public function enableKeyHandler() {
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function disableKeyHandler() {
-			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
-		}
-		public function keyHandler(e) {
+		override public function keyHandler(e:KeyboardEvent):void{
 			if (e.keyCode=="X".charCodeAt(0)) {
 				exit();
 			}
@@ -137,16 +135,10 @@
 			
 		}
 		public function saveHandler(e) {
-			
-			disableKeyHandler();
-			var filescreen=new FileScreen(false,this,stage);
-			stage.removeChild(this);
+			unload(new FileScreen(false,this,stageRef));
 		}
 		public function loadHandler(e) {
-			
-			disableKeyHandler();
-			var filescreen=new FileScreen(true,this,stage);
-			stage.removeChild(this);
+			unload(new FileScreen(true,this,stageRef));
 		}
 		public function exitHandler(e) {
 			exit();
@@ -154,9 +146,7 @@
 		public function exit() {
 			var sound = new se_timeout();
 			sound.play();
-
-			disableKeyHandler();
-			this.parent.removeChild(this);
+			unload();
 			GameUnit.menuPause=false;
 			Unit.menuDelay=-5;
 		}
@@ -425,20 +415,20 @@
 			if (obj is TextField) {
 				obj=obj.parent;
 			}
-			if (obj.parent!=stage) {
+			if (obj.parent!=stageRef) {
 				var index;
 				if (obj.type=="Item") {
 					index=ItemDatabase.index.indexOf(obj.currentFrame);
 					makeDescription(index, obj.type);
 
 					if (ItemDatabase.getActive(index)) {
-						stage.addChild(pCover1);
-						stage.addChild(pCover2);
+						stageRef.addChild(pCover1);
+						stageRef.addChild(pCover2);
 						if (aCover.parent!=null) {
 							aCover.parent.removeChild(aCover);
 						}
 					} else {
-						stage.addChild(aCover);
+						stageRef.addChild(aCover);
 						if (pCover1.parent!=null) {
 							pCover1.parent.removeChild(pCover1);
 						}
@@ -451,13 +441,13 @@
 					index=AbilityDatabase.index.indexOf(obj.currentFrame);
 					makeDescription(index, obj.type);
 					if (AbilityDatabase.getActive(index)) {
-						stage.addChild(pCover1);
-						stage.addChild(pCover2);
+						stageRef.addChild(pCover1);
+						stageRef.addChild(pCover2);
 						if (aCover.parent!=null) {
 							aCover.parent.removeChild(aCover);
 						}
 					} else {
-						stage.addChild(aCover);
+						stageRef.addChild(aCover);
 						if (pCover1.parent!=null) {
 							pCover1.parent.removeChild(pCover1);
 						}
@@ -467,7 +457,7 @@
 					}
 
 				}
-				stage.addChild(obj);
+				stageRef.addChild(obj);
 				obj.x=mouseX-16;
 				obj.y=mouseY-16;
 				obj.addEventListener(MouseEvent.MOUSE_UP, releaseIcon);
@@ -486,10 +476,10 @@
 			if (obj.type=="Item") {
 				index=ItemDatabase.index.indexOf(obj.currentFrame);
 				if (ItemDatabase.getActive(index)) {
-					stage.removeChild(pCover1);
-					stage.removeChild(pCover2);
+					stageRef.removeChild(pCover1);
+					stageRef.removeChild(pCover2);
 				} else {
-					stage.removeChild(aCover);
+					stageRef.removeChild(aCover);
 				}
 
 
@@ -529,10 +519,10 @@
 			} else if (obj.type == "Ability") {
 				index=AbilityDatabase.index.indexOf(obj.currentFrame);
 				if (AbilityDatabase.getActive(index)) {
-					stage.removeChild(pCover1);
-					stage.removeChild(pCover2);
+					stageRef.removeChild(pCover1);
+					stageRef.removeChild(pCover2);
 				} else {
-					stage.removeChild(aCover);
+					stageRef.removeChild(aCover);
 				}
 
 				if (obj.hitTestObject(passiveList1)) {
@@ -569,7 +559,7 @@
 				}
 				setInventory(false);
 			}
-			stage.removeChild(obj);
+			stageRef.removeChild(obj);
 			obj.stopDrag();
 
 			obj.removeEventListener(MouseEvent.MOUSE_UP, releaseIcon);
@@ -584,21 +574,21 @@
 			}
 			if (hotkeyArray[hotkeyIconArray.indexOf(obj)]!=null) {
 				var index;
-				if (obj.parent!=stage) {
+				if (obj.parent!=stageRef) {
 					if (obj.type=="Item") {
 						index=ItemDatabase.index.indexOf(obj.currentFrame);
 					} else if (obj.type == "Ability") {
 						index=AbilityDatabase.index.indexOf(obj.currentFrame);
 					}
 					makeDescription(index, obj.type);
-					stage.addChild(pCover1);
-					stage.addChild(pCover2);
+					stageRef.addChild(pCover1);
+					stageRef.addChild(pCover2);
 
 					if (aCover.parent!=null) {
 						aCover.parent.removeChild(aCover);
 					}
 
-					stage.addChild(obj);
+					stageRef.addChild(obj);
 					obj.x=mouseX-16;
 					obj.y=mouseY-16;
 					obj.addEventListener(MouseEvent.MOUSE_UP, releaseActiveIcon);
@@ -621,8 +611,8 @@
 			var i;
 			var j;
 
-			stage.removeChild(pCover1);
-			stage.removeChild(pCover2);
+			stageRef.removeChild(pCover1);
+			stageRef.removeChild(pCover2);
 
 			var backToInventory=true;
 
@@ -726,7 +716,7 @@
 			var obj=e.target;
 
 
-			if (obj.parent!=stage) {
+			if (obj.parent!=stageRef) {
 				var passive;
 				var index;
 				var i;
@@ -736,7 +726,7 @@
 					index=AbilityDatabase.index.indexOf(obj.currentFrame);
 				}
 
-				stage.addChild(aCover);
+				stageRef.addChild(aCover);
 				if (pCover1.parent!=null) {
 					pCover1.parent.removeChild(pCover1);
 				}
@@ -782,7 +772,7 @@
 						}
 					}
 				}
-				stage.addChild(obj);
+				stageRef.addChild(obj);
 				obj.x=mouseX-16;
 				obj.y=mouseY-16;
 				obj.addEventListener(MouseEvent.MOUSE_UP, releasePassiveIcon);
@@ -805,7 +795,7 @@
 				index=AbilityDatabase.index.indexOf(obj.currentFrame);
 			}
 
-			stage.removeChild(aCover);
+			stageRef.removeChild(aCover);
 
 			if (obj.type=="Item") {
 				if (obj.hitTestObject(passiveList1)) {
@@ -829,7 +819,7 @@
 				setInventory(false);
 			}
 
-			stage.removeChild(obj);
+			stageRef.removeChild(obj);
 			obj.stopDrag();
 
 			obj.removeEventListener(MouseEvent.MOUSE_UP, releasePassiveIcon);

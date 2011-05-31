@@ -13,12 +13,12 @@ import util.*;
 //Screens
 
 stage.stageFocusRect = false;
-var titleScreen = new TitleScreen();
+
 var lostFocusScreen = new LostFocusScreen();
 var level=new Level1B();
 stage.addChild(level);
+var titleScreen = new TitleScreen(stage);
 
-stage.addChild(titleScreen);
 
 var FPS = new FPSDisplay(stage, 0, 0);
 var Z_KEY="Z".charCodeAt(0);
@@ -33,8 +33,8 @@ var count=0;
 KeyDown.init(stage);
 
 
-Unit.currentUnit=new Unit(0);
-Unit.partnerUnit=new Unit(0);
+Unit.currentUnit=new Unit(-1);
+Unit.partnerUnit=new Unit(-1);
 var guide = new Guide();
 stage.addEventListener(Event.ENTER_FRAME, countHandler);
 stage.addEventListener(Event.ENTER_FRAME,setUp);
@@ -73,11 +73,13 @@ function onFocusRegain(e) {
 }
 function moveHandler(e) {
 	count++;
+	if(! GameUnit.superPause&&! GameUnit.menuPause){
 	Unit.currentUnit.mxpos=this.parent.mouseX+ScreenRect.getX();
 	Unit.currentUnit.mypos=this.parent.mouseY+ScreenRect.getY();
 
 	Unit.partnerUnit.mxpos=this.parent.mouseX+ScreenRect.getX();//+Math.floor(Math.random()*64-32);
 	Unit.partnerUnit.mypos=this.parent.mouseY+ScreenRect.getY()+Math.floor(Math.random()*64-32);
+}
 }
 
 function cancelActionHandler(e) {
@@ -137,7 +139,7 @@ friendshipBar.visible=false;
 roundDisplay.visible=false;
 
 function setUp(e) {
-	if (ActionConstants.startLevel) {
+	if (GameVariables.startLevel) {
 		transition.alpha=1;
 		transition.visible=false;
 

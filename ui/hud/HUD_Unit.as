@@ -148,7 +148,7 @@
 			var u1;
 			var u2;
 			if (autoUpdate) {
-				if (Unit.currentUnit!=null) {
+				if (Unit.currentUnit!=null && Unit.currentUnit.id != -1) {
 					u1=Unit.currentUnit;
 					currentHP=u1.HP;
 
@@ -164,7 +164,7 @@
 					}
 
 				}
-				if (Unit.partnerUnit!=null) {
+				if (Unit.partnerUnit!=null && Unit.partnerUnit.id != -1) {
 					u2=Unit.partnerUnit;
 					partnerHP=u2.HP;
 
@@ -180,7 +180,7 @@
 				}
 				autoUpdate=false;
 			} else {
-				if (Unit.currentUnit!=null) {
+				if (Unit.currentUnit!=null && Unit.currentUnit.id != -1) {
 					u1=Unit.currentUnit;
 					if (currentHP==-1) {
 						currentHP=u1.HP;
@@ -203,7 +203,7 @@
 					}
 
 				}
-				if (Unit.partnerUnit!=null) {
+				if (Unit.partnerUnit!=null && Unit.partnerUnit.id != -1) {
 					u2=Unit.partnerUnit;
 					if (partnerHP==-1) {
 						partnerHP=u2.HP;

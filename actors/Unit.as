@@ -64,8 +64,10 @@ package actors{
 
 		/**
 		 * Name - Name of the Unit
+		 * id - index of the Unit in the ActorDatabase
 		 */
 		public var Name;
+		public var id;
 
 		/**
 		 * Numerical Stats of the Unit
@@ -95,7 +97,7 @@ package actors{
 		public var finale;
 		public var commands;
 
-		static public var abilityAmounts:Array =AbilityDatabase.amounts;
+		static public var abilityAmounts:Array=AbilityDatabase.amounts;
 		//work on implementing this
 		static public var itemAmounts:Array=ItemDatabase.uses;
 
@@ -134,24 +136,26 @@ package actors{
 			id=0;
 			}*/
 
-			Name=ActorDatabase.getName(id);
-			maxHP=HP=ActorDatabase.getHP(id);
-			AP=ActorDatabase.getDmg(id);
-			DP=ActorDatabase.getArmor(id);
-			LP=1;
-			speed=ActorDatabase.getSpeed(id);
-			xtile=0;//Math.floor(x/SuperLevel.tileWidth);
-			ytile=0;//Math.floor(y/SuperLevel.tileHeight);
-			dir=8;
-			commands=[];
+			this.id=id;
+			if (id!=-1) {
+				Name=ActorDatabase.getName(id);
+				maxHP=HP=ActorDatabase.getHP(id);
+				AP=ActorDatabase.getDmg(id);
+				DP=ActorDatabase.getArmor(id);
+				LP=1;
+				speed=ActorDatabase.getSpeed(id);
+				xtile=0;//Math.floor(x/SuperLevel.tileWidth);
+				ytile=0;//Math.floor(y/SuperLevel.tileHeight);
+				dir=8;
+				commands=[];
 
-			passiveItems=[];
-			passiveAbilities=[];
+				passiveItems=[];
+				passiveAbilities=[];
 
-			attacking=false;
-			moving=false;
-			gotoAndStop(4);
-
+				attacking=false;
+				moving=false;
+				gotoAndStop(4);
+			}
 			//Unit.Items.push(new Item_Drink(5));
 		}
 
@@ -194,7 +198,7 @@ package actors{
 			if (FP>10000) {
 				FP=10000;
 			}
-			if (! pauseAction&& !superPause && !menuPause) {
+			if (! pauseAction&&! superPause&&! menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 					movePlayer();
 					switchUnits(false);
@@ -241,9 +245,7 @@ package actors{
 		}
 		public function openMenu() {
 			if (KeyDown.keyIsDown(menuKey)&&menuDelay>=0) {
-				var menu = new Menu();
-				stage.addChild(menu);
-				menu.enableKeyHandler();
+				var menu = new Menu(stage);
 				GameUnit.menuPause=true;
 			}
 		}
