@@ -8,12 +8,13 @@
 
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
-	
+
 	import abilities.*;
 	import actors.*;
 	import game.*;
 	import items.*;
 	import levels.*;
+
 	public class Menu extends BaseScreen {
 
 		public var hotkeyArray:Array;
@@ -28,8 +29,8 @@
 
 		public var decide:Boolean;
 		function Menu(stageRef:Stage = null) {
-			this.stageRef = stageRef;
-			
+			this.stageRef=stageRef;
+
 			trace("Equipping abilities/items should work now! Once the databases get updated though, I have to go back to this again... =___=");
 			trace("EVERYTHING ELSE STILL NEEDS UPDATING");
 			x=0;
@@ -83,13 +84,13 @@
 			saveOption.addEventListener(MouseEvent.CLICK, saveHandler);
 			loadOption.addEventListener(MouseEvent.CLICK, loadHandler);
 			exitOption.addEventListener(MouseEvent.CLICK, exitHandler);
-						
+
 			load();
 
 		}
 
 
-		override public function keyHandler(e:KeyboardEvent):void{
+		override public function keyHandler(e:KeyboardEvent):void {
 			if (e.keyCode=="X".charCodeAt(0)) {
 				exit();
 			}
@@ -130,9 +131,9 @@
 				hover.y=64+32*4;
 			}
 		}
-		public function configHandler(e) {			
+		public function configHandler(e) {
 			//disableKeyHandler();
-			
+
 		}
 		public function saveHandler(e) {
 			unload(new FileScreen(false,this,stageRef));
@@ -325,9 +326,13 @@
 				var itemIcon;
 				var i;
 
-				if (Unit.currentUnit.passiveItems.length>3) {
-					//passiveList1.height+=36 * (Unit.currentUnit.passiveItems.length - 3);
-					//make rectangle biggerer
+				if (Unit.currentUnit.passiveItems.length>2) {
+					var bound:Sprite = new Sprite();
+					passiveList1.addChild(bound);
+					bound.graphics.lineStyle(1,0x000000);
+					bound.graphics.beginFill(0x565656);
+					bound.graphics.drawRect(0,0,48,96+36 * (Unit.currentUnit.passiveItems.length - 2));
+					bound.graphics.endFill();
 				}
 				for (i = 0; i < Unit.currentUnit.passiveItems.length; i++) {
 					itemIcon = new AbilityIcon();
@@ -335,6 +340,7 @@
 					itemIcon.x=xOffset;
 					itemIcon.y=yOffset;
 					itemIcon.useCount.visible=false;
+					itemIcon.type="Item";
 					passiveList1.addChild(itemIcon);
 					itemIcon.addEventListener(MouseEvent.MOUSE_DOWN, movePassiveIcon);
 					yOffset+=36;
@@ -342,16 +348,28 @@
 
 				xOffset=8;
 				yOffset=8;
+
+				if (Unit.partnerUnit.passiveItems.length>2) {
+					var bound2:Sprite = new Sprite();
+					passiveList2.addChild(bound2);
+					bound2.graphics.lineStyle(1,0x000000);
+					bound2.graphics.beginFill(0x565656);
+					bound2.graphics.drawRect(0,0,48,96+36 * (Unit.partnerUnit.passiveItems.length - 2));
+					bound2.graphics.endFill();
+				}
 				for (i = 0; i < Unit.partnerUnit.passiveItems.length; i++) {
 					itemIcon = new AbilityIcon();
 					itemIcon.gotoAndStop(Unit.partnerUnit.passiveItems[i].index);
 					itemIcon.x=xOffset;
 					itemIcon.y=yOffset;
 					itemIcon.useCount.visible=false;
+					itemIcon.type="Item";
 					passiveList2.addChild(itemIcon);
 					itemIcon.addEventListener(MouseEvent.MOUSE_DOWN, movePassiveIcon);
 					yOffset+=36;
 				}
+			} else {
+
 			}
 
 			passive1.source=passiveList1;
@@ -781,8 +799,6 @@
 
 			}
 			obj.startDrag(false, new Rectangle(8,8,592,432));
-
-
 		}
 
 		public function releasePassiveIcon(e) {
@@ -796,7 +812,6 @@
 			}
 
 			stageRef.removeChild(aCover);
-
 			if (obj.type=="Item") {
 				if (obj.hitTestObject(passiveList1)) {
 					Unit.currentUnit.passiveItems.push(new Item(index, 1));
@@ -824,58 +839,5 @@
 
 			obj.removeEventListener(MouseEvent.MOUSE_UP, releasePassiveIcon);
 		}
-
-
 	}
 }
-
-/*if (qIcon1.hitTestPoint(obj.x+16,obj.y+16,false)) {
-qIcon1.gotoAndStop(obj.currentFrame);
-qIcon1.visible=true;
-Unit.currentUnit.hk1=new Item(index,0);
-} else if (qIcon2.hitTestPoint(obj.x+16,obj.y+16,false)) {
-qIcon2.gotoAndStop(obj.currentFrame);
-qIcon2.visible=true;
-Unit.partnerUnit.hk1=new Item(index,0);
-} else if (wIcon1.hitTestPoint(obj.x+16,obj.y+16,false)) {
-wIcon1.gotoAndStop(obj.currentFrame);
-wIcon1.visible=true;
-Unit.currentUnit.hk2=new Item(index,0);
-} else if (wIcon2.hitTestPoint(obj.x+16,obj.y+16,false)) {
-wIcon2.gotoAndStop(obj.currentFrame);
-wIcon2.visible=true;
-Unit.partnerUnit.hk2=new Item(index,0);
-} else if (eIcon1.hitTestPoint(obj.x+16,obj.y+16,false)) {
-eIcon1.gotoAndStop(obj.currentFrame);
-eIcon1.visible=true;
-Unit.currentUnit.hk3=new Item(index,0);
-} else if (eIcon2.hitTestPoint(obj.x+16,obj.y+16,false)) {
-eIcon2.gotoAndStop(obj.currentFrame);
-eIcon2.visible=true;
-Unit.partnerUnit.hk3=new Item(index,0);
-} else if (aIcon1.hitTestPoint(obj.x+16,obj.y+16,false)) {
-aIcon1.gotoAndStop(obj.currentFrame);
-aIcon1.visible=true;
-Unit.currentUnit.hk4=new Item(index,0);
-} else if (aIcon2.hitTestPoint(obj.x+16,obj.y+16,false)) {
-aIcon2.gotoAndStop(obj.currentFrame);
-aIcon2.visible=true;
-Unit.partnerUnit.hk4=new Item(index,0);
-} else if (sIcon1.hitTestPoint(obj.x+16,obj.y+16,false)) {
-sIcon1.gotoAndStop(obj.currentFrame);
-sIcon1.visible=true;
-Unit.currentUnit.hk5=new Item(index,0);
-} else if (sIcon2.hitTestPoint(obj.x+16,obj.y+16,false)) {
-sIcon2.gotoAndStop(obj.currentFrame);
-sIcon2.visible=true;
-Unit.partnerUnit.hk5=new Item(index,0);
-} else if (dIcon1.hitTestPoint(obj.x+16,obj.y+16,false)) {
-dIcon1.gotoAndStop(obj.currentFrame);
-dIcon1.visible=true;
-Unit.currentUnit.hk6=new Item(index,0);
-} else if (dIcon2.hitTestPoint(obj.x+16,obj.y+16,false)) {
-dIcon2.gotoAndStop(obj.currentFrame);
-dIcon2.visible=true;
-Unit.partnerUnit.hk6=new Item(index,0);
-}
-*/

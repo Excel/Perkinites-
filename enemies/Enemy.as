@@ -8,12 +8,14 @@ package enemies{
 	import game.*;
 	import levels.*;
 	import ui.*;
+	import ui.hud.*;
 	import util.*;
 
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.*;
 	import flash.ui.*;
+		import flash.display.Sprite;
 
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
@@ -34,6 +36,7 @@ package enemies{
 		public var attackDelay;
 		public var collideCountC;
 		public var collideCountP;
+		public var eHPBar;
 		/*public var pxpos;
 		public var pypos;
 		
@@ -91,6 +94,22 @@ package enemies{
 			list.push(this);
 			addEventListener(Event.ENTER_FRAME, collideHandler);
 
+			mouseChildren = false;
+			
+			eHPBar = new EnemyHPBar(HP, maxHP);
+			addChild(eHPBar);
+			eHPBar.x = x-32;
+			eHPBar.y = y-height/2-20;
+			/*var bbar:Sprite = new Sprite();
+			addChild(bbar);
+			bbar.graphics.lineStyle(1,0x000000);
+			bbar.graphics.beginFill(0x565656);
+			bbar.graphics.drawRect(0,0,64,6);
+			bbar.x = x-32;
+			bbar.y = y-height/2-20;
+			bbar.graphics.endFill();
+			*/
+
 			/*pxpos=0;
 			pypos=0;
 			
@@ -112,7 +131,7 @@ package enemies{
 
 		override public function gameHandler(e) {
 		}
-		
+
 		public function collideHandler(e) {
 			if (! superPause&&! menuPause) {
 				if (this.hitTestObject(Unit.currentUnit)) {
@@ -139,7 +158,21 @@ package enemies{
 		}
 
 		public function updateHP(damage) {
-
+			if (barrier>0) {
+				barrier-=damage;
+			} else {
+				HP-=damage;
+			}
+			if (0>=HP) {
+				kill();
+			}
+			if (barrier>0) {
+				//eHP.text=barrier;
+			} else {
+				//eHP.text=HP;
+			}
+			HUD_Enemy.updateTarget(this);
+			eHPBar.update(HP, maxHP);
 		}
 
 		//Status moves

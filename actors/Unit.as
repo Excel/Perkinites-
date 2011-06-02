@@ -3,9 +3,10 @@ Units are the general heroes.
 */
 package actors{
 
-	import flash.events.*;
 	import flash.display.MovieClip;
+	import flash.events.*;
 	import flash.ui.Keyboard;
+	import flash.utils.Timer;
 
 	import abilities.*;
 	import attacks.*;
@@ -117,8 +118,13 @@ package actors{
 		//public var speed;
 
 		/**
-		 * GameUnit Booleans
+		 * Unit Booleans
 		 */
+
+		public var canAttack:Boolean;
+		public var canSwitch:Boolean;
+		public var canOpenMenu:Boolean;
+		public var canUseHotkeys:Array;
 
 		public var attacking:Boolean;
 		public var moving:Boolean;
@@ -152,11 +158,15 @@ package actors{
 				passiveItems=[];
 				passiveAbilities=[];
 
+				canAttack = true;
+				canSwitch = true;
+				canOpenMenu = true;
+				canUseHotkeys = new Array(true,true,true,true,true,true);
+				
 				attacking=false;
 				moving=false;
 				gotoAndStop(4);
 			}
-			//Unit.Items.push(new Item_Drink(5));
 		}
 
 		public function setHotkey(id:int, a) {
@@ -245,7 +255,7 @@ package actors{
 		}
 		public function openMenu() {
 			if (KeyDown.keyIsDown(menuKey)&&menuDelay>=0) {
-				var menu = new Menu(stage);
+				var menu=new Menu(stage);
 				GameUnit.menuPause=true;
 			}
 		}

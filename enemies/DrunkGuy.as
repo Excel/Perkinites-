@@ -26,7 +26,7 @@ package enemies{
 			//super
 			super(5);
 			
-			this.eHP.text=this.HP;
+			//this.eHP.text=this.HP;
 
 			count=0;
 			pukeCount=0;
@@ -46,7 +46,7 @@ package enemies{
 			  ];
 		}
 
-		override public function updateHP(damage) {
+		/*override public function updateHP(damage) {
 			if (barrier>0) {
 				barrier-=damage;
 			} else {
@@ -56,12 +56,12 @@ package enemies{
 				kill();
 			}
 			if (barrier>0) {
-				eHP.text=barrier;
+				//eHP.text=barrier;
 			} else {
-				eHP.text=HP;
+				//eHP.text=HP;
 			}
 			HUD_Enemy.updateTarget(this);
-		}
+		}*/
 
 		override public function begin() {
 			addEventListener(Event.ENTER_FRAME, gameHandler);
@@ -79,6 +79,7 @@ package enemies{
 		}
 
 		override public function gameHandler(e) {
+			trace(HP);
 			if (! pauseAction && !superPause && !menuPause) {
 				if (moveCount>=moveArray.length) {
 					prevMoveCount=-1;
