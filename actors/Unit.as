@@ -83,6 +83,7 @@ package actors{
 		public var AP;
 		public var DP;
 		static public var EXP=0;
+		static public var nextEXP=200;
 		public var LP;
 		static public var maxLP=1;
 
@@ -136,6 +137,8 @@ package actors{
 
 		public var animate=0;
 		public var pauseMovement:Boolean;
+		
+		public var HPBar;
 
 		public function Unit(id:int) {
 			/*if (id==undefined) {
@@ -166,6 +169,8 @@ package actors{
 				attacking=false;
 				moving=false;
 				gotoAndStop(4);
+				
+			 	HPBar = new HealthBar(this, HP, maxHP, 48);
 			}
 		}
 
@@ -373,6 +378,7 @@ package actors{
 			damage=Math.round(damage);
 			if (HP>0) {
 				HP-=damage;
+				HPBar.update(HP, maxHP);
 				if (damage>0) {
 
 					var radian,xs,ys,exfrag;
@@ -397,6 +403,17 @@ package actors{
 					toggleAbilities(false);
 				}
 			}
+			//hud.updateHP prease :)
+		}
+		
+		static public function updateEXP(gain){
+			Unit.EXP+=gain;
+			if(Unit.EXP >= Unit.nextEXP){
+				Unit.maxLP+=1;
+				Unit.nextEXP+=Unit.maxLP*200;
+				updateEXP(0);
+			}
+			//hud.updateEXP
 		}
 		public function toggleAbilities(switchOn) {
 			for (var i = 0; i < commands.length; i++) {

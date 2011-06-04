@@ -37,7 +37,8 @@
 			collide();
 			updateHP();
 			updateName();
-			updateScore();
+			updateEXP();
+			//updateScore();
 
 			updateHKeys();
 			//updateProfile();
@@ -148,7 +149,7 @@
 			var u1;
 			var u2;
 			if (autoUpdate) {
-				if (Unit.currentUnit!=null && Unit.currentUnit.id != -1) {
+				if (Unit.currentUnit!=null&&Unit.currentUnit.id!=-1) {
 					u1=Unit.currentUnit;
 					currentHP=u1.HP;
 
@@ -164,7 +165,7 @@
 					}
 
 				}
-				if (Unit.partnerUnit!=null && Unit.partnerUnit.id != -1) {
+				if (Unit.partnerUnit!=null&&Unit.partnerUnit.id!=-1) {
 					u2=Unit.partnerUnit;
 					partnerHP=u2.HP;
 
@@ -180,7 +181,7 @@
 				}
 				autoUpdate=false;
 			} else {
-				if (Unit.currentUnit!=null && Unit.currentUnit.id != -1) {
+				if (Unit.currentUnit!=null&&Unit.currentUnit.id!=-1) {
 					u1=Unit.currentUnit;
 					if (currentHP==-1) {
 						currentHP=u1.HP;
@@ -203,7 +204,7 @@
 					}
 
 				}
-				if (Unit.partnerUnit!=null && Unit.partnerUnit.id != -1) {
+				if (Unit.partnerUnit!=null&&Unit.partnerUnit.id!=-1) {
 					u2=Unit.partnerUnit;
 					if (partnerHP==-1) {
 						partnerHP=u2.HP;
@@ -225,6 +226,34 @@
 				}
 			}
 		}
+		public function updateEXP() {
+			var i;
+			var limit;
+
+			EXPDisplay.text="";
+			for (i = 0; i < 5; i++) {
+				if (Math.floor(Unit.EXP/Math.pow(10,i+1))==0) {
+					limit=4-i;
+					break;
+				}
+			}
+			for (i = 0; i < limit; i++) {
+				EXPDisplay.appendText("0");
+			}
+			EXPDisplay.appendText(Unit.EXP);
+			
+			nextEXPDisplay.text="/";
+			for (i = 0; i < 5; i++) {
+				if (Math.floor(Unit.nextEXP/Math.pow(10,i+1))==0) {
+					limit=4-i;
+					break;
+				}
+			}
+			for (i = 0; i < limit; i++) {
+				nextEXPDisplay.appendText("0");
+			}
+			nextEXPDisplay.appendText(Unit.nextEXP);
+		}
 		public function updateName() {
 			if (currentHP>=0) {
 				unitName1.text=Unit.currentUnit.Name;
@@ -233,44 +262,45 @@
 				unitName2.text=Unit.partnerUnit.Name;
 			}
 		}
-		public function updateScore() {
-			var i=0;
-			var limit=0;
-			score.text="";
-			if (currentScore<Unit.score) {
-				currentScore+=100+Math.floor(Math.random()*2);
-				for (i = 0; i < 10; i++) {
-					if (Math.floor(currentScore/Math.pow(10,i+1))==0) {
-						limit=9-i;
-						break;
-					}
-				}
-				for (i = 0; i < limit; i++) {
-					score.appendText("0");
-				}
-				score.appendText(currentScore);
-			} else if (Unit.score == 0) {
-				currentScore=0;
-				for (i = 0; i < limit; i++) {
-					score.appendText("0");
-				}
-			}
-			if (currentScore>=Unit.score) {
-				currentScore=Unit.score;
-				for (i = 0; i < 10; i++) {
-					if (Math.floor(currentScore/Math.pow(10,i+1))==0) {
-						limit=9-i;
-						break;
-					}
-				}
-				for (i = 0; i < limit; i++) {
-					score.appendText("0");
-				}
-				score.appendText(currentScore);
-			}
-
-
+		/*public function updateScore() {
+		var i=0;
+		var limit=0;
+		score.text="";
+		if (currentScore<Unit.score) {
+		currentScore+=100+Math.floor(Math.random()*2);
+		for (i = 0; i < 10; i++) {
+		if (Math.floor(currentScore/Math.pow(10,i+1))==0) {
+		limit=9-i;
+		break;
 		}
+		}
+		for (i = 0; i < limit; i++) {
+		score.appendText("0");
+		}
+		score.appendText(currentScore);
+		} else if (Unit.score == 0) {
+		currentScore=0;
+		for (i = 0; i < limit; i++) {
+		score.appendText("0");
+		}
+		}
+		if (currentScore>=Unit.score) {
+		currentScore=Unit.score;
+		for (i = 0; i < 10; i++) {
+		if (Math.floor(currentScore/Math.pow(10,i+1))==0) {
+		limit=9-i;
+		break;
+		}
+		}
+		for (i = 0; i < limit; i++) {
+		score.appendText("0");
+		}
+		score.appendText(currentScore);
+		}
+		
+		
+		}
+		*/
 		public function collide() {
 			var u1;
 			var u2;

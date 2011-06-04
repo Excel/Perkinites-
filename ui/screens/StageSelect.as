@@ -60,8 +60,9 @@
 			updateText();
 			updateDifficulty();
 			updateIcons();
-
+			
 			load();
+
 		}
 		public function downHandler1(e) {
 			/*var gf1=new GlowFilter(0xFFFFFF,100,3,3,5,15,false,false);

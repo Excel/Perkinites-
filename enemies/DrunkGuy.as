@@ -26,8 +26,8 @@ package enemies{
 			//super
 			super(5);
 			
-			//this.eHP.text=this.HP;
-
+	
+			
 			count=0;
 			pukeCount=0;
 			maxPukeCount=1;
@@ -79,7 +79,6 @@ package enemies{
 		}
 
 		override public function gameHandler(e) {
-			trace(HP);
 			if (! pauseAction && !superPause && !menuPause) {
 				if (moveCount>=moveArray.length) {
 					prevMoveCount=-1;

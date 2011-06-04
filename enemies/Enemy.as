@@ -30,6 +30,9 @@ package enemies{
 		public var maxBarrier;
 		public var AP;
 		public var DP;
+		public var EXP;
+		public var Value;
+		
 		public var xspeed;
 		public var yspeed;
 		//public var speed;
@@ -77,6 +80,8 @@ package enemies{
 			maxBarrier=EnemyDatabase.getBarrier(id);
 			collideCountC=0;
 			collideCountP=0;
+			EXP = 200;
+			Value = 100.50;
 
 			pauseAction=false;
 
@@ -96,7 +101,7 @@ package enemies{
 
 			mouseChildren = false;
 			
-			eHPBar = new EnemyHPBar(HP, maxHP);
+			eHPBar = new HealthBar(this, HP, maxHP);
 			addChild(eHPBar);
 			eHPBar.x = x-32;
 			eHPBar.y = y-height/2-20;
@@ -155,6 +160,8 @@ package enemies{
 			end();
 			this.parent.removeChild(this);
 			list.splice(list.indexOf(this),1);
+			Unit.updateEXP(EXP);
+			Unit.flexPoints+=Value;
 		}
 
 		public function updateHP(damage) {

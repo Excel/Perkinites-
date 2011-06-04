@@ -25,9 +25,10 @@
 				stageRef.removeChild(this);
 			}
 
-			if (nextScreen!=null) {
+			if (nextScreen!=null&&nextScreen.parent==null) {
 				nextScreen.load();
 			}
+
 		}
 
 		public function load():void {

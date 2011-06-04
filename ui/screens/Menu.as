@@ -84,7 +84,11 @@
 			saveOption.addEventListener(MouseEvent.CLICK, saveHandler);
 			loadOption.addEventListener(MouseEvent.CLICK, loadHandler);
 			exitOption.addEventListener(MouseEvent.CLICK, exitHandler);
-
+			
+			
+			EXPCount.text = Unit.EXP+"";
+			nextCount.text = Unit.nextEXP+"";
+			FPDisplay.text = Unit.flexPoints.toFixed(2);
 			load();
 
 		}

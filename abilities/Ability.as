@@ -1,5 +1,5 @@
 ﻿/*
-Units are the general heroes.
+Abilities are the special commands Perkinites can use. :)
 */
 package abilities{
 

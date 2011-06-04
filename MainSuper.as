@@ -14,6 +14,7 @@ import util.*;
 
 stage.stageFocusRect = false;
 
+		var cursor = new Cursor(stage);
 var lostFocusScreen = new LostFocusScreen();
 var level=new Level1B();
 stage.addChild(level);
@@ -154,11 +155,7 @@ function setUp(e) {
 		stage.addChild(eHUD);
 		stage.addChild(friendshipBar);
 
-		/*Mouse.hide();
-		stage.addChild(new Cursor());
-		guide = new Guide();
-		stage.addChild(guide);
-*/
+
 		uHUD.visible=true;
 		eHUD.visible=true;
 		friendshipBar.visible=true;
