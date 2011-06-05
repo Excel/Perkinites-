@@ -44,25 +44,13 @@ package enemies{
 			  FunctionUtils.thunkify(addEventListener, Event.ENTER_FRAME, pukeAttack),
 			  FunctionUtils.thunkify(addEventListener, Event.ENTER_FRAME, burpAttack)
 			  ];
+			
+			HUDOn = true;
+			enemyHUD.updateTarget(this);
+			removeChild(eHPBar);
 		}
 
-		/*override public function updateHP(damage) {
-			if (barrier>0) {
-				barrier-=damage;
-			} else {
-				HP-=damage;
-			}
-			if (0>=HP) {
-				kill();
-			}
-			if (barrier>0) {
-				//eHP.text=barrier;
-			} else {
-				//eHP.text=HP;
-			}
-			HUD_Enemy.updateTarget(this);
-		}*/
-
+		
 		override public function begin() {
 			addEventListener(Event.ENTER_FRAME, gameHandler);
 			addEventListener(Event.ENTER_FRAME, collideHandler);

@@ -15,7 +15,7 @@ package enemies{
 	import flash.display.Stage;
 	import flash.events.*;
 	import flash.ui.*;
-		import flash.display.Sprite;
+	import flash.display.Sprite;
 
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
@@ -32,7 +32,9 @@ package enemies{
 		public var DP;
 		public var EXP;
 		public var Value;
-		
+		public var HUDOn;
+		static public var enemyHUD = HUDManager.getEnemyHUD();
+
 		public var xspeed;
 		public var yspeed;
 		//public var speed;
@@ -40,6 +42,7 @@ package enemies{
 		public var collideCountC;
 		public var collideCountP;
 		public var eHPBar;
+
 		/*public var pxpos;
 		public var pypos;
 		
@@ -80,8 +83,9 @@ package enemies{
 			maxBarrier=EnemyDatabase.getBarrier(id);
 			collideCountC=0;
 			collideCountP=0;
-			EXP = 200;
-			Value = 100.50;
+			EXP=200;
+			Value=100.50;
+			HUDOn=false;
 
 			pauseAction=false;
 
@@ -99,21 +103,13 @@ package enemies{
 			list.push(this);
 			addEventListener(Event.ENTER_FRAME, collideHandler);
 
-			mouseChildren = false;
-			
-			eHPBar = new HealthBar(this, HP, maxHP);
+			mouseChildren=false;
+
+			eHPBar=new HealthBar(HP,maxHP,this);
 			addChild(eHPBar);
-			eHPBar.x = x-32;
-			eHPBar.y = y-height/2-20;
-			/*var bbar:Sprite = new Sprite();
-			addChild(bbar);
-			bbar.graphics.lineStyle(1,0x000000);
-			bbar.graphics.beginFill(0x565656);
-			bbar.graphics.drawRect(0,0,64,6);
-			bbar.x = x-32;
-			bbar.y = y-height/2-20;
-			bbar.graphics.endFill();
-			*/
+			eHPBar.x=x-32;
+			eHPBar.y=y-height/2-20;
+
 
 			/*pxpos=0;
 			pypos=0;
@@ -178,8 +174,11 @@ package enemies{
 			} else {
 				//eHP.text=HP;
 			}
-			HUD_Enemy.updateTarget(this);
-			eHPBar.update(HP, maxHP);
+			if (HUDOn) {
+				enemyHUD.updateHP(HP, maxHP);
+			} else {
+				eHPBar.update(HP, maxHP);
+			}
 		}
 
 		//Status moves
@@ -193,6 +192,10 @@ package enemies{
 				pauseAction=true;
 
 			}
+		}
+		
+		public function updateTarget(enemy){
+			
 		}
 		public function shockTime(e) {
 			updateHP(Math.floor(Math.random()*3+1));

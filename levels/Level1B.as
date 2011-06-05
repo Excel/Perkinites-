@@ -152,7 +152,7 @@
 			itemdrop5.y=550;
 			mapClip.addChild(itemdrop5);
 
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, VCamHandler);
+			stage.addEventListener(Event.ENTER_FRAME, VCamHandler);
 			//makeHappiness();
 
 			/*var retry = SharedObject.getLocal("Retry Level");

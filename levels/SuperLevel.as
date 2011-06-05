@@ -187,8 +187,7 @@
 						if (mapClip.getChildAt(i).nextToWalkable==true) {
 							depthArray.push(mapClip.getChildAt(i));
 						}
-					}
-					else{
+					} else {
 						depthArray.push(mapClip.getChildAt(i));
 					}
 				}
@@ -202,25 +201,24 @@
 			}
 		}
 		public function VCamHandler(e) {
-			if (e.keyCode==Keyboard.SPACE) {
-				ScreenRect.setX(Unit.currentUnit.x - 640 / 2);
-				ScreenRect.setY(Math.max(Unit.currentUnit.y - 480/2,0));
-				//ScreenRect.easeScreen(new Point(Unit.xpos - WIDTH / 2, Unit.ypos - HEIGHT));
-				if (ScreenRect.getX()<0) {
-					ScreenRect.setX(0);
-				}
-				if (ScreenRect.getY()<0) {
-					ScreenRect.setY(0);
-				}
-				var mapWidth=myMap[0].length;
-				var mapHeight=myMap.length;
-				if (ScreenRect.getX()+640 > (mapWidth)*32) {
-					ScreenRect.setX( (mapWidth)*32 - 640);
-				}
-				if (ScreenRect.getY()+480 > (mapHeight)*32) {
-					ScreenRect.setY( (mapHeight)*32 - 480);
-				}
+			ScreenRect.setX(Unit.currentUnit.x - 640 / 2);
+			ScreenRect.setY(Math.max(Unit.currentUnit.y - 480/2,0));
+			//ScreenRect.easeScreen(new Point(Unit.xpos - WIDTH / 2, Unit.ypos - HEIGHT));
+			if (ScreenRect.getX()<0) {
+				ScreenRect.setX(0);
 			}
+			if (ScreenRect.getY()<0) {
+				ScreenRect.setY(0);
+			}
+			var mapWidth=myMap[0].length;
+			var mapHeight=myMap.length;
+			if (ScreenRect.getX()+640 > (mapWidth)*32) {
+				ScreenRect.setX( (mapWidth)*32 - 640);
+			}
+			if (ScreenRect.getY()+480 > (mapHeight)*32) {
+				ScreenRect.setY( (mapHeight)*32 - 480);
+			}
+
 
 		}
 

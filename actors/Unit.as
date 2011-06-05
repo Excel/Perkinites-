@@ -76,7 +76,7 @@ package actors{
 		 * AP - attack 
 		 * DP - defense (usually 0 unless barrier or some other crazy shit)
 		 * EXP - EXP
-		 * LP/maxLP - level
+		 * maxLP - level
 		 */
 		public var HP;
 		public var maxHP;
@@ -84,8 +84,8 @@ package actors{
 		public var DP;
 		static public var EXP=0;
 		static public var nextEXP=200;
-		public var LP;
 		static public var maxLP=1;
+		static public var unitHUD;//= HUDManager.getUnitHUD();
 
 		/**
 		 * Commands of the Unit
@@ -137,7 +137,7 @@ package actors{
 
 		public var animate=0;
 		public var pauseMovement:Boolean;
-		
+
 		public var HPBar;
 
 		public function Unit(id:int) {
@@ -151,7 +151,6 @@ package actors{
 				maxHP=HP=ActorDatabase.getHP(id);
 				AP=ActorDatabase.getDmg(id);
 				DP=ActorDatabase.getArmor(id);
-				LP=1;
 				speed=ActorDatabase.getSpeed(id);
 				xtile=0;//Math.floor(x/SuperLevel.tileWidth);
 				ytile=0;//Math.floor(y/SuperLevel.tileHeight);
@@ -161,16 +160,16 @@ package actors{
 				passiveItems=[];
 				passiveAbilities=[];
 
-				canAttack = true;
-				canSwitch = true;
-				canOpenMenu = true;
-				canUseHotkeys = new Array(true,true,true,true,true,true);
-				
+				canAttack=true;
+				canSwitch=true;
+				canOpenMenu=true;
+				canUseHotkeys=new Array(true,true,true,true,true,true);
+
 				attacking=false;
 				moving=false;
 				gotoAndStop(4);
-				
-			 	HPBar = new HealthBar(this, HP, maxHP, 48);
+
+				HPBar=new HealthBar(HP,maxHP,this,48);
 			}
 		}
 
@@ -378,6 +377,12 @@ package actors{
 			damage=Math.round(damage);
 			if (HP>0) {
 				HP-=damage;
+				if (HP>maxHP) {
+					HP=maxHP;
+				}
+				if (HP<0) {
+					HP=0;
+				}
 				HPBar.update(HP, maxHP);
 				if (damage>0) {
 
@@ -392,12 +397,6 @@ package actors{
 					exfrag.scaleY=0.3;
 					this.parent.addChild(exfrag);
 				}
-				if (HP>maxHP) {
-					HP=maxHP;
-				}
-				if (HP<0) {
-					HP=0;
-				}
 				if (0>=HP) {
 					KO();
 					toggleAbilities(false);
@@ -405,10 +404,10 @@ package actors{
 			}
 			//hud.updateHP prease :)
 		}
-		
-		static public function updateEXP(gain){
+
+		static public function updateEXP(gain) {
 			Unit.EXP+=gain;
-			if(Unit.EXP >= Unit.nextEXP){
+			if (Unit.EXP>=Unit.nextEXP) {
 				Unit.maxLP+=1;
 				Unit.nextEXP+=Unit.maxLP*200;
 				updateEXP(0);

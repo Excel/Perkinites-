@@ -136,7 +136,7 @@
 			}
 		}
 		public function configHandler(e) {
-			//disableKeyHandler();
+			unload(new ConfigScreen(this, stage));
 
 		}
 		public function saveHandler(e) {

@@ -1,5 +1,6 @@
 ﻿package ui.hud{
 	import actors.*;
+	import enemies.*;
 	import util.*;
 
 	import flash.display.MovieClip;
@@ -8,48 +9,18 @@
 	import flash.ui.*;
 
 	public class HUD_Enemy extends MovieClip {
-		var maxHPWidth;
-		static var currentHP;
-		static var currentEnemy;
+		public var currentEnemy;
+		public var eHPBar;
+		public var healthUnits:Array;
 
 		function HUD_Enemy() {
-			currentHP=-1;
-			maxHPWidth=ehpbar.HP.width;
-
-			addEventListener(Event.ENTER_FRAME, gameHandler);
+			x=79;
+			y=2;
+			this.visible=false;
+			addEventListener(Event.ENTER_FRAME, collideHandler);
 		}
 
-		public function gameHandler(e) {
-			collide();
-			updateHP();
-			updateName();
-		}
-		public static function updateTarget(enemy) {
-			if (currentEnemy!=enemy) {
-				currentEnemy=enemy;
-				currentHP=enemy.maxHP;
-			}
-		}
-		public function updateHP() {
-			if (currentHP>=0) {
-				ehpbar.HPCount.text=currentEnemy.HP;
-				if (currentHP<currentEnemy.HP) {
-					currentHP++;
-				} else if (currentHP > currentEnemy.HP) {
-					currentHP--;
-				}
-				ehpbar.HP.x = 54.8 + maxHPWidth*(currentEnemy.maxHP-currentHP)/currentEnemy.maxHP;
-				ehpbar.HP.width=maxHPWidth*currentHP/currentEnemy.maxHP;
-			} else {
-				ehpbar.HPCount.text="000";
-			}
-		}
-		public function updateName() {
-			if (currentHP>=0) {
-				enemyName.text=currentEnemy.Name;
-			}
-		}
-		public function collide() {
+		public function collideHandler(e) {
 			var u1;
 			var u2;
 			if (Unit.currentUnit!=null) {
@@ -68,6 +39,31 @@
 					alpha+=0.1;
 				}
 			}
+		}
+		public function updateTarget(enemy:Enemy = null) {
+			currentEnemy=enemy;
+			if (enemy!=null) {
+
+				eHPBar=new HealthBar(enemy.HP,enemy.maxHP,enemy,400,true);
+				addChild(eHPBar);
+				eHPBar.x=85.5;
+				eHPBar.y=19;
+				enemyName.text=currentEnemy.Name;
+				this.visible=true;
+				updateHP(enemy.HP, enemy.maxHP);
+
+
+			} else {
+				this.visible=false;
+			}
+		}
+		public function updateHP(HP:int, maxHP:int) {
+			eHPBar.update(HP, maxHP);
+			HPDisplay.text=HP+"";
+		}
+
+		public function collide() {
+
 
 		}
 	}

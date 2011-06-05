@@ -17,6 +17,8 @@
 		static public var autoUpdate;
 		var currentScore;
 		function HUD_Unit() {
+			x=7;
+			y=372;
 			currentHP=-1;
 			partnerHP=-1;
 			autoUpdate=false;
@@ -241,7 +243,7 @@
 				EXPDisplay.appendText("0");
 			}
 			EXPDisplay.appendText(Unit.EXP);
-			
+
 			nextEXPDisplay.text="/";
 			for (i = 0; i < 5; i++) {
 				if (Math.floor(Unit.nextEXP/Math.pow(10,i+1))==0) {

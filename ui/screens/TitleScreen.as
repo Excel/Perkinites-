@@ -37,7 +37,7 @@
 			unload(new FileScreen(true,this,stage));
 		}
 		public function config(e:Event):void {
-			unload();
+			unload(new ConfigScreen(this, stage));
 		}
 
 

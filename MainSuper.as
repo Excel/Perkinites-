@@ -7,6 +7,7 @@ import enemies.*;
 import game.*;
 import levels.*;
 import ui.*;
+import ui.hud.*;
 import ui.screens.*;
 import util.*;
 
@@ -14,7 +15,7 @@ import util.*;
 
 stage.stageFocusRect = false;
 
-		var cursor = new Cursor(stage);
+var cursor = new Cursor(stage);
 var lostFocusScreen = new LostFocusScreen();
 var level=new Level1B();
 stage.addChild(level);
@@ -131,7 +132,6 @@ function cheatCodeHandler(e) {
 }
 
 uHUD.visible=false;
-eHUD.visible=false;
 friendshipBar.visible=false;
 
 //var stageSelect=new StageSelect(1,stage);
@@ -152,12 +152,13 @@ function setUp(e) {
 
 
 		stage.addChild(uHUD);
-		stage.addChild(eHUD);
+		HUDManager.setup(stage);
+		//HUDManager.toggleUnitHUD(true);
+		HUDManager.toggleEnemyHUD(true);
 		stage.addChild(friendshipBar);
 
 
 		uHUD.visible=true;
-		eHUD.visible=true;
 		friendshipBar.visible=true;
 		stage.removeEventListener(Event.ENTER_FRAME,setUp);
 	}
