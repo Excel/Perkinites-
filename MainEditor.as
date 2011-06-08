@@ -1,8 +1,6 @@
 ﻿import util.*;
 import tileMapper.*;
 
-var sObj = new SharedObject.getLocal("PERKINITESEDITOR");
-
 var shortCuts = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 //----------------TILES-----------------
@@ -15,7 +13,6 @@ var editorETypes = new Array("Chip", "Key", "Goal", "Swimming Fish", "Up-Down Sp
 							 "Jellyfish", "Blowfish", "Hot Volcano", "Volcano", "Delete Enemy");
 //---------------DOODADS----------------
 var editorDTypes = new Array("Clamshell", "Grass", "Coral Tree");
-
 TileMap.createTileMap(editorCode, 20, editorTiles2, clings, "com.EditorTile");
 
 var editorClip = new MovieClip();
@@ -29,7 +26,7 @@ addEventListener(Event.ENTER_FRAME, editorHandler);
 addEventListener(MouseEvent.MOUSE_UP, clickHandler);
 stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
 savebtn.addEventListener(MouseEvent.CLICK, saveHandler);
-testbtn.addEventListener(MouseEvent.CLICK, testHandler);
+//testbtn.addEventListener(MouseEvent.CLICK, testHandler);
 custommenubtn.addEventListener(MouseEvent.CLICK, customReturnHandler);
 
 var buildType = 0;
@@ -242,7 +239,6 @@ function clearEditor(){
 	removeEventListener(MouseEvent.MOUSE_UP, clickHandler);
 	stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
 	this.savebtn.removeEventListener(MouseEvent.CLICK, saveHandler);
-	this.testbtn.removeEventListener(MouseEvent.CLICK, testHandler);
 	this.custommenubtn.removeEventListener(MouseEvent.CLICK, customReturnHandler);
 }
 function saveHandler(e){
@@ -265,14 +261,6 @@ function saveHandler(e){
 	savedLevels[editingNum] = allCode;
 	sObj.data.savedLevels = savedLevels;
 	sObj.flush();
-}
-function testHandler(e){
-	clearEditor();
-	level = -1;
-	
-	saveHandler(e);
-	customCode = sObj.data.savedLevels[editingNum];
-	gotoAndStop(1, "game");
 }
 function customReturnHandler(e){
 	clearEditor();
