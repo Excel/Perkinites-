@@ -4,7 +4,7 @@ import tileMapper.*;
 var shortCuts = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 //----------------TILES-----------------
-var editorTiles = new Array("Water", "Floor/Wall", "One-way", "Sky",
+var editorTiles = new Array("Water", "Impassable", "One-way", "Passable",
 							"Invisible", "Locked Door");
 var editorTiles2 = new Array("f", "f", "f", "f", "f", "f");
 var clings = new Array(false, false, false, false, false, false, false, false, false, false, false, false);
@@ -68,7 +68,7 @@ for(a in editorDTypes){
 					 a + editorTiles.length + editorETypes.length,
 					 shortCuts.charAt(a + editorTiles.length + editorETypes.length) + " - " + editorDTypes[a]);
 }
-createTypeButton(3, STAGE_WIDTH - 100, 60, -2, "Start Point");
+createTypeButton(3, STAGE_WIDTH - 85, 70, -2, "Start Point");
 
 for(a in editorEnemies){
 	var es = editorEnemies[a];
