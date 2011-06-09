@@ -1,4 +1,5 @@
 ﻿import com.EnemySetup;
+import flash.display.MovieClip;
 
 stop();
 
@@ -7,23 +8,47 @@ var STAGE_HEIGHT = 500;
 
 var sObj = SharedObject.getLocal("PERKINITESEDITOR");
 
-//if(!sObj.data.savedLevels || sObj.data.savedLevels.length == 0)
+if(!sObj.data.savedLevels || sObj.data.savedLevels.length == 0) {
 	//sObj.data.savedLevels = new Array("20:20:111111111111111111111555555555555555555115555555555555555551155555555444555555511000000000000011111110000000000000000001100000000000000000011000000000000000000110000000000000000001100000000000000000011666000000000000000110070000000000000001166600000000000000011000000000000000000110000000000000000001166660000620002600011000000006600066000110000000066333660001100000000666666600011111111111111111111100000000000000000000;0,12,15;0,12,14;0,12,13;0,2,11;0,1,11;1,7,18;4,19,15;4,19,8;4,1,6;6,1,13;6,13,8;0,3,14;0,4,14;0,2,14;0,2,7;0,2,5;3,5,4;3,5,6;0,7,18;0,6,18;2,17,3;5,11,11(1,18)Charles' Level");
+	sObj.data.savedLevels = new Array();
+	sObj.data.namedLevels = new Array();
+}
 var savedLevels = sObj.data.savedLevels;
+var namedLevels = sObj.data.namedLevels;
 var btnLevels = new Array();
 var editingNum:Number = 0;
+
+var cont:MovieClip = new MovieClip();
+addChild(cont);
+cont.mask = levelmask;
+
+addEventListener(Event.ENTER_FRAME, scroller);
+function scroller(e) {
+	if (mouseX < 300 && mouseY > 90) {
+		if (mouseY < 140) {
+			cont.y += (140 - mouseY) / 2;
+		}
+		if (mouseY > 420) {
+			cont.y -= (mouseY - 420) / 2;
+		}
+	}
+	
+	cont.y = Math.min(Math.max(cont.y, 370 - savedLevels.length * 60 ), 0);
+}
+
 for(a = 0; a < savedLevels.length; a++){
-	savedLevels[a];
+	
 	var b = new BtnLevel();
 	//465
 	b.x = 154;
-	b.y = 138 + 75 * a;
+	b.y = 130 + 60 * a;
 	b.id = a;
+	b.mapName.text = namedLevels[a];
 	
 	b.btncopy.addEventListener(MouseEvent.CLICK, bCopyHandler);
 	b.btnedit.addEventListener(MouseEvent.CLICK, bEditHandler);
 	b.btndelete.addEventListener(MouseEvent.CLICK, bDeleteHandler);
-	addChild(b);
+	cont.addChild(b);
 	btnLevels.push(b);
 }
 
@@ -42,8 +67,10 @@ function bDeleteHandler(e){
 	removeBtn(btn);
 	btnLevels.splice(btn.id, 1);
 	savedLevels.splice(btn.id, 1);
+	namedLevels.splice(btn.id, 1);
 	
 	sObj.data.savedLevels = savedLevels;
+	sObj.data.namedLevels = namedLevels;
 	sObj.flush();
 	
 	for(var a = btn.id; a < btnLevels.length; a++){
@@ -53,6 +80,7 @@ function bDeleteHandler(e){
 
 var ROWS;
 var COLS;
+var mapName;
 
 var editorCode;
 
@@ -71,6 +99,7 @@ function editClicked(e){
 function clicked(e){
 	ROWS = parseInt(rowsbox.text);
 	COLS = parseInt(colsbox.text);
+	mapName = namebox.text;
 	
 	editorCode = ROWS + ":" + COLS + ":";
 	for(a = 0; a < ROWS; a++){
@@ -120,6 +149,8 @@ function edited(editorCode){
 	ind2 = editorCode.indexOf(":", ind1 + 1);
 	COLS = editorCode.substring(ind1 + 1, ind2);
 	
+	mapName = namebox.text;
+	
 	showEditor();
 }
 function removeBtn(b){
@@ -127,7 +158,7 @@ function removeBtn(b){
 	b.btnedit.removeEventListener(MouseEvent.CLICK, bEditHandler);
 	b.btndelete.removeEventListener(MouseEvent.CLICK, bDeleteHandler);
 	
-	removeChild(b);
+	cont.removeChild(b);
 }
 function clearCustomMenu(){
 	for(var a = 0; a < btnLevels.length; a++){
@@ -138,6 +169,7 @@ function clearCustomMenu(){
 	btnLevels = new Array();
 	
 	btncreate.removeEventListener(MouseEvent.CLICK, clicked);
+	removeEventListener(Event.ENTER_FRAME, scroller);
 }
 function showEditor(){
 	clearCustomMenu();

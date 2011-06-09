@@ -259,7 +259,9 @@ function saveHandler(e){
 	
 	var allCode = editorCode + enemyCode + "(" + sx + "," + sy + ")";
 	savedLevels[editingNum] = allCode;
+	namedLevels[editingNum] = mapName;
 	sObj.data.savedLevels = savedLevels;
+	sObj.data.namedLevels = namedLevels;
 	sObj.flush();
 }
 function customReturnHandler(e){

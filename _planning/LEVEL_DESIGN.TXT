@@ -1,0 +1,49 @@
+N means that it is neighbor sensitive so it will change form based on other similar blocks around it.
+For example if you look at an isometric cliff, the sides (which is vertical) of a cliff are different from the middle (which is flat).
+
+
+=========TERRAIN TYPES=========
+0. Passable			Passable terrain with grass texture
+1. Impassable			Impassable terrain, currently visible for testing purposes but will be made invisible
+2. Sidewalk, Passable, N	Passable terrain
+3. Dirt, Passable, N		Passable terrain
+4. Perkins Carpet		Passable terrain
+5. Perkins Wall, N		Impassable terrain
+6. 
+7. 
+8. 
+9. 
+10.
+11.
+12.
+13.
+14.
+15.
+16.
+17.
+18.
+19.
+20.
+
+
+======INTERACTIVE OBJECTS======
+0. 
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+9. 
+10.
+11.
+12.
+13.
+14.
+15.
+16.
+17.
+18.
+19.
