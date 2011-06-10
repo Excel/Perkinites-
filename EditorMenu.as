@@ -33,7 +33,7 @@ function scroller(e) {
 		}
 	}
 	
-	cont.y = Math.min(Math.max(cont.y, 370 - savedLevels.length * 60 ), 0);
+	cont.y = Math.min(Math.max(cont.y, 570 - savedLevels.length * 60 ), 0);
 }
 
 for(a = 0; a < savedLevels.length; a++){

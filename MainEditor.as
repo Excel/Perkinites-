@@ -196,7 +196,7 @@ function colChangeHandler(e){
 	var col = e.target.id;
 	
 	for(var a = 0; a < ROWS; a++){
-		var ind = editorCode.lastIndexOf(":") + a * ROWS + col + 1;
+		var ind = editorCode.lastIndexOf(":") + a * COLS + col + 1;
 		editorCode = editorCode.substr(0, ind) + buildType + editorCode.substr(ind + 1, editorCode.length);
 		
 		TileMap.updateTile(a, col, editorCode);
