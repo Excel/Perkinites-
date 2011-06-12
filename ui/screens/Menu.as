@@ -20,8 +20,6 @@
 		public var hotkeyArray:Array;
 		public var hotkeyIconArray:Array;
 		public var optionArray:Array;
-		public var toggleArray1:Array;
-		public var toggleArray2:Array;
 
 		public var aCover;
 		public var pCover1;
@@ -31,8 +29,6 @@
 		function Menu(stageRef:Stage = null) {
 			this.stageRef=stageRef;
 
-			trace("Equipping abilities/items should work now! Once the databases get updated though, I have to go back to this again... =___=");
-			trace("EVERYTHING ELSE STILL NEEDS UPDATING");
 			x=0;
 			y=0;
 
@@ -42,20 +38,11 @@
 			Unit.partnerUnit.hk4, Unit.partnerUnit.hk5, Unit.partnerUnit.hk6);
 			hotkeyIconArray = new Array();
 			optionArray=new Array("\nCheck yo active Perkinites! You got this gurrrrrrrrrl! ;)",
-			  "\nConfigure yo Boost Items to get Stat Bonuses! :)",
-			  "Drag + drop Active Items to your Hotkeys for battle! Drag + drop Passive Items to the sidebars for innate effects! :)", 
+			  "Drag + drop Active Icons to your Hotkeys for battle and Passive Icons to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
+			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)",
 			  "Drag + drop Active Items to your Hotkeys for battle! Drag + drop Passive Items to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
-			  "\nConfigure yo Player's Actions as a Partner Unit! You got this Chicken McNugget! ;)");
+			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)");
 
-			toggleArray1=new Array("Frequently",
-			   "Occasionally",
-			"Seldomly",
-			"Never");
-
-			toggleArray2=new Array("Beatdown",
-			   "Attack with Caution",
-			"Grab Happy Orbs",
-			"Follow the Leader");
 
 			aCover = new Cover();
 			aCover.x=168;
@@ -75,20 +62,20 @@
 			arrow.gotoAndStop(1);
 
 			statusOption.addEventListener(MouseEvent.CLICK, pageHandler);
-			boostsOption.addEventListener(MouseEvent.CLICK, pageHandler2);
-			itemsOption.addEventListener(MouseEvent.CLICK, pageHandler3);
-			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler4);
-			friendsOption.addEventListener(MouseEvent.CLICK, pageHandler5);
+			setupOption.addEventListener(MouseEvent.CLICK, pageHandler2);
+			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler3);
+			//itemsOption.addEventListener(MouseEvent.CLICK, pageHandler3);
+			//friendsOption.addEventListener(MouseEvent.CLICK, pageHandler5);
 
 			configOption.addEventListener(MouseEvent.CLICK, configHandler);
 			saveOption.addEventListener(MouseEvent.CLICK, saveHandler);
 			loadOption.addEventListener(MouseEvent.CLICK, loadHandler);
 			exitOption.addEventListener(MouseEvent.CLICK, exitHandler);
-			
-			
-			EXPCount.text = Unit.EXP+"";
-			nextCount.text = Unit.nextEXP+"";
-			FPDisplay.text = Unit.flexPoints.toFixed(2);
+
+
+			EXPCount.text=Unit.EXP+"";
+			nextCount.text=Unit.nextEXP+"";
+			flexPointsDisplay.text=Unit.flexPoints.toFixed(2);
 			load();
 
 		}
@@ -190,15 +177,17 @@
 					freezeFaces();
 					break;
 				case 2 :
-					optionDisplay.text="Boosts";
-					freezeFaces();
-					break;
-				case 3 :
-					optionDisplay.text="Items";
+					optionDisplay.text="Setup";
 					eraseDescription();
 					freezeHotkeys();
 					setPassives(true);
-					setInventory(true);
+					setInventory(false);
+					break;
+				case 3 :
+					optionDisplay.text="Abilities";
+					eraseDescription();
+					freezeHotkeys();
+					setToggles();
 					break;
 				case 4 :
 					optionDisplay.text="Abilities";
@@ -210,7 +199,6 @@
 				case 5 :
 					optionDisplay.text="Partners";
 					freezeHotkeys();
-					updateToggles();
 					break;
 			}
 		}
@@ -219,6 +207,7 @@
 			thingIcon.visible=false;
 			thingName.text="";
 			useInfo.text="";
+			effectInfo.text="";
 			rangeInfo.text="";
 			cooldownInfo.text="";
 			availabilityInfo.text="";
@@ -249,60 +238,45 @@
 
 		}
 		public function freezeHotkeys() {
-			if (currentFrame!=5) {
+			if (currentFrame==3) {
+				hotkeyIconArray=[hotkeyHolder.qIcon,hotkeyHolder.wIcon,
+				 hotkeyHolder.eIcon,hotkeyHolder.aIcon,
+				 hotkeyHolder.sIcon,hotkeyHolder.dIcon,
+				 hotkeyHolder.fIcon,hotkeyHolder.xIcon,
+				 hotkeyHolder.cIcon];
+			} else {
 				hotkeyIconArray=[hotkeyHolder.qIcon1,hotkeyHolder.wIcon1,
 				 hotkeyHolder.eIcon1,hotkeyHolder.aIcon1,
 				 hotkeyHolder.sIcon1,hotkeyHolder.dIcon1,
 				 hotkeyHolder.qIcon2,hotkeyHolder.wIcon2,
 				 hotkeyHolder.eIcon2,hotkeyHolder.aIcon2,
 				 hotkeyHolder.sIcon2,hotkeyHolder.dIcon2];
-			} else {
-				hotkeyIconArray=[qIcon1, wIcon1, eIcon1, aIcon1, sIcon1, dIcon1,
-				 qIcon2, wIcon2, eIcon2, aIcon2, sIcon2, dIcon2];
+
 			}
+
 			var i;
 			for (i = 0; i < hotkeyIconArray.length; i++) {
 				hotkeyIconArray[i].useCount.visible=false;
-				if (currentFrame!=5) {
+				if (currentFrame!=3) {
 					hotkeyIconArray[i].addEventListener(MouseEvent.MOUSE_DOWN, moveActiveIcon);
 				} else {
-					hotkeyIconArray[i].removeEventListener(MouseEvent.MOUSE_DOWN, moveActiveIcon);
+					hotkeyIconArray[i].addEventListener(MouseEvent.MOUSE_DOWN, displayIcon);
 				}
 				if (hotkeyArray[i]!=null) {
 					hotkeyIconArray[i].gotoAndStop(hotkeyArray[i].index);
+					if(currentFrame != 3){
+						hotkeyIconArray[i].type = "";
+					}
 				} else {
 					hotkeyIconArray[i].gotoAndStop(1);
-					if (currentFrame!=5) {
+					if (currentFrame!=3) {
 						hotkeyIconArray[i].visible=false;
 					}
 				}
 			}
 
-			if (currentFrame==5) {
-				asIcon1.gotoAndStop(1);
-				asIcon2.gotoAndStop(1);
-			} else {
-				thingIcon.gotoAndStop(1);
-				thingIcon.useCount.visible=false;
-			}
-		}
-
-		public function updateToggles() {
-			qToggle1.buttonText.text=toggleArray1[0];
-			qToggle2.buttonText.text=toggleArray1[0];
-			wToggle1.buttonText.text=toggleArray1[0];
-			wToggle2.buttonText.text=toggleArray1[0];
-			eToggle1.buttonText.text=toggleArray1[0];
-			eToggle2.buttonText.text=toggleArray1[0];
-			aToggle1.buttonText.text=toggleArray1[0];
-			aToggle2.buttonText.text=toggleArray1[0];
-			sToggle1.buttonText.text=toggleArray1[0];
-			sToggle2.buttonText.text=toggleArray1[0];
-			dToggle1.buttonText.text=toggleArray1[0];
-			dToggle2.buttonText.text=toggleArray1[0];
-
-			asToggle1.buttonText.text=toggleArray2[0];
-			asToggle2.buttonText.text=toggleArray2[0];
+			thingIcon.gotoAndStop(1);
+			thingIcon.useCount.visible=false;
 		}
 
 		public function freezeFaces() {
@@ -310,6 +284,50 @@
 			faceIcon2.gotoAndStop(2);
 		}
 
+		public function setToggles() {
+			var holderArray=[increaseHolder,decreaseHolder,resetHolder];
+			var display;
+			var listener;
+			for (var i = 0; i < 3; i++) {
+				switch (i) {
+					case 0 :
+						display="+1";
+						listener=increasePower;
+						break;
+					case 1 :
+						display="-1";
+						listener=decreasePower;
+						break;
+					case 2 :
+						display="= 0";
+						listener=resetPower;
+						break;
+				}
+				for (var j = 0; j < holderArray[i].numChildren; j++) {
+					holderArray[i].getChildAt(j).buttonText.text=display;
+					holderArray[i].getChildAt(j).addEventListener(MouseEvent.CLICK, listener);
+					holderArray[i].getChildAt(j).mouseChildren=false;
+				}
+			}
+		}
+
+		public function increasePower(e) {
+			var obj=e.target;
+			var par=e.target.parent;
+			var index=par.getChildIndex(obj);
+			trace("okay"+index);
+		}
+		public function decreasePower(e) {
+			var obj=e.target;
+			var par=e.target.parent;
+			var index=par.getChildIndex(obj);
+			trace("hey"+index);
+		}
+		public function resetPower(e) {
+			var obj=e.target;
+			var par=e.target.parent;
+			var index=par.getChildIndex(obj);
+		}
 		public function clearDisplayList(list) {
 			while (list.numChildren > 1) {
 				list.removeChild(list.getChildAt(list.numChildren-1));
@@ -430,6 +448,26 @@
 
 			inventory.source=inventoryList;
 
+		}
+
+
+		public function displayIcon(e) {
+			var obj=e.target;
+
+			if (obj is TextField) {
+				obj=obj.parent;
+			}
+			if (hotkeyArray[hotkeyIconArray.indexOf(obj)]!=null) {
+				var index;
+				if (obj.parent!=stageRef) {
+					if (obj.type=="Item") {
+						index=ItemDatabase.index.indexOf(obj.currentFrame);
+					} else if (obj.type == "Ability") {
+						index=AbilityDatabase.index.indexOf(obj.currentFrame);
+					}
+					makeDescription(index, obj.type);
+				}
+			}
 		}
 
 		public function moveIcon(e) {

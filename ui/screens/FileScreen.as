@@ -9,14 +9,13 @@
 	public class FileScreen extends BaseScreen {
 
 		public var loadGame;
-		public var prevScreen;
 		public var frame;
 		public var checkedEntry;
 		public var chosenEntry;
-		function FileScreen(loadGame:Boolean, prevScreen:BaseScreen, stageRef:Stage = null) {
+		function FileScreen(loadGame:Boolean, nextScreen:BaseScreen, stageRef:Stage = null) {
 
 			this.loadGame=loadGame;
-			this.prevScreen=prevScreen;
+			this.nextScreen=nextScreen;
 			this.stageRef=stageRef;
 
 			file1.gotoAndStop(1);
@@ -56,14 +55,6 @@
 			load();
 		}
 
-		override public function keyHandler(e:KeyboardEvent):void {
-			var sound;
-			if (e.keyCode=="X".charCodeAt(0)) {
-				sound = new se_timeout();
-				sound.play();
-				unload(prevScreen);
-			}
-		}
 
 		public function checkEntry(e) {
 			if (checkedEntry!=null) {
@@ -204,7 +195,7 @@
 
 		}
 		public function goBack(e) {
-			unload(prevScreen);
+			gotoNextScreen();
 		}
 
 		public function showPopup(e) {

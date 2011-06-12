@@ -12,17 +12,18 @@
 		function TitleScreen(stageRef:Stage = null) {
 
 			this.stageRef=stageRef;
+			newGameButton.buttonText.text="New Game";
 			continueButton.buttonText.text="Continue";
 			configButton.buttonText.text="Config";
 
-			newButton.addEventListener(MouseEvent.CLICK, newGame);
+			newGameButton.addEventListener(MouseEvent.CLICK, newGame);
 			continueButton.addEventListener(MouseEvent.CLICK, continueGame);
 			configButton.addEventListener(MouseEvent.CLICK, config);
 
-			newButton.addEventListener(MouseEvent.MOUSE_OVER, overHandler1);
+			newGameButton.addEventListener(MouseEvent.MOUSE_OVER, overHandler1);
 			continueButton.addEventListener(MouseEvent.MOUSE_OVER, overHandler2);
 			configButton.addEventListener(MouseEvent.MOUSE_OVER, overHandler3);
-			newButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler1);
+			newGameButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler1);
 			continueButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler2);
 			configButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler3);
 
@@ -43,7 +44,7 @@
 
 		public function overHandler1(e):void {
 			var gf1=new GlowFilter(0xFF0000,100,20,20,1,10,true,false);
-			newButton.filters=[gf1];
+			newGameButton.filters=[gf1];
 		}
 		public function overHandler2(e):void {
 			var gf1=new GlowFilter(0x00FF00,100,20,20,1,10,true,false);
@@ -54,7 +55,7 @@
 			configButton.filters=[gf1];
 		}
 		public function outHandler1(e):void {
-			newButton.filters=[];
+			newGameButton.filters=[];
 		}
 		public function outHandler2(e):void {
 			continueButton.filters=[];
