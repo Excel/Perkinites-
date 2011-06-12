@@ -27,8 +27,9 @@
 
 			if (nextScreen!=null&&nextScreen.parent==null) {
 				nextScreen.load();
+			} else {
+				stageRef.focus=null;
 			}
-
 		}
 
 		public function load():void {
@@ -44,7 +45,14 @@
 			stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
 		}
 		public function keyHandler(e:KeyboardEvent):void {
-
+			if (e.keyCode=="X".charCodeAt(0)) {
+				gotoNextScreen();
+			}
+		}
+		public function gotoNextScreen() {
+			var sound = new se_timeout();
+			sound.play();
+			unload(nextScreen);
 		}
 
 	}

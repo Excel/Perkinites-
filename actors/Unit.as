@@ -215,7 +215,7 @@ package actors{
 			if (! pauseAction&&! superPause&&! menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 					movePlayer();
-					switchUnits(false);
+					//switchUnits(false);
 					useHotKey1();
 					useHotKey2();
 					useHotKey3();
@@ -247,7 +247,7 @@ package actors{
 		}
 
 		public function updateDelays() {
-			switchDelay++;
+			//switchDelay++;
 			attackDelay++;
 			hk1Delay++;
 			hk2Delay++;
@@ -434,13 +434,12 @@ package actors{
 				}
 			}
 			if (Unit.currentUnit.HP<=0&&Unit.partnerUnit.HP<=0) {
-				stage.addChild(new GameOverDisplay());
+				var gameover = new GameOverScreen(stage);
 				Unit.currentUnit.end();
 				Unit.partnerUnit.end();
 			} else if (Unit.currentUnit.HP<=0) {
 				Unit.currentUnit.end();
 				//this.parent.removeChild(Unit.currentUnit);
-				switchUnits(true);
 			} else if (Unit.partnerUnit.HP<=0) {
 				Unit.partnerUnit.end();
 			}//this.parent.removeChild(Unit.partnerUnit);
