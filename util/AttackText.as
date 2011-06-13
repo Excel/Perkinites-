@@ -1,6 +1,7 @@
 ﻿
 package util{
 
+	import flash.text.TextField;
 	import flash.events.Event;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;

@@ -1,4 +1,6 @@
 ﻿package ui.hud{
+	
+	import flash.text.TextField;
 	import actors.*;
 	import util.*;
 

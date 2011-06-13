@@ -3,13 +3,16 @@ For example if you look at an isometric cliff, the sides (which is vertical) of 
 
 
 =========TERRAIN TYPES=========
-0. Passable			Passable terrain with grass texture
-1. Impassable			Impassable terrain, currently visible for testing purposes but will be made invisible
-2. Sidewalk, Passable, N	Passable terrain
-3. Dirt, Passable, N		Passable terrain
-4. Perkins Carpet		Passable terrain
-5. Perkins Wall, N		Impassable terrain
-6. 
+0. Perkins Carpet		Passable
+0. Perkins Carpet		Impassable, for use of decorations (tables, drawers)
+1. Perkins Wall, N		Impassable
+2. Perkins Kitchen Tiles	Passable
+2. Perkins Kitchen Tiles	Impassable, for decorations (oven, counter, sink)
+2. Grass			Passable with grass texture
+3. Impassable Grass		Impassable for use of decorations
+4. Sidewalk, Passable, N	Passable, sides of sidewalk is grass
+5. Road, Passable, N		Passable, sides of road is grass
+6. Dirt, Passable, N		Passable
 7. 
 8. 
 9. 

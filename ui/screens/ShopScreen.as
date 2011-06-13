@@ -1,5 +1,6 @@
 ﻿package ui.screens{
 
+	import flash.text.TextField;
 	import actors.*;
 	import abilities.*;
 	import items.*;

@@ -2,6 +2,8 @@
 An Enemy is something that the PC will attack. Obviously. 
 */
 package enemies{
+	
+	import flash.text.TextField;
 	import actors.*;
 	import attacks.*;
 	import effects.*;

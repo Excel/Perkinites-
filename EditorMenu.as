@@ -3,8 +3,8 @@ import flash.display.MovieClip;
 
 stop();
 
-var STAGE_WIDTH = 700;
-var STAGE_HEIGHT = 500;
+var STAGE_WIDTH = 1000;
+var STAGE_HEIGHT = 700;
 
 var sObj = SharedObject.getLocal("PERKINITESEDITOR");
 

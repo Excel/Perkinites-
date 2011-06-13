@@ -7,6 +7,7 @@ package enemies{
 	import effects.*;
 	import ui.hud.*;
 	import util.*;
+	import flash.text.TextField;
 
 	import flash.display.MovieClip;
 	import flash.display.Stage;

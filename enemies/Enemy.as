@@ -11,6 +11,7 @@ package enemies{
 	import ui.hud.*;
 	import util.*;
 
+	import flash.text.TextField;
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.*;
