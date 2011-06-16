@@ -13,7 +13,7 @@ var editorETypes = new Array("Chip", "Key", "Goal", "Swimming Fish", "Up-Down Sp
 							 "Jellyfish", "Blowfish", "Hot Volcano", "Volcano", "Delete Enemy");
 //---------------DOODADS----------------
 var editorDTypes = new Array("Clamshell", "Grass", "Coral Tree");
-TileMap.createTileMap(editorCode, 20, editorTiles2, clings, "com.EditorTile");
+TileMap.createTileMap(editorCode, 32, editorTiles2, clings, "com.EditorTile");
 
 var editorClip = new MovieClip();
 TileMap.addTiles(editorClip);

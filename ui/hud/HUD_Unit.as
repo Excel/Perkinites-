@@ -11,12 +11,9 @@
 	import flash.ui.*;
 
 	public class HUD_Unit extends MovieClip {
-		static var maxHPWidth;
 		static var currentHP;
 		static var partnerHP;
 
-		public var healthBar1;
-		public var healthBar2;
 
 		static public var autoUpdate;
 		var currentScore;
@@ -27,7 +24,6 @@
 			partnerHP=-1;
 			autoUpdate=false;
 			currentScore=0;
-			maxHPWidth=hpbar.HP.width;
 
 
 			hotkeyHolder.qIcon.gotoAndStop(1);
@@ -37,8 +33,6 @@
 			hotkeyHolder.sIcon.gotoAndStop(1);
 			hotkeyHolder.dIcon.gotoAndStop(1);
 			hotkeyHolder.fIcon.gotoAndStop(1);
-			hotkeyHolder.xIcon.gotoAndStop(1);
-			hotkeyHolder.cIcon.gotoAndStop(1);
 			ffIcon.gotoAndStop(1);
 
 			/*healthBar1=new HealthBar(Unit.currentUnit.HP,Unit.currentUnit.maxHP);

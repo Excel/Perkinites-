@@ -5,8 +5,10 @@
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.utils.getDefinitionByName;
+	import com.*;
 	import util.*;
 	public class TileMap {
+
 		public static var map:Array;
 		public static var TILE_SIZE:Number;
 		public static var MAX_IN_2880:Number;
@@ -72,8 +74,8 @@
 					
 					theBitmaps[r][c] = new Bitmap(theData[r][c]);
 					
-					theBitmaps[r][c].x = b * MAX_IN_2880 * TILE_SIZE;
-					theBitmaps[r][c].y = a * MAX_IN_2880 * TILE_SIZE;
+					theBitmaps[r][c].x = c * MAX_IN_2880 * TILE_SIZE;
+					theBitmaps[r][c].y = r * MAX_IN_2880 * TILE_SIZE;
 					
 					colSpace -= allotedWidth;
 					c++;
@@ -136,7 +138,6 @@
 				//trace("com." + wallBools[mnum]);
 				var i = new IATile(a, b);
 				InteractiveTile.addTile(i);
-				
 				interTiles[a][b] = i;
 			}
 			

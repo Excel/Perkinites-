@@ -28,6 +28,8 @@
 
 		public var decide:Boolean;
 		function Menu(stageRef:Stage = null) {
+
+			trace("Equipping is nonfunctional at the moment until I rework the equipping. Please don't do it.");
 			this.stageRef=stageRef;
 
 			x=0;
@@ -90,37 +92,38 @@
 
 		public function pageHandler(e) {
 			if (currentFrame!=1) {
-				gotoPage(1);
 				arrow.y=71;
 				hover.y=64;
+				gotoPage(1);
+
 			}
 		}
 		public function pageHandler2(e) {
 			if (currentFrame!=2) {
-				gotoPage(2);
 				arrow.y=71+32;
 				hover.y=64+32;
+				gotoPage(2);
 			}
 		}
 		public function pageHandler3(e) {
 			if (currentFrame!=3) {
-				gotoPage(3);
 				arrow.y=71+32*2;
 				hover.y=64+32*2;
+				gotoPage(3);
 			}
 		}
 		public function pageHandler4(e) {
 			if (currentFrame!=4) {
-				gotoPage(4);
 				arrow.y=71+32*3;
 				hover.y=64+32*3;
+				gotoPage(4);
 			}
 		}
 		public function pageHandler5(e) {
 			if (currentFrame!=5) {
-				gotoPage(5);
 				arrow.y=71+32*4;
 				hover.y=64+32*4;
+				gotoPage(5);
 			}
 		}
 		public function configHandler(e) {
@@ -183,6 +186,7 @@
 					freezeHotkeys();
 					setPassives(true);
 					setInventory(false);
+					setButtons();
 					break;
 				case 3 :
 					optionDisplay.text="Abilities";
@@ -239,21 +243,11 @@
 
 		}
 		public function freezeHotkeys() {
-			if (currentFrame==3) {
-				hotkeyIconArray=[hotkeyHolder.qIcon,hotkeyHolder.wIcon,
-				 hotkeyHolder.eIcon,hotkeyHolder.aIcon,
-				 hotkeyHolder.sIcon,hotkeyHolder.dIcon,
-				 hotkeyHolder.fIcon,hotkeyHolder.xIcon,
-				 hotkeyHolder.cIcon];
-			} else {
-				hotkeyIconArray=[hotkeyHolder.qIcon1,hotkeyHolder.wIcon1,
-				 hotkeyHolder.eIcon1,hotkeyHolder.aIcon1,
-				 hotkeyHolder.sIcon1,hotkeyHolder.dIcon1,
-				 hotkeyHolder.qIcon2,hotkeyHolder.wIcon2,
-				 hotkeyHolder.eIcon2,hotkeyHolder.aIcon2,
-				 hotkeyHolder.sIcon2,hotkeyHolder.dIcon2];
+			hotkeyIconArray=[hotkeyHolder.qIcon,hotkeyHolder.wIcon,
+			 hotkeyHolder.eIcon,hotkeyHolder.aIcon,
+			 hotkeyHolder.sIcon,hotkeyHolder.dIcon,
+			 hotkeyHolder.fIcon];
 
-			}
 
 			var i;
 			for (i = 0; i < hotkeyIconArray.length; i++) {
@@ -265,13 +259,16 @@
 				}
 				if (hotkeyArray[i]!=null) {
 					hotkeyIconArray[i].gotoAndStop(hotkeyArray[i].index);
-					if(currentFrame != 3){
-						hotkeyIconArray[i].type = "";
+					if (currentFrame!=3) {
+						hotkeyIconArray[i].type="";
 					}
 				} else {
 					hotkeyIconArray[i].gotoAndStop(1);
 					if (currentFrame!=3) {
 						hotkeyIconArray[i].visible=false;
+					}
+					else{
+						hotkeyIconArray[i].visible=true;
 					}
 				}
 			}
@@ -310,6 +307,16 @@
 					holderArray[i].getChildAt(j).mouseChildren=false;
 				}
 			}
+		}
+
+		public function setButtons() {
+			iaButton.buttonText.text="I + A";
+			aiButton.buttonText.text="A + I";
+			iButton.buttonText.text="Items";
+			aButton.buttonText.text="Abilities";
+
+			//add event listeners
+
 		}
 
 		public function increasePower(e) {

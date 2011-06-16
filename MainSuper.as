@@ -132,7 +132,6 @@ function cheatCodeHandler(e) {
 }
 
 uHUD.visible=false;
-friendshipBar.visible=false;
 
 //var stageSelect=new StageSelect(1,stage);
 //Hide objects
@@ -155,11 +154,9 @@ function setUp(e) {
 		HUDManager.setup(stage);
 		//HUDManager.toggleUnitHUD(true);
 		HUDManager.toggleEnemyHUD(true);
-		stage.addChild(friendshipBar);
 
 
 		uHUD.visible=true;
-		friendshipBar.visible=true;
 		stage.removeEventListener(Event.ENTER_FRAME,setUp);
 	}
 
