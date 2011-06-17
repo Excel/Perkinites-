@@ -11,7 +11,7 @@
 	public class PlayerDisplay extends MovieClip {
 
 		var index;
-		var gf1;
+		public var gf1;
 		function PlayerDisplay() {
 			index=0;
 			gf1=new GlowFilter(0xFF9900,100,20,20,1,5,true,false);
@@ -44,38 +44,7 @@
 		}
 
 
-		public function pageHandler(e) {
-
-
-			gotoPage(1);
-			button1.filters=[gf1];
-			button2.filters=[];
-			button3.filters=[];
-			button4.filters=[];
-		}
-		public function pageHandler2(e) {
-			gotoPage(2);
-			button1.filters=[];
-			button2.filters=[gf1];
-			button3.filters=[];
-			button4.filters=[];
-
-
-		}
-		public function pageHandler3(e) {
-			gotoPage(3);
-			button1.filters=[];
-			button2.filters=[];
-			button3.filters=[gf1];
-			button4.filters=[];
-		}
-		public function pageHandler4(e) {
-			gotoPage(4);
-			button1.filters=[];
-			button2.filters=[];
-			button3.filters=[];
-			button4.filters=[gf1];
-		}
+		
 
 		public function update() {
 
@@ -87,7 +56,6 @@
 					HPCount.text=ActorDatabase.getHP(index)+"";
 					APCount.text=ActorDatabase.getDmg(index)+"";
 					SPCount.text=ActorDatabase.getSpeed(index)+"";
-					CPCount.text=ActorDatabase.getCarry(index)+"";
 					weaponName.text=ActorDatabase.getWeapon(index);
 
 					wIcon.gotoAndStop(index+1);

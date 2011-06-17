@@ -38,6 +38,16 @@
 			playerDisplay1.visible=false;
 			playerDisplay2.visible=false;
 
+			playerDisplay1.button1.addEventListener(MouseEvent.CLICK, pageHandler);
+			playerDisplay1.button2.addEventListener(MouseEvent.CLICK, pageHandler2);
+			playerDisplay1.button3.addEventListener(MouseEvent.CLICK, pageHandler3);
+			playerDisplay1.button4.addEventListener(MouseEvent.CLICK, pageHandler4);
+
+			playerDisplay2.button1.addEventListener(MouseEvent.CLICK, pageHandler);
+			playerDisplay2.button2.addEventListener(MouseEvent.CLICK, pageHandler2);
+			playerDisplay2.button3.addEventListener(MouseEvent.CLICK, pageHandler3);
+			playerDisplay2.button4.addEventListener(MouseEvent.CLICK, pageHandler4);
+
 			if (pn1!=-1) {
 				beginButton.filters=[];
 				teamSelected=true;
@@ -161,5 +171,60 @@
 			Unit.currentUnit=new Unit(pn1);
 			Unit.partnerUnit=new Unit(pn1+1);
 		}
+
+
+		public function pageHandler(e) {
+			playerDisplay1.gotoPage(1);
+			playerDisplay1.button1.filters=[playerDisplay1.gf1];
+			playerDisplay1.button2.filters=[];
+			playerDisplay1.button3.filters=[];
+			playerDisplay1.button4.filters=[];
+
+			playerDisplay2.gotoPage(1);
+			playerDisplay2.button1.filters=[playerDisplay2.gf1];
+			playerDisplay2.button2.filters=[];
+			playerDisplay2.button3.filters=[];
+			playerDisplay2.button4.filters=[];
+		}
+		public function pageHandler2(e) {
+			playerDisplay1.gotoPage(2);
+			playerDisplay1.button1.filters=[];
+			playerDisplay1.button2.filters=[playerDisplay1.gf1];
+			playerDisplay1.button3.filters=[];
+			playerDisplay1.button4.filters=[];
+
+			playerDisplay2.gotoPage(2);
+			playerDisplay2.button1.filters=[];
+			playerDisplay2.button2.filters=[playerDisplay2.gf1];
+			playerDisplay2.button3.filters=[];
+			playerDisplay2.button4.filters=[];
+		}
+		public function pageHandler3(e) {
+			playerDisplay1.gotoPage(3);
+			playerDisplay1.button1.filters=[];
+			playerDisplay1.button2.filters=[];
+			playerDisplay1.button3.filters=[playerDisplay1.gf1];
+			playerDisplay1.button4.filters=[];
+
+			playerDisplay2.gotoPage(3);
+			playerDisplay2.button1.filters=[];
+			playerDisplay2.button2.filters=[];
+			playerDisplay2.button3.filters=[playerDisplay2.gf1];
+			playerDisplay2.button4.filters=[];
+		}
+		public function pageHandler4(e) {
+			playerDisplay1.gotoPage(4);
+			playerDisplay1.button1.filters=[];
+			playerDisplay1.button2.filters=[];
+			playerDisplay1.button3.filters=[];
+			playerDisplay1.button4.filters=[playerDisplay1.gf1];
+
+			playerDisplay2.gotoPage(4);
+			playerDisplay2.button1.filters=[];
+			playerDisplay2.button2.filters=[];
+			playerDisplay2.button3.filters=[];
+			playerDisplay2.button4.filters=[playerDisplay2.gf1];
+		}
+
 	}
 }

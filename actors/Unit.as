@@ -30,7 +30,6 @@ package actors{
 		/**
 		 * Key Commands
 		 */
-		static public var switchKey="R".charCodeAt(0);
 		static public var attackKey="C".charCodeAt(0);
 		static public var hotKey1="Q".charCodeAt(0);
 		static public var hotKey2="W".charCodeAt(0);
@@ -38,13 +37,13 @@ package actors{
 		static public var hotKey4="A".charCodeAt(0);
 		static public var hotKey5="S".charCodeAt(0);
 		static public var hotKey6="D".charCodeAt(0);
+		static public var hotKey7="F".charCodeAt(0);
 		static public var friendshipKey="Z".charCodeAt(0);
 		static public var menuKey="X".charCodeAt(0);
 		/**
 		 * Delays
 		 */
 
-		static public var switchDelay=0;
 		static public var menuDelay=0;
 		public var attackDelay=0;
 		public var hk1Delay=0;
@@ -53,6 +52,7 @@ package actors{
 		public var hk4Delay=0;
 		public var hk5Delay=0;
 		public var hk6Delay=0;
+		public var hk7Delay=0;
 		/**
 		 * Numerical Stats for the Units
 		 * FP - Friendship Points (max 10000)
@@ -85,18 +85,19 @@ package actors{
 		static public var EXP=0;
 		static public var nextEXP=200;
 		static public var maxLP=1;
-		static public var unitHUD;//= HUDManager.getUnitHUD();
+		//static public var unitHUD;//= HUDManager.getUnitHUD();
 
 		/**
 		 * Commands of the Unit
 		 */
-		public var hk1;
-		public var hk2;
-		public var hk3;
-		public var hk4;
-		public var hk5;
-		public var hk6;
-		public var finale;
+		static public var hk1;
+		static public var hk2;
+		static public var hk3;
+		static public var hk4;
+		static public var hk5;
+		static public var hk6;
+		static public var hk7;
+		static public var finale;
 		public var commands;
 
 		static public var abilityAmounts:Array=AbilityDatabase.amounts;
@@ -123,7 +124,6 @@ package actors{
 		 */
 
 		public var canAttack:Boolean;
-		public var canSwitch:Boolean;
 		public var canOpenMenu:Boolean;
 		public var canUseHotkeys:Array;
 
@@ -161,7 +161,6 @@ package actors{
 				passiveAbilities=[];
 
 				canAttack=true;
-				canSwitch=true;
 				canOpenMenu=true;
 				canUseHotkeys=new Array(true,true,true,true,true,true);
 
@@ -193,6 +192,9 @@ package actors{
 				case 6 :
 					hk6=a;
 					break;
+				case 7 :
+					hk7=a;
+					break;
 			}
 		}
 		public function begin() {
@@ -215,7 +217,6 @@ package actors{
 			if (! pauseAction&&! superPause&&! menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 					movePlayer();
-					//switchUnits(false);
 					useHotKey1();
 					useHotKey2();
 					useHotKey3();
@@ -247,7 +248,6 @@ package actors{
 		}
 
 		public function updateDelays() {
-			//switchDelay++;
 			attackDelay++;
 			hk1Delay++;
 			hk2Delay++;
@@ -255,6 +255,7 @@ package actors{
 			hk4Delay++;
 			hk5Delay++;
 			hk6Delay++;
+			hk7Delay++;
 			menuDelay++;
 		}
 		public function openMenu() {
@@ -263,26 +264,11 @@ package actors{
 				GameUnit.menuPause=true;
 			}
 		}
-		public function switchUnits(bypass) {
-			var temp;
-			if (bypass) {
-				end();
-				temp=Unit.currentUnit;
-				Unit.currentUnit=Unit.partnerUnit;
-				Unit.partnerUnit=temp;
-				HUD_Unit.autoUpdate=true;
-				begin();
-			} else {
-				if (KeyDown.keyIsDown(switchKey)&&switchDelay>=0&&Unit.partnerUnit.HP>0) {
-					switchDelay=-5;
-					end();
-					temp=Unit.currentUnit;
-					Unit.currentUnit=Unit.partnerUnit;
-					Unit.partnerUnit=temp;
-					HUD_Unit.autoUpdate=true;
-					begin();
-				}
-			}
+		public function switchUnits() {
+			var temp=Unit.currentUnit;
+			Unit.currentUnit=Unit.partnerUnit;
+			Unit.partnerUnit=temp;
+
 		}
 
 		public function useHotKey1() {
@@ -324,6 +310,13 @@ package actors{
 				hk6.activate(x, y);
 			}
 		}
+		public function useHotKey7() {
+			if (KeyDown.keyIsDown(hotKey7)&&hk3!=null&&hk7Delay>=0) {
+				hk7Delay=-1*hk7.delay;
+				hk7.activate(x, y);
+			}
+		}
+
 
 		public function useComboAttack() {
 			if (KeyDown.keyIsDown(attackKey)&&! KeyDown.keyIsDown(friendshipKey)&&attackDelay>=0) {
@@ -420,7 +413,6 @@ package actors{
 			}
 		}
 		public function KO() {
-			HUD_Unit.autoUpdate=true;
 			for (var i = 0; i < commands.length; i++) {
 				if (commands[i].Name=="Second Chance"&&commands[i].activate(x,y)) {
 					HP=1;
@@ -434,7 +426,7 @@ package actors{
 				}
 			}
 			if (Unit.currentUnit.HP<=0&&Unit.partnerUnit.HP<=0) {
-				var gameover = new GameOverScreen(stage);
+				var gameover=new GameOverScreen(stage);
 				Unit.currentUnit.end();
 				Unit.partnerUnit.end();
 			} else if (Unit.currentUnit.HP<=0) {

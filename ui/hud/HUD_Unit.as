@@ -15,14 +15,12 @@
 		static var partnerHP;
 
 
-		static public var autoUpdate;
 		var currentScore;
 		function HUD_Unit() {
 			x=0;
 			y=385;
 			currentHP=-1;
 			partnerHP=-1;
-			autoUpdate=false;
 			currentScore=0;
 
 
@@ -50,7 +48,7 @@
 		public function gameHandler(e) {
 			collide();
 			updateHP();
-			//updateName();
+			updateName();
 			//updateScore();
 
 			//updateHKeys();
@@ -273,12 +271,12 @@
 		}
 
 		public function updateName() {
-			/*if (currentHP>=0) {
+			if (currentHP>=0) {
 				unitName1.text=Unit.currentUnit.Name;
 			}
 			if (partnerHP>=0) {
 				unitName2.text=Unit.partnerUnit.Name;
-			}*/
+			}
 		}
 		/*public function updateScore() {
 		var i=0;
