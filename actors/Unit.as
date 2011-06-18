@@ -85,7 +85,7 @@ package actors{
 		static public var EXP=0;
 		static public var nextEXP=200;
 		static public var maxLP=1;
-		//static public var unitHUD;//= HUDManager.getUnitHUD();
+		static public var unitHUD = HUDManager.getUnitHUD();
 
 		/**
 		 * Commands of the Unit
@@ -98,6 +98,10 @@ package actors{
 		static public var hk6;
 		static public var hk7;
 		static public var finale;
+		
+		
+		static public var distributions = new Array(0, 0, 0, 0, 0, 0, 0);
+		static public var maxDistributions = new Array(0, 0, 0, 0, 0, 0, 0);
 		public var commands;
 
 		static public var abilityAmounts:Array=AbilityDatabase.amounts;
@@ -172,7 +176,7 @@ package actors{
 			}
 		}
 
-		public function setHotkey(id:int, a) {
+		static public function setHotkey(id:int, a) {
 			switch (id) {
 				case 1 :
 					hk1=a;
@@ -196,6 +200,22 @@ package actors{
 					hk7=a;
 					break;
 			}
+		}
+		
+		static public function switchDistributions(a:int, b:int){
+			var temp1 = distributions[a];
+			var temp2 = maxDistributions[a];
+			
+			distributions[a] = distributions[b];
+			maxDistributions[a] = maxDistributions[b];
+			distributions[b] = temp1;
+			maxDistributions[b] = temp2;
+		}
+		static public function transferDistribution(a:int, b:int){
+			distributions[b] = distributions[a];
+			maxDistributions[b] = maxDistributions[a];
+			distributions[b] = 0;
+			maxDistributions[b] = 0;
 		}
 		public function begin() {
 			addEventListener(Event.ENTER_FRAME,gameHandler);

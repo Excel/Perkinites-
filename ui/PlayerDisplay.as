@@ -21,11 +21,11 @@
 			button3.buttonText.text="3";
 			button4.buttonText.text="4";
 
-			button1.addEventListener(MouseEvent.CLICK, pageHandler);
+			/*button1.addEventListener(MouseEvent.CLICK, pageHandler);
 			button2.addEventListener(MouseEvent.CLICK, pageHandler2);
 			button3.addEventListener(MouseEvent.CLICK, pageHandler3);
 			button4.addEventListener(MouseEvent.CLICK, pageHandler4);
-
+			*/
 
 			button1.mouseChildren=false;
 			button2.mouseChildren=false;

@@ -36,7 +36,7 @@
 		public static const slowDurations=new Array(0,0,0,0,0,0,0);
 		public static const slowPercents=new Array(0,0,0,0,0,0,0,0);
 
-		public static const actives=new Array(true,true,true,true,true,true,true,true);
+		public static const actives=new Array(false,true,true,true,true,true,true,true);
 
 		public static function getName(id:int):String {
 			return names[id];

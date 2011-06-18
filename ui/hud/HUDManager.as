@@ -13,12 +13,11 @@
 
 	public class HUDManager extends MovieClip {
 
-		//Unit HUD doesn't work for some odd reason. Looking into it... =_____=
-		static public var unitHUD; //= new HUD_Unit();
+		static public var unitHUD = new HUD_Unit();
 		static public var enemyHUD = new HUD_Enemy();
 
 		static public function setup(stageRef:Stage) {
-			//stageRef.addChild(unitHUD);
+			stageRef.addChild(unitHUD);
 			stageRef.addChild(enemyHUD);
 	
 		}

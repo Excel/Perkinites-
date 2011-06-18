@@ -11,10 +11,9 @@
 	import flash.ui.*;
 
 	public class HUD_Unit extends MovieClip {
-		static var currentHP;
-		static var partnerHP;
-
-
+		var currentHP;
+		var partnerHP;
+		
 		var currentScore;
 		function HUD_Unit() {
 			x=0;
@@ -31,6 +30,7 @@
 			hotkeyHolder.sIcon.gotoAndStop(1);
 			hotkeyHolder.dIcon.gotoAndStop(1);
 			hotkeyHolder.fIcon.gotoAndStop(1);
+			
 			ffIcon.gotoAndStop(1);
 
 			/*healthBar1=new HealthBar(Unit.currentUnit.HP,Unit.currentUnit.maxHP);
@@ -51,7 +51,7 @@
 			updateName();
 			//updateScore();
 
-			//updateHKeys();
+			updateHKeys();
 			//updateProfile();
 		}
 
