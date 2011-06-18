@@ -38,7 +38,7 @@ package actors{
 		static public var hotKey5="S".charCodeAt(0);
 		static public var hotKey6="D".charCodeAt(0);
 		static public var hotKey7="F".charCodeAt(0);
-		static public var friendshipKey="Z".charCodeAt(0);
+		static public var friendshipKey=Keyboard.SPACE;
 		static public var menuKey="X".charCodeAt(0);
 		/**
 		 * Delays
@@ -257,8 +257,8 @@ package actors{
 					faceMouse();
 				}
 
-				if (KeyDown.keyIsDown("Z".charCodeAt(0))&&KeyDown.keyIsDown("C".charCodeAt(0))) {
-					if (FriendshipBar.percentage>=10000) {
+				if (KeyDown.keyIsDown(friendshipKey)) {
+					if (unitHUD.percentage>=10000) {
 						FP=0;
 						//Friendship Finale!
 					}
@@ -340,6 +340,8 @@ package actors{
 
 		public function useComboAttack() {
 			if (KeyDown.keyIsDown(attackKey)&&! KeyDown.keyIsDown(friendshipKey)&&attackDelay>=0) {
+				
+			Unit.FP+=1000;
 				attackDelay=-5;
 				var ax=this.parent.mouseX;
 				var ay=this.parent.mouseY;
@@ -415,6 +417,7 @@ package actors{
 					toggleAbilities(false);
 				}
 			}
+			unitHUD.updateHP();
 			//hud.updateHP prease :)
 		}
 

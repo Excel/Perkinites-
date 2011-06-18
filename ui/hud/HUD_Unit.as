@@ -13,14 +13,14 @@
 	public class HUD_Unit extends MovieClip {
 		var currentHP;
 		var partnerHP;
-		
-		var currentScore;
+		public var percentage;
+
 		function HUD_Unit() {
 			x=0;
 			y=385;
 			currentHP=-1;
 			partnerHP=-1;
-			currentScore=0;
+			percentage=0;
 
 
 			hotkeyHolder.qIcon.gotoAndStop(1);
@@ -30,7 +30,7 @@
 			hotkeyHolder.sIcon.gotoAndStop(1);
 			hotkeyHolder.dIcon.gotoAndStop(1);
 			hotkeyHolder.fIcon.gotoAndStop(1);
-			
+
 			ffIcon.gotoAndStop(1);
 
 			/*healthBar1=new HealthBar(Unit.currentUnit.HP,Unit.currentUnit.maxHP);
@@ -47,15 +47,41 @@
 
 		public function gameHandler(e) {
 			collide();
-			updateHP();
-			updateName();
-			//updateScore();
 
+			updateName();
+			updateFP();
 			updateHKeys();
 			//updateProfile();
 		}
 
 		public function updateHKeys() {
+			var hotkeyArray =[Unit.hk1, Unit.hk2, Unit.hk3, 
+			  Unit.hk4, Unit.hk5, Unit.hk6, 
+			  Unit.hk7];
+			var hotkeyIconArray = [hotkeyHolder.qIcon,
+			   hotkeyHolder.wIcon,
+			   hotkeyHolder.eIcon,
+			   hotkeyHolder.aIcon,
+			   hotkeyHolder.sIcon,
+			   hotkeyHolder.dIcon,
+			   hotkeyHolder.fIcon];
+
+			for (var i = 0; i < hotkeyArray.length; i++) {
+				if (hotkeyArray[i]!=null) {
+					hotkeyIconArray[i].useCount.visible=true;
+					hotkeyIconArray[i].gotoAndStop(hotkeyArray[i].index);
+					if (hotkeyArray[i] is Item) {
+
+						hotkeyIconArray[i].useCount.text=Unit.itemAmounts[hotkeyArray[i].index];
+					} else {
+						trace(hotkeyArray[i].uses);
+						hotkeyIconArray[i].useCount.text=hotkeyArray[i].uses;
+					}
+				} else {
+					hotkeyIconArray[i].gotoAndStop(1);
+					hotkeyIconArray[i].useCount.visible=false;
+				}
+			}
 			/*var index;
 			if (Unit.currentUnit.hk1!=null) {
 			var hk1=Unit.currentUnit.hk1;
@@ -186,88 +212,6 @@
 				}
 				//healthBar2.update(Unit.partnerUnit.HP, Unit.partnerUnit.maxHP);
 			}
-
-
-			/*var u1;
-			var u2;
-			if (autoUpdate) {
-			if (Unit.currentUnit!=null&&Unit.currentUnit.id!=-1) {
-			u1=Unit.currentUnit;
-			currentHP=u1.HP;
-			
-			hpbar.HP.width=maxHPWidth*currentHP/u1.maxHP;
-			if (currentHP<=0) {
-			HPDisplay1.text="000";
-			} else if (currentHP<10) {
-			HPDisplay1.text="00"+currentHP;
-			} else if (currentHP < 100) {
-			HPDisplay1.text="0"+currentHP;
-			} else {
-			HPDisplay1.text=currentHP;
-			}
-			
-			}
-			if (Unit.partnerUnit!=null&&Unit.partnerUnit.id!=-1) {
-			u2=Unit.partnerUnit;
-			partnerHP=u2.HP;
-			
-			}
-			if (partnerHP<=0) {
-			HPDisplay2.text="000";
-			} else if (partnerHP<10) {
-			HPDisplay2.text="00"+partnerHP;
-			} else if (partnerHP < 100) {
-			HPDisplay2.text="0"+partnerHP;
-			} else {
-			HPDisplay2.text=partnerHP;
-			}
-			autoUpdate=false;
-			} else {
-			if (Unit.currentUnit!=null&&Unit.currentUnit.id!=-1) {
-			u1=Unit.currentUnit;
-			if (currentHP==-1) {
-			currentHP=u1.HP;
-			}
-			if (currentHP<u1.HP) {
-			currentHP++;
-			} else if (currentHP > u1.HP) {
-			currentHP--;
-			}
-			
-			hpbar.HP.width=maxHPWidth*currentHP/u1.maxHP;
-			if (currentHP<=0) {
-			HPDisplay1.text="000";
-			} else if (currentHP<10) {
-			HPDisplay1.text="00"+currentHP;
-			} else if (currentHP < 100) {
-			HPDisplay1.text="0"+currentHP;
-			} else {
-			HPDisplay1.text=currentHP;
-			}
-			
-			}
-			if (Unit.partnerUnit!=null&&Unit.partnerUnit.id!=-1) {
-			u2=Unit.partnerUnit;
-			if (partnerHP==-1) {
-			partnerHP=u2.HP;
-			}
-			if (partnerHP<u2.HP) {
-			partnerHP++;
-			} else if (partnerHP > u2.HP) {
-			partnerHP--;
-			}
-			}
-			if (partnerHP<=0) {
-			HPDisplay2.text="000";
-			} else if (partnerHP<10) {
-			HPDisplay2.text="00"+partnerHP;
-			} else if (partnerHP < 100) {
-			HPDisplay2.text="0"+partnerHP;
-			} else {
-			HPDisplay2.text=partnerHP;
-			}
-			}
-			*/
 		}
 
 		public function updateName() {
@@ -278,45 +222,34 @@
 				unitName2.text=Unit.partnerUnit.Name;
 			}
 		}
-		/*public function updateScore() {
-		var i=0;
-		var limit=0;
-		score.text="";
-		if (currentScore<Unit.score) {
-		currentScore+=100+Math.floor(Math.random()*2);
-		for (i = 0; i < 10; i++) {
-		if (Math.floor(currentScore/Math.pow(10,i+1))==0) {
-		limit=9-i;
-		break;
+
+		public function updateFP() {
+			for (var i = 0; i < 10; i++) {
+				if (percentage<Unit.FP) {
+					percentage+=10;
+				}
+			}
+			if (percentage>Unit.FP) {
+				percentage-=500;
+			}
+
+			if (percentage>10000) {
+				percentage=10000;
+			}
+			friendshipBar.FP.width=62*percentage/10000;
+			if (percentage<=0) {
+				FPDisplay.text="00.0%";
+			} else if (percentage<1000) {
+				FPDisplay.text="0"+Math.floor(percentage/100)+"."+(percentage%100)/10+"%";
+			} else if (percentage < 10000) {
+				FPDisplay.text=Math.floor(percentage/100)+"."+(percentage%100)/10+"%";
+			} else {
+				FPDisplay.text="100.0%";
+			}
 		}
-		}
-		for (i = 0; i < limit; i++) {
-		score.appendText("0");
-		}
-		score.appendText(currentScore);
-		} else if (Unit.score == 0) {
-		currentScore=0;
-		for (i = 0; i < limit; i++) {
-		score.appendText("0");
-		}
-		}
-		if (currentScore>=Unit.score) {
-		currentScore=Unit.score;
-		for (i = 0; i < 10; i++) {
-		if (Math.floor(currentScore/Math.pow(10,i+1))==0) {
-		limit=9-i;
-		break;
-		}
-		}
-		for (i = 0; i < limit; i++) {
-		score.appendText("0");
-		}
-		score.appendText(currentScore);
-		}
-		
-		
-		}
-		*/
+
+
+
 		public function collide() {
 			var u1;
 			var u2;

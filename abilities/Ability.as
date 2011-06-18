@@ -76,7 +76,7 @@ package abilities{
 			
 			maxCooldown = cooldown = AbilityDatabase.getCooldown(id);
 			amount = a;
-			uses	= 0;
+			uses	= a;
 			maxUses	= 0;
 			active=false;
 			delay	= 10;

@@ -28,10 +28,8 @@
 		public var pCover1;
 		public var pCover2;
 
-		public var decide:Boolean;
 		function Menu(stageRef:Stage = null) {
 			
-			trace("Basic equipping should work.");
 			this.stageRef=stageRef;
 
 			iaOption=0;
@@ -41,7 +39,7 @@
 
 			hotkeyArray=new Array(Unit.hk1,Unit.hk2,Unit.hk3,Unit.hk4,Unit.hk5,Unit.hk6,Unit.hk7);
 			hotkeyIconArray = new Array();
-			optionArray=new Array("\nCheck yo active Perkinites! You got this gurrrrrrrrrl! ;)",
+			optionArray=new Array("\nCheck on yo Perkinites! You got this gurrrrrrrrrl! ;)",
 			  "Drag + drop Active Icons to your Hotkeys for battle and Passive Icons to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
 			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)",
 			  "Drag + drop Active Items to your Hotkeys for battle! Drag + drop Passive Items to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
@@ -793,8 +791,9 @@
 								hkIcon.gotoAndStop(obj.currentFrame);
 								hkIcon.visible=true;
 								hkIcon.type="Ability";
-								hotkeyArray[i]=new Ability(index,0);
-								Unit.setHotkey(i+1, new Ability(index, 0));
+								trace(AbilityDatabase.getUses(index));
+								hotkeyArray[i]=new Ability(index,AbilityDatabase.getUses(index));
+								Unit.setHotkey(i+1, new Ability(index, AbilityDatabase.getUses(index)));
 								Unit.abilityAmounts[index]--;
 								break;
 							}
@@ -805,8 +804,8 @@
 			}
 			stageRef.removeChild(obj);
 			obj.stopDrag();
-
 			obj.removeEventListener(MouseEvent.MOUSE_UP, releaseIcon);
+			stageRef.focus=null;
 		}
 
 		public function moveActiveIcon(e) {

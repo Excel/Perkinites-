@@ -22,9 +22,7 @@
 		}
 
 		public function gameHandler(e) {
-			collide();
 			updateFP();
-			animate();
 		}
 		public function updateFP() {
 			for (var i = 0; i < 10; i++) {
@@ -55,43 +53,8 @@
 				FPCount.text="100.00%";
 			}
 		}
-		public function collide() {
-			var u1;
-			var u2;
-			if (Unit.currentUnit!=null) {
-				u1=Unit.currentUnit;
-			}
-			if (Unit.partnerUnit!=null) {
-				u2=Unit.partnerUnit;
-			}
-
-			if (this.hitTestObject(u1)||this.hitTestObject(u2)) {
-				if (alpha>0.5) {
-					alpha-=0.1;
-				}
-			} else {
-				if (alpha<1) {
-					alpha+=0.1;
-				}
-			}
-
-		}
-		public function animate() {
-			if (percentage>=10000) {
-				if (fp.currentFrame==6) {
-					out=false;
-				} else if (fp.currentFrame == 1) {
-					out=true;
-				}
-				if (out) {
-					fp.gotoAndStop(fp.currentFrame+1);
-				} else {
-					fp.gotoAndStop(fp.currentFrame-1);
-				}
-			} else {
-				fp.gotoAndStop(1);
-			}
-		}
+		
+		
 	}
 
 
