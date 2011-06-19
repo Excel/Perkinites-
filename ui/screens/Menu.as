@@ -29,7 +29,7 @@
 		public var pCover2;
 
 		function Menu(stageRef:Stage = null) {
-			
+
 			this.stageRef=stageRef;
 
 			iaOption=0;
@@ -149,17 +149,17 @@
 				case 1 :
 					page1.visible=true;
 					page2.visible=false;
-					page3.visible = false;
+					page3.visible=false;
 					break;
 				case 2 :
 					page1.visible=false;
 					page2.visible=true;
-					page3.visible = false;
+					page3.visible=false;
 					break;
 				case 3 :
 					page1.visible=false;
 					page2.visible=false;
-					page3.visible = true;
+					page3.visible=true;
 					break;
 			}
 			removeCovers();
@@ -227,24 +227,63 @@
 			if (type=="Item") {
 				thingIcon.gotoAndStop(ItemDatabase.getIndex(index));
 				thingName.text=ItemDatabase.getName(index);
-				useInfo.text="";
-				rangeInfo.text="";
+				useInfo.text=grabActivation(index,type);
+				effectInfo.text=grabSpec(index,type);
+				rangeInfo.text="RANGE: "+ItemDatabase.getRange(index);
 				cooldownInfo.text="COOLDOWN: "+ItemDatabase.getCooldown(index);
-				availabilityInfo.text="";
+				availabilityInfo.text="Available to "+ItemDatabase.getAvailability(index);
 				thingDescription.text=ItemDatabase.getDescription(index);
 			} else if (type == "Ability") {
 				thingIcon.gotoAndStop(AbilityDatabase.getIndex(index));
 				thingName.text=AbilityDatabase.getName(index);
-				useInfo.text="";
-				rangeInfo.text="";
+				useInfo.text=grabActivation(index,type);
+				effectInfo.text=grabSpec(index,type);
+				rangeInfo.text="RANGE: "+AbilityDatabase.getRange(index);
 				cooldownInfo.text="COOLDOWN: "+AbilityDatabase.getCooldown(index);
-				availabilityInfo.text="";
+				availabilityInfo.text="Available to "+AbilityDatabase.getAvailability(index);
 				thingDescription.text=AbilityDatabase.getDescription(index);
 			}
+		}
 
-
-
-
+		public function grabSpec(index:int, type:String) {
+			var spec="";
+			if (type=="Item") {
+				spec=ItemDatabase.getSpec(index);
+				switch (spec) {
+					case "Damage" :
+						spec="Damage = "+ItemDatabase.getDamage(index);
+						break;
+					case "Healing+" :
+						spec="Healing + "+ItemDatabase.getHPLumpChange(index);
+						break;
+					case "Healing%" :
+						spec="Healing + "+ItemDatabase.getHPPercChange(index)+"%";
+						break;
+				}
+			} else if (type == "Ability") {
+				spec=AbilityDatabase.getSpec(index);
+				switch (spec) {
+					case "Damage" :
+						spec="Damage = "+AbilityDatabase.getDamage(index);
+						break;
+					case "Healing+" :
+						spec="Healing + "+AbilityDatabase.getHPLumpChange(index);
+						break;
+					case "Healing%" :
+						spec="Healing % "+AbilityDatabase.getHPPercChange(index)+"%";
+						break;
+				}
+			}
+			return spec;
+		}
+		public function grabActivation(index:int, type:String) {
+			var activation="USE: ";
+			if (type=="Item") {
+				activation=activation+ItemDatabase.getActivation(index);
+			} else if (type == "Ability") {
+				activation=activation+AbilityDatabase.getActivation(index);
+			}
+			return activation;
 		}
 		public function freezeHotkeys() {
 			var hotkeyHolder;
@@ -484,7 +523,7 @@
 
 
 			if (iaOption==0||iaOption==1) {
-				if (Unit.currentUnit.passiveItems.length+Unit.currentUnit.passiveAbilities.length>2 && drawBG) {
+				if (Unit.currentUnit.passiveItems.length+Unit.currentUnit.passiveAbilities.length>2&&drawBG) {
 					page2.passiveList1.addChild(bound);
 					bound.graphics.lineStyle(1,0x000000);
 					bound.graphics.beginFill(0x565656);
@@ -518,7 +557,7 @@
 
 			var bound2:Sprite = new Sprite();
 			if (iaOption==0||iaOption==1) {
-				if (Unit.partnerUnit.passiveItems.length+Unit.partnerUnit.passiveAbilities.length>2  && drawBG) {
+				if (Unit.partnerUnit.passiveItems.length+Unit.partnerUnit.passiveAbilities.length>2&&drawBG) {
 					page2.passiveList2.addChild(bound2);
 					bound2.graphics.lineStyle(1,0x000000);
 					bound2.graphics.beginFill(0x565656);
@@ -562,7 +601,7 @@
 			var i;
 			var bound:Sprite = new Sprite();
 			if (iaOption==0||iaOption==1) {
-				if (Unit.currentUnit.passiveItems.length+Unit.currentUnit.passiveAbilities.length>2 && drawBG) {
+				if (Unit.currentUnit.passiveItems.length+Unit.currentUnit.passiveAbilities.length>2&&drawBG) {
 					page2.passiveList1.addChild(bound);
 					bound.graphics.lineStyle(1,0x000000);
 					bound.graphics.beginFill(0x565656);
@@ -595,7 +634,7 @@
 
 			var bound2:Sprite = new Sprite();
 			if (iaOption==0||iaOption==1) {
-				if (Unit.partnerUnit.passiveItems.length+Unit.partnerUnit.passiveAbilities.length>2 && drawBG) {
+				if (Unit.partnerUnit.passiveItems.length+Unit.partnerUnit.passiveAbilities.length>2&&drawBG) {
 					page2.passiveList2.addChild(bound2);
 					bound2.graphics.lineStyle(1,0x000000);
 					bound2.graphics.beginFill(0x565656);
@@ -735,7 +774,9 @@
 						for (i = 0; i < hotkeyIconArray.length; i++) {
 							hkIcon=hotkeyIconArray[i];
 
-							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)) {
+							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false) && 
+								(hotkeyArray[i] == null ||
+								(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 
 								//if the hotkey had something in it
 								if (hotkeyArray[i]!=null) {
@@ -778,7 +819,9 @@
 					if (AbilityDatabase.getActive(index)) {
 						for (i = 0; i < hotkeyIconArray.length; i++) {
 							hkIcon=hotkeyIconArray[i];
-							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)) {
+							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)  && 
+								(hotkeyArray[i] == null ||
+								(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 
 								//if the hotkey had something in it
 								if (hotkeyArray[i]!=null) {
@@ -814,7 +857,8 @@
 			if (obj is TextField) {
 				obj=obj.parent;
 			}
-			if (hotkeyArray[hotkeyIconArray.indexOf(obj)]!=null) {
+			var hotkey = hotkeyArray[hotkeyIconArray.indexOf(obj)];
+			if (hotkey!=null && hotkey.cooldown >= hotkey.maxCooldown) {
 				var index;
 				if (obj.parent!=stageRef) {
 					if (obj.type=="Item") {
@@ -859,7 +903,9 @@
 
 			for (i = 0; i < hotkeyIconArray.length; i++) {
 				var hkIcon=hotkeyIconArray[i];
-				if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)&&hkIcon!=obj) {
+				if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)&&hkIcon!=obj &&
+					(hotkeyArray[i] == null ||
+					(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 					backToInventory=false;
 
 

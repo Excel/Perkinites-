@@ -58,6 +58,7 @@ package items{
 			atkDmgLump=ItemDatabase.getAtkDmgLump(id);
 			cdPercChange=ItemDatabase.getCDPercChange(id);
 
+			range = ItemDatabase.getRange(id);
 			maxCooldown=cooldown=ItemDatabase.getCooldown(id);
 			if (a!=0) {
 				amount = a;

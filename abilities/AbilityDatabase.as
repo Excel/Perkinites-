@@ -18,12 +18,26 @@
 
 		// icon frame in fla
 		public static const index=new Array(3,4,1,1,1,1,1);
+		public static const ranges = new Array(0,600,0,0,0,0,0);
 
 		public static const uses=new Array(1,1,1,1,1,1,1,1);
 		public static const amounts = new Array(0,0,0,0,0,0,0,0);
-		public static const cooldowns=new Array(10,10,10,10,10,10,10,10);
+		public static const cooldowns=new Array(10,60,10,10,10,10,10,10);
+	
+		//actual availability will be defined for each unit, saying what skills they can actually equip :)
+		//this is just the message that shows up in the menu
+		public static const activations = new Array(0,1,0,0,0,0,0);
+		public static const activationLabels = new Array("Automatic",
+														 "Hotkey",
+														 "Hotkey -> L-Click",
+														 "Hotkey -> Select Unit");
+		public static const availabilities = new Array("C. Kata","C. Kata","Charles Y.","Cia M.","","","");
+		public static const specs = new Array("Damage", "Passive", "Support", "Passive", "","","");
+		public static const values = new Array(0,0,0,0,0,0,0);
 		public static const delays=new Array(10,10,10,10,10,10,10,10);
-
+		
+		
+		public static const damage = new Array(0,0,0,0,0,0,0);
 		public static const hpPercChange=new Array(0,0,0,25,0,0,0,0);
 		public static const hpLumpChange=new Array(0,0,0,0,0,0,0,0);
 		public static const atkSpeedPerc=new Array(0,20,0,0,0,0,0,0);
@@ -47,14 +61,32 @@
 		public static function getIndex(id:int):int {
 			return index[id];
 		}
+		public static function getRange(id:int):int{
+			return ranges[id];
+		}
 		public static function getUses(id:int):int {
 			return uses[id];
 		}
 		public static function getCooldown(id:int):int {
 			return cooldowns[id];
 		}
+		public static function getActivation(id:int):String{
+			return activationLabels[activations[id]];
+		}
+		public static function getAvailability(id:int):String{
+			return availabilities[id];
+		}
+		public static function getSpec(id:int):String{
+			return specs[id];
+		}
+		public static function getDelay(id:int):int{
+			return delays[id];
+		}
 
 
+		public static function getDamage(id:int):int{
+			return damage[id];
+		}
 		public static function getHPPercChange(id:int):int {
 			return hpPercChange[id];
 		}

@@ -8,6 +8,7 @@ package abilities{
 	import flash.ui.Keyboard;
 
 	import actors.*;
+	import game.*;
 
 	public class Ability extends MovieClip {
 
@@ -22,7 +23,7 @@ package abilities{
 		public var Name;
 		public var description;
 		public var index;
-		
+
 		public var id;
 		public var amount;
 
@@ -33,19 +34,20 @@ package abilities{
 		public var atkDmgPerc:int;
 		public var atkDmgLump:int;
 		public var cdPercChange:int;
-		
+
 		/**
 		 * Info
 		 */
-
+		
+		public var range:int;
 		public var cooldown:int;//cooldown time measured in seconds
 		public var maxCooldown:int;
 		public var uses:int;
 		public var maxUses:int;//number of uses before cooldown
 		public var active:Boolean;//whether or not the ability can be equipped to a hotkey or passive
-		public var delay:int; //wait time before using again immediately
+		public var delay:int;//wait time before using again immediately
 		static public var tileMap;
-		
+
 		/**
 		 * What kind of ability it is
 		 */
@@ -54,46 +56,55 @@ package abilities{
 		public var ranger:Boolean;
 		public var targeter:Boolean;
 		public var other:Boolean;
-		
+
 		/**
 		 * Targets
 		 */
-		 public var targets:Array;
+		public var targets:Array;
 
 		public function Ability(id:int, a:int) {
-			Name	=	AbilityDatabase.getName(id);
-			description = AbilityDatabase.getDescription(id);
-			index	= AbilityDatabase.getIndex(id);
-			this.id = id;
-			
-			hpPercChange= AbilityDatabase.getHPPercChange(id);
-			hpLumpChange= AbilityDatabase.getHPLumpChange(id);
-			atkSpeedPerc= AbilityDatabase.getAtkSpeedPerc(id);
-			mvSpeedPerc	= AbilityDatabase.getMvSpeedPerc(id);
-			atkDmgPerc	= AbilityDatabase.getAtkDmgPerc(id);
-			atkDmgLump	= AbilityDatabase.getAtkDmgLump(id);
-			cdPercChange= AbilityDatabase.getCDPercChange(id);
-			
-			maxCooldown = cooldown = AbilityDatabase.getCooldown(id);
-			amount = a;
-			uses	= a;
-			maxUses	= 0;
+			Name=AbilityDatabase.getName(id);
+			description=AbilityDatabase.getDescription(id);
+			index= AbilityDatabase.getIndex(id);
+			this.id=id;
+
+			hpPercChange=AbilityDatabase.getHPPercChange(id);
+			hpLumpChange=AbilityDatabase.getHPLumpChange(id);
+			atkSpeedPerc=AbilityDatabase.getAtkSpeedPerc(id);
+			mvSpeedPerc= AbilityDatabase.getMvSpeedPerc(id);
+			atkDmgPerc= AbilityDatabase.getAtkDmgPerc(id);
+			atkDmgLump= AbilityDatabase.getAtkDmgLump(id);
+			cdPercChange=AbilityDatabase.getCDPercChange(id);
+
+			range = AbilityDatabase.getRange(id);
+			maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
+			amount=a;
+			uses= AbilityDatabase.getUses(id);
+			maxUses= AbilityDatabase.getUses(id);
 			active=false;
-			delay	= 10;
-			bomber	= dasher = ranger = targeter = other = false;
+			delay= 10;
+			bomber= dasher = ranger = targeter = other = false;
 		}
 		public function activate(xpos, ypos) {
+			if (uses>0) {
+				uses-=1;
+				if (uses<=0) {
+					addEventListener(Event.ENTER_FRAME, cooldownHandler);
+				}
+			}
 		}
 		public function cancel() {
 		}
-		public function enable(switchOn){
+		public function enable(switchOn) {
 		}
 		public function cooldownHandler(e) {
+			if(!GameUnit.menuPause && !GameUnit.superPause){
 			cooldown--;
 			if (cooldown<=0) {
 				removeEventListener(Event.ENTER_FRAME, cooldownHandler);
-				cooldown=0;
+				maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
 				uses=maxUses;
+			}
 			}
 		}
 	}
