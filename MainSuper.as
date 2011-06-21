@@ -13,6 +13,13 @@ import util.*;
 
 //Screens
 
+//Load all XML Data
+
+ActorDatabase.loadData();
+//AbilityDatabase.loadData();
+//EnemyDatabase.loadData();
+//ItemDatabase.loadData();
+		
 stage.stageFocusRect = false;
 
 var cursor = new Cursor(stage);

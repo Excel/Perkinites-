@@ -18,7 +18,7 @@
 			x=79;
 			y=2;
 			this.visible=false;
-			addEventListener(Event.ENTER_FRAME, collideHandler);
+			//addEventListener(Event.ENTER_FRAME, collideHandler);
 		}
 
 		public function collideHandler(e) {

@@ -1,0 +1,30 @@
+<Actors>
+	<Actor>
+		<name> C. Kata</name>
+		<health> 75 </health>
+		<attack> 5 </attack>
+		<defense> 0 </defense>
+		<speed> 17 </speed>
+	</Actor>
+	<Actor>
+		<name> Cia M.</name>
+		<health> 90 </health>
+		<attack> 2 </attack>
+		<defense> 0 </defense>
+		<speed> 17 </speed>
+	</Actor>
+	<Actor>
+		<name> Charles Y.</name>
+		<health> 60 </health>
+		<attack> 3 </attack>
+		<defense> 0 </defense>
+		<speed> 20 </speed>
+	</Actor>
+	<Actor>
+		<name> Nate M.</name>
+		<health> 100 </health>
+		<attack> 5 </attack>
+		<defense> 0 </defense>
+		<speed> 16 </speed>
+	</Actor>
+</Actors>

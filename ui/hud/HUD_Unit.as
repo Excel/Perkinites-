@@ -85,7 +85,7 @@
 			}
 		}
 		public function gameHandler(e) {
-			collide();
+			//collide();
 
 			updateName();
 			//updateFP();
