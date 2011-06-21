@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Abilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Ability>
+		<Name>Kendo Strike</Name>
+		<Availability>Charles Y.</Availability>
+		<Range>80</Range>
+		<Cooldown>200</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Charges in a direction, dealing damage to enemies in a line</Description>
+	</Ability>
+	<Ability>
+		<Name>Motivate</Name>
+		<Availability>Charles Y.</Availability>
+		<Range>140</Range>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Improve self and ally's attack speeds</Description>
+	</Ability>
+	<Ability>
+		<Name>Ninjutsu</Name>
+		<Availability>Charles Y.</Availability>
+		<Range>30</Range>
+		<Cooldown>150</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Description>Teleport self and ally to a point</Description>
+	</Ability>
+	<Ability>
+		<Name>Railgun Attack</Name>
+		<Availability>C. Kata</Availability>
+		<Range>400</Range>
+		<Cooldown>16</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>6</Delay>
+		<Description>Basic Attack: Shoots a bullet toward a target.</Description>
+	</Ability>
+	<Ability>
+		<Name>Eyelash Batting</Name>
+		<Availability>C. Kata</Availability>
+		<Range>500</Range>
+		<Cooldown>150</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Stuns an enemy for two seconds.</Description>
+	</Ability>
+	<Ability>
+		<Name>Shoe Throwing</Name>
+		<Availability>C. Kata</Availability>
+		<Range>500</Range>
+		<Cooldown>72</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Throws a random shoe toward a target out of anger.</Description>
+	</Ability>
+	<Ability>
+		<Name>Aggressive Mediation</Name>
+		<Availability>C. Kata</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>8</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Jump up and down violently, which solves nothing at all. HA TAKE THAT KATA</Description>
+	</Ability>
+	<Ability>
+		<Name>Tentacle Attack</Name>
+		<Availability>Eric H.</Availability>
+		<Range>80</Range>
+		<Cooldown>12</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>6</Delay>
+		<Description>Basic Attack: Slash at nearby enemies with tentacles.</Description>
+	</Ability>
+	<Ability>
+		<Name>Perk-kulate</Name>
+		<Availability>Eric H.</Availability>
+		<Range>50</Range>
+		<Cooldown>60</Cooldown>
+		<Uses>3</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Damages nearby enemies</Description>
+	</Ability>
+	<Ability>
+		<Name>Violation of Personal Space</Name>
+		<Availability>Eric H.</Availability>
+		<Range>100</Range>
+		<Cooldown>70</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Charge in a group of enemies, slowing and damaging them</Description>
+	</Ability>
+	<Ability>
+		<Name>Awkward Stare</Name>
+		<Availability>Eric H.</Availability>
+		<Range>100</Range>
+		<Cooldown>80</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Stuns himself and nearby enemies</Description>
+	</Ability>
+	<Ability>
+		<Name>Hoverpad Attack</Name>
+		<Availability>John T.</Availability>
+		<Range>300</Range>
+		<Cooldown>12</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>4</Delay>
+		<Description>Basic Attack: Shoots two guided lasers toward a target.</Description>
+	</Ability>
+	<Ability>
+		<Name>Stomping Ground</Name>
+		<Availability>John T.</Availability>
+		<Range>200</Range>
+		<Cooldown>80</Cooldown>
+		<Uses>2</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Shoots four arrows toward a target. </Description>
+	</Ability>
+	<Ability>
+		<Name>D4X</Name>
+		<Availability>John T.</Availability>
+		<Range>500</Range>
+		<Cooldown>120</Cooldown>
+		<Uses>5</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>8</Delay>
+		<Description>Dashes in a straight line, inflicting Stun. </Description>
+	</Ability>
+	<Ability>
+		<Name>Mediation</Name>
+		<Availability>John T.</Availability>
+		<Range>300</Range>
+		<Cooldown>90</Cooldown>
+		<Uses>2</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Description>Creates a magic and apologetic wall that lasts for four seconds.</Description>
+	</Ability>
+	<Ability>
+		<Name>Apologizing</Name>
+		<Availability>John T.</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>0</Value>
+		<Delay>0</Delay>
+		<Description>Restores 1 HP per second. But really, he stopped doing this a few months ago. No REALLY. OMG SHUT UP, YOU HATER.</Description>
+	</Ability>
+	<Ability>
+		<Name>Staff Attack</Name>
+		<Availability>Chloe  C.</Availability>
+		<Range>60</Range>
+		<Cooldown>8</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>4</Delay>
+		<Description>Basic Attack: Whack nearby enemies with a medical staff.</Description>
+	</Ability>
+	<Ability>
+		<Name>Happy Healing</Name>
+		<Availability>Chloe  C.</Availability>
+		<Range>70</Range>
+		<Cooldown>720</Cooldown>
+		<Uses>3</Uses>
+		<Activate>3</Activate>
+		<Value>0</Value>
+		<Delay>4</Delay>
+		<Description>Restores some HP to a target Unit.</Description>
+	</Ability>
+	<Ability>
+		<Name>Shield</Name>
+		<Availability>Chloe  C.</Availability>
+		<Range>50</Range>
+		<Cooldown>720</Cooldown>
+		<Uses>3</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>72</Delay>
+		<Description>Creates an invulnerable barrier around Chloe that lasts for five seconds.</Description>
+	</Ability>
+	<Ability>
+		<Name>Healthy Explosion</Name>
+		<Availability>Chloe  C.</Availability>
+		<Range>80</Range>
+		<Cooldown>100</Cooldown>
+		<Uses>5</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Description>Damages close target</Description>
+	</Ability>
+	<Ability>
+		<Name>Ouchies :(</Name>
+		<Availability>Chloe C.</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>0</Value>
+		<Delay>0</Delay>
+		<Description>Reduce ongoing cooldowns by 6 frames each time this Unit is hit.</Description>
+	</Ability>
+	<Ability>
+		<Name>Grrsies &gt;:(</Name>
+		<Availability>Veronica C.</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>0</Value>
+		<Delay>0</Delay>
+		<Description>Increase your team's attack powers by 1 each time this Unit is hit.</Description>
+	</Ability>
+	<Ability>
+		<Name>Break Time</Name>
+		<Availability>All Perkinites</Availability>
+		<Range>0</Range>
+		<Cooldown>720</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>20</Value>
+		<Delay>12</Delay>
+		<Description>All enemies and their attacks are frozen for three seconds.</Description>
+	</Ability>
+	<Ability>
+		<Name>Greedy</Name>
+		<Availability>All Perkinites</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>5</Value>
+		<Delay>0</Delay>
+		<Description>Increase the Flexpoint drop rate of defeated enemies.</Description>
+	</Ability>
+	<Ability>
+		<Name>Popularity</Name>
+		<Availability>All Perkinites</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>5</Value>
+		<Delay>0</Delay>
+		<Description>Increase the item drop rate of defeated enemies.</Description>
+	</Ability>
+	<Ability>
+		<Name>Second Chance</Name>
+		<Availability>All Perkinites</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>15</Value>
+		<Delay>0</Delay>
+		<Description>Revives this Unit to 1 HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
+	</Ability>
+	<Ability>
+		<Name>Second Wind</Name>
+		<Availability>All Perkinites</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>30</Value>
+		<Delay>0</Delay>
+		<Description>Revives this Unit to half HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
+	</Ability>
+	<Ability>
+		<Name>Second World</Name>
+		<Availability>All Perkinites</Availability>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>60</Value>
+		<Delay>0</Delay>
+		<Description>Revives this Unit to full HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
+	</Ability>
+	<Ability>
+		<Name>Girly Swirl</Name>
+		<Availability>All Girls</Availability>
+		<Range>400</Range>
+		<Cooldown>48</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Description>Launches a grrl-rific swirl attack at an enemy. Gangsters take 2800 damage.</Description>
+	</Ability>
+	<Ability>
+		<Name>Gossip</Name>
+		<Availability>All Girls</Availability>
+		<Range>400</Range>
+		<Cooldown>48</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Description>Launches a grrl-rific gossip attack at an enemy. Gangsters take 28000 damage.</Description>
+	</Ability>
+</Abilities>

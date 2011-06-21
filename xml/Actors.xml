@@ -1,30 +1,51 @@
-<Actors>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Actors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Actor>
-		<name> C. Kata</name>
-		<health> 75 </health>
-		<attack> 5 </attack>
-		<defense> 0 </defense>
-		<speed> 17 </speed>
+		<Name>C. Kata</Name>
+		<Health>75</Health>
+		<Attack>4</Attack>
+		<Defense>0</Defense>
+		<Speed>17</Speed>
+		<Abilities>Railgun</Abilities>
 	</Actor>
 	<Actor>
-		<name> Cia M.</name>
-		<health> 90 </health>
-		<attack> 2 </attack>
-		<defense> 0 </defense>
-		<speed> 17 </speed>
+		<Name>Cia M.</Name>
+		<Health>60</Health>
+		<Attack>2</Attack>
+		<Defense>0</Defense>
+		<Speed>17</Speed>
+		<Abilities>Magic Wand</Abilities>
 	</Actor>
 	<Actor>
-		<name> Charles Y.</name>
-		<health> 60 </health>
-		<attack> 3 </attack>
-		<defense> 0 </defense>
-		<speed> 20 </speed>
+		<Name>Charles Y.</Name>
+		<Health>75</Health>
+		<Attack>3</Attack>
+		<Defense>0</Defense>
+		<Speed>20</Speed>
+		<Abilities>Shinai</Abilities>
 	</Actor>
 	<Actor>
-		<name> Nate M.</name>
-		<health> 100 </health>
-		<attack> 5 </attack>
-		<defense> 0 </defense>
-		<speed> 16 </speed>
+		<Name>Nate M.</Name>
+		<Health>100</Health>
+		<Attack>5</Attack>
+		<Defense>0</Defense>
+		<Speed>16</Speed>
+		<Abilities>Claws</Abilities>
+	</Actor>
+	<Actor>
+		<Name>Eric H.</Name>
+		<Health>110</Health>
+		<Attack>5</Attack>
+		<Defense>0</Defense>
+		<Speed>20</Speed>
+		<Abilities>Tentacles</Abilities>
+	</Actor>
+	<Actor>
+		<Name>John T.</Name>
+		<Health>65</Health>
+		<Attack>3</Attack>
+		<Defense>0</Defense>
+		<Speed>25</Speed>
+		<Abilities>Hoverpad</Abilities>
 	</Actor>
 </Actors>
