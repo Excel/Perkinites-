@@ -36,7 +36,7 @@
 		public static var armor=new Array();//new Array(0,0,0,0);
 		public static var speed=new Array();//new Array(16,16,16,16);
 
-		public static var weapons=new Array("Railgun","Magic Wand","Shinai","Claws");
+		public static var weapons=new Array();
 		public static var ffNames=new Array("Angelic Finale","Angelic Finale","WHAT YOU WANT","WHAT YOU WANT");
 		public static var ffDescriptions=new Array("Shower the field with celestial forces and holy lasers.",
 		 "Shower the field with celestial forces and holy lasers.",
@@ -63,25 +63,23 @@
 			parseData(xmlData);
 		}
 		public static function parseData(input:XML):void {
-			var nameList:XMLList=input.Actor.name;
-			for each (var nameElement:XML in nameList) {
+			for each (var nameElement:XML in input.Actor.Name) {
 				names.push(nameElement);
 			}
-			var healthList:XMLList=input.Actor.health;
-			for each (var healthElement:XML in healthList) {
+			for each (var healthElement:XML in input.Actor.Health) {
 				hp.push(healthElement);
 			}
-			var attackList:XMLList=input.Actor.attack;
-			for each (var attackElement:XML in attackList) {
+			for each (var attackElement:XML in input.Actor.Attack) {
 				dmg.push(attackElement);
 			}
-			var defenseList:XMLList=input.Actor.defense;
-			for each (var defenseElement:XML in defenseList) {
+			for each (var defenseElement:XML in input.Actor.Defense) {
 				armor.push(defenseElement);
 			}
-			var speedList:XMLList=input.Actor.speed;
-			for each (var speedElement:XML in speedList) {
+			for each (var speedElement:XML in input.Actor.Speed) {
 				speed.push(speedElement);
+			}
+			for each (var weaponElement:XML in input.Actor.Weapon) {
+				weapons.push(weaponElement);
 			}
 		}
 		public static function getName(id:int):String {

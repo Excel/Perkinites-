@@ -3,6 +3,7 @@
 	<Ability>
 		<Name>Kendo Strike</Name>
 		<Availability>Charles Y.</Availability>
+		<Spec>Damage</Spec>
 		<Range>80</Range>
 		<Cooldown>200</Cooldown>
 		<Uses>1</Uses>
@@ -14,6 +15,7 @@
 	<Ability>
 		<Name>Motivate</Name>
 		<Availability>Charles Y.</Availability>
+		<Spec>Support</Spec>
 		<Range>140</Range>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
@@ -24,6 +26,7 @@
 	<Ability>
 		<Name>Ninjutsu</Name>
 		<Availability>Charles Y.</Availability>
+		<Spec>Teleport</Spec>
 		<Range>30</Range>
 		<Cooldown>150</Cooldown>
 		<Uses>1</Uses>
@@ -35,6 +38,7 @@
 	<Ability>
 		<Name>Railgun Attack</Name>
 		<Availability>C. Kata</Availability>
+		<Spec>Damage</Spec>
 		<Range>400</Range>
 		<Cooldown>16</Cooldown>
 		<Uses>1</Uses>
@@ -46,6 +50,7 @@
 	<Ability>
 		<Name>Eyelash Batting</Name>
 		<Availability>C. Kata</Availability>
+		<Spec>Damage</Spec>
 		<Range>500</Range>
 		<Cooldown>150</Cooldown>
 		<Uses>1</Uses>
@@ -57,6 +62,7 @@
 	<Ability>
 		<Name>Shoe Throwing</Name>
 		<Availability>C. Kata</Availability>
+		<Spec>Damage</Spec>
 		<Range>500</Range>
 		<Cooldown>72</Cooldown>
 		<Uses>1</Uses>
@@ -68,6 +74,7 @@
 	<Ability>
 		<Name>Aggressive Mediation</Name>
 		<Availability>C. Kata</Availability>
+		<Spec>BS</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>8</Uses>
@@ -79,6 +86,7 @@
 	<Ability>
 		<Name>Tentacle Attack</Name>
 		<Availability>Eric H.</Availability>
+		<Spec>Damage</Spec>
 		<Range>80</Range>
 		<Cooldown>12</Cooldown>
 		<Uses>1</Uses>
@@ -90,6 +98,7 @@
 	<Ability>
 		<Name>Perk-kulate</Name>
 		<Availability>Eric H.</Availability>
+		<Spec>Damage</Spec>
 		<Range>50</Range>
 		<Cooldown>60</Cooldown>
 		<Uses>3</Uses>
@@ -101,6 +110,7 @@
 	<Ability>
 		<Name>Violation of Personal Space</Name>
 		<Availability>Eric H.</Availability>
+		<Spec>Damage</Spec>
 		<Range>100</Range>
 		<Cooldown>70</Cooldown>
 		<Uses>1</Uses>
@@ -112,6 +122,7 @@
 	<Ability>
 		<Name>Awkward Stare</Name>
 		<Availability>Eric H.</Availability>
+		<Spec>Damage</Spec>
 		<Range>100</Range>
 		<Cooldown>80</Cooldown>
 		<Uses>1</Uses>
@@ -123,6 +134,7 @@
 	<Ability>
 		<Name>Hoverpad Attack</Name>
 		<Availability>John T.</Availability>
+		<Spec>Damage</Spec>
 		<Range>300</Range>
 		<Cooldown>12</Cooldown>
 		<Uses>1</Uses>
@@ -134,6 +146,7 @@
 	<Ability>
 		<Name>Stomping Ground</Name>
 		<Availability>John T.</Availability>
+		<Spec>Damage</Spec>
 		<Range>200</Range>
 		<Cooldown>80</Cooldown>
 		<Uses>2</Uses>
@@ -145,6 +158,7 @@
 	<Ability>
 		<Name>D4X</Name>
 		<Availability>John T.</Availability>
+		<Spec>Damage</Spec>
 		<Range>500</Range>
 		<Cooldown>120</Cooldown>
 		<Uses>5</Uses>
@@ -156,6 +170,7 @@
 	<Ability>
 		<Name>Mediation</Name>
 		<Availability>John T.</Availability>
+		<Spec>Obstacle</Spec>
 		<Range>300</Range>
 		<Cooldown>90</Cooldown>
 		<Uses>2</Uses>
@@ -167,6 +182,7 @@
 	<Ability>
 		<Name>Apologizing</Name>
 		<Availability>John T.</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -178,6 +194,7 @@
 	<Ability>
 		<Name>Staff Attack</Name>
 		<Availability>Chloe  C.</Availability>
+		<Spec>Damage</Spec>
 		<Range>60</Range>
 		<Cooldown>8</Cooldown>
 		<Uses>1</Uses>
@@ -189,6 +206,7 @@
 	<Ability>
 		<Name>Happy Healing</Name>
 		<Availability>Chloe  C.</Availability>
+		<Spec>Healing %</Spec>
 		<Range>70</Range>
 		<Cooldown>720</Cooldown>
 		<Uses>3</Uses>
@@ -200,6 +218,7 @@
 	<Ability>
 		<Name>Shield</Name>
 		<Availability>Chloe  C.</Availability>
+		<Spec>Support</Spec>
 		<Range>50</Range>
 		<Cooldown>720</Cooldown>
 		<Uses>3</Uses>
@@ -211,6 +230,7 @@
 	<Ability>
 		<Name>Healthy Explosion</Name>
 		<Availability>Chloe  C.</Availability>
+		<Spec>Damage</Spec>
 		<Range>80</Range>
 		<Cooldown>100</Cooldown>
 		<Uses>5</Uses>
@@ -222,6 +242,7 @@
 	<Ability>
 		<Name>Ouchies :(</Name>
 		<Availability>Chloe C.</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -233,6 +254,7 @@
 	<Ability>
 		<Name>Grrsies &gt;:(</Name>
 		<Availability>Veronica C.</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -244,6 +266,7 @@
 	<Ability>
 		<Name>Break Time</Name>
 		<Availability>All Perkinites</Availability>
+		<Spec>Stop</Spec>
 		<Range>0</Range>
 		<Cooldown>720</Cooldown>
 		<Uses>1</Uses>
@@ -255,6 +278,7 @@
 	<Ability>
 		<Name>Greedy</Name>
 		<Availability>All Perkinites</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -266,6 +290,7 @@
 	<Ability>
 		<Name>Popularity</Name>
 		<Availability>All Perkinites</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -277,6 +302,7 @@
 	<Ability>
 		<Name>Second Chance</Name>
 		<Availability>All Perkinites</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -288,6 +314,7 @@
 	<Ability>
 		<Name>Second Wind</Name>
 		<Availability>All Perkinites</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -299,6 +326,7 @@
 	<Ability>
 		<Name>Second World</Name>
 		<Availability>All Perkinites</Availability>
+		<Spec>Passive</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>0</Uses>
@@ -310,6 +338,7 @@
 	<Ability>
 		<Name>Girly Swirl</Name>
 		<Availability>All Girls</Availability>
+		<Spec>Damage</Spec>
 		<Range>400</Range>
 		<Cooldown>48</Cooldown>
 		<Uses>1</Uses>
@@ -321,6 +350,7 @@
 	<Ability>
 		<Name>Gossip</Name>
 		<Availability>All Girls</Availability>
+		<Spec>Damage</Spec>
 		<Range>400</Range>
 		<Cooldown>48</Cooldown>
 		<Uses>1</Uses>

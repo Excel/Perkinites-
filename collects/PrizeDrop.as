@@ -70,13 +70,13 @@ package collects{
 					}
 
 				} else if (prize is Ability) {
-					var a=AbilityDatabase.getDatabaseIndex(prize.Name);
+					var a=AbilityDatabase.getName(prize.id);
 					getDisplay=new GetDisplay(a,prize.amount, "Ability");
-					addUses=Unit.abilityAmounts[a]+prize.amount;
+					addUses=Unit.abilityAmounts[prize.id]+prize.amount;
 					if (addUses<9) {
-						Unit.abilityAmounts[a]=addUses;
+						Unit.abilityAmounts[prize.id]=addUses;
 					} else {
-						Unit.abilityAmounts[a]=9;
+						Unit.abilityAmounts[prize.id]=9;
 					}
 				}
 				stage.addChild(getDisplay);

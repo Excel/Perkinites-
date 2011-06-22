@@ -1,6 +1,7 @@
 ﻿import flash.events.Event;
 import flash.display.Stage;
 
+import abilities.*;
 import actors.*;
 import attacks.*;
 import enemies.*;
@@ -14,9 +15,9 @@ import util.*;
 //Screens
 
 //Load all XML Data
-
+//Loading abilities must go first. :(
+AbilityDatabase.loadData();
 ActorDatabase.loadData();
-//AbilityDatabase.loadData();
 //EnemyDatabase.loadData();
 //ItemDatabase.loadData();
 		

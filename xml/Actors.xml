@@ -6,7 +6,7 @@
 		<Attack>4</Attack>
 		<Defense>0</Defense>
 		<Speed>17</Speed>
-		<Abilities>Railgun</Abilities>
+		<Weapon>Railgun</Weapon>
 	</Actor>
 	<Actor>
 		<Name>Cia M.</Name>
@@ -14,7 +14,7 @@
 		<Attack>2</Attack>
 		<Defense>0</Defense>
 		<Speed>17</Speed>
-		<Abilities>Magic Wand</Abilities>
+		<Weapon>Magic Wand</Weapon>
 	</Actor>
 	<Actor>
 		<Name>Charles Y.</Name>
@@ -22,7 +22,7 @@
 		<Attack>3</Attack>
 		<Defense>0</Defense>
 		<Speed>20</Speed>
-		<Abilities>Shinai</Abilities>
+		<Weapon>Shinai</Weapon>
 	</Actor>
 	<Actor>
 		<Name>Nate M.</Name>
@@ -30,7 +30,7 @@
 		<Attack>5</Attack>
 		<Defense>0</Defense>
 		<Speed>16</Speed>
-		<Abilities>Claws</Abilities>
+		<Weapon>Claws</Weapon>
 	</Actor>
 	<Actor>
 		<Name>Eric H.</Name>
@@ -38,7 +38,7 @@
 		<Attack>5</Attack>
 		<Defense>0</Defense>
 		<Speed>20</Speed>
-		<Abilities>Tentacles</Abilities>
+		<Weapon>Tentacles</Weapon>
 	</Actor>
 	<Actor>
 		<Name>John T.</Name>
@@ -46,6 +46,6 @@
 		<Attack>3</Attack>
 		<Defense>0</Defense>
 		<Speed>25</Speed>
-		<Abilities>Hoverpad</Abilities>
+		<Weapon>Hoverpad</Weapon>
 	</Actor>
 </Actors>

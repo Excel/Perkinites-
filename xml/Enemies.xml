@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Enemies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Enemy>
+		<Name>Bulleter</Name>
+		<Health>30</Health>
+		<Attack>4</Attack>
+		<Defense>0</Defense>
+		<Speed>2</Speed>
+		<EXP>5</EXP>
+		<Value>1</Value>
+	</Enemy>
+	<Enemy>
+		<Name>Drunk Guy</Name>
+		<Health>500</Health>
+		<Attack>10</Attack>
+		<Defense>0</Defense>
+		<Speed>4</Speed>
+		<EXP>50</EXP>
+		<Value>6.15</Value>
+	</Enemy>
+	<Enemy>
+		<Name>Clarissa</Name>
+		<Health>700</Health>
+		<Attack>6</Attack>
+		<Defense>0</Defense>
+		<Speed>15</Speed>
+		<EXP>400</EXP>
+		<Value>20</Value>
+	</Enemy>
+	<Enemy>
+		<Name>Twin 1</Name>
+		<Health>4500</Health>
+		<Attack>40</Attack>
+		<Defense>0</Defense>
+		<Speed>15</Speed>
+		<Value>0</Value>
+	</Enemy>
+</Enemies>
