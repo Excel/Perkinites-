@@ -102,7 +102,7 @@ package actors{
 
 		static public var distributions=new Array(0,0,0,0,0,0,0);
 		static public var maxDistributions=new Array(0,0,0,0,0,0,0);
-		public var commands;
+		public var commands:Array; //the initial abilities
 
 		static public var abilityAmounts:Array=AbilityDatabase.amounts;
 		//work on implementing this

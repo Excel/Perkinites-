@@ -1,5 +1,6 @@
 ﻿package actors{
 
+	import abilities.*;
 	import xml.*;
 
 	import flash.events.*;
@@ -49,6 +50,7 @@
 		"If Cia M. is the Current Unit, she gets 1.5x Speed",
 		"If Charles Y. is the Current Unit, WHAT YOU WANT",
 		"If Nate M. is the Current Unit, WHAT YOU WANT");
+		public static var basicAbilities = new Array();
 
 		public static function loadData() {
 			var xmlLoader:URLLoader = new URLLoader();
@@ -110,6 +112,10 @@
 		}
 		public static function getFFBonus(id:int):String {
 			return ffBonuses[id];
+		}
+		
+		public static function getBasicAbilities(id:int):Array {
+			return basicAbilities[id];
 		}
 	}
 }
