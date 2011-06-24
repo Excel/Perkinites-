@@ -133,5 +133,17 @@
 		}
 
 
+	public static function getSpecInfo(id:int):String {
+		var spec=specs[id];
+		if (spec=="Damage") {
+			spec="Damage = "+damage[id];
+		} else if (spec == "Healing+") {
+			spec="Healing + "+hpLumpChange[id];
+		} else if (spec == "Healing%") {
+			spec="Healing % "+hpPercChange[id]+"%";
+		}
+		spec=spec+"\n"+getActivation(id);
+		return spec;
+	}
 	}
 }

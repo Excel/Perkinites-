@@ -28,7 +28,7 @@
 			names=new Array(page3.abilityName1,page3.abilityName2,page3.abilityName3,page3.abilityName4,page3.abilityName5);
 			descriptions = new Array(page3.description1, page3.description2, page3.description3,
 			 page3.description4, page3.description5);
-			
+
 			button1.buttonText.text="1";
 			button2.buttonText.text="2";
 			button3.buttonText.text="3";
@@ -100,26 +100,32 @@
 					break;
 				case 3 :
 					//edit this later
+					var basicAbilities=AbilityDatabase.getBasicAbilities(
+					 ActorDatabase.getName(index));
 
-				for (var i = 0; i < icons.length; i++) {
-						icons[i].gotoAndStop(1);
-						var a = ActorDatabase.basicAbilities;
-/*						if (i<ActorDatabase.getBasicAbilities(index).length) {
+					for (var i = 0; i < icons.length; i++) {
+						if (i<basicAbilities.length) {
+							icons[i].useCount.visible=false;
 							icons[i].visible=true;
 							names[i].visible=true;
 							descriptions[i].visible=true;
+							icons[i].gotoAndStop(basicAbilities[i].index);
+							names[i].text=basicAbilities[i].Name;
+							descriptions[i].text=AbilityDatabase.getSpecInfo(basicAbilities[i].id);
 							icons[i].gotoAndStop(1);
 						} else {
 							break;
-						}*/
+						}
 					}
 
-/*
+
 					for (i; i < icons.length; i++) {
+						icons[i].gotoAndStop(1);
+						icons[i].useCount.visible=false;
 						icons[i].visible=false;
 						names[i].visible=false;
 						descriptions[i].visible=false;
-					}*/
+					}
 					break;
 				case 4 :
 					page4.ffName.text=ActorDatabase.getFFName(index);

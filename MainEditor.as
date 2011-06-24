@@ -29,6 +29,8 @@ savebtn.addEventListener(MouseEvent.CLICK, saveHandler);
 //testbtn.addEventListener(MouseEvent.CLICK, testHandler);
 custommenubtn.addEventListener(MouseEvent.CLICK, customReturnHandler);
 
+var tileSize = 32;
+
 var buildType = 0;
 var selectType = -1;
 var rowBtns = new Array();
@@ -107,15 +109,15 @@ function typeClicked(e){
 	buildType = t.num;
 }
 function clickHandler(e){
-	var xp = Math.floor((mouseX + ScreenRect.getX()) / 20);
-	var yp = Math.floor((mouseY + ScreenRect.getY()) / 20);
+	var xp = Math.floor((mouseX + ScreenRect.getX()) / 32);
+	var yp = Math.floor((mouseY + ScreenRect.getY()) / 32);
 	if(xp < 0 || yp < 0 || xp >= COLS || yp >= ROWS)
 		return;
 	
 	if(buildType == -2){
 		//start point
-		sMarker.x = xp * 20;
-		sMarker.y = yp * 20;
+		sMarker.x = xp * tileSize;
+		sMarker.y = yp * tileSize;
 		return;
 	}
 	
@@ -123,8 +125,8 @@ function clickHandler(e){
 		//enemies
 		var EnemyClass = getDefinitionByName("EnemyMarker" + (buildType - editorTiles.length));
 		var e = new EnemyClass();
-		e.x = xp * 20;
-		e.y = yp * 20;
+		e.x = xp * tileSize;
+		e.y = yp * tileSize;
 		e.id = buildType - editorTiles.length;
 		editorEnemies.push(e);
 		editorClip.addChild(e);
@@ -134,8 +136,8 @@ function clickHandler(e){
 		//delete enemy
 		for(var a = 0; a < editorEnemies.length; a++){
 			e = editorEnemies[a];
-			var ex = e.x / 20;
-			var ey = e.y / 20;
+			var ex = e.x / tileSize;
+			var ey = e.y / tileSize;
 			if(xp == ex && yp == ey){
 				//delete
 				editorEnemies.splice(a, 1);
@@ -157,7 +159,7 @@ function clickHandler(e){
 	//editorClip.addChild(new Bitmap(TileMap.theBitmap));
 }
 function editorHandler(e){
-	ScreenRect.easeScreen(new Point((mouseX / STAGE_WIDTH) * (COLS * 20) - STAGE_WIDTH / 2, (mouseY / STAGE_HEIGHT) * (ROWS * 20) - STAGE_HEIGHT / 2));
+	ScreenRect.easeScreen(new Point((mouseX / STAGE_WIDTH) * (COLS * tileSize) - STAGE_WIDTH / 2, (mouseY / STAGE_HEIGHT) * (ROWS * tileSize) - STAGE_HEIGHT / 2));
 	
 	if(mouseX < STAGE_WIDTH - 150)
 		selectType = -1;
@@ -242,14 +244,14 @@ function clearEditor(){
 	this.custommenubtn.removeEventListener(MouseEvent.CLICK, customReturnHandler);
 }
 function saveHandler(e){
-	var sx = (sMarker.x) / 20;
-	var sy = (sMarker.y) / 20;
+	var sx = (sMarker.x) / tileSize;
+	var sy = (sMarker.y) / tileSize;
 	
 	var enemyCode = "";
 	for(var a = 0; a < editorEnemies.length; a++){
 		var e = editorEnemies[a];
-		var ex = e.x / 20;
-		var ey = e.y / 20;
+		var ex = e.x / tileSize;
+		var ey = e.y / tileSize;
 		enemyCode += ";" + e.id + "," + ex + "," + ey;
 	}
 	
@@ -263,6 +265,8 @@ function saveHandler(e){
 	sObj.data.savedLevels = savedLevels;
 	sObj.data.namedLevels = namedLevels;
 	sObj.flush();
+	
+	trace(allCode);
 }
 function customReturnHandler(e){
 	clearEditor();

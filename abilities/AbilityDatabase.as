@@ -33,9 +33,9 @@
 		 "Hotkey",
 		 "Hotkey -> L-Click",
 		 "Hotkey -> Select Unit");
-		public static const index=new Array(3,4,1,1,1,1,1);
+		public static var index=new Array();
 
-		public static const damage=new Array(0,0,0,0,0,0,0);
+		public static var damage = new Array();
 		public static const hpPercChange=new Array(0,0,0,25,0,0,0,0);
 		public static const hpLumpChange=new Array(0,0,0,0,0,0,0,0);
 		public static const atkSpeedPerc=new Array(0,20,0,0,0,0,0,0);
@@ -105,8 +105,12 @@
 			parseData(xmlData);
 		}
 		public static function parseData(input:XML):void {
+
+			var count=1;
 			for each (var nameElement:XML in input.Ability.Name) {
 				names.push(nameElement);
+				index.push(count);
+				count++;
 			}
 			for each (var availabilityElement:XML in input.Ability.Availability) {
 				availabilities.push(availabilityElement);
@@ -134,6 +138,8 @@
 						actives.push(true);
 						break;
 				}
+
+
 			}
 			for each (var valueElement:XML in input.Ability.Value) {
 				values.push(valueElement);
@@ -143,7 +149,12 @@
 			}
 			for each (var descriptionElement:XML in input.Ability.Description) {
 				descriptions.push(descriptionElement);
+				damage.push(0);
+				hpLumpChange.push(0);
+				hpPercChange.push(0);
 			}
+
+
 
 		}
 
@@ -222,5 +233,27 @@
 			return names.indexOf(name);
 		}
 
+		public static function getBasicAbilities(name:String):Array {
+			var commands = new Array();
+			for(var i = 0; i < availabilities.length; i++){;
+			if (availabilities[i]==name) {
+				commands.push(new Ability(i, 1));
+			}
+		}
+		return commands;
 	}
+
+	public static function getSpecInfo(id:int):String {
+		var spec=specs[id];
+		if (spec=="Damage") {
+			spec="Damage = "+damage[id];
+		} else if (spec == "Healing+") {
+			spec="Healing + "+hpLumpChange[id];
+		} else if (spec == "Healing%") {
+			spec="Healing % "+hpPercChange[id]+"%";
+		}
+		spec=spec+"\n"+getActivation(id);
+		return spec;
+	}
+}
 }

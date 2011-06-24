@@ -41,8 +41,6 @@
 			hotkeyIconArray = new Array();
 			optionArray=new Array("\nCheck on yo Perkinites! You got this gurrrrrrrrrl! ;)",
 			  "Drag + drop Active Icons to your Hotkeys for battle and Passive Icons to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
-			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)",
-			  "Drag + drop Active Items to your Hotkeys for battle! Drag + drop Passive Items to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
 			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)");
 
 
@@ -200,6 +198,8 @@
 					eraseDescription();
 					freezeHotkeys();
 					setToggles();
+					page3.currentButton.buttonText.text = "Set 1";
+					page3.partnerButton.buttonText.text = "Set 2";
 					break;
 				case 4 :
 
@@ -289,13 +289,14 @@
 			var hotkeyHolder;
 			if (currentFrame!=3) {
 				hotkeyHolder=page2.hotkeyHolder;
+				hotkeyIconArray=[hotkeyHolder.qIcon,hotkeyHolder.wIcon,
+				 hotkeyHolder.eIcon,hotkeyHolder.aIcon,
+				  hotkeyHolder.sIcon,hotkeyHolder.dIcon,
+				 hotkeyHolder.fIcon];
+
 			} else {
-				hotkeyHolder=page3.hotkeyHolder;
+				hotkeyIconArray=[page3.icon1,page3.icon2,page3.icon3,page3.icon4,page3.icon5];
 			}
-			hotkeyIconArray=[hotkeyHolder.qIcon,hotkeyHolder.wIcon,
-			 hotkeyHolder.eIcon,hotkeyHolder.aIcon,
-			  hotkeyHolder.sIcon,hotkeyHolder.dIcon,
-			 hotkeyHolder.fIcon];
 
 
 			var i;
@@ -447,9 +448,14 @@
 					amount++;
 				}
 			}
-
-
+			
+			if(amount > 0){
 			return yOffset+36;
+			}
+			else
+			{
+				return yOffset;
+			}
 		}
 		public function setInventoryAbilities(yOffset:int) {
 			var i;
@@ -474,7 +480,13 @@
 					amount++;
 				}
 			}
-			return yOffset + 36;
+			if(amount > 0){
+			return yOffset+36;
+			}
+			else
+			{
+				return yOffset;
+			}
 		}
 
 		public function setPassives(option:int = 0) {
@@ -775,8 +787,8 @@
 							hkIcon=hotkeyIconArray[i];
 
 							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false) && 
-								(hotkeyArray[i] == null ||
-								(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
+							(hotkeyArray[i] == null ||
+							(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 
 								//if the hotkey had something in it
 								if (hotkeyArray[i]!=null) {
@@ -820,8 +832,8 @@
 						for (i = 0; i < hotkeyIconArray.length; i++) {
 							hkIcon=hotkeyIconArray[i];
 							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)  && 
-								(hotkeyArray[i] == null ||
-								(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
+							(hotkeyArray[i] == null ||
+							(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 
 								//if the hotkey had something in it
 								if (hotkeyArray[i]!=null) {
@@ -834,7 +846,6 @@
 								hkIcon.gotoAndStop(obj.currentFrame);
 								hkIcon.visible=true;
 								hkIcon.type="Ability";
-								trace(AbilityDatabase.getUses(index));
 								hotkeyArray[i]=new Ability(index,AbilityDatabase.getUses(index));
 								Unit.setHotkey(i+1, new Ability(index, AbilityDatabase.getUses(index)));
 								Unit.abilityAmounts[index]--;
@@ -857,8 +868,8 @@
 			if (obj is TextField) {
 				obj=obj.parent;
 			}
-			var hotkey = hotkeyArray[hotkeyIconArray.indexOf(obj)];
-			if (hotkey!=null && hotkey.cooldown >= hotkey.maxCooldown) {
+			var hotkey=hotkeyArray[hotkeyIconArray.indexOf(obj)];
+			if (hotkey!=null&&hotkey.cooldown>=hotkey.maxCooldown) {
 				var index;
 				if (obj.parent!=stageRef) {
 					if (obj.type=="Item") {
@@ -904,8 +915,8 @@
 			for (i = 0; i < hotkeyIconArray.length; i++) {
 				var hkIcon=hotkeyIconArray[i];
 				if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)&&hkIcon!=obj &&
-					(hotkeyArray[i] == null ||
-					(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
+				(hotkeyArray[i] == null ||
+				(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 					backToInventory=false;
 
 
@@ -928,7 +939,6 @@
 						Unit.setHotkey(i+1, hotkeyArray[i]);
 						hkIcon.type=tempType;
 
-						Unit.switchDistributions(j, i);
 					} else {
 						j=hotkeyIconArray.indexOf(obj);
 
@@ -946,7 +956,6 @@
 
 						hotkeyArray[j]=null;
 						Unit.setHotkey(j+1, null);
-						Unit.switchDistributions(j, i);
 					}
 					break;
 				}
@@ -1129,22 +1138,22 @@
 		}
 
 		public function increasePower(e) {
-			var obj=e.target;
+			/*var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
-			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);
+			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
 		}
 		public function decreasePower(e) {
-			var obj=e.target;
+/*			var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
-			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);
+			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
 		}
 		public function resetPower(e) {
-			var obj=e.target;
+/*			var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
-			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);
+			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
 		}
 	}
 }

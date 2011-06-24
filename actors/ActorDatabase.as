@@ -57,6 +57,8 @@
 
 			xmlLoader.addEventListener(Event.COMPLETE, LoadXML);
 			xmlLoader.load(new URLRequest("xml/Actors.xml"));
+			
+
 		}
 
 		public static function LoadXML(e:Event):void {

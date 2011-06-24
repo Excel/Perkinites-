@@ -170,6 +170,15 @@
 
 			Unit.currentUnit=new Unit(pn1);
 			Unit.partnerUnit=new Unit(pn1+1);
+
+			//implement this later
+			var i;
+			for (i = 0; i < Unit.currentUnit.basicAbilities.length; i++) {
+				Unit.abilityAmounts[Unit.currentUnit.basicAbilities[i].id]=1;
+			}
+			for (i = 0; i < Unit.partnerUnit.basicAbilities.length; i++) {
+				Unit.abilityAmounts[Unit.partnerUnit.basicAbilities[i].id]=1;
+			}
 		}
 
 

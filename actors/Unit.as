@@ -100,9 +100,10 @@ package actors{
 		static public var finale;
 
 
-		static public var distributions=new Array(0,0,0,0,0,0,0);
-		static public var maxDistributions=new Array(0,0,0,0,0,0,0);
-		public var commands:Array; //the initial abilities
+/*		static public var distributions=new Array(0,0,0,0,0,0,0);
+		static public var maxDistributions=new Array(0,0,0,0,0,0,0);*/
+		public var basicAbilities:Array; //the initial abilities
+		public var commands:Array;
 
 		static public var abilityAmounts:Array=AbilityDatabase.amounts;
 		//work on implementing this
@@ -173,6 +174,8 @@ package actors{
 				gotoAndStop(4);
 
 				HPBar=new HealthBar(HP,maxHP,this,48);
+				
+				basicAbilities = AbilityDatabase.getBasicAbilities(Name);
 			}
 		}
 
@@ -202,7 +205,7 @@ package actors{
 			}
 		}
 
-		static public function switchDistributions(a:int, b:int) {
+		/*static public function switchDistributions(a:int, b:int) {
 			var temp1=distributions[a];
 			var temp2=maxDistributions[a];
 
@@ -216,7 +219,7 @@ package actors{
 			maxDistributions[b]=maxDistributions[a];
 			distributions[b]=0;
 			maxDistributions[b]=0;
-		}
+		}*/
 		public function begin() {
 			addEventListener(Event.ENTER_FRAME,gameHandler);
 			mxpos=x;
@@ -341,7 +344,7 @@ package actors{
 
 		public function useComboAttack() {
 			if (KeyDown.keyIsDown(attackKey)&&! KeyDown.keyIsDown(friendshipKey)&&attackDelay>=0) {
-
+				var b = abilityAmounts;
 				Unit.FP+=1000;
 				unitHUD.updateFP();
 				attackDelay=-5;
