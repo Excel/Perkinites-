@@ -82,6 +82,9 @@
 		public static function getSpec(id:int):String {
 			return specs[id];
 		}
+				public static function getValue(id:int):Number {
+			return values[id];
+		}
 		public static function getDelay(id:int):int {
 			return delays[id];
 		}

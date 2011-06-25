@@ -137,7 +137,7 @@
 			itemdrop2.y=400;
 			mapClip.addChild(itemdrop2);
 
-			var itemdrop3=new PrizeDrop(0,new Ability(1,5),null);
+			var itemdrop3=new PrizeDrop(0,new Ability(33,5),null);
 			itemdrop3.x=300;
 			itemdrop3.y=200;
 			mapClip.addChild(itemdrop3);
@@ -147,7 +147,7 @@
 			itemdrop4.y=500;
 			mapClip.addChild(itemdrop4);
 			
-			var itemdrop5=new PrizeDrop(0,new Ability(0,5),null);
+			var itemdrop5=new PrizeDrop(0,new Ability(32,5),null);
 			itemdrop5.x=300;
 			itemdrop5.y=550;
 			mapClip.addChild(itemdrop5);

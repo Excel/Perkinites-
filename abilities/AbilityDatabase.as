@@ -130,16 +130,12 @@
 			}
 			for each (var activateElement:XML in input.Ability.Activate) {
 				activations.push(activateElement);
-				switch (activateElement) {
-					case 0 :
-						actives.push(false);
-						break;
-					default :
-						actives.push(true);
-						break;
+				if(activateElement == "0"){
+					actives.push(false);
 				}
-
-
+				else{
+					actives.push(true);			
+				}
 			}
 			for each (var valueElement:XML in input.Ability.Value) {
 				values.push(valueElement);
@@ -149,9 +145,11 @@
 			}
 			for each (var descriptionElement:XML in input.Ability.Description) {
 				descriptions.push(descriptionElement);
-				damage.push(0);
 				hpLumpChange.push(0);
 				hpPercChange.push(0);
+			}
+			for each (var damageElement:XML in input.Ability.Damage) {
+				damage.push(damageElement);
 			}
 
 
@@ -185,9 +183,13 @@
 		public static function getSpec(id:int):String {
 			return specs[id];
 		}
+		public static function getValue(id:int):Number {
+			return values[id];
+		}
 		public static function getDelay(id:int):int {
 			return delays[id];
 		}
+
 
 
 		public static function getDamage(id:int):int {

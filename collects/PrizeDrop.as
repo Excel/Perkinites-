@@ -71,7 +71,7 @@ package collects{
 
 				} else if (prize is Ability) {
 					var a=AbilityDatabase.getName(prize.id);
-					getDisplay=new GetDisplay(a,prize.amount, "Ability");
+					getDisplay=new GetDisplay(prize.id,prize.amount, "Ability");
 					addUses=Unit.abilityAmounts[prize.id]+prize.amount;
 					if (addUses<9) {
 						Unit.abilityAmounts[prize.id]=addUses;

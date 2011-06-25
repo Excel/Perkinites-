@@ -144,6 +144,8 @@ package actors{
 		public var pauseMovement:Boolean;
 
 		public var HPBar;
+		
+		public var powerpoints;
 
 		public function Unit(id:int) {
 			/*if (id==undefined) {
@@ -176,6 +178,8 @@ package actors{
 				HPBar=new HealthBar(HP,maxHP,this,48);
 				
 				basicAbilities = AbilityDatabase.getBasicAbilities(Name);
+				
+				powerpoints = 1;
 			}
 		}
 

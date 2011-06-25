@@ -19,10 +19,14 @@
 	public class Menu extends BaseScreen {
 
 		static public var iaOption:int;
+		static public var setUnitIndex:int=-1;
+		static public var currentActivated:Boolean=true;
 
 		public var hotkeyArray:Array;
 		public var hotkeyIconArray:Array;
 		public var optionArray:Array;
+
+
 
 		public var aCover;
 		public var pCover1;
@@ -33,6 +37,10 @@
 			this.stageRef=stageRef;
 
 			iaOption=0;
+			if (Unit.currentUnit.id!=setUnitIndex||Unit.partnerUnit.id!=setUnitIndex) {
+				setUnitIndex=Unit.currentUnit.id;
+				currentActivated=true;
+			}
 
 			x=0;
 			y=0;
@@ -62,8 +70,8 @@
 			arrow.gotoAndStop(1);
 
 			statusOption.addEventListener(MouseEvent.CLICK, pageHandler);
-			setupOption.addEventListener(MouseEvent.CLICK, pageHandler2);
-			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler3);
+			setupOption.addEventListener(MouseEvent.CLICK, pageHandler3);
+			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler2);
 			//itemsOption.addEventListener(MouseEvent.CLICK, pageHandler3);
 			//friendsOption.addEventListener(MouseEvent.CLICK, pageHandler5);
 
@@ -71,6 +79,13 @@
 			saveOption.addEventListener(MouseEvent.CLICK, saveHandler);
 			loadOption.addEventListener(MouseEvent.CLICK, loadHandler);
 			exitOption.addEventListener(MouseEvent.CLICK, exitHandler);
+
+			page2.recycleButton.visible=false;
+			page2.recycleButton.addEventListener(MouseEvent.CLICK, recycleHandler);
+			page2.recycleButton.mouseChildren=false;
+
+			page3.currentButton.addEventListener(MouseEvent.CLICK, setCurrentHandler);
+			page3.partnerButton.addEventListener(MouseEvent.CLICK, setPartnerHandler);
 
 			flexPointsDisplay.text=Unit.flexPoints.toFixed(2);
 			load();
@@ -94,15 +109,15 @@
 		}
 		public function pageHandler2(e) {
 			if (currentFrame!=2) {
-				arrow.y=71+32;
-				hover.y=64+32;
+				arrow.y=71+32*2;
+				hover.y=64+32*2;
 				gotoPage(2);
 			}
 		}
 		public function pageHandler3(e) {
 			if (currentFrame!=3) {
-				arrow.y=71+32*2;
-				hover.y=64+32*2;
+				arrow.y=71+32;
+				hover.y=64+32;
 				gotoPage(3);
 			}
 		}
@@ -183,7 +198,7 @@
 					page1.SPDisplay2.text=Unit.partnerUnit.speed;
 
 					freezeFaces();
-
+					eraseDescription();
 					break;
 				case 2 :
 					optionDisplay.text="Setup";
@@ -198,8 +213,8 @@
 					eraseDescription();
 					freezeHotkeys();
 					setToggles();
-					page3.currentButton.buttonText.text = "Set 1";
-					page3.partnerButton.buttonText.text = "Set 2";
+					page3.currentButton.buttonText.text="Set 1";
+					page3.partnerButton.buttonText.text="Set 2";
 					break;
 				case 4 :
 
@@ -211,6 +226,7 @@
 		}
 
 		public function eraseDescription() {
+			page2.recycleButton.visible=false;
 			thingIcon.visible=false;
 			thingName.text="";
 			useInfo.text="";
@@ -222,6 +238,23 @@
 		}
 
 		public function makeDescription(index:int, type:String) {
+			if (currentFrame==2) {
+				if (type=="Item"&&ItemDatabase.getValue(index)>0) {
+					page2.recycleButton.visible=true;
+					page2.recycleButton.type=type;
+					page2.recycleButton.index=index;
+					page2.recycleButton.valueDisplay.text=ItemDatabase.getValue(index).toFixed(2);
+				} else if (type == "Ability" && AbilityDatabase.getValue(index)>0) {
+					page2.recycleButton.visible=true;
+					page2.recycleButton.type=type;
+					page2.recycleButton.index=index;
+					page2.recycleButton.valueDisplay.text=AbilityDatabase.getValue(index).toFixed(2);
+				} else {
+					page2.recycleButton.visible=false;
+				}
+			} else {
+				page2.recycleButton.visible=false;
+			}
 			thingIcon.visible=true;
 
 			if (type=="Item") {
@@ -308,23 +341,28 @@
 					hotkeyIconArray[i].addEventListener(MouseEvent.MOUSE_DOWN, displayIcon);
 				}
 
-				if (hotkeyArray[i]!=null) {
-					hotkeyIconArray[i].gotoAndStop(hotkeyArray[i].index);
-					if (hotkeyArray[i] is Item) {
-						hotkeyIconArray[i].type="Item";
-					} else if (hotkeyArray[i] is Ability) {
-						hotkeyIconArray[i].type="Ability";
-					}
-				} else {
-					hotkeyIconArray[i].gotoAndStop(1);
-					if (currentFrame!=3) {
-						hotkeyIconArray[i].visible=false;
+				if (currentFrame==2) {
+					if (hotkeyArray[i]!=null) {
+						hotkeyIconArray[i].gotoAndStop(hotkeyArray[i].index);
+						if (hotkeyArray[i] is Item) {
+							hotkeyIconArray[i].type="Item";
+						} else if (hotkeyArray[i] is Ability) {
+							hotkeyIconArray[i].type="Ability";
+						}
 					} else {
-						hotkeyIconArray[i].visible=true;
+						hotkeyIconArray[i].gotoAndStop(1);
+						if (currentFrame!=3) {
+							hotkeyIconArray[i].visible=false;
+						} else {
+							hotkeyIconArray[i].visible=true;
+						}
 					}
 				}
-			}
 
+				if (currentFrame==3) {
+					updatePowerupPage();
+				}
+			}
 			thingIcon.gotoAndStop(1);
 			thingIcon.useCount.visible=false;
 		}
@@ -338,6 +376,25 @@
 		/************************************************************************
 		PAGE 2 STUFF
 		************************************************************************/
+		public function recycleHandler(e) {
+			var obj=e.target;
+			if (obj.type=="Item") {
+				Unit.itemAmounts[obj.index]-=1;
+				Unit.flexPoints+=ItemDatabase.getValue(obj.index);
+
+			} else if (obj.type == "Ability") {
+				Unit.abilityAmounts[obj.index]-=1;
+				Unit.flexPoints+=AbilityDatabase.getValue(obj.index);
+			}
+			update();
+			flexPointsDisplay.text=Unit.flexPoints.toFixed(2);
+
+			if ((obj.type == "Item" && Unit.itemAmounts[obj.index]>0) || 
+			(obj.type == "Ability" && Unit.abilityAmounts[obj.index]>0)) {
+				makeDescription(obj.index, obj.type);
+			}
+		}
+
 		public function setButtons() {
 			page2.iaButton.buttonText.text="I + A";
 			page2.aiButton.buttonText.text="A + I";
@@ -448,12 +505,10 @@
 					amount++;
 				}
 			}
-			
-			if(amount > 0){
-			return yOffset+36;
-			}
-			else
-			{
+
+			if (amount>0) {
+				return yOffset+36;
+			} else {
 				return yOffset;
 			}
 		}
@@ -480,11 +535,9 @@
 					amount++;
 				}
 			}
-			if(amount > 0){
-			return yOffset+36;
-			}
-			else
-			{
+			if (amount>0) {
+				return yOffset+36;
+			} else {
 				return yOffset;
 			}
 		}
@@ -681,16 +734,14 @@
 			if (obj is TextField) {
 				obj=obj.parent;
 			}
-			if (hotkeyArray[hotkeyIconArray.indexOf(obj)]!=null) {
-				var index;
-				if (obj.parent!=stageRef) {
-					if (obj.type=="Item") {
-						index=ItemDatabase.index.indexOf(obj.currentFrame);
-					} else if (obj.type == "Ability") {
-						index=AbilityDatabase.index.indexOf(obj.currentFrame);
-					}
-					makeDescription(index, obj.type);
+			var index;
+			if (obj.parent!=stageRef) {
+				if (obj.type=="Item") {
+					index=ItemDatabase.index.indexOf(obj.currentFrame);
+				} else if (obj.type == "Ability") {
+					index=AbilityDatabase.index.indexOf(obj.currentFrame);
 				}
+				makeDescription(index, obj.type);
 			}
 		}
 
@@ -1110,6 +1161,83 @@
 		PAGE 3 STUFF
 		************************************************************************/
 
+		public function updatePowerupPage() {
+
+			if (currentActivated) {
+				page3.ppRemainingDisplay.text=Unit.currentUnit.powerpoints;
+				if (page3.ppRemainingDisplay.text.length==1) {
+					page3.ppRemainingDisplay.text="0"+Unit.currentUnit.powerpoints;
+				}
+			} else {
+				page3.ppRemainingDisplay.text=Unit.partnerUnit.powerpoints;
+				if (page3.ppRemainingDisplay.text.length==1) {
+					page3.ppRemainingDisplay.text="0"+Unit.partnerUnit.powerpoints;
+				}
+			}
+
+			hotkeyIconArray=[page3.icon1,page3.icon2,page3.icon3,page3.icon4,page3.icon5];
+
+
+			var i;
+			var basicAbilities=AbilityDatabase.getBasicAbilities(
+			 ActorDatabase.getName(setUnitIndex));
+			var names=new Array(page3.abilityName1,page3.abilityName2,page3.abilityName3,page3.abilityName4,page3.abilityName5);
+			var descriptions = new Array(page3.description1, page3.description2, page3.description3,
+			 page3.description4, page3.description5);
+			var fractions=new Array(page3.fraction1,page3.fraction2,page3.fraction3,page3.fraction4,page3.fraction5);
+
+			for (i = 0; i < hotkeyIconArray.length; i++) {
+				if (i<basicAbilities.length) {
+					hotkeyIconArray[i].useCount.visible=false;
+					hotkeyIconArray[i].visible=true;
+					hotkeyIconArray[i].type="Ability";
+					names[i].visible=true;
+					descriptions[i].visible=true;
+					fractions[i].visible=true;
+					page3.increaseHolder.getChildAt(i).visible=true;
+					page3.decreaseHolder.getChildAt(i).visible=true;
+					page3.resetHolder.getChildAt(i).visible=true;
+					hotkeyIconArray[i].gotoAndStop(basicAbilities[i].index);
+					names[i].text=basicAbilities[i].Name;
+					descriptions[i].text=AbilityDatabase.getSpecInfo(basicAbilities[i].id);
+					hotkeyIconArray[i].gotoAndStop(AbilityDatabase.getIndex(basicAbilities[i].id));
+				} else {
+					break;
+				}
+			}
+
+
+			for (i; i < hotkeyIconArray.length; i++) {
+				hotkeyIconArray[i].gotoAndStop(1);
+				hotkeyIconArray[i].useCount.visible=false;
+				hotkeyIconArray[i].visible=false;
+				names[i].visible=false;
+				descriptions[i].visible=false;
+				fractions[i].visible=false;
+				page3.increaseHolder.getChildAt(i).visible=false;
+				page3.decreaseHolder.getChildAt(i).visible=false;
+				page3.resetHolder.getChildAt(i).visible=false;
+			}
+		}
+
+		public function setCurrentHandler(e) {
+			if (! currentActivated) {
+				currentActivated=true;
+				setUnitIndex--;
+				updatePowerupPage();
+			}
+		}
+		public function setPartnerHandler(e) {
+			if (currentActivated) {
+				currentActivated=false;
+				setUnitIndex++;
+				updatePowerupPage();
+			}
+		}
+
+
+
+
 		public function setToggles() {
 			var holderArray=[page3.increaseHolder,page3.decreaseHolder,page3.resetHolder];
 			var display;
@@ -1144,13 +1272,13 @@
 			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
 		}
 		public function decreasePower(e) {
-/*			var obj=e.target;
+			/*var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
 			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
 		}
 		public function resetPower(e) {
-/*			var obj=e.target;
+			/*var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
 			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/

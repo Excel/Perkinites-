@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Actors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Actor>
-		<Name>C. Kata</Name>
-		<Health>75</Health>
-		<Attack>4</Attack>
-		<Defense>0</Defense>
-		<Speed>17</Speed>
-		<Weapon>Railgun</Weapon>
-	</Actor>
-	<Actor>
-		<Name>Cia M.</Name>
-		<Health>60</Health>
-		<Attack>2</Attack>
-		<Defense>0</Defense>
-		<Speed>17</Speed>
-		<Weapon>Magic Wand</Weapon>
-	</Actor>
-	<Actor>
 		<Name>Charles Y.</Name>
 		<Health>75</Health>
 		<Attack>3</Attack>
@@ -31,6 +15,22 @@
 		<Defense>0</Defense>
 		<Speed>16</Speed>
 		<Weapon>Claws</Weapon>
+	</Actor>
+	<Actor>
+		<Name>C. Kata</Name>
+		<Health>75</Health>
+		<Attack>4</Attack>
+		<Defense>0</Defense>
+		<Speed>17</Speed>
+		<Weapon>Railgun</Weapon>
+	</Actor>
+	<Actor>
+		<Name>Cia M.</Name>
+		<Health>60</Health>
+		<Attack>2</Attack>
+		<Defense>0</Defense>
+		<Speed>17</Speed>
+		<Weapon>Magic Wand</Weapon>
 	</Actor>
 	<Actor>
 		<Name>Eric H.</Name>

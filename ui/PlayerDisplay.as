@@ -112,7 +112,7 @@
 							icons[i].gotoAndStop(basicAbilities[i].index);
 							names[i].text=basicAbilities[i].Name;
 							descriptions[i].text=AbilityDatabase.getSpecInfo(basicAbilities[i].id);
-							icons[i].gotoAndStop(1);
+							icons[i].gotoAndStop(AbilityDatabase.getIndex(basicAbilities[i].id));
 						} else {
 							break;
 						}

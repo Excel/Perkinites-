@@ -7,6 +7,15 @@
 		<Defense>0</Defense>
 		<Speed>2</Speed>
 		<EXP>5</EXP>
+		<Value>0.05</Value>
+	</Enemy>
+	<Enemy>
+		<Name>Engineer</Name>
+		<Health>100</Health>
+		<Attack>5</Attack>
+		<Defense>0</Defense>
+		<Speed>8</Speed>
+		<EXP>20</EXP>
 		<Value>1</Value>
 	</Enemy>
 	<Enemy>
@@ -25,7 +34,7 @@
 		<Defense>0</Defense>
 		<Speed>15</Speed>
 		<EXP>400</EXP>
-		<Value>20</Value>
+		<Value>12.3</Value>
 	</Enemy>
 	<Enemy>
 		<Name>Twin 1</Name>

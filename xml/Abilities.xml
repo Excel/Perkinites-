@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Abilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Ability>
+		<Name>Shinai Attack</Name>
+		<Availability>Charles Y.</Availability>
+		<Spec>Damage</Spec>
+		<Range>80</Range>
+		<Cooldown>16</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Damage>0</Damage>
+		<Description>Basic Attack: Strike down on a target.</Description>
+	</Ability>
+	<Ability>
 		<Name>Kendo Strike</Name>
 		<Availability>Charles Y.</Availability>
 		<Spec>Damage</Spec>
@@ -10,6 +23,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Charges in a direction, dealing damage to enemies in a line</Description>
 	</Ability>
 	<Ability>
@@ -17,10 +31,12 @@
 		<Availability>Charles Y.</Availability>
 		<Spec>Support</Spec>
 		<Range>140</Range>
+		<Cooldown>200</Cooldown>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Improve self and ally's attack speeds</Description>
 	</Ability>
 	<Ability>
@@ -33,7 +49,60 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Damage>0</Damage>
 		<Description>Teleport self and ally to a point</Description>
+	</Ability>
+	<Ability>
+		<Name>Claw Attack</Name>
+		<Availability>Nate M.</Availability>
+		<Spec>Damage</Spec>
+		<Range>20</Range>
+		<Cooldown>10</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>6</Delay>
+		<Damage>0</Damage>
+		<Description>Basic Attack: Swipe at a target with claws.</Description>
+	</Ability>
+	<Ability>
+		<Name>Hulk Rage</Name>
+		<Availability>Nate M.</Availability>
+		<Spec>Damage</Spec>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Uses>0</Uses>
+		<Activate>0</Activate>
+		<Value>0</Value>
+		<Delay>0</Delay>
+		<Damage>0</Damage>
+		<Description>Bonus hp regen and atk dmg</Description>
+	</Ability>
+	<Ability>
+		<Name>Stare Down</Name>
+		<Availability>Nate M.</Availability>
+		<Spec>Damage</Spec>
+		<Range>120</Range>
+		<Cooldown>100</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Damage>0</Damage>
+		<Description>Damages and stuns target enemy</Description>
+	</Ability>
+	<Ability>
+		<Name>Enrage</Name>
+		<Availability>Nate M.</Availability>
+		<Spec>Support</Spec>
+		<Range>50</Range>
+		<Cooldown>120</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Damage>0</Damage>
+		<Description>The next 3 attacks gain 10 bonus damage each</Description>
 	</Ability>
 	<Ability>
 		<Name>Railgun Attack</Name>
@@ -45,6 +114,7 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>6</Delay>
+		<Damage>0</Damage>
 		<Description>Basic Attack: Shoots a bullet toward a target.</Description>
 	</Ability>
 	<Ability>
@@ -57,6 +127,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Stuns an enemy for two seconds.</Description>
 	</Ability>
 	<Ability>
@@ -69,19 +140,34 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Throws a random shoe toward a target out of anger.</Description>
 	</Ability>
 	<Ability>
 		<Name>Aggressive Mediation</Name>
 		<Availability>C. Kata</Availability>
-		<Spec>BS</Spec>
+		<Spec>Nothing</Spec>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Uses>8</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Jump up and down violently, which solves nothing at all. HA TAKE THAT KATA</Description>
+	</Ability>
+	<Ability>
+		<Name>Magic Wand Attack</Name>
+		<Availability>Cia M.</Availability>
+		<Spec>Damage</Spec>
+		<Range>400</Range>
+		<Cooldown>12</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>6</Delay>
+		<Damage>0</Damage>
+		<Description>Basic Attack: Shoot beams of magic to targets.</Description>
 	</Ability>
 	<Ability>
 		<Name>Tentacle Attack</Name>
@@ -93,6 +179,7 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>6</Delay>
+		<Damage>0</Damage>
 		<Description>Basic Attack: Slash at nearby enemies with tentacles.</Description>
 	</Ability>
 	<Ability>
@@ -105,10 +192,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Damages nearby enemies</Description>
 	</Ability>
 	<Ability>
-		<Name>Violation of Personal Space</Name>
+		<Name>V.P.S.</Name>
 		<Availability>Eric H.</Availability>
 		<Spec>Damage</Spec>
 		<Range>100</Range>
@@ -117,7 +205,8 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
-		<Description>Charge in a group of enemies, slowing and damaging them</Description>
+		<Damage>0</Damage>
+		<Description>[Violation of Personal Space] Charge in a group of enemies, slowing and damaging them</Description>
 	</Ability>
 	<Ability>
 		<Name>Awkward Stare</Name>
@@ -129,6 +218,7 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Stuns himself and nearby enemies</Description>
 	</Ability>
 	<Ability>
@@ -141,6 +231,7 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>4</Delay>
+		<Damage>0</Damage>
 		<Description>Basic Attack: Shoots two guided lasers toward a target.</Description>
 	</Ability>
 	<Ability>
@@ -153,6 +244,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Shoots four arrows toward a target. </Description>
 	</Ability>
 	<Ability>
@@ -165,6 +257,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>8</Delay>
+		<Damage>0</Damage>
 		<Description>Dashes in a straight line, inflicting Stun. </Description>
 	</Ability>
 	<Ability>
@@ -177,6 +270,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Damage>0</Damage>
 		<Description>Creates a magic and apologetic wall that lasts for four seconds.</Description>
 	</Ability>
 	<Ability>
@@ -189,6 +283,7 @@
 		<Activate>0</Activate>
 		<Value>0</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Restores 1 HP per second. But really, he stopped doing this a few months ago. No REALLY. OMG SHUT UP, YOU HATER.</Description>
 	</Ability>
 	<Ability>
@@ -201,6 +296,7 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>4</Delay>
+		<Damage>0</Damage>
 		<Description>Basic Attack: Whack nearby enemies with a medical staff.</Description>
 	</Ability>
 	<Ability>
@@ -213,6 +309,7 @@
 		<Activate>3</Activate>
 		<Value>0</Value>
 		<Delay>4</Delay>
+		<Damage>0</Damage>
 		<Description>Restores some HP to a target Unit.</Description>
 	</Ability>
 	<Ability>
@@ -225,6 +322,7 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>72</Delay>
+		<Damage>0</Damage>
 		<Description>Creates an invulnerable barrier around Chloe that lasts for five seconds.</Description>
 	</Ability>
 	<Ability>
@@ -237,6 +335,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Damage>0</Damage>
 		<Description>Damages close target</Description>
 	</Ability>
 	<Ability>
@@ -249,6 +348,7 @@
 		<Activate>0</Activate>
 		<Value>0</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Reduce ongoing cooldowns by 6 frames each time this Unit is hit.</Description>
 	</Ability>
 	<Ability>
@@ -261,6 +361,7 @@
 		<Activate>0</Activate>
 		<Value>0</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Increase your team's attack powers by 1 each time this Unit is hit.</Description>
 	</Ability>
 	<Ability>
@@ -273,6 +374,7 @@
 		<Activate>1</Activate>
 		<Value>20</Value>
 		<Delay>12</Delay>
+		<Damage>0</Damage>
 		<Description>All enemies and their attacks are frozen for three seconds.</Description>
 	</Ability>
 	<Ability>
@@ -285,6 +387,7 @@
 		<Activate>0</Activate>
 		<Value>5</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Increase the Flexpoint drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
@@ -297,6 +400,7 @@
 		<Activate>0</Activate>
 		<Value>5</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Increase the item drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
@@ -309,6 +413,7 @@
 		<Activate>0</Activate>
 		<Value>15</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Revives this Unit to 1 HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -321,6 +426,7 @@
 		<Activate>0</Activate>
 		<Value>30</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Revives this Unit to half HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -333,6 +439,7 @@
 		<Activate>0</Activate>
 		<Value>60</Value>
 		<Delay>0</Delay>
+		<Damage>0</Damage>
 		<Description>Revives this Unit to full HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -345,6 +452,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Damage>0</Damage>
 		<Description>Launches a grrl-rific swirl attack at an enemy. Gangsters take 2800 damage.</Description>
 	</Ability>
 	<Ability>
@@ -357,6 +465,7 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Damage>0</Damage>
 		<Description>Launches a grrl-rific gossip attack at an enemy. Gangsters take 28000 damage.</Description>
 	</Ability>
 </Abilities>

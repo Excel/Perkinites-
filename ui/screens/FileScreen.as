@@ -18,9 +18,12 @@
 			this.loadGame=loadGame;
 			this.nextScreen=nextScreen;
 			this.stageRef=stageRef;
+			gotoAndStop(1);
 
-			file1.gotoAndStop(1);
-			file2.gotoAndStop(1);
+			displayInfo(file1, false);
+			displayInfo(file2, false);
+			file1.hasData=false;
+			file2.hasData=false;
 			file1.fileNum.text="File 1";
 			file2.fileNum.text="File 2";
 			checkBox1.gotoAndStop(1);
@@ -44,7 +47,6 @@
 			file1.addEventListener(MouseEvent.CLICK, chooseEntry);
 			file2.addEventListener(MouseEvent.CLICK, chooseEntry);
 			if (loadGame) {
-
 				optionDescription.text="Load your game by clicking on a file entry! Yum! The freshness is always good. :)";
 				optionDisplay.text="Load from which file?";
 			} else {
@@ -91,31 +93,33 @@
 
 		public function chooseEntry(e) {
 			chosenEntry=e.target;
-			confirm.visible=true;
-			confirm.x=0;
-			confirm.y=0;
+			if (!loadGame || (chosenEntry.hasData && loadGame)) {
+				confirm.visible=true;
+				confirm.x=0;
+				confirm.y=0;
 
-			if (loadGame) {
-				if (chosenEntry==file1) {
-					confirm.confirmMessage.text="LOAD FILE 1 DOOD?";
-				} else if (chosenEntry == file2) {
-					confirm.confirmMessage.text="LOAD FILE 2 MAN?";
+				if (loadGame) {
+					if (chosenEntry==file1) {
+						confirm.confirmMessage.text="LOAD FILE 1 DOOD?";
+					} else if (chosenEntry == file2) {
+						confirm.confirmMessage.text="LOAD FILE 2 MAN?";
+					}
+				} else {
+					if (chosenEntry==file1) {
+						confirm.confirmMessage.text="SAVE FILE 1 DOOD?";
+					} else if (chosenEntry == file2) {
+						confirm.confirmMessage.text="SAVE FILE 2 MAN?";
+					}
 				}
-			} else {
-				if (chosenEntry==file1) {
-					confirm.confirmMessage.text="SAVE FILE 1 DOOD?";
-				} else if (chosenEntry == file2) {
-					confirm.confirmMessage.text="SAVE FILE 2 MAN?";
-				}
+				confirm.yesButton.buttonText.text="YA DOOD";
+				confirm.noButton.buttonText.text="NO DAWG";
+
+				//confirm.addEventListener(MouseEvent.CLICK, confirmHandler);
+				confirm.mouseChildren=true;
+				confirm.yesButton.removeEventListener(MouseEvent.CLICK, confirmDelete);
+				confirm.yesButton.addEventListener(MouseEvent.CLICK, confirmHandler);
+				confirm.noButton.addEventListener(MouseEvent.CLICK, removeConfirm);
 			}
-			confirm.yesButton.buttonText.text="YA DOOD";
-			confirm.noButton.buttonText.text="NO DAWG";
-
-			//confirm.addEventListener(MouseEvent.CLICK, confirmHandler);
-			confirm.mouseChildren=true;
-			confirm.yesButton.removeEventListener(MouseEvent.CLICK, confirmDelete);
-			confirm.yesButton.addEventListener(MouseEvent.CLICK, confirmHandler);
-			confirm.noButton.addEventListener(MouseEvent.CLICK, removeConfirm);
 		}
 
 		public function deleteEntry(e) {
@@ -154,7 +158,6 @@
 				if (obj.fileNum.text=="File 1") {
 					popup.y=135;
 					arrow.y=169;
-					file1.gotoAndStop(2);
 					updateInfo(file1);
 				} else {
 					popup.y=313;
@@ -179,9 +182,9 @@
 			var obj=checkedEntry;
 			popup.alpha=0;
 			if (obj.fileNum.text=="File 1") {
-				file1.gotoAndStop(1);
+				displayInfo(file1, false);
 			} else {
-				file2.gotoAndStop(1);
+				displayInfo(file1, false);
 			}
 			//flash the screen with white
 			popup.removeEventListener(Event.ENTER_FRAME, showPopup);
@@ -213,6 +216,7 @@
 		}
 
 		public function updateInfo(file) {
+			displayInfo(file, true);
 			file.faceIcon1.gotoAndStop(1);
 			file.faceIcon2.gotoAndStop(1);
 			file.levelCount.text="00";
@@ -222,18 +226,26 @@
 			file.unitName1.text="";
 			file.unitName2.text="";
 
-			file.hotkeyHolder.qIcon1.gotoAndStop(1);
-			file.hotkeyHolder.wIcon1.gotoAndStop(1);
-			file.hotkeyHolder.eIcon1.gotoAndStop(1);
-			file.hotkeyHolder.aIcon1.gotoAndStop(1);
-			file.hotkeyHolder.sIcon1.gotoAndStop(1);
-			file.hotkeyHolder.dIcon1.gotoAndStop(1);
-			file.hotkeyHolder.qIcon2.gotoAndStop(1);
-			file.hotkeyHolder.wIcon2.gotoAndStop(1);
-			file.hotkeyHolder.eIcon2.gotoAndStop(1);
-			file.hotkeyHolder.aIcon2.gotoAndStop(1);
-			file.hotkeyHolder.sIcon2.gotoAndStop(1);
-			file.hotkeyHolder.dIcon2.gotoAndStop(1);
+			file.hotkeyHolder.qIcon.gotoAndStop(1);
+			file.hotkeyHolder.wIcon.gotoAndStop(1);
+			file.hotkeyHolder.eIcon.gotoAndStop(1);
+			file.hotkeyHolder.aIcon.gotoAndStop(1);
+			file.hotkeyHolder.sIcon.gotoAndStop(1);
+			file.hotkeyHolder.dIcon.gotoAndStop(1);
+			file.hotkeyHolder.fIcon.gotoAndStop(1);
+		}
+
+		public function displayInfo(file, display:Boolean) {
+			file.faceIcon1.visible=display;
+			file.faceIcon2.visible=display;
+			file.levelCount.visible=display;
+			file.FPDisplay.visible=display;
+			file.timeDisplay.visible=display;
+			file.locationDisplay.visible=display;
+			file.unitName1.visible=display;
+			file.unitName2.visible=display;
+
+			file.hotkeyHolder.visible=display;
 		}
 
 		/*public function overHandler1(e) {
