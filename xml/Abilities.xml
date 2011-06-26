@@ -10,7 +10,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Basic Attack: Strike down on a target.</Description>
 	</Ability>
 	<Ability>
@@ -23,7 +27,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Charges in a direction, dealing damage to enemies in a line</Description>
 	</Ability>
 	<Ability>
@@ -36,7 +44,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Improve self and ally's attack speeds</Description>
 	</Ability>
 	<Ability>
@@ -49,7 +61,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Teleport self and ally to a point</Description>
 	</Ability>
 	<Ability>
@@ -62,7 +78,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>6</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Basic Attack: Swipe at a target with claws.</Description>
 	</Ability>
 	<Ability>
@@ -75,7 +95,11 @@
 		<Activate>0</Activate>
 		<Value>0</Value>
 		<Delay>0</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Bonus hp regen and atk dmg</Description>
 	</Ability>
 	<Ability>
@@ -88,7 +112,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Damages and stuns target enemy</Description>
 	</Ability>
 	<Ability>
@@ -101,7 +129,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>The next 3 attacks gain 10 bonus damage each</Description>
 	</Ability>
 	<Ability>
@@ -114,7 +146,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>6</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Basic Attack: Shoots a bullet toward a target.</Description>
 	</Ability>
 	<Ability>
@@ -127,7 +163,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Stuns an enemy for two seconds.</Description>
 	</Ability>
 	<Ability>
@@ -140,7 +180,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Throws a random shoe toward a target out of anger.</Description>
 	</Ability>
 	<Ability>
@@ -153,7 +197,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Jump up and down violently, which solves nothing at all. HA TAKE THAT KATA</Description>
 	</Ability>
 	<Ability>
@@ -166,7 +214,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>6</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Basic Attack: Shoot beams of magic to targets.</Description>
 	</Ability>
 	<Ability>
@@ -179,7 +231,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>6</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Basic Attack: Slash at nearby enemies with tentacles.</Description>
 	</Ability>
 	<Ability>
@@ -192,7 +248,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Damages nearby enemies</Description>
 	</Ability>
 	<Ability>
@@ -205,7 +265,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>[Violation of Personal Space] Charge in a group of enemies, slowing and damaging them</Description>
 	</Ability>
 	<Ability>
@@ -218,7 +282,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Stuns himself and nearby enemies</Description>
 	</Ability>
 	<Ability>
@@ -231,7 +299,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>4</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Basic Attack: Shoots two guided lasers toward a target.</Description>
 	</Ability>
 	<Ability>
@@ -244,7 +316,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Shoots four arrows toward a target. </Description>
 	</Ability>
 	<Ability>
@@ -257,7 +333,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>8</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Dashes in a straight line, inflicting Stun. </Description>
 	</Ability>
 	<Ability>
@@ -270,7 +350,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Creates a magic and apologetic wall that lasts for four seconds.</Description>
 	</Ability>
 	<Ability>
@@ -283,8 +367,80 @@
 		<Activate>0</Activate>
 		<Value>0</Value>
 		<Delay>0</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Restores 1 HP per second. But really, he stopped doing this a few months ago. No REALLY. OMG SHUT UP, YOU HATER.</Description>
+	</Ability>
+	<Ability>
+		<Name>Voice Attack</Name>
+		<Availability>Huong V.</Availability>
+		<Spec>Damage</Spec>
+		<Range>100</Range>
+		<Cooldown>16</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>16</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
+		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<Description>Basic Attack: Creates a sound shockwave.</Description>
+	</Ability>
+	<Ability>
+		<Name>Tickle Fight</Name>
+		<Availability>Huong V.</Availability>
+		<Spec>Damage</Spec>
+		<Range>100</Range>
+		<Cooldown>55</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
+		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<Description>Damages nearby enemies. If some are hit, friendship points appear</Description>
+	</Ability>
+	<Ability>
+		<Name>Awkward Turtle</Name>
+		<Availability>Huong V.</Availability>
+		<Spec>Damage</Spec>
+		<Range>150</Range>
+		<Cooldown>24</Cooldown>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
+		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<Description>Damages and slows targeted enemy</Description>
+	</Ability>
+	<Ability>
+		<Name>Ramen!</Name>
+		<Availability>Huong V.</Availability>
+		<Spec>Healing %</Spec>
+		<Range>0</Range>
+		<Cooldown>110</Cooldown>
+		<Uses>1</Uses>
+		<Activate>3</Activate>
+		<Value>0</Value>
+		<Delay>12</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
+		<Damage>0</Damage>
+		<HPPerc>20</HPPerc>
+		<HPLump>0</HPLump>
+		<Description>Heals target</Description>
 	</Ability>
 	<Ability>
 		<Name>Staff Attack</Name>
@@ -296,7 +452,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>4</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Basic Attack: Whack nearby enemies with a medical staff.</Description>
 	</Ability>
 	<Ability>
@@ -309,7 +469,11 @@
 		<Activate>3</Activate>
 		<Value>0</Value>
 		<Delay>4</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Restores some HP to a target Unit.</Description>
 	</Ability>
 	<Ability>
@@ -322,7 +486,11 @@
 		<Activate>1</Activate>
 		<Value>0</Value>
 		<Delay>72</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Creates an invulnerable barrier around Chloe that lasts for five seconds.</Description>
 	</Ability>
 	<Ability>
@@ -335,7 +503,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Damages close target</Description>
 	</Ability>
 	<Ability>
@@ -348,7 +520,11 @@
 		<Activate>0</Activate>
 		<Value>0</Value>
 		<Delay>0</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Reduce ongoing cooldowns by 6 frames each time this Unit is hit.</Description>
 	</Ability>
 	<Ability>
@@ -361,8 +537,29 @@
 		<Activate>0</Activate>
 		<Value>0</Value>
 		<Delay>0</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Increase your team's attack powers by 1 each time this Unit is hit.</Description>
+	</Ability>
+	<Ability>
+		<Name>Orgo Book Attack</Name>
+		<Availability>Vivian H.</Availability>
+		<Spec>Damage</Spec>
+		<Range>30</Range>
+		<Cooldown>16</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>4</Delay>
+		<Min>1</Min>
+		<Max>5</Max>
+		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<Description>Basic Attack: Whack nearby enemies with an Orgo textbook.</Description>
 	</Ability>
 	<Ability>
 		<Name>Break Time</Name>
@@ -374,7 +571,11 @@
 		<Activate>1</Activate>
 		<Value>20</Value>
 		<Delay>12</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>All enemies and their attacks are frozen for three seconds.</Description>
 	</Ability>
 	<Ability>
@@ -387,7 +588,11 @@
 		<Activate>0</Activate>
 		<Value>5</Value>
 		<Delay>0</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Increase the Flexpoint drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
@@ -400,7 +605,11 @@
 		<Activate>0</Activate>
 		<Value>5</Value>
 		<Delay>0</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Increase the item drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
@@ -413,7 +622,11 @@
 		<Activate>0</Activate>
 		<Value>15</Value>
 		<Delay>0</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Revives this Unit to 1 HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -426,7 +639,11 @@
 		<Activate>0</Activate>
 		<Value>30</Value>
 		<Delay>0</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Revives this Unit to half HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -439,7 +656,11 @@
 		<Activate>0</Activate>
 		<Value>60</Value>
 		<Delay>0</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Revives this Unit to full HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -452,7 +673,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Launches a grrl-rific swirl attack at an enemy. Gangsters take 2800 damage.</Description>
 	</Ability>
 	<Ability>
@@ -465,7 +690,11 @@
 		<Activate>2</Activate>
 		<Value>0</Value>
 		<Delay>12</Delay>
+		<Min>1</Min>
+		<Max>1</Max>
 		<Damage>0</Damage>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
 		<Description>Launches a grrl-rific gossip attack at an enemy. Gangsters take 28000 damage.</Description>
 	</Ability>
 </Abilities>

@@ -217,10 +217,8 @@
 					page3.partnerButton.buttonText.text="Set 2";
 					break;
 				case 4 :
-
 					break;
 				case 5 :
-
 					break;
 			}
 		}
@@ -521,6 +519,7 @@
 					xOffset=16;
 					yOffset+=36;
 				}
+				var pass = false;
 				if (Unit.abilityAmounts[i]>0) {
 					var abilityIcon = new AbilityIcon();
 					abilityIcon.gotoAndStop(AbilityDatabase.getIndex(i));
@@ -1067,7 +1066,6 @@
 								break;
 							}
 						}
-
 					} else if (obj.parent == page2.passiveList2) {
 						passive=Unit.partnerUnit.passiveItems;
 						for (i = 0; i < passive.length; i++) {
@@ -1162,7 +1160,6 @@
 		************************************************************************/
 
 		public function updatePowerupPage() {
-
 			if (currentActivated) {
 				page3.ppRemainingDisplay.text=Unit.currentUnit.powerpoints;
 				if (page3.ppRemainingDisplay.text.length==1) {
@@ -1179,8 +1176,12 @@
 
 
 			var i;
-			var basicAbilities=AbilityDatabase.getBasicAbilities(
-			 ActorDatabase.getName(setUnitIndex));
+			var basicAbilities;
+			if (currentActivated) {
+				basicAbilities=Unit.currentUnit.basicAbilities;
+			} else {
+				basicAbilities=Unit.partnerUnit.basicAbilities;
+			}
 			var names=new Array(page3.abilityName1,page3.abilityName2,page3.abilityName3,page3.abilityName4,page3.abilityName5);
 			var descriptions = new Array(page3.description1, page3.description2, page3.description3,
 			 page3.description4, page3.description5);
@@ -1200,6 +1201,7 @@
 					hotkeyIconArray[i].gotoAndStop(basicAbilities[i].index);
 					names[i].text=basicAbilities[i].Name;
 					descriptions[i].text=AbilityDatabase.getSpecInfo(basicAbilities[i].id);
+					fractions[i].text=basicAbilities[i].min+"\n-\n"+basicAbilities[i].max;
 					hotkeyIconArray[i].gotoAndStop(AbilityDatabase.getIndex(basicAbilities[i].id));
 				} else {
 					break;
@@ -1253,7 +1255,7 @@
 						listener=decreasePower;
 						break;
 					case 2 :
-						display="=1";
+						display="RESET";
 						listener=resetPower;
 						break;
 				}
@@ -1266,22 +1268,86 @@
 		}
 
 		public function increasePower(e) {
-			/*var obj=e.target;
+			var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
-			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
+			var basicAbilities;
+			var pp;
+			if (currentActivated) {
+				basicAbilities=Unit.currentUnit.basicAbilities;
+				pp=Unit.currentUnit.powerpoints;
+			} else {
+				basicAbilities=Unit.partnerUnit.basicAbilities;
+				pp=Unit.partnerUnit.powerpoints;
+			}
+			makeDescription(basicAbilities[index].id, "Ability");
+
+			if (pp>0&&basicAbilities[index].min+1<Unit.maxLP/2+1 && 
+			   basicAbilities[index].min+1 <= basicAbilities[index].max) {
+				pp--;
+				basicAbilities[index].min++;
+			} else {
+				//do something
+			}
+			if (currentActivated) {
+				Unit.currentUnit.powerpoints=pp;
+			} else {
+				Unit.partnerUnit.powerpoints=pp;
+			}
+			updatePowerupPage();
 		}
 		public function decreasePower(e) {
-			/*var obj=e.target;
+			var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
-			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
+			var basicAbilities;
+			var pp;
+			if (currentActivated) {
+				basicAbilities=Unit.currentUnit.basicAbilities;
+				pp=Unit.currentUnit.powerpoints;
+			} else {
+				basicAbilities=Unit.partnerUnit.basicAbilities;
+				pp=Unit.partnerUnit.powerpoints;
+			}
+			makeDescription(basicAbilities[index].id, "Ability");
+
+			if (basicAbilities[index].min>AbilityDatabase.getMin(basicAbilities[index].id)) {
+				pp++;
+				basicAbilities[index].min--;
+			} else {
+				//do something
+			}
+			if (currentActivated) {
+				Unit.currentUnit.powerpoints=pp;
+			} else {
+				Unit.partnerUnit.powerpoints=pp;
+			}
+			updatePowerupPage();
 		}
 		public function resetPower(e) {
-			/*var obj=e.target;
+			var obj=e.target;
 			var par=e.target.parent;
 			var index=par.getChildIndex(obj);
-			makeDescription(hotkeyArray[index].id, hotkeyIconArray[index].type);*/
+			var basicAbilities;
+			var pp;
+			if (currentActivated) {
+				basicAbilities=Unit.currentUnit.basicAbilities;
+				pp=Unit.currentUnit.powerpoints;
+			} else {
+				basicAbilities=Unit.partnerUnit.basicAbilities;
+				pp=Unit.partnerUnit.powerpoints;
+			}
+			makeDescription(basicAbilities[index].id, "Ability");
+
+			var difference=basicAbilities[index].min-AbilityDatabase.getMin(basicAbilities[index].id);
+			pp+=difference;
+			basicAbilities[index].min-=difference;
+			if (currentActivated) {
+				Unit.currentUnit.powerpoints=pp;
+			} else {
+				Unit.partnerUnit.powerpoints=pp;
+			}
+			updatePowerupPage();
 		}
 	}
 }

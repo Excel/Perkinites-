@@ -99,9 +99,6 @@ package actors{
 		static public var hk7;
 		static public var finale;
 
-
-/*		static public var distributions=new Array(0,0,0,0,0,0,0);
-		static public var maxDistributions=new Array(0,0,0,0,0,0,0);*/
 		public var basicAbilities:Array; //the initial abilities
 		public var commands:Array;
 
@@ -179,7 +176,7 @@ package actors{
 				
 				basicAbilities = AbilityDatabase.getBasicAbilities(Name);
 				
-				powerpoints = 1;
+				powerpoints = 70;
 			}
 		}
 

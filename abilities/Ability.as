@@ -46,6 +46,9 @@ package abilities{
 		public var maxUses:int;//number of uses before cooldown
 		public var active:Boolean;//whether or not the ability can be equipped to a hotkey or passive
 		public var delay:int;//wait time before using again immediately
+		
+		public var min:int;
+		public var max:int;
 		static public var tileMap;
 
 		/**
@@ -83,6 +86,8 @@ package abilities{
 			maxUses= AbilityDatabase.getUses(id);
 			active=false;
 			delay= 10;
+			min = AbilityDatabase.getMin(id);
+			max = AbilityDatabase.getMax(id);
 			bomber= dasher = ranger = targeter = other = false;
 		}
 		public function activate(xpos, ypos) {

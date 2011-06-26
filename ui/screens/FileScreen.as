@@ -41,6 +41,7 @@
 			frame=0;
 			deleteButton.buttonText.text="Delete Game";
 			popup.alpha=0;
+			popup.visible = false;
 
 			deleteButton.addEventListener(MouseEvent.CLICK, deleteEntry);
 			back.addEventListener(MouseEvent.CLICK, goBack);
@@ -76,6 +77,7 @@
 						checkBox1.gotoAndStop(1);
 						checkBox2.gotoAndStop(2);
 						checkedEntry=file2;
+
 					}
 
 				}
@@ -155,6 +157,7 @@
 				frame=0;
 				var obj=chosenEntry;
 				popup.alpha=0;
+				popup.visible = false;
 				if (obj.fileNum.text=="File 1") {
 					popup.y=135;
 					arrow.y=169;
@@ -181,10 +184,11 @@
 
 			var obj=checkedEntry;
 			popup.alpha=0;
+			popup.visible = false;
 			if (obj.fileNum.text=="File 1") {
 				displayInfo(file1, false);
 			} else {
-				displayInfo(file1, false);
+				displayInfo(file2, false);
 			}
 			//flash the screen with white
 			popup.removeEventListener(Event.ENTER_FRAME, showPopup);
@@ -203,6 +207,7 @@
 		}
 
 		public function showPopup(e) {
+			popup.visible = true;
 			if (frame<12) {
 				popup.alpha+=1/12;
 			} else if (frame < 24) {
@@ -210,6 +215,8 @@
 				popup.alpha-=1/12;
 			} else {
 				popup.removeEventListener(Event.ENTER_FRAME, showPopup);
+				popup.visible = false;
+				popup.alpha = 0;
 			}
 			frame++;
 

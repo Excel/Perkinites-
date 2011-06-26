@@ -5,6 +5,7 @@
 	import flash.display.Stage;
 	import flash.events.*;
 	import flash.filters.GlowFilter;
+	import flash.geom.Rectangle;	
 	import flash.ui.Keyboard;
 
 	import game.*;
@@ -61,6 +62,8 @@
 			updateText();
 			updateDifficulty();
 			updateIcons();
+			
+			map.addEventListener(MouseEvent.MOUSE_DOWN, dragMap);
 			
 			load();
 
@@ -195,7 +198,7 @@
 		public function updateText() {
 			stageNumber.text=level+"";
 			stageName.text=stageArray[level-1];
-			bossName.text=bossArray[level-1];
+			//bossName.text=bossArray[level-1];
 
 			switch (diff) {
 				case 0 :
@@ -227,5 +230,17 @@
 			}
 
 		}
+		public function dragMap(e) {
+			var obj=e.target;
+			obj.startDrag(false, new Rectangle(-368+320,-640+320,1260+320,1098+320));
+			map.addEventListener(MouseEvent.MOUSE_UP, releaseMap);			
+		}		
+		public function releaseMap(e){
+			var obj = e.target;
+			obj.stopDrag();
+			stageRef.focus=null;
+			map.removeEventListener(MouseEvent.MOUSE_UP, releaseMap);
+		}
+		//DO SOMETHING IF MOUSE GETS OUT WINDOW >:O
 	}
 }

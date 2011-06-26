@@ -28,6 +28,8 @@
 		public static var specs = new Array();
 		public static var values = new Array();
 		public static var delays = new Array();
+		public static var mins = new Array();
+		public static var maxes = new Array();
 		public static var actives = new Array();
 		public static const activationLabels = new Array("Automatic",  
 		 "Hotkey",
@@ -36,8 +38,8 @@
 		public static var index=new Array();
 
 		public static var damage = new Array();
-		public static const hpPercChange=new Array(0,0,0,25,0,0,0,0);
-		public static const hpLumpChange=new Array(0,0,0,0,0,0,0,0);
+		public static const hpPercChange=new Array();
+		public static const hpLumpChange=new Array();
 		public static const atkSpeedPerc=new Array(0,20,0,0,0,0,0,0);
 		public static const mvSpeedPerc=new Array(0,0,0,0,0,0,0,0);
 		public static const atkDmgPerc=new Array(0,10,0,0,0,0,0,0);
@@ -130,11 +132,10 @@
 			}
 			for each (var activateElement:XML in input.Ability.Activate) {
 				activations.push(activateElement);
-				if(activateElement == "0"){
+				if (activateElement=="0") {
 					actives.push(false);
-				}
-				else{
-					actives.push(true);			
+				} else {
+					actives.push(true);
 				}
 			}
 			for each (var valueElement:XML in input.Ability.Value) {
@@ -143,16 +144,24 @@
 			for each (var delayElement:XML in input.Ability.Delay) {
 				delays.push(delayElement);
 			}
-			for each (var descriptionElement:XML in input.Ability.Description) {
-				descriptions.push(descriptionElement);
-				hpLumpChange.push(0);
-				hpPercChange.push(0);
+			for each (var minElement:XML in input.Ability.Min) {
+				mins.push(minElement);
 			}
+			for each (var maxElement:XML in input.Ability.Max) {
+				maxes.push(maxElement);
+			}			
 			for each (var damageElement:XML in input.Ability.Damage) {
 				damage.push(damageElement);
 			}
-
-
+			for each (var hpPercElement:XML in input.Ability.HPPerc) {
+				hpPercChange.push(hpPercElement);
+			}
+			for each (var hpLumpElement:XML in input.Ability.HPLump) {
+				hpLumpChange.push(hpLumpElement);
+			}			
+			for each (var descriptionElement:XML in input.Ability.Description) {
+				descriptions.push(descriptionElement);
+			}
 
 		}
 
@@ -189,8 +198,12 @@
 		public static function getDelay(id:int):int {
 			return delays[id];
 		}
-
-
+		public static function getMin(id:int):int {
+			return mins[id];
+		}
+		public static function getMax(id:int):int {
+			return maxes[id];
+		}
 
 		public static function getDamage(id:int):int {
 			return damage[id];
