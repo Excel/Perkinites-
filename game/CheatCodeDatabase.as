@@ -13,7 +13,12 @@
 			switch (cheatCode) {
 					//Ananya
 				case "114114251" :
-					StageSelect.Ananya=! StageSelect.Ananya;
+				if(StageSelect.Ananya){
+					StageSelect.Ananya = false;
+				}
+				else{
+					StageSelect.Ananya = true;
+				}
 					var display="Ananya Difficulty Off";
 					if (StageSelect.Ananya) {
 						display="Ananya Difficulty On";

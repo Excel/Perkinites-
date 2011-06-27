@@ -45,7 +45,6 @@ KeyDown.init(stage);
 
 Unit.currentUnit=new Unit(-1);
 Unit.partnerUnit=new Unit(-1);
-var guide = new Guide();
 stage.addEventListener(Event.ENTER_FRAME, countHandler);
 stage.addEventListener(Event.ENTER_FRAME,setUp);
 stage.addEventListener(MouseEvent.MOUSE_DOWN, moveHandler);
@@ -56,17 +55,7 @@ stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
 stage.addEventListener(Event.DEACTIVATE, onLostFocus);
 function countHandler(e) {
 	count++;
-	/*guide.x=Unit.currentUnit.x-ScreenRect.getX();
-	guide.y=Unit.currentUnit.y-ScreenRect.getY();
-	var q = Math.sqrt( 
-	Math.pow(guide.x - this.parent.mouseX, 2) + 
-	Math.pow(guide.y - this.parent.mouseY, 2));
-	var radian=Math.atan2(this.parent.mouseY-guide.y,this.parent.mouseX-guide.x);
-	var degree = Math.round((radian*180/Math.PI));
-	guide.width = q * Math.cos(radian);
-	guide.height = q * Math.sin(radian);
-	guide.rotation=degree;
-	*/
+
 }
 
 

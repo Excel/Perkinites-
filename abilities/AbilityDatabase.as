@@ -38,17 +38,31 @@
 		public static var index=new Array();
 
 		public static var damage = new Array();
-		public static const hpPercChange=new Array();
-		public static const hpLumpChange=new Array();
-		public static const atkSpeedPerc=new Array(0,20,0,0,0,0,0,0);
-		public static const mvSpeedPerc=new Array(0,0,0,0,0,0,0,0);
-		public static const atkDmgPerc=new Array(0,10,0,0,0,0,0,0);
-		public static const atkDmgLump=new Array(0,0,0,0,0,0,0,0);
-		public static const cdPercChange=new Array(0,0,0,0,0,0,0,0);
+		public static var atkSpeed = new Array();
 
-		public static const stunDurations=new Array(40,0,0,0,0,0,0);
-		public static const slowDurations=new Array(0,0,0,0,0,0,0);
-		public static const slowPercents=new Array(0,0,0,0,0,0,0,0);
+		public static var stunDurations=new Array();
+		public static var slowDurations=new Array();
+		public static var sickDurations=new Array();
+		public static var exhaustDurations=new Array();
+		public static var regenDurations=new Array();
+
+		public static var slowPercents=new Array();
+		public static var sickPercents=new Array();
+		public static var regenPercents=new Array();
+		
+		public static var hpPercChange=new Array();
+		public static var hpLumpChange=new Array();
+
+		public static var atkDmgPerc=new Array();
+		public static var atkDmgLump=new Array();
+		public static var cdPercChange=new Array();
+		
+		
+		public static var moveToTarget = new Array();
+
+		public static const mvSpeedPerc=new Array(0,0,0,0,0,0,0,0);
+
+
 
 		/*public static const names=new Array("Eyelash Batting","Sharp Shooter","Update","Cheer",":]",":]",":]");
 		public static const descriptions = new Array("Stun certain enemies.",
@@ -149,16 +163,61 @@
 			}
 			for each (var maxElement:XML in input.Ability.Max) {
 				maxes.push(maxElement);
-			}			
+			}
 			for each (var damageElement:XML in input.Ability.Damage) {
 				damage.push(damageElement);
 			}
+			for each (var speedElement:XML in input.Ability.Speed) {
+				atkSpeed.push(speedElement);
+			}
+
+			for each (var stunDurElement:XML in input.Ability.StunDur) {
+				stunDurations.push(stunDurElement);
+			}
+			for each (var slowDurElement:XML in input.Ability.SlowDur) {
+				slowDurations.push(slowDurElement);
+			}
+			for each (var sickDurElement:XML in input.Ability.SickDur) {
+				sickDurations.push(sickDurElement);
+			}
+			for each (var exhaustDurElement:XML in input.Ability.ExhaustDur) {
+				exhaustDurations.push(exhaustDurElement);
+			}
+			for each (var regenDurElement:XML in input.Ability.RegenDur) {
+				regenDurations.push(regenDurElement);
+			}
+			for each (var slowPercElement:XML in input.Ability.SlowPerc) {
+				slowPercents.push(slowPercElement);
+			}
+			for each (var sickPercElement:XML in input.Ability.SickPerc) {
+				sickPercents.push(sickPercElement);
+			}
+			for each (var regenPercElement:XML in input.Ability.RegenPerc) {
+				regenPercents.push(regenPercElement);
+			}
+			
 			for each (var hpPercElement:XML in input.Ability.HPPerc) {
 				hpPercChange.push(hpPercElement);
 			}
 			for each (var hpLumpElement:XML in input.Ability.HPLump) {
 				hpLumpChange.push(hpLumpElement);
-			}			
+			}
+
+			for each (var apPercElement:XML in input.Ability.APPerc) {
+				atkDmgPerc.push(apPercElement);
+			}
+			for each (var apLumpElement:XML in input.Ability.APLump) {
+				atkDmgLump.push(apLumpElement);
+			}
+			
+			for each (var cdPercElement:XML in input.Ability.CDPerc) {
+				cdPercChange.push(cdPercElement);
+			}
+			
+			for each (var moveElement:XML in input.Ability.Move) {
+				moveToTarget.push(moveElement);
+			}
+			
 			for each (var descriptionElement:XML in input.Ability.Description) {
 				descriptions.push(descriptionElement);
 			}
@@ -208,14 +267,17 @@
 		public static function getDamage(id:int):int {
 			return damage[id];
 		}
+		public static function getAtkSpeed(id:int):int {
+			return atkSpeed[id];
+		}		
 		public static function getHPPercChange(id:int):int {
 			return hpPercChange[id];
 		}
 		public static function getHPLumpChange(id:int):int {
 			return hpLumpChange[id];
 		}
-		public static function getAtkSpeedPerc(id:int):int {
-			return atkSpeedPerc[id];
+		public static function getSpeed(id:int):int {
+			return atkSpeed[id];
 		}
 		public static function getMvSpeedPerc(id:int):int {
 			return mvSpeedPerc[id];
@@ -230,6 +292,10 @@
 			return cdPercChange[id];
 		}
 
+		public static function getMoveToTarget(id:int):int {
+			return moveToTarget[id];
+		}
+		
 		public static function getStunDuration(id:int):int {
 			return stunDurations[id];
 		}

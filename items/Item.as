@@ -52,7 +52,7 @@ package items{
 
 			hpPercChange=ItemDatabase.getHPPercChange(id);
 			hpLumpChange=ItemDatabase.getHPLumpChange(id);
-			atkSpeedPerc=ItemDatabase.getAtkSpeedPerc(id);
+			atkSpeed=ItemDatabase.getAtkSpeedPerc(id);
 			mvSpeedPerc=ItemDatabase.getMvSpeedPerc(id);
 			atkDmgPerc=ItemDatabase.getAtkDmgPerc(id);
 			atkDmgLump=ItemDatabase.getAtkDmgLump(id);

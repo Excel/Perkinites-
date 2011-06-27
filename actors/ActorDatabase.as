@@ -10,27 +10,7 @@
 	public class ActorDatabase {
 
 		public static var xmlData:XML = new XML();
-		/*public static var names=new Array("C. Kata","Cia M.","Charles Y.","Nate M.");
-		public static const hp=new Array(75,90,60,100);
-		public static const dmg=new Array(3,3,3,3);
-		public static const armor=new Array(0,0,0,0);
-		public static const speed=new Array(16,16,16,16);
-		
-		//this is just a slight change. we can remove this later if needed. i just wanted to see what it would look like.
-		public static const weapons=new Array("Railgun","Magic Wand","Shinai","Claws");
-		public static const ffNames=new Array("Angelic Finale","Angelic Finale","WHAT YOU WANT","WHAT YOU WANT");
-		public static const ffDescriptions=new Array("Shower the field with celestial forces and holy lasers.",
-		 "Shower the field with celestial forces and holy lasers.",
-		 "MAGICAL SHIT HAPPENS",
-		 "MAGICAL SHIT HAPPENS");
-		//this whole Current Unit Bonus thing is also optional. I don't know. 
-		//I want additional bonuses though besides just the attack. 
-		//It could also apply to both units instead of the one you're controlling (current).
-		public static const ffBonuses=new Array("If C. Kata is the Current Unit, she gets 1.5x AP.",
-		"If Cia M. is the Current Unit, she gets 1.5x Speed",
-		"If Charles Y. is the Current Unit, WHAT YOU WANT",
-		"If Nate M. is the Current Unit, WHAT YOU WANT");
-		*/
+
 		public static var names = new Array();//=new Array("C. Kata","Cia M.","Charles Y.","Nate M.");
 		public static var hp=new Array();//new Array(75,90,60,100);
 		public static var dmg=new Array();//new Array(3,3,3,3);
@@ -57,7 +37,7 @@
 
 			xmlLoader.addEventListener(Event.COMPLETE, LoadXML);
 			xmlLoader.load(new URLRequest("xml/Actors.xml"));
-			
+
 
 		}
 
@@ -115,7 +95,7 @@
 		public static function getFFBonus(id:int):String {
 			return ffBonuses[id];
 		}
-		
+
 		public static function getBasicAbilities(id:int):Array {
 			return basicAbilities[id];
 		}

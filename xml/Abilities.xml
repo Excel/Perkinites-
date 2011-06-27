@@ -13,8 +13,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Strike down on a target.</Description>
 	</Ability>
 	<Ability>
@@ -30,8 +48,27 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Tank>1</Tank>
+		<Target>Enemy</Target>
 		<Description>Charges in a direction, dealing damage to enemies in a line</Description>
 	</Ability>
 	<Ability>
@@ -47,8 +84,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>0</Move>
+		<Target>Team</Target>
 		<Description>Improve self and ally's attack speeds</Description>
 	</Ability>
 	<Ability>
@@ -64,8 +119,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>2</Move>
+		<Target>Team</Target>
 		<Description>Teleport self and ally to a point</Description>
 	</Ability>
 	<Ability>
@@ -81,8 +154,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Swipe at a target with claws.</Description>
 	</Ability>
 	<Ability>
@@ -98,8 +189,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Self</Target>
 		<Description>Bonus hp regen and atk dmg</Description>
 	</Ability>
 	<Ability>
@@ -115,8 +224,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Damages and stuns target enemy</Description>
 	</Ability>
 	<Ability>
@@ -132,8 +259,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Self</Target>
 		<Description>The next 3 attacks gain 10 bonus damage each</Description>
 	</Ability>
 	<Ability>
@@ -149,8 +294,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Shoots a bullet toward a target.</Description>
 	</Ability>
 	<Ability>
@@ -166,8 +329,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Stuns an enemy for two seconds.</Description>
 	</Ability>
 	<Ability>
@@ -183,12 +364,30 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Throws a random shoe toward a target out of anger.</Description>
 	</Ability>
 	<Ability>
-		<Name>Aggressive Mediation</Name>
+		<Name>A. Mediation</Name>
 		<Availability>C. Kata</Availability>
 		<Spec>Nothing</Spec>
 		<Range>0</Range>
@@ -200,9 +399,27 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
-		<Description>Jump up and down violently, which solves nothing at all. HA TAKE THAT KATA</Description>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Self</Target>
+		<Description>[Aggressive Mediation] Jump up and down violently, which solves nothing at all. HA TAKE THAT KATA</Description>
 	</Ability>
 	<Ability>
 		<Name>Magic Wand Attack</Name>
@@ -217,8 +434,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Shoot beams of magic to targets.</Description>
 	</Ability>
 	<Ability>
@@ -234,8 +469,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Slash at nearby enemies with tentacles.</Description>
 	</Ability>
 	<Ability>
@@ -251,8 +504,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Damages nearby enemies</Description>
 	</Ability>
 	<Ability>
@@ -268,8 +539,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>[Violation of Personal Space] Charge in a group of enemies, slowing and damaging them</Description>
 	</Ability>
 	<Ability>
@@ -285,8 +574,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Stuns himself and nearby enemies</Description>
 	</Ability>
 	<Ability>
@@ -302,8 +609,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Shoots two guided lasers toward a target.</Description>
 	</Ability>
 	<Ability>
@@ -319,8 +644,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Shoots four arrows toward a target. </Description>
 	</Ability>
 	<Ability>
@@ -336,8 +679,27 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Tank>1</Tank>
+		<Target>Enemy</Target>
 		<Description>Dashes in a straight line, inflicting Stun. </Description>
 	</Ability>
 	<Ability>
@@ -353,8 +715,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Creates a magic and apologetic wall that lasts for four seconds.</Description>
 	</Ability>
 	<Ability>
@@ -370,8 +750,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Self</Target>
 		<Description>Restores 1 HP per second. But really, he stopped doing this a few months ago. No REALLY. OMG SHUT UP, YOU HATER.</Description>
 	</Ability>
 	<Ability>
@@ -387,8 +785,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Creates a sound shockwave.</Description>
 	</Ability>
 	<Ability>
@@ -404,8 +820,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Damages nearby enemies. If some are hit, friendship points appear</Description>
 	</Ability>
 	<Ability>
@@ -421,8 +855,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Damages and slows targeted enemy</Description>
 	</Ability>
 	<Ability>
@@ -438,8 +890,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>20</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Team</Target>
 		<Description>Heals target</Description>
 	</Ability>
 	<Ability>
@@ -455,8 +925,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Whack nearby enemies with a medical staff.</Description>
 	</Ability>
 	<Ability>
@@ -472,8 +960,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Team</Target>
 		<Description>Restores some HP to a target Unit.</Description>
 	</Ability>
 	<Ability>
@@ -489,8 +995,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Self</Target>
 		<Description>Creates an invulnerable barrier around Chloe that lasts for five seconds.</Description>
 	</Ability>
 	<Ability>
@@ -506,8 +1030,26 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Damages close target</Description>
 	</Ability>
 	<Ability>
@@ -523,8 +1065,25 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Reduce ongoing cooldowns by 6 frames each time this Unit is hit.</Description>
 	</Ability>
 	<Ability>
@@ -540,8 +1099,25 @@
 		<Min>0</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Increase your team's attack powers by 1 each time this Unit is hit.</Description>
 	</Ability>
 	<Ability>
@@ -557,8 +1133,26 @@
 		<Min>1</Min>
 		<Max>5</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>Basic Attack: Whack nearby enemies with an Orgo textbook.</Description>
 	</Ability>
 	<Ability>
@@ -574,8 +1168,26 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
+		<Target>Enemy</Target>
 		<Description>All enemies and their attacks are frozen for three seconds.</Description>
 	</Ability>
 	<Ability>
@@ -591,8 +1203,25 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Increase the Flexpoint drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
@@ -608,8 +1237,25 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Increase the item drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
@@ -625,8 +1271,25 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Revives this Unit to 1 HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -642,8 +1305,25 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Revives this Unit to half HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -659,8 +1339,25 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Revives this Unit to full HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
@@ -676,8 +1373,25 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Launches a grrl-rific swirl attack at an enemy. Gangsters take 2800 damage.</Description>
 	</Ability>
 	<Ability>
@@ -693,8 +1407,25 @@
 		<Min>1</Min>
 		<Max>1</Max>
 		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>1</Move>
 		<Description>Launches a grrl-rific gossip attack at an enemy. Gangsters take 28000 damage.</Description>
 	</Ability>
 </Abilities>

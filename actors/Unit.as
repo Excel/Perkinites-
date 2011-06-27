@@ -206,21 +206,6 @@ package actors{
 			}
 		}
 
-		/*static public function switchDistributions(a:int, b:int) {
-			var temp1=distributions[a];
-			var temp2=maxDistributions[a];
-
-			distributions[a]=distributions[b];
-			maxDistributions[a]=maxDistributions[b];
-			distributions[b]=temp1;
-			maxDistributions[b]=temp2;
-		}
-		static public function transferDistribution(a:int, b:int) {
-			distributions[b]=distributions[a];
-			maxDistributions[b]=maxDistributions[a];
-			distributions[b]=0;
-			maxDistributions[b]=0;
-		}*/
 		public function begin() {
 			addEventListener(Event.ENTER_FRAME,gameHandler);
 			mxpos=x;
@@ -345,7 +330,6 @@ package actors{
 
 		public function useComboAttack() {
 			if (KeyDown.keyIsDown(attackKey)&&! KeyDown.keyIsDown(friendshipKey)&&attackDelay>=0) {
-				var b = abilityAmounts;
 				Unit.FP+=1000;
 				unitHUD.updateFP();
 				attackDelay=-5;
@@ -373,25 +357,6 @@ package actors{
 					this.parent.addChild(b1);
 					this.parent.setChildIndex(b1, 0);
 				}
-				/*var radian=Math.atan2(my-this.y,mx-this.x);
-				
-				var degree = (radian*180/Math.PI);
-				
-				var bxspeed=10;
-				var byspeed=10;
-				
-				//var b1=new CM_MagicShot(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,dir,tileMap);
-				//var b1=new CK_ElecShot(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC",tileMap);
-				//var b1 = new CM_RisingSun(30, 10);
-				
-				var b1 = new CM_BasicShot(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC",tileMap);
-				b1.x=x+width*Math.cos(radian)/2;
-				b1.y=y+height*Math.sin(radian)/2;
-				
-				b1.rotation=90+degree;
-				this.parent.addChild(b1);
-				this.parent.setChildIndex(b1, 0);
-				*/
 			}
 		}
 		public function updateHP(damage) {
@@ -424,7 +389,6 @@ package actors{
 				}
 			}
 			unitHUD.updateHP();
-			//hud.updateHP prease :)
 		}
 
 		static public function updateEXP(gain) {

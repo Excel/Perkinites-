@@ -94,13 +94,13 @@
 			u2.begin();
 
 			//set up Enemies
-			var c=new DrunkGuy();
+/*			var c=new DrunkGuy();
 			c.x=340;
 			c.y=150;
-			c.level=this;
+			c.level=this;*/
 			GameUnit.tileMap=this.tileMap;
-			mapClip.addChild(c);
-			c.begin();
+			//mapClip.addChild(c);
+			//c.begin();
 
 
 
