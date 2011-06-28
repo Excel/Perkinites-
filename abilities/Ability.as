@@ -37,6 +37,9 @@ package abilities{
 		public var atkDmgLump:int;
 		public var cdPercChange:int;
 
+		public var targetX:Number;
+		public var targetY:Number;
+
 		/**
 		 * Info
 		 */
@@ -44,6 +47,7 @@ package abilities{
 		public var range:int;
 		public var cooldown:int;//cooldown time measured in seconds
 		public var maxCooldown:int;
+		public var activation:String;//change into int later
 		public var uses:int;
 		public var maxUses:int;//number of uses before cooldown
 		public var active:Boolean;//whether or not the ability can be equipped to a hotkey or passive
@@ -85,6 +89,7 @@ package abilities{
 
 			range=AbilityDatabase.getRange(id);
 			maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
+			activation=AbilityDatabase.getActivation(id);
 			amount=a;
 			uses=AbilityDatabase.getUses(id);
 			maxUses=AbilityDatabase.getUses(id);
@@ -96,46 +101,67 @@ package abilities{
 			moveToTarget=AbilityDatabase.getMoveToTarget(id);
 			bomber=dasher=ranger=targeter=other=false;
 		}
+
 		public function activate(xpos, ypos) {
 			if (uses>0) {
-				uses-=1;
-				switch (moveToTarget) {
-					case 1 :
-						var ax = mouseX+ScreenRect.getX();
-						var ay = mouseY+ScreenRect.getY();
-						var radian=Math.atan2(ay-Unit.currentUnit.y,ax-Unit.currentUnit.x);
-
-						var degree = (radian*180/Math.PI);
-					
-						Unit.currentUnit.mxpos=ax;
-						Unit.currentUnit.mypos=ay;
-
-						Unit.currentUnit.moveTo(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
-						Unit.currentUnit.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
+				switch (activation) {
+					case "Hotkey" :
+						targetX=mouseX+ScreenRect.getX();
+						targetY=mouseY+ScreenRect.getY();
+						Unit.currentUnit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
 						break;
-					case 2 :
-						Unit.currentUnit.mxpos=mouseX+ScreenRect.getX();
-						Unit.currentUnit.mypos=mouseY+ScreenRect.getY();
-
-						Unit.partnerUnit.mxpos=mouseX+ScreenRect.getX();
-						Unit.partnerUnit.mypos=mouseY+ScreenRect.getY();
-
-						Unit.currentUnit.teleportToCoord(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
-						Unit.partnerUnit.teleportToCoord(Unit.partnerUnit.mxpos,Unit.partnerUnit.mypos)+Math.floor(Math.random()*64-32);
+					default:
+						Unit.currentUnit.parent.parent.addEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
+						break;
+					case "Hotkey -> Select Unit" :
+						targetX=mouseX+ScreenRect.getX();
+						targetY=mouseY+ScreenRect.getY();
 						break;
 				}
-				if (uses<=0) {
-					addEventListener(Event.ENTER_FRAME, cooldownHandler);
-				}
+
 			}
 		}
 
+		public function moveAbilityHandler(e) {
+			targetX=mouseX+ScreenRect.getX();
+			targetY=mouseY+ScreenRect.getY();
+			switch (moveToTarget) {
+				case 1 :
+					var ax=mouseX+ScreenRect.getX();
+					var ay=mouseY+ScreenRect.getY();
+					var radian=Math.atan2(ay-Unit.currentUnit.y,ax-Unit.currentUnit.x);
+
+					var degree = (radian*180/Math.PI);
+
+					Unit.currentUnit.mxpos=Math.floor(ax-32*Math.cos(radian));
+					Unit.currentUnit.mypos=Math.floor(ay-32*Math.sin(radian));
+
+					Unit.currentUnit.moveTo(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
+					Unit.currentUnit.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
+					break;
+				case 2 :
+					Unit.currentUnit.mxpos=mouseX+ScreenRect.getX();
+					Unit.currentUnit.mypos=mouseY+ScreenRect.getY();
+
+					Unit.partnerUnit.mxpos=mouseX+ScreenRect.getX();
+					Unit.partnerUnit.mypos=mouseY+ScreenRect.getY();
+
+					Unit.currentUnit.teleportToCoord(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
+					Unit.partnerUnit.teleportToCoord(Unit.partnerUnit.mxpos,Unit.partnerUnit.mypos)+Math.floor(Math.random()*64-32);
+					break;
+			}
+			uses-=1;
+			Unit.currentUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+			Unit.currentUnit.parent.parent.removeEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);			
+			if (uses<=0) {
+				addEventListener(Event.ENTER_FRAME, cooldownHandler);
+			}
+		}
 		public function finishAbilityHandler(e) {
 			//these Unit.currentUnit's should be replaced eventually but I have to overwrite a lot of activate
 			if (Unit.currentUnit.x==Unit.currentUnit.mxpos&&Unit.currentUnit.y==Unit.currentUnit.mypos) {
-/*
-				var ax=mouseX+ScreenRect.getX();
-				var ay=mouseX+ScreenRect.getY();
+				var ax=targetX;
+				var ay=targetY;
 
 				for (var i = -1; i < 2; i++) {
 					var radian=Math.atan2(ay-Unit.currentUnit.y,ax-Unit.currentUnit.x);
@@ -154,11 +180,11 @@ package abilities{
 					b1.rotation=90+degree;
 					Unit.currentUnit.parent.addChild(b1);
 					Unit.currentUnit.parent.setChildIndex(b1, 0);
-					*/
+
 					Unit.currentUnit.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
-				//}
-				
-				
+				}
+
+
 			}
 		}
 		public function cancel() {
