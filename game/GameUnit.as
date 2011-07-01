@@ -216,7 +216,7 @@ package game{
 				pypos=py;
 				addEventListener(Event.ENTER_FRAME, moveHandler);
 			}
-		}
+		}	
 		public function teleportToCoord(xpos, ypos) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;

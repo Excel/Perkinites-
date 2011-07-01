@@ -25,6 +25,7 @@
 
 		public static var activations = new Array();
 		public static var availabilities = new Array();
+		public static var basics = new Array();
 		public static var specs = new Array();
 		public static var values = new Array();
 		public static var delays = new Array();
@@ -130,6 +131,12 @@
 			}
 			for each (var availabilityElement:XML in input.Ability.Availability) {
 				availabilities.push(availabilityElement);
+				if(availabilityElement == "All Girls" || availabilityElement == "All Perkinites"){
+					basics.push(false);
+				}
+				else{
+					basics.push(true);
+				}
 			}
 			for each (var specElement:XML in input.Ability.Spec) {
 				specs.push(specElement);
@@ -247,6 +254,9 @@
 		}
 		public static function getAvailability(id:int):String {
 			return availabilities[id];
+		}
+		public static function isBasicAbility(id:int):Boolean{
+			return basics[id];
 		}
 		public static function getSpec(id:int):String {
 			return specs[id];

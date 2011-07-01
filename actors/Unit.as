@@ -398,7 +398,6 @@ package actors{
 				Unit.nextEXP+=Unit.maxLP*200;
 				updateEXP(0);
 			}
-			//hud.updateEXP
 		}
 		public function toggleAbilities(switchOn) {
 			for (var i = 0; i < commands.length; i++) {

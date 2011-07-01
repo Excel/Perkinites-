@@ -18,7 +18,7 @@
 
 	public class Menu extends BaseScreen {
 
-		static public var iaOption:int;
+		static public var iaOption:int=-1;
 		static public var setUnitIndex:int=-1;
 		static public var currentActivated:Boolean=true;
 
@@ -26,18 +26,20 @@
 		public var hotkeyIconArray:Array;
 		public var optionArray:Array;
 
-
-
 		public var aCover;
 		public var pCover1;
 		public var pCover2;
+
+		public var gf1;
 
 		function Menu(stageRef:Stage = null) {
 
 			this.stageRef=stageRef;
 
-			iaOption=0;
-			if (Unit.currentUnit.id!=setUnitIndex||Unit.partnerUnit.id!=setUnitIndex) {
+			if (iaOption==-1) {
+				iaOption=0;
+			}
+			if (Unit.currentUnit.id!=setUnitIndex&&Unit.partnerUnit.id!=setUnitIndex) {
 				setUnitIndex=Unit.currentUnit.id;
 				currentActivated=true;
 			}
@@ -49,7 +51,8 @@
 			hotkeyIconArray = new Array();
 			optionArray=new Array("\nCheck on yo Perkinites! You got this gurrrrrrrrrl! ;)",
 			  "Drag + drop Active Icons to your Hotkeys for battle and Passive Icons to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
-			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)");
+			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)",
+			  "\nCheck out all the Perkinites/Items/Abilities in the game you've unlocked! THEY BE FINE");
 
 
 			aCover = new Cover();
@@ -65,14 +68,18 @@
 			pCover2.y=280;
 			pCover2.width=88;
 			pCover2.height=144;
+
+			gf1=new GlowFilter(0xFF9900,100,20,20,1,5,true,false);
+
 			gotoPage(1);
+
 
 			arrow.gotoAndStop(1);
 
 			statusOption.addEventListener(MouseEvent.CLICK, pageHandler);
 			setupOption.addEventListener(MouseEvent.CLICK, pageHandler3);
 			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler2);
-			//itemsOption.addEventListener(MouseEvent.CLICK, pageHandler3);
+			databaseOption.addEventListener(MouseEvent.CLICK, pageHandler4);
 			//friendsOption.addEventListener(MouseEvent.CLICK, pageHandler5);
 
 			configOption.addEventListener(MouseEvent.CLICK, configHandler);
@@ -125,7 +132,7 @@
 			if (currentFrame!=4) {
 				arrow.y=71+32*3;
 				hover.y=64+32*3;
-				gotoPage(4);
+				trace("not implemented yet");
 			}
 		}
 		public function pageHandler5(e) {
@@ -235,8 +242,8 @@
 			thingDescription.text="";
 		}
 
-		public function makeDescription(index:int, type:String) {
-			if (currentFrame==2) {
+		public function makeDescription(index:int, type:String, recycle:Boolean = true) {
+			if (currentFrame==2&&recycle) {
 				if (type=="Item"&&ItemDatabase.getValue(index)>0) {
 					page2.recycleButton.visible=true;
 					page2.recycleButton.type=type;
@@ -268,7 +275,7 @@
 				thingIcon.gotoAndStop(AbilityDatabase.getIndex(index));
 				thingName.text=AbilityDatabase.getName(index);
 				useInfo.text=grabActivation(index,type);
-				effectInfo.text=grabSpec(index,type);
+				effectInfo.text=AbilityDatabase.getSpec(index);
 				rangeInfo.text="RANGE: "+AbilityDatabase.getRange(index);
 				cooldownInfo.text="COOLDOWN: "+AbilityDatabase.getCooldown(index);
 				availabilityInfo.text="Available to "+AbilityDatabase.getAvailability(index);
@@ -289,19 +296,6 @@
 						break;
 					case "Healing%" :
 						spec="Healing + "+ItemDatabase.getHPPercChange(index)+"%";
-						break;
-				}
-			} else if (type == "Ability") {
-				spec=AbilityDatabase.getSpec(index);
-				switch (spec) {
-					case "Damage" :
-						spec="Damage = "+AbilityDatabase.getDamage(index);
-						break;
-					case "Healing+" :
-						spec="Healing + "+AbilityDatabase.getHPLumpChange(index);
-						break;
-					case "Healing%" :
-						spec="Healing % "+AbilityDatabase.getHPPercChange(index)+"%";
 						break;
 				}
 			}
@@ -432,12 +426,28 @@
 		public function colorButtons() {
 			switch (iaOption) {
 				case 0 :
+					page2.iaButton.filters=[gf1];
+					page2.aiButton.filters=[];
+					page2.iButton.filters=[];
+					page2.aButton.filters=[];
 					break;
 				case 1 :
+					page2.iaButton.filters=[];
+					page2.aiButton.filters=[gf1];
+					page2.iButton.filters=[];
+					page2.aButton.filters=[];
 					break;
 				case 2 :
+					page2.iaButton.filters=[];
+					page2.aiButton.filters=[];
+					page2.iButton.filters=[gf1];
+					page2.aButton.filters=[];
 					break;
 				case 3 :
+					page2.iaButton.filters=[];
+					page2.aiButton.filters=[];
+					page2.iButton.filters=[];
+					page2.aButton.filters=[gf1];
 					break;
 			}
 		}
@@ -483,11 +493,13 @@
 			var i;
 			var xOffset=16;
 			var amount=0;
+			var confirm=false;
 
 			for (i = 0; i < Unit.itemAmounts.length; i++) {
-				if (amount%6==0&&amount!=0) {
+				if (amount%6==0&&amount!=0&&confirm) {
 					xOffset=16;
 					yOffset+=36;
+					confirm=false;
 				}
 				if (Unit.itemAmounts[i]>0) {
 					var itemIcon = new AbilityIcon();
@@ -501,6 +513,7 @@
 					itemIcon.addEventListener(MouseEvent.MOUSE_DOWN, moveIcon);
 					xOffset+=40;
 					amount++;
+					confirm=true;
 				}
 			}
 
@@ -514,14 +527,54 @@
 			var i;
 			var xOffset=16;
 			var amount=0;
+			var confirm=false;
+			var ability;
+			var abilityIcon;
+
+			var tempUnitArray=new Array(Unit.currentUnit,Unit.partnerUnit);
+
+			for (var a = 0; a < tempUnitArray.length; a++) {
+				var unit=tempUnitArray[a];
+				for (i = 0; i < unit.basicAbilities.length; i++) {
+					if (amount%6==0&&amount!=0&&confirm) {
+						xOffset=16;
+						yOffset+=36;
+						confirm=false;
+					}
+					ability=unit.basicAbilities[i];
+					if (ability.min>0&&Unit.abilityAmounts[ability.id]>0) {
+						abilityIcon = new AbilityIcon();
+						abilityIcon.gotoAndStop(AbilityDatabase.getIndex(ability.id));
+						abilityIcon.x=xOffset;
+						abilityIcon.y=yOffset;
+						abilityIcon.useCount.text=Unit.abilityAmounts[ability.id]+"";
+						abilityIcon.useCount.visible=true;
+						abilityIcon.type="Ability";
+						page2.inventoryList.addChild(abilityIcon);
+						abilityIcon.addEventListener(MouseEvent.MOUSE_DOWN, moveIcon);
+						xOffset+=40;
+						amount++;
+						confirm=true;
+					}
+				}
+			}
+
+			xOffset=16;
+			if(amount > 0){
+			yOffset+=36;
+			}
+			confirm=false;
+			amount=0;
+
 			for (i = 0; i < Unit.abilityAmounts.length; i++) {
-				if (amount%6==0&&amount!=0) {
+				if (amount%6==0&&amount!=0&&confirm) {
 					xOffset=16;
 					yOffset+=36;
+					confirm=false;
 				}
-				var pass = false;
-				if (Unit.abilityAmounts[i]>0) {
-					var abilityIcon = new AbilityIcon();
+
+				if (Unit.abilityAmounts[i]>0&&! AbilityDatabase.isBasicAbility(i)) {
+					abilityIcon = new AbilityIcon();
 					abilityIcon.gotoAndStop(AbilityDatabase.getIndex(i));
 					abilityIcon.x=xOffset;
 					abilityIcon.y=yOffset;
@@ -532,8 +585,10 @@
 					abilityIcon.addEventListener(MouseEvent.MOUSE_DOWN, moveIcon);
 					xOffset+=40;
 					amount++;
+					confirm=true;
 				}
 			}
+
 			if (amount>0) {
 				return yOffset+36;
 			} else {
@@ -943,6 +998,13 @@
 				}
 				//make this easier to use when mouse goes off screen?
 				obj.startDrag(false, new Rectangle(8,8,592,432));
+			} else {
+				if (obj.type=="Item") {
+					index=ItemDatabase.index.indexOf(obj.currentFrame);
+				} else if (obj.type == "Ability") {
+					index=AbilityDatabase.index.indexOf(obj.currentFrame);
+				}
+				makeDescription(index, obj.type, false);
 			}
 		}
 
@@ -1165,11 +1227,16 @@
 				if (page3.ppRemainingDisplay.text.length==1) {
 					page3.ppRemainingDisplay.text="0"+Unit.currentUnit.powerpoints;
 				}
+				page3.currentButton.filters=[gf1];
+				page3.partnerButton.filters=[];
+
 			} else {
 				page3.ppRemainingDisplay.text=Unit.partnerUnit.powerpoints;
 				if (page3.ppRemainingDisplay.text.length==1) {
 					page3.ppRemainingDisplay.text="0"+Unit.partnerUnit.powerpoints;
 				}
+				page3.currentButton.filters=[];
+				page3.partnerButton.filters=[gf1];
 			}
 
 			hotkeyIconArray=[page3.icon1,page3.icon2,page3.icon3,page3.icon4,page3.icon5];
