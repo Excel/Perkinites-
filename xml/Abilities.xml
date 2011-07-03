@@ -387,6 +387,42 @@
 		<Description>Throws a random shoe toward a target out of anger.</Description>
 	</Ability>
 	<Ability>
+		<Name>Death Shout</Name>
+		<Availability>C. Kata</Availability>
+		<Spec>Damage</Spec>
+		<Range>200</Range>
+		<Cooldown>120</Cooldown>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Delay>24</Delay>
+		<Min>0</Min>
+		<Max>5</Max>
+		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<Move>0</Move>
+		<Tank>1</Tank>
+		<Target>Enemy</Target>
+		<Description>Stuns all enemies within the shout's range for a second. gogoloudwhitegirl</Description>
+	</Ability>
+	<Ability>
 		<Name>A. Mediation</Name>
 		<Availability>C. Kata</Availability>
 		<Spec>Nothing</Spec>

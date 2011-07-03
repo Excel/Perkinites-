@@ -213,6 +213,7 @@ package actors{
 
 			xtile=Math.floor(x/SuperLevel.tileWidth);
 			ytile=Math.floor(y/SuperLevel.tileHeight);
+			unitHUD.updateHP();
 		}
 		public function end() {
 			removeEventListener(Event.ENTER_FRAME,gameHandler);
@@ -400,6 +401,11 @@ package actors{
 				Unit.maxLP+=1;
 				Unit.nextEXP+=Unit.maxLP*200;
 				updateEXP(0);
+				
+				for(var i = 0; i < Menu.sliderValueArray.length; i++){
+					Menu.sliderValueArray[i] += 1;
+				}
+				//change stats here
 			}
 		}
 		public function toggleAbilities(switchOn) {

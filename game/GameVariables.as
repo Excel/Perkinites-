@@ -6,6 +6,8 @@
 		public static var maxStageLevel:int = 4;
 		public static var startLevel:Boolean=false;
 		
+		public static var time:int = 0;
+		
 		
 
 	}

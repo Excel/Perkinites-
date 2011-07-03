@@ -54,7 +54,7 @@ stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
 
 stage.addEventListener(Event.DEACTIVATE, onLostFocus);
 function countHandler(e) {
-	count++;
+
 
 }
 

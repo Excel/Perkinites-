@@ -8,6 +8,8 @@
 	import flash.geom.ColorTransform;
 	import flash.ui.*;
 
+	import fl.events.SliderEvent;
+
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 
@@ -22,11 +24,13 @@
 		static public var iaOption:int=-1;
 		static public var setUnitIndex:int=-1;
 		static public var currentActivated:Boolean=true;
+		static public var sliderValueArray:Array = new Array();
 
 		public var hotkeyArray:Array;
 		public var hotkeyIconArray:Array;
 		public var blockedHotkeyArray:Array;
 		public var optionArray:Array;
+
 
 		public var aCover;
 		public var pCover1;
@@ -47,6 +51,9 @@
 			if (Unit.currentUnit.id!=setUnitIndex&&Unit.partnerUnit.id!=setUnitIndex) {
 				setUnitIndex=Unit.currentUnit.id;
 				currentActivated=true;
+			}
+			if (sliderValueArray.length==0) {
+				sliderValueArray=new Array(Unit.maxLP,Unit.maxLP,Unit.maxLP,Unit.maxLP,Unit.maxLP,Unit.maxLP);
 			}
 
 			x=0;
@@ -101,6 +108,16 @@
 			page3.partnerButton.addEventListener(MouseEvent.CLICK, setPartnerHandler);
 
 			flexPointsDisplay.text=Unit.flexPoints.toFixed(2);
+
+
+			exampleIcon.useCount.visible=false;
+			coverIcon.useCount.visible=false;
+			redIcon.useCount.visible=false;
+			exampleIcon.gotoAndStop(1);
+			coverIcon.gotoAndStop(1);
+			redIcon.gotoAndStop(1);
+			coverIcon.transform.colorTransform=iconCover;
+			redIcon.transform.colorTransform=redCover;
 			load();
 
 		}
@@ -189,18 +206,21 @@
 					page1.unitName2.text=Unit.partnerUnit.Name;
 
 					page1.HPDisplay1.text=Unit.currentUnit.HP;
-					page1.APDisplay1.text=Unit.currentUnit.AP;
-					page1.SPDisplay1.text=Unit.currentUnit.speed;
+					page1.maxHPDisplay1.text=Unit.currentUnit.maxHP;
+					page1.APDisplay1.text=Math.floor(Unit.currentUnit.AP);
+					page1.SPDisplay1.text=Math.floor(Unit.currentUnit.speed);
 
 					page1.HPDisplay2.text=Unit.partnerUnit.HP;
-					page1.APDisplay2.text=Unit.partnerUnit.AP;
-					page1.SPDisplay2.text=Unit.partnerUnit.speed;
+					page1.maxHPDisplay2.text=Unit.partnerUnit.maxHP;
+					page1.APDisplay2.text=Math.floor(Unit.partnerUnit.AP);
+					page1.SPDisplay2.text=Math.floor(Unit.partnerUnit.speed);
 
 					freezeFaces();
 					eraseDescription();
+					setSliders();
 					break;
 				case 2 :
-					optionDisplay.text="Setup";
+					optionDisplay.text="Equip";
 					eraseDescription();
 					freezeHotkeys();
 					setInventory(iaOption);
@@ -208,7 +228,7 @@
 					setButtons();
 					break;
 				case 3 :
-					optionDisplay.text="Abilities";
+					optionDisplay.text="Upgrade";
 					eraseDescription();
 					freezeHotkeys();
 					setToggles();
@@ -444,6 +464,67 @@
 		}
 
 
+		public function setSliders() {
+			page1.HPSlider1.minimum = page1.APSlider1.minimum = 
+			page1.SPSlider1.minimum = page1.HPSlider2.minimum = 
+			page1.APSlider2.minimum = page1.SPSlider2.minimum = 1;
+
+			page1.HPSlider1.maximum = page1.APSlider1.maximum = 
+			page1.SPSlider1.maximum = page1.HPSlider2.maximum = 
+			page1.APSlider2.maximum = page1.SPSlider2.maximum = Unit.maxLP;
+
+			page1.HPSlider1.addEventListener(SliderEvent.THUMB_DRAG, changeHPHandler1);
+			page1.APSlider1.addEventListener(SliderEvent.THUMB_DRAG, changeAPHandler1);
+			page1.SPSlider1.addEventListener(SliderEvent.THUMB_DRAG, changeSPHandler1);
+			page1.HPSlider2.addEventListener(SliderEvent.THUMB_DRAG, changeHPHandler2);
+			page1.APSlider2.addEventListener(SliderEvent.THUMB_DRAG, changeAPHandler2);
+			page1.SPSlider2.addEventListener(SliderEvent.THUMB_DRAG, changeSPHandler2);
+
+			page1.HPSlider1.value=sliderValueArray[0];
+			page1.APSlider1.value=sliderValueArray[1];
+			page1.SPSlider1.value=sliderValueArray[2];
+			page1.HPSlider2.value=sliderValueArray[3];
+			page1.APSlider2.value=sliderValueArray[4];
+			page1.SPSlider2.value=sliderValueArray[5];
+		}
+
+		public function changeHPHandler1(e) {
+			Unit.currentUnit.maxHP = ActorDatabase.getHP(Unit.currentUnit.id) + (e.value-1)*10;
+			if (Unit.currentUnit.HP>Unit.currentUnit.maxHP) {
+				Unit.currentUnit.HP=Unit.currentUnit.maxHP;
+			}
+			sliderValueArray[0]=e.value;
+			update();
+		}
+		public function changeAPHandler1(e) {
+			Unit.currentUnit.AP = ActorDatabase.getDmg(Unit.currentUnit.id) + (e.value-1)*10;
+			sliderValueArray[1]=e.value;
+			update();
+		}
+		public function changeSPHandler1(e) {
+			Unit.currentUnit.speed = ActorDatabase.getSpeed(Unit.currentUnit.id) + (e.value-1)*10;
+			sliderValueArray[2]=e.value;
+			update();
+		}
+		public function changeHPHandler2(e) {
+			Unit.partnerUnit.maxHP = ActorDatabase.getHP(Unit.partnerUnit.id) + (e.value-1)*10;
+			if (Unit.partnerUnit.HP>Unit.partnerUnit.maxHP) {
+				Unit.partnerUnit.HP=Unit.partnerUnit.maxHP;
+			}
+			sliderValueArray[3]=e.value;
+			update();
+		}
+		public function changeAPHandler2(e) {
+			Unit.partnerUnit.AP = ActorDatabase.getDmg(Unit.partnerUnit.id) + (e.value-1)*10;
+			sliderValueArray[4]=e.value;
+			update();
+
+		}
+		public function changeSPHandler2(e) {
+			Unit.partnerUnit.speed = ActorDatabase.getSpeed(Unit.partnerUnit.id) + (e.value-1)*10;
+			sliderValueArray[5]=e.value;
+			update();
+		}
 		/************************************************************************
 		PAGE 2 STUFF
 		************************************************************************/
