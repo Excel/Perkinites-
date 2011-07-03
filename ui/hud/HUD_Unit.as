@@ -15,7 +15,10 @@
 		var currentHP;
 		var partnerHP;
 		public var percentage;
-		var colorTransform;
+
+
+		public var iconCover;
+		public var redCover;
 
 		function HUD_Unit() {
 			x=0;
@@ -25,8 +28,8 @@
 			percentage=0;
 			friendshipBar.FP.width=62*percentage/10000;
 
-			colorTransform = new ColorTransform();
-			colorTransform.color=0x999999;
+			iconCover=new ColorTransform(0.3,0.3,0.3,0.5,0,0,0,0);
+			redCover=new ColorTransform(0.75,0.3,0.3,0.5,0,0,0,0);
 
 			var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
@@ -111,18 +114,24 @@
 					hotkeyIconArray[i].gotoAndStop(hotkeyArray[i].index);
 					if (hotkeyArray[i] is Item) {
 						hotkeyIconArray[i].useCount.text=Unit.itemAmounts[hotkeyArray[i].id];
-						/*if (Unit.itemAmounts[hotkeyArray[i].id]==0) {
-							hotkeyIconArray[i].transform.colorTransform=colorTransform;
+						if (Unit.itemAmounts[hotkeyArray[i].id]==0) {
+							hotkeyIconArray[i].transform.colorTransform=iconCover;
+						} else if (hotkeyArray[i].min == 0) {
+							hotkeyIconArray[i].transform.colorTransform=redCover;
+
 						} else {
-							hotkeyIconArray[i].transform.colorTransform=null;
-						}*/
+							hotkeyIconArray[i].transform.colorTransform=new ColorTransform();
+						}
 					} else {
 						hotkeyIconArray[i].useCount.text=hotkeyArray[i].uses;
-						/*if (hotkeyArray[i].uses==0) {
-							hotkeyIconArray[i].transform.colorTransform=colorTransform;
+						if (hotkeyArray[i].uses==0) {
+							hotkeyIconArray[i].transform.colorTransform=iconCover;
+						} else if (hotkeyArray[i].min == 0) {
+							hotkeyIconArray[i].transform.colorTransform=redCover;
+
 						} else {
-							hotkeyIconArray[i].transform.colorTransform=null;
-						}*/
+							hotkeyIconArray[i].transform.colorTransform=new ColorTransform();
+						}
 					}
 				} else {
 					hotkeyIconArray[i].gotoAndStop(1);

@@ -123,7 +123,7 @@
 		}
 		public static function parseData(input:XML):void {
 
-			var count=1;
+			var count=2;
 			for each (var nameElement:XML in input.Ability.Name) {
 				names.push(nameElement);
 				index.push(count);

@@ -163,6 +163,10 @@
 		}
 
 		function startLevel(e) {
+			startGame();
+		}
+
+		function startGame() {
 			var sound = new se_chargeup();
 			sound.play();
 			unload();
@@ -180,7 +184,6 @@
 				Unit.abilityAmounts[Unit.partnerUnit.basicAbilities[i].id]=1;
 			}
 		}
-
 
 		public function pageHandler(e) {
 			playerDisplay1.gotoPage(1);

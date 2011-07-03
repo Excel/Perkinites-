@@ -84,7 +84,7 @@ package actors{
 		public var DP;
 		static public var EXP=0;
 		static public var nextEXP=200;
-		static public var maxLP=1;
+		static public var maxLP=20;
 		static public var unitHUD=HUDManager.getUnitHUD();
 
 		/**
@@ -99,7 +99,7 @@ package actors{
 		static public var hk7;
 		static public var finale;
 
-		public var basicAbilities:Array; //the initial abilities
+		public var basicAbilities:Array;//the initial abilities
 		public var commands:Array;
 
 		static public var abilityAmounts:Array=AbilityDatabase.amounts;
@@ -141,7 +141,7 @@ package actors{
 		public var pauseMovement:Boolean;
 
 		public var HPBar;
-		
+
 		public var powerpoints;
 
 		public function Unit(id:int) {
@@ -173,14 +173,14 @@ package actors{
 				gotoAndStop(4);
 
 				HPBar=new HealthBar(HP,maxHP,this,48);
-				
-				basicAbilities = AbilityDatabase.getBasicAbilities(Name);
-				
-				powerpoints = 70;
+
+				basicAbilities=AbilityDatabase.getBasicAbilities(Name);
+
+				powerpoints=70;
 			}
 		}
 
-		static public function setHotkey(id:int, a) {
+		static public function setHotkey(id:int, a:Ability, basicIndex:int = -1) {
 			switch (id) {
 				case 1 :
 					hk1=a;
@@ -224,18 +224,21 @@ package actors{
 				FP=10000;
 			}
 			if (! pauseAction&&! superPause&&! menuPause) {
+
+				movePlayer();
+				useHotKey1();
+				useHotKey2();
+				useHotKey3();
+				useHotKey4();
+				useHotKey5();
+				useHotKey6();
+				useHotKey7();
+				updateDelays();
+				
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
-					movePlayer();
-					useHotKey1();
-					useHotKey2();
-					useHotKey3();
-					useHotKey4();
-					useHotKey5();
-					useHotKey6();
 					useComboAttack();
 					openMenu();
 
-					updateDelays();
 				}
 				if (Unit.partnerUnit==this&&Unit.partnerUnit.parent!=null) {
 					if (Unit.currentUnit.x!=pxpos&&Unit.currentUnit.y!=pypos) {
@@ -315,13 +318,13 @@ package actors{
 			}
 		}
 		public function useHotKey6() {
-			if (KeyDown.keyIsDown(hotKey6)&&hk3!=null&&hk6Delay>=0) {
+			if (KeyDown.keyIsDown(hotKey6)&&hk6!=null&&hk6Delay>=0) {
 				hk6Delay=-1*hk6.delay;
 				hk6.activate(x, y);
 			}
 		}
 		public function useHotKey7() {
-			if (KeyDown.keyIsDown(hotKey7)&&hk3!=null&&hk7Delay>=0) {
+			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null&&hk7Delay>=0) {
 				hk7Delay=-1*hk7.delay;
 				hk7.activate(x, y);
 			}

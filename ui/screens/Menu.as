@@ -5,6 +5,7 @@
 	import flash.display.Stage;
 	import flash.events.*;
 	import flash.filters.GlowFilter;
+	import flash.geom.ColorTransform;
 	import flash.ui.*;
 
 	import flash.display.Sprite;
@@ -24,11 +25,15 @@
 
 		public var hotkeyArray:Array;
 		public var hotkeyIconArray:Array;
+		public var blockedHotkeyArray:Array;
 		public var optionArray:Array;
 
 		public var aCover;
 		public var pCover1;
 		public var pCover2;
+
+		public var iconCover;
+		public var redCover;
 
 		public var gf1;
 
@@ -49,10 +54,10 @@
 
 			hotkeyArray=new Array(Unit.hk1,Unit.hk2,Unit.hk3,Unit.hk4,Unit.hk5,Unit.hk6,Unit.hk7);
 			hotkeyIconArray = new Array();
+			blockedHotkeyArray=new Array(false,false,false,false,false,false,false);
 			optionArray=new Array("\nCheck on yo Perkinites! You got this gurrrrrrrrrl! ;)",
 			  "Drag + drop Active Icons to your Hotkeys for battle and Passive Icons to the sidebars for innate effects! Passive sidebars can't have duplicates though! :)",
-			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)",
-			  "\nCheck out all the Perkinites/Items/Abilities in the game you've unlocked! THEY BE FINE");
+			  "\nConfigure yo Abilities' powers! You got this Chicken McNugget! ;)");
 
 
 			aCover = new Cover();
@@ -69,18 +74,19 @@
 			pCover2.width=88;
 			pCover2.height=144;
 
+			iconCover=new ColorTransform(0.3,0.3,0.3,0.5,0,0,0,0);
+			redCover=new ColorTransform(0.75,0.3,0.3,0.5,0,0,0,0);
+
+
 			gf1=new GlowFilter(0xFF9900,100,20,20,1,5,true,false);
 
 			gotoPage(1);
-
 
 			arrow.gotoAndStop(1);
 
 			statusOption.addEventListener(MouseEvent.CLICK, pageHandler);
 			setupOption.addEventListener(MouseEvent.CLICK, pageHandler3);
 			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler2);
-			databaseOption.addEventListener(MouseEvent.CLICK, pageHandler4);
-			//friendsOption.addEventListener(MouseEvent.CLICK, pageHandler5);
 
 			configOption.addEventListener(MouseEvent.CLICK, configHandler);
 			saveOption.addEventListener(MouseEvent.CLICK, saveHandler);
@@ -126,20 +132,6 @@
 				arrow.y=71+32;
 				hover.y=64+32;
 				gotoPage(3);
-			}
-		}
-		public function pageHandler4(e) {
-			if (currentFrame!=4) {
-				arrow.y=71+32*3;
-				hover.y=64+32*3;
-				trace("not implemented yet");
-			}
-		}
-		public function pageHandler5(e) {
-			if (currentFrame!=5) {
-				arrow.y=71+32*4;
-				hover.y=64+32*4;
-				gotoPage(5);
 			}
 		}
 		public function configHandler(e) {
@@ -275,12 +267,94 @@
 				thingIcon.gotoAndStop(AbilityDatabase.getIndex(index));
 				thingName.text=AbilityDatabase.getName(index);
 				useInfo.text=grabActivation(index,type);
-				effectInfo.text=AbilityDatabase.getSpec(index);
-				rangeInfo.text="RANGE: "+AbilityDatabase.getRange(index);
-				cooldownInfo.text="COOLDOWN: "+AbilityDatabase.getCooldown(index);
+				if (AbilityDatabase.isBasicAbility(index)) {
+					var ability=getBasicAbility(index);
+
+					effectInfo.text=ability.getSpecInfo();
+					rangeInfo.text="RANGE: "+ability.range;
+					cooldownInfo.text="COOLDOWN: "+ability.cooldown;
+				} else {
+					effectInfo.text=AbilityDatabase.getSpecInfo(index);
+					rangeInfo.text="RANGE: "+AbilityDatabase.getRange(index);
+					cooldownInfo.text="COOLDOWN: "+AbilityDatabase.getCooldown(index);
+				}
 				availabilityInfo.text="Available to "+AbilityDatabase.getAvailability(index);
 				thingDescription.text=AbilityDatabase.getDescription(index);
 			}
+
+		}
+
+		public function updateEquippedBasicAbilities() {
+			var i;
+			var j;
+			var basicAbility;
+			var index;
+			for (i = 0; i < Unit.currentUnit.basicAbilities.length; i++) {
+				basicAbility=Unit.currentUnit.basicAbilities[i];
+				index=basicAbility.id;
+				for (j = 0; j < hotkeyArray.length; j++) {
+					if (hotkeyArray[j]!=null&&hotkeyArray[j].Name==basicAbility.Name) {
+						hotkeyArray[j]=getBasicAbility(index);
+						Unit.setHotkey(j+1, getBasicAbility(index));
+					}
+				}
+				for (j = 0; j < Unit.currentUnit.passiveAbilities.length; j++) {
+					if (Unit.currentUnit.passiveAbilities[j].Name==basicAbility.Name) {
+						Unit.currentUnit.passiveAbilities[j]=basicAbility;
+					}
+				}
+			}
+			for (i = 0; i < Unit.partnerUnit.basicAbilities.length; i++) {
+				basicAbility=Unit.partnerUnit.basicAbilities[i];
+				index=basicAbility.id;
+				for (j = 0; j < hotkeyArray.length; j++) {
+					if (hotkeyArray[j]!=null&&hotkeyArray[j].Name==basicAbility.Name) {
+						hotkeyArray[j]=getBasicAbility(index);
+						Unit.setHotkey(j+1, getBasicAbility(index));
+					}
+				}
+				for (j = 0; j < Unit.partnerUnit.passiveAbilities.length; j++) {
+					if (Unit.partnerUnit.passiveAbilities[j].Name==basicAbility.Name) {
+						Unit.partnerUnit.passiveAbilities[j]=basicAbility;
+					}
+				}
+			}
+		}
+		public function getBasicAbility(index) {
+			var i;
+			var ability;
+			var basicAbilities;
+			if (Unit.currentUnit.Name==AbilityDatabase.getAvailability(index)) {
+				basicAbilities=Unit.currentUnit.basicAbilities;
+				for (i = 0; i < basicAbilities.length; i++) {
+					if (AbilityDatabase.getName(index)==basicAbilities[i].Name) {
+						ability=basicAbilities[i];
+						break;
+					}
+				}
+			} else if (Unit.partnerUnit.Name == AbilityDatabase.getAvailability(index)) {
+				basicAbilities=Unit.partnerUnit.basicAbilities;
+				for (i = 0; i < basicAbilities.length; i++) {
+					if (AbilityDatabase.getName(index)==basicAbilities[i].Name) {
+						ability=basicAbilities[i];
+					}
+				}
+			}
+			return ability;
+		}
+
+		public function basicCooldownNotActive(index) {
+			var Name=AbilityDatabase.getName(index);
+			for (var i = 0; i < hotkeyArray.length; i++) {
+				if (hotkeyArray[i]!=null&&hotkeyArray[i].Name==Name) {
+					if (hotkeyArray[i].cooldown<hotkeyArray[i].maxCooldown) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+			}
+			return true;
 		}
 
 		public function grabSpec(index:int, type:String) {
@@ -322,8 +396,6 @@
 			} else {
 				hotkeyIconArray=[page3.icon1,page3.icon2,page3.icon3,page3.icon4,page3.icon5];
 			}
-
-
 			var i;
 			for (i = 0; i < hotkeyIconArray.length; i++) {
 				hotkeyIconArray[i].useCount.visible=false;
@@ -341,13 +413,20 @@
 						} else if (hotkeyArray[i] is Ability) {
 							hotkeyIconArray[i].type="Ability";
 						}
+						if (hotkeyArray[i].min<=0) {
+							hotkeyIconArray[i].transform.colorTransform=redCover;
+						} else if (hotkeyArray[i].cooldown < hotkeyArray[i].maxCooldown) {
+							hotkeyIconArray[i].transform.colorTransform=iconCover;
+						} else {
+							hotkeyIconArray[i].transform.colorTransform=new ColorTransform();
+						}
 					} else {
 						hotkeyIconArray[i].gotoAndStop(1);
-						if (currentFrame!=3) {
-							hotkeyIconArray[i].visible=false;
+						/*if (currentFrame!=3) {
+						hotkeyIconArray[i].visible=false;
 						} else {
-							hotkeyIconArray[i].visible=true;
-						}
+						hotkeyIconArray[i].visible=true;
+						}*/
 					}
 				}
 
@@ -355,7 +434,7 @@
 					updatePowerupPage();
 				}
 			}
-			thingIcon.gotoAndStop(1);
+			//thingIcon.gotoAndStop(1);
 			thingIcon.useCount.visible=false;
 		}
 
@@ -452,6 +531,8 @@
 			}
 		}
 		public function setInventory(option:int = 0) {
+			var bound:Sprite = new Sprite();
+
 			iaOption=option;
 			/*
 			option = 0 // items + abilities
@@ -477,7 +558,14 @@
 					setInventoryAbilities(yOffset);
 					break;
 			}
-
+			if (page2.inventoryList.getChildAt(page2.inventoryList.numChildren-1).y>=116) {
+				var difference = Math.floor((page2.inventoryList.getChildAt(page2.inventoryList.numChildren-1).y - 116)/36)+1;
+				page2.inventoryList.addChildAt(bound, 1);
+				bound.graphics.lineStyle(1,0x000000);
+				bound.graphics.beginFill(0x565656);
+				bound.graphics.drawRect(0,0,272,144+36 * difference);
+				bound.graphics.endFill();
+			}
 			page2.inventory.source=page2.inventoryList;
 		}
 
@@ -486,8 +574,6 @@
 				list.removeChild(list.getChildAt(list.numChildren-1));
 			}
 		}
-
-
 
 		public function setInventoryItems(yOffset:int) {
 			var i;
@@ -560,12 +646,14 @@
 			}
 
 			xOffset=16;
-			if(amount > 0){
-			yOffset+=36;
+			if (amount>0) {
+				yOffset+=36;
 			}
 			confirm=false;
 			amount=0;
 
+
+			yOffset=page2.inventoryList.getChildAt(page2.inventoryList.numChildren-1).y+36;
 			for (i = 0; i < Unit.abilityAmounts.length; i++) {
 				if (amount%6==0&&amount!=0&&confirm) {
 					xOffset=16;
@@ -738,12 +826,18 @@
 			}
 
 			for (i = 0; i < Unit.currentUnit.passiveAbilities.length; i++) {
+
 				abilityIcon = new AbilityIcon();
 				abilityIcon.gotoAndStop(Unit.currentUnit.passiveAbilities[i].index);
 				abilityIcon.x=xOffset;
 				abilityIcon.y=yOffsets[0];
 				abilityIcon.useCount.visible=false;
 				abilityIcon.type="Ability";
+				if (Unit.currentUnit.passiveAbilities[i].min>0) {
+					abilityIcon.transform.colorTransform = new ColorTransform();
+				} else {
+					abilityIcon.transform.colorTransform=redCover;
+				}
 				page2.passiveList1.addChild(abilityIcon);
 				abilityIcon.addEventListener(MouseEvent.MOUSE_DOWN, movePassiveIcon);
 				yOffsets[0]+=36;
@@ -776,6 +870,11 @@
 				abilityIcon.y=yOffsets[1];
 				abilityIcon.useCount.visible=false;
 				abilityIcon.type="Ability";
+				if (Unit.partnerUnit.passiveAbilities[i].min>0) {
+					abilityIcon.transform.colorTransform = new ColorTransform();
+				} else {
+					abilityIcon.transform.colorTransform=redCover;
+				}
 				page2.passiveList2.addChild(abilityIcon);
 				abilityIcon.addEventListener(MouseEvent.MOUSE_DOWN, movePassiveIcon);
 				yOffsets[1]+=36;
@@ -810,42 +909,11 @@
 				if (obj.type=="Item") {
 					index=ItemDatabase.index.indexOf(obj.currentFrame);
 					makeDescription(index, obj.type);
-
-					if (ItemDatabase.getActive(index)) {
-						stageRef.addChild(pCover1);
-						stageRef.addChild(pCover2);
-						if (aCover.parent!=null) {
-							aCover.parent.removeChild(aCover);
-						}
-					} else {
-						stageRef.addChild(aCover);
-						if (pCover1.parent!=null) {
-							pCover1.parent.removeChild(pCover1);
-						}
-						if (pCover2.parent!=null) {
-							pCover2.parent.removeChild(pCover2);
-						}
-					}
-
+					addCovers(index, obj.type);
 				} else {
 					index=AbilityDatabase.index.indexOf(obj.currentFrame);
 					makeDescription(index, obj.type);
-					if (AbilityDatabase.getActive(index)) {
-						stageRef.addChild(pCover1);
-						stageRef.addChild(pCover2);
-						if (aCover.parent!=null) {
-							aCover.parent.removeChild(aCover);
-						}
-					} else {
-						stageRef.addChild(aCover);
-						if (pCover1.parent!=null) {
-							pCover1.parent.removeChild(pCover1);
-						}
-						if (pCover2.parent!=null) {
-							pCover2.parent.removeChild(pCover2);
-						}
-					}
-
+					addCovers(index, obj.type);
 				}
 				stageRef.addChild(obj);
 				obj.x=mouseX-16;
@@ -867,23 +935,17 @@
 			if (obj.type=="Item") {
 				index=ItemDatabase.index.indexOf(obj.currentFrame);
 
-				//remove Covers
-				removeCovers();
-
 				//if it hits passiveList1
-				if (obj.hitTestObject(page2.passiveList1)) {
+				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					if (! ItemDatabase.getActive(index)) {
 						Unit.itemAmounts[index]--;
 						Unit.currentUnit.passiveItems.push(new Item(index, 1));
-						setPassives(iaOption);
 					}
 					//if it hits passiveList2
-				} else if (obj.hitTestObject(page2.passiveList2)) {
-
+				} else if (obj.hitTestObject(page2.passiveList2)  && pCover2.parent != stageRef) {
 					if (! ItemDatabase.getActive(index)) {
 						Unit.itemAmounts[index]--;
 						Unit.partnerUnit.passiveItems.push(new Item(index, 1));
-						setPassives(iaOption);
 					}
 					//if it hits nothing or a hotkeyIcon
 				} else {
@@ -892,6 +954,7 @@
 							hkIcon=hotkeyIconArray[i];
 
 							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false) && 
+							!blockedHotkeyArray[i] &&
 							(hotkeyArray[i] == null ||
 							(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 
@@ -914,29 +977,27 @@
 						}
 					}
 				}
-				setInventory(iaOption);
 
 			} else if (obj.type == "Ability") {
 				index=AbilityDatabase.index.indexOf(obj.currentFrame);
-				removeCovers();
 
-				if (obj.hitTestObject(page2.passiveList1)) {
+				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					if (! AbilityDatabase.getActive(index)) {
 						Unit.abilityAmounts[index]--;
 						Unit.currentUnit.passiveAbilities.push(new Ability(index, 1));
-						setPassives(iaOption);
 					}
-				} else if (obj.hitTestObject(page2.passiveList2)) {
+				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					if (! AbilityDatabase.getActive(index)) {
 						Unit.abilityAmounts[index]--;
 						Unit.partnerUnit.passiveAbilities.push(new Ability(index, 1));
-						setPassives(iaOption);
 					}
 				} else {
 					if (AbilityDatabase.getActive(index)) {
+
 						for (i = 0; i < hotkeyIconArray.length; i++) {
 							hkIcon=hotkeyIconArray[i];
 							if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)  && 
+							!blockedHotkeyArray[i] &&
 							(hotkeyArray[i] == null ||
 							(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 
@@ -953,14 +1014,21 @@
 								hkIcon.type="Ability";
 								hotkeyArray[i]=new Ability(index,AbilityDatabase.getUses(index));
 								Unit.setHotkey(i+1, new Ability(index, AbilityDatabase.getUses(index)));
+
 								Unit.abilityAmounts[index]--;
 								break;
 							}
 						}
 					}
 				}
-				setInventory(iaOption);
+
 			}
+
+			removeCovers();
+			updateEquippedBasicAbilities();
+			freezeHotkeys();
+			setInventory(iaOption);
+			setPassives(iaOption);
 			stageRef.removeChild(obj);
 			obj.stopDrag();
 			obj.removeEventListener(MouseEvent.MOUSE_UP, releaseIcon);
@@ -983,12 +1051,7 @@
 						index=AbilityDatabase.index.indexOf(obj.currentFrame);
 					}
 					makeDescription(index, obj.type);
-					stageRef.addChild(pCover1);
-					stageRef.addChild(pCover2);
-
-					if (aCover.parent!=null) {
-						aCover.parent.removeChild(aCover);
-					}
+					addCovers(index, obj.type);
 
 					stageRef.addChild(obj);
 					obj.x=mouseX-16;
@@ -1020,13 +1083,12 @@
 			var i;//the icon to switch to
 			var j;//the icon you're dragging
 
-			removeCovers();
-
 			var backToInventory=true;
 
 			for (i = 0; i < hotkeyIconArray.length; i++) {
 				var hkIcon=hotkeyIconArray[i];
 				if (hkIcon.hitTestPoint(obj.x+16,obj.y+16,false)&&hkIcon!=obj &&
+				!blockedHotkeyArray[i] &&
 				(hotkeyArray[i] == null ||
 				(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
 					backToInventory=false;
@@ -1063,7 +1125,7 @@
 						hotkeyIconArray[j].type="";
 
 						//erase the old icon
-						obj.visible=false;
+						//obj.visible=false;
 						obj.gotoAndStop(1);
 
 						hotkeyArray[j]=null;
@@ -1076,7 +1138,7 @@
 
 			if (backToInventory) {
 				if (! obj.hitTestObject(aCover)) {
-					obj.visible=false;
+					//obj.visible=false;
 					obj.gotoAndStop(1);
 					j=hotkeyIconArray.indexOf(obj);
 					if (hotkeyIconArray[j].type=="Ability") {
@@ -1090,10 +1152,13 @@
 
 
 			}
+
 			obj.y=16;
 			obj.x=0+48*hotkeyIconArray.indexOf(obj);
 			page2.hotkeyHolder.addChild(obj);
-
+			removeCovers();
+			updateEquippedBasicAbilities();
+			freezeHotkeys();
 			obj.stopDrag();
 			setInventory(iaOption);
 		}
@@ -1111,14 +1176,8 @@
 				} else {
 					index=AbilityDatabase.index.indexOf(obj.currentFrame);
 				}
+				addCovers(index, obj.type);
 
-				stageRef.addChild(aCover);
-				if (pCover1.parent!=null) {
-					pCover1.parent.removeChild(pCover1);
-				}
-				if (pCover2.parent!=null) {
-					pCover2.parent.removeChild(pCover2);
-				}
 				if (obj.type=="Item") {
 					if (obj.parent==page2.passiveList1) {
 						passive=Unit.currentUnit.passiveItems;
@@ -1178,25 +1237,26 @@
 				index=AbilityDatabase.index.indexOf(obj.currentFrame);
 			}
 
-			removeCovers();
 			if (obj.type=="Item") {
-				if (obj.hitTestObject(page2.passiveList1)) {
+				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					Unit.currentUnit.passiveItems.push(new Item(index, 1));
-				} else if (obj.hitTestObject(page2.passiveList2)) {
+				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					Unit.partnerUnit.passiveItems.push(new Item(index, 1));
 				} else {
 					Unit.itemAmounts[index]+=1;
 				}
 			} else if (obj.type=="Ability") {
-				if (obj.hitTestObject(page2.passiveList1)) {
+				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					Unit.currentUnit.passiveAbilities.push(new Ability(index, 1));
-				} else if (obj.hitTestObject(page2.passiveList2)) {
+				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					Unit.partnerUnit.passiveAbilities.push(new Ability(index, 1));
 				} else {
 					Unit.abilityAmounts[index]+=1;
 				}
 
 			}
+			removeCovers();
+			updateEquippedBasicAbilities();
 			setPassives(iaOption);
 			setInventory(iaOption);
 			stageRef.removeChild(obj);
@@ -1206,6 +1266,81 @@
 		}
 
 
+		public function addCovers(index:int, type:String) {
+			var active:Boolean;
+			var availability:String;
+			if (type=="Item") {
+				active=ItemDatabase.getActive(index);
+				availability=ItemDatabase.getAvailability(index);
+			} else if (type == "Ability") {
+				active=AbilityDatabase.getActive(index);
+				availability=AbilityDatabase.getAvailability(index);
+			}
+
+			//deal with A/P zones
+			if (active) {
+				stageRef.addChild(pCover1);
+				stageRef.addChild(pCover2);
+				if (aCover.parent!=null) {
+					aCover.parent.removeChild(aCover);
+				}
+				//deal with units in hotkeys
+				if (availability=="All Girls") {
+					//check for girls
+				} else if (availability == "All Boys") {
+					//check for boys
+				} else if (availability != "All Perkinites") {
+					if (Unit.currentUnit.Name!=availability) {
+						hotkeyIconArray[0].transform.colorTransform=iconCover;
+						hotkeyIconArray[1].transform.colorTransform=iconCover;
+						hotkeyIconArray[2].transform.colorTransform=iconCover;
+						hotkeyIconArray[3].transform.colorTransform=iconCover;
+						hotkeyIconArray[4].transform.colorTransform=iconCover;
+						blockedHotkeyArray[0]=true;
+						blockedHotkeyArray[1]=true;
+						blockedHotkeyArray[2]=true;
+						blockedHotkeyArray[3]=true;
+						blockedHotkeyArray[4]=true;
+					}
+					if (Unit.partnerUnit.Name!=availability) {
+						hotkeyIconArray[0].transform.colorTransform=iconCover;
+						hotkeyIconArray[1].transform.colorTransform=iconCover;
+						hotkeyIconArray[2].transform.colorTransform=iconCover;
+						hotkeyIconArray[5].transform.colorTransform=iconCover;
+						hotkeyIconArray[6].transform.colorTransform=iconCover;
+						blockedHotkeyArray[0]=true;
+						blockedHotkeyArray[1]=true;
+						blockedHotkeyArray[2]=true;
+						blockedHotkeyArray[5]=true;
+						blockedHotkeyArray[6]=true;
+					}
+				}
+			} else {
+				stageRef.addChild(aCover);
+				if (pCover1.parent!=null) {
+					pCover1.parent.removeChild(pCover1);
+				}
+				if (pCover2.parent!=null) {
+					pCover2.parent.removeChild(pCover2);
+				}
+				//deal with units in passives
+				if (availability=="All Girls") {
+					//check for girls
+				} else if (availability == "All Boys") {
+					//check for boys
+				} else if (availability != "All Perkinites") {
+					if (Unit.currentUnit.Name!=availability) {
+						stageRef.addChild(pCover1);
+					}
+					if (Unit.partnerUnit.Name!=availability) {
+						stageRef.addChild(pCover2);
+					}
+				}
+			}
+
+
+
+		}
 		public function removeCovers() {
 			if (aCover.parent!=null) {
 				aCover.parent.removeChild(aCover);
@@ -1216,6 +1351,10 @@
 			if (pCover2.parent!=null) {
 				pCover2.parent.removeChild(pCover2);
 			}
+			for (var i = 0; i < hotkeyIconArray.length; i++) {
+				hotkeyIconArray[i].transform.colorTransform = new ColorTransform();
+			}
+			blockedHotkeyArray=new Array(false,false,false,false,false,false,false);
 		}
 		/************************************************************************
 		PAGE 3 STUFF
@@ -1265,11 +1404,28 @@
 					page3.increaseHolder.getChildAt(i).visible=true;
 					page3.decreaseHolder.getChildAt(i).visible=true;
 					page3.resetHolder.getChildAt(i).visible=true;
+					page3.maxHolder.getChildAt(i).visible=true;
 					hotkeyIconArray[i].gotoAndStop(basicAbilities[i].index);
 					names[i].text=basicAbilities[i].Name;
 					descriptions[i].text=AbilityDatabase.getSpecInfo(basicAbilities[i].id);
 					fractions[i].text=basicAbilities[i].min+"\n-\n"+basicAbilities[i].max;
 					hotkeyIconArray[i].gotoAndStop(AbilityDatabase.getIndex(basicAbilities[i].id));
+
+
+					if (basicAbilities[i].min==basicAbilities[i].max) {
+						fractions[i].textColor=0x0098FF;
+						hotkeyIconArray[i].transform.colorTransform = new ColorTransform();
+					} else if (basicAbilities[i].min>0) {
+						hotkeyIconArray[i].transform.colorTransform = new ColorTransform();
+						fractions[i].textColor=0x33FF33;
+					} else {
+						hotkeyIconArray[i].transform.colorTransform=redCover;
+						fractions[i].textColor=0xFF3333;
+					}
+					if (! basicCooldownNotActive(basicAbilities[i].id)) {
+						hotkeyIconArray[i].transform.colorTransform=iconCover;
+						fractions[i].textColor=0x333333;
+					}
 				} else {
 					break;
 				}
@@ -1286,6 +1442,7 @@
 				page3.increaseHolder.getChildAt(i).visible=false;
 				page3.decreaseHolder.getChildAt(i).visible=false;
 				page3.resetHolder.getChildAt(i).visible=false;
+				page3.maxHolder.getChildAt(i).visible=false;
 			}
 		}
 
@@ -1308,10 +1465,10 @@
 
 
 		public function setToggles() {
-			var holderArray=[page3.increaseHolder,page3.decreaseHolder,page3.resetHolder];
+			var holderArray=[page3.increaseHolder,page3.decreaseHolder,page3.resetHolder,page3.maxHolder];
 			var display;
 			var listener;
-			for (var i = 0; i < 3; i++) {
+			for (var i = 0; i < 4; i++) {
 				switch (i) {
 					case 0 :
 						display="+1";
@@ -1324,6 +1481,10 @@
 					case 2 :
 						display="RESET";
 						listener=resetPower;
+						break;
+					case 3 :
+						display="MAX";
+						listener=maxPower;
 						break;
 				}
 				for (var j = 0; j < holderArray[i].numChildren; j++) {
@@ -1347,12 +1508,13 @@
 				basicAbilities=Unit.partnerUnit.basicAbilities;
 				pp=Unit.partnerUnit.powerpoints;
 			}
-			makeDescription(basicAbilities[index].id, "Ability");
 
 			if (pp>0&&basicAbilities[index].min+1<Unit.maxLP/2+1 && 
-			   basicAbilities[index].min+1 <= basicAbilities[index].max) {
+			   basicAbilities[index].min+1 <= basicAbilities[index].max &&
+			   basicCooldownNotActive(basicAbilities[index].id)) {
 				pp--;
 				basicAbilities[index].min++;
+				basicAbilities[index].updateStats();
 			} else {
 				//do something
 			}
@@ -1361,6 +1523,7 @@
 			} else {
 				Unit.partnerUnit.powerpoints=pp;
 			}
+			makeDescription(basicAbilities[index].id, "Ability");
 			updatePowerupPage();
 		}
 		public function decreasePower(e) {
@@ -1377,10 +1540,11 @@
 				pp=Unit.partnerUnit.powerpoints;
 			}
 			makeDescription(basicAbilities[index].id, "Ability");
-
-			if (basicAbilities[index].min>AbilityDatabase.getMin(basicAbilities[index].id)) {
+			if (basicAbilities[index].min>AbilityDatabase.getMin(basicAbilities[index].id)
+			 &&   basicCooldownNotActive(basicAbilities[index].id)) {
 				pp++;
 				basicAbilities[index].min--;
+				basicAbilities[index].updateStats();
 			} else {
 				//do something
 			}
@@ -1389,6 +1553,8 @@
 			} else {
 				Unit.partnerUnit.powerpoints=pp;
 			}
+
+			makeDescription(basicAbilities[index].id, "Ability");
 			updatePowerupPage();
 		}
 		public function resetPower(e) {
@@ -1404,16 +1570,54 @@
 				basicAbilities=Unit.partnerUnit.basicAbilities;
 				pp=Unit.partnerUnit.powerpoints;
 			}
-			makeDescription(basicAbilities[index].id, "Ability");
 
-			var difference=basicAbilities[index].min-AbilityDatabase.getMin(basicAbilities[index].id);
-			pp+=difference;
-			basicAbilities[index].min-=difference;
-			if (currentActivated) {
-				Unit.currentUnit.powerpoints=pp;
-			} else {
-				Unit.partnerUnit.powerpoints=pp;
+			if (basicCooldownNotActive(basicAbilities[index].id)) {
+				var difference=basicAbilities[index].min-AbilityDatabase.getMin(basicAbilities[index].id);
+				pp+=difference;
+				basicAbilities[index].min-=difference;
+				if (currentActivated) {
+					Unit.currentUnit.powerpoints=pp;
+				} else {
+					Unit.partnerUnit.powerpoints=pp;
+				}
+				basicAbilities[index].updateStats();
 			}
+			makeDescription(basicAbilities[index].id, "Ability");
+			updatePowerupPage();
+		}
+		public function maxPower(e) {
+			var obj=e.target;
+			var par=e.target.parent;
+			var index=par.getChildIndex(obj);
+			var basicAbilities;
+			var pp;
+			if (currentActivated) {
+				basicAbilities=Unit.currentUnit.basicAbilities;
+				pp=Unit.currentUnit.powerpoints;
+			} else {
+				basicAbilities=Unit.partnerUnit.basicAbilities;
+				pp=Unit.partnerUnit.powerpoints;
+			}
+
+			if (basicCooldownNotActive(basicAbilities[index].id)) {
+				var confirm=true;
+				while (confirm) {
+					if (pp>0&&basicAbilities[index].min+1<Unit.maxLP/2+1 && 
+					   basicAbilities[index].min+1 <= basicAbilities[index].max) {
+						pp--;
+						basicAbilities[index].min++;
+					} else {
+						confirm=false;
+					}
+					if (currentActivated) {
+						Unit.currentUnit.powerpoints=pp;
+					} else {
+						Unit.partnerUnit.powerpoints=pp;
+					}
+				}
+				basicAbilities[index].updateStats();
+			}
+			makeDescription(basicAbilities[index].id, "Ability");
 			updatePowerupPage();
 		}
 	}

@@ -28,6 +28,7 @@ package abilities{
 
 		public var id;
 		public var amount;
+		public var spec;
 
 		public var hpPercChange:int;
 		public var hpLumpChange:int;
@@ -56,6 +57,8 @@ package abilities{
 		public var min:int;
 		public var max:int;
 
+		public var damage;
+
 		public var moveToTarget:int;
 		static public var tileMap;
 
@@ -78,7 +81,9 @@ package abilities{
 			description=AbilityDatabase.getDescription(id);
 			index=AbilityDatabase.getIndex(id);
 			this.id=id;
+			spec=AbilityDatabase.getSpec(id);
 
+			damage=AbilityDatabase.getDamage(id);
 			hpPercChange=AbilityDatabase.getHPPercChange(id);
 			hpLumpChange=AbilityDatabase.getHPLumpChange(id);
 			atkSpeed=AbilityDatabase.getAtkSpeed(id);
@@ -102,15 +107,27 @@ package abilities{
 			bomber=dasher=ranger=targeter=other=false;
 		}
 
+		public function updateStats() {
+			if(min == 0){
+				damage = 0;
+				range = 0;
+				maxCooldown = cooldown = 0;
+			}
+			else{
+			damage = AbilityDatabase.getDamage(id) + (min-1)*10;
+			range = AbilityDatabase.getRange(id) + (min-1)*50;
+			maxCooldown = cooldown = AbilityDatabase.getCooldown(id) - (min-1)*2;
+		}
+		}
 		public function activate(xpos, ypos) {
-			if (uses>0) {
+			if (uses>0 && min > 0) {
 				switch (activation) {
 					case "Hotkey" :
 						targetX=mouseX+ScreenRect.getX();
 						targetY=mouseY+ScreenRect.getY();
 						Unit.currentUnit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
 						break;
-					default:
+					default :
 						Unit.currentUnit.parent.parent.addEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
 						break;
 					case "Hotkey -> Select Unit" :
@@ -152,7 +169,7 @@ package abilities{
 			}
 			uses-=1;
 			Unit.currentUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-			Unit.currentUnit.parent.parent.removeEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);			
+			Unit.currentUnit.parent.parent.removeEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
 			if (uses<=0) {
 				addEventListener(Event.ENTER_FRAME, cooldownHandler);
 			}
@@ -196,10 +213,23 @@ package abilities{
 				cooldown--;
 				if (cooldown<=0) {
 					removeEventListener(Event.ENTER_FRAME, cooldownHandler);
-					maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
+					updateStats();
 					uses=maxUses;
 				}
 			}
+		}
+
+
+		public function getSpecInfo():String {
+			var spec2 = spec;
+			if (spec=="Damage") {
+				spec2="Damage = "+damage;
+			} else if (spec == "Healing+") {
+				spec2="Healing + "+hpLumpChange;
+			} else if (spec == "Healing%") {
+				spec2="Healing % "+hpPercChange+"%";
+			}
+			return spec2;
 		}
 	}
 }
