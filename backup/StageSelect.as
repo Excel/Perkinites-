@@ -5,7 +5,7 @@
 	import flash.display.Stage;
 	import flash.events.*;
 	import flash.filters.GlowFilter;
-	import flash.geom.Rectangle;
+	import flash.geom.Rectangle;	
 	import flash.ui.Keyboard;
 
 	import game.*;
@@ -17,10 +17,9 @@
 		public var diff:int;
 		static public var Ananya:Boolean=false;
 
-		static public var selectedArea:String="";
-
 		public var decide:Boolean;
 		public var stageArray:Array;
+		public var bossArray:Array;
 		public var difficultyArray:Array;
 
 		public var arrowGlowFilters:Array;
@@ -36,7 +35,8 @@
 
 			decide=false;
 
-			stageArray=new Array("Perkins Hall","Josiah's","CIT","JWW","Sciences Library","???","???");
+			stageArray=new Array("Perkins Hall","KK","CIT","JWW","Sciences Library","???","???");
+			bossArray=new Array("Unknown Intruder","DH","UN","KA","???","Helix D.","???");
 			difficultyArray = new Array([1, 4, 7, 9],
 			  [1, 4, 7, 10],
 			  [1, 5, 7, 10],
@@ -47,22 +47,100 @@
 
 			arrowGlowFilters=[];
 
+			displayIcon1.gotoAndStop(1);
+			displayIcon2.gotoAndStop(1);
+			displayIcon3.gotoAndStop(1);
+
+			displayIcon2.addEventListener(MouseEvent.CLICK, selectHandler);
+
+			arrow1.addEventListener(MouseEvent.MOUSE_DOWN, downHandler1);
+			arrow1.addEventListener(MouseEvent.MOUSE_UP, upHandler1);
+			arrow2.addEventListener(MouseEvent.MOUSE_DOWN, downHandler2);
+			arrow2.addEventListener(MouseEvent.MOUSE_UP, upHandler2);
+
 			difficultyIcon.gotoAndStop(1);
 			updateText();
 			updateDifficulty();
-			updateMarkers();
-
+			updateIcons();
+			
 			addEventListener(MouseEvent.MOUSE_DOWN, dragMap);
-
+			
 			load();
 
+		}
+		public function downHandler1(e) {
+			/*var gf1=new GlowFilter(0xFFFFFF,100,3,3,5,15,false,false);
+			var gf2=new GlowFilter(0x000000,100,2,2,5,15,false,false);
+			arrow1.filters = [gf2, gf1];
+			*/
+			arrow1.x=210.3;
+			arrow1.y=201.5;
+			arrow1.scaleX=0.75;
+			arrow1.scaleY=0.75;
+
+			level--;
+			if (level<=0) {
+				level=maxLevel;
+			}
+			var sound = new se_timeout();
+			sound.play();
+
+			updateDifficulty();
+			updateText();
+			updateIcons();
+		}
+		public function upHandler1(e) {
+			arrow1.x=206;
+			arrow1.y=198.5;
+			arrow1.scaleX=1;
+			arrow1.scaleY=1;
+
+		}
+		public function downHandler2(e) {
+			arrow2.x=429.5;
+			arrow2.y=219.3;
+			arrow2.scaleX=0.75;
+			arrow2.scaleY=0.75;
+
+			level++;
+			if (level>maxLevel) {
+				level=1;
+			}
+			var sound = new se_timeout();
+			sound.play();
+
+			updateDifficulty();
+			updateText();
+			updateIcons();
+		}
+		public function upHandler2(e) {
+			arrow2.x=433.8;
+			arrow2.y=222.3;
+			arrow2.scaleX=1;
+			arrow2.scaleY=1;
 		}
 
 		override public function keyHandler(e:KeyboardEvent):void {
 			var sound;
 			if (decide) {
 			} else {
-				if (e.keyCode==Keyboard.DOWN||e.keyCode=="S".charCodeAt(0)) {
+				if (e.keyCode==Keyboard.LEFT||e.keyCode=="A".charCodeAt(0)) {
+					level--;
+					if (level<=0) {
+						level=maxLevel;
+					}
+					sound = new se_timeout();
+					sound.play();
+
+				} else if (e.keyCode == Keyboard.RIGHT || e.keyCode == "D".charCodeAt(0)) {
+					level++;
+					if (level>maxLevel) {
+						level=1;
+					}
+					sound = new se_timeout();
+					sound.play();
+
+				} else if (e.keyCode == Keyboard.DOWN || e.keyCode == "S".charCodeAt(0)) {
 					diff++;
 					if (Ananya&&diff>3) {
 						diff=0;
@@ -86,20 +164,18 @@
 					sound = new se_timeout();
 					sound.play();
 				} else if (e.keyCode == Keyboard.SPACE) {
-					if (selectedArea!="") {
-						sound = new se_chargeup();
-						sound.play();
-						SuperLevel.setLevel=level;
-						SuperLevel.diff=diff;//change this
-						GameVariables.difficulty=diff;
-						unload(new PlayerSelect(stageRef));
-					} else {
+					sound = new se_chargeup();
+					sound.play();
+					SuperLevel.setLevel=level;
+					SuperLevel.diff=diff;//change this
+					GameVariables.difficulty=diff;
+					unload(new PlayerSelect(stageRef));
 
-					}
 				}
 
 				updateDifficulty();
 				updateText();
+				updateIcons();
 
 			}
 		}
@@ -120,13 +196,9 @@
 
 
 		public function updateText() {
-			if (selectedArea!="") {
-				stageNumber.text=stageArray.indexOf(selectedArea)+1+"";
-				stageName.text=selectedArea;
-			} else {
-				stageNumber.text="";
-				stageName.text="";
-			}
+			stageNumber.text=level+"";
+			stageName.text=stageArray[level-1];
+			//bossName.text=bossArray[level-1];
 
 			switch (diff) {
 				case 0 :
@@ -143,33 +215,26 @@
 					break;
 			}
 		}
-
-		public function updateMarkers() {
-			var areaMarkers=new Array(map.perkins, map.josiah);
-
-			for(var i = 0; i < areaMarkers.length; i++){
-				areaMarkers[i].stageNumber=i+1;
-				areaMarkers[i].addEventListener(MouseEvent.MOUSE_DOWN, setStageHandler);
-				
+		public function updateIcons() {
+			displayIcon2.gotoAndStop(level);
+			if (level-1<=0) {
+				displayIcon1.gotoAndStop(maxLevel);
+			} else {
+				displayIcon1.gotoAndStop(level-1);
 			}
+			if (level+1>maxLevel) {
+				displayIcon3.gotoAndStop(0);
+
+			} else {
+				displayIcon3.gotoAndStop(level+1);
+			}
+
 		}
-
-		public function setStageHandler(e) {
-			var obj=e.target;
-			selectedArea=stageArray[obj.stageNumber-1];
-
-			/*switch(obj.stageNumber){
-			case 1: 
-			break;
-			}*/
-			updateText();
-		}
-
 		public function dragMap(e) {
 			map.startDrag(false, new Rectangle(-370,-610,150,500));
-			addEventListener(MouseEvent.MOUSE_UP, releaseMap);
-		}
-		public function releaseMap(e) {
+			addEventListener(MouseEvent.MOUSE_UP, releaseMap);			
+		}		
+		public function releaseMap(e){
 			map.stopDrag();
 			stageRef.focus=null;
 			removeEventListener(MouseEvent.MOUSE_UP, releaseMap);
