@@ -23,10 +23,10 @@ ActorDatabase.loadData();
 		
 stage.stageFocusRect = false;
 
-var cursor = new Cursor(stage);
+//var cursor = new Cursor(stage);
 var lostFocusScreen = new LostFocusScreen();
-var level=new Level1B();
-stage.addChild(level);
+//var level=new Level1B();
+//stage.addChild(level);
 var titleScreen = new TitleScreen(stage);
 
 
@@ -138,11 +138,12 @@ function setUp(e) {
 		transition.alpha=1;
 		transition.visible=false;
 
+		LevelManager.stageRef = stage;
+		LevelManager.loadLevel();
+		//stage.addChild(SuperLevel.mapClip);
 
-		stage.addChild(SuperLevel.mapClip);
-
-		ScreenRect.createScreenRect(new Array(SuperLevel.mapClip),640,480);
-		level.mapSetup();
+		//ScreenRect.createScreenRect(new Array(SuperLevel.mapClip),640,480);
+		//level.mapSetup();
 
 
 		HUDManager.setup(stage);

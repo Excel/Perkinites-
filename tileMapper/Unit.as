@@ -1,4 +1,4 @@
-﻿package util{
+﻿package tileMapper{
 	import util.*;
 	import flash.geom.*;
 	import flash.display.MovieClip;

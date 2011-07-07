@@ -456,7 +456,10 @@ package actors{
 			}
 		}
 
-		public function movePlayer() {
+		public function movePlayer(){
+			teleportToCoord(mxpos, mypos);
+		}
+		/*public function movePlayer() {
 			moving=true;
 			if (Unit.tileMap!=null) {
 				//if (mxpos!=null&&mypos!=null) {
@@ -553,6 +556,6 @@ package actors{
 			}
 			xtile=Math.floor(x/SuperLevel.tileWidth);
 			ytile=Math.floor(y/SuperLevel.tileHeight);
-		}
+		}*/
 	}
 }
