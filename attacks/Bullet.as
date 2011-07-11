@@ -61,8 +61,8 @@
 			if (! pauseMovement) {
 				var pxtile;
 				var pytile;
-				pxtile=Math.floor(x/SuperLevel.tileWidth);
-				pytile=Math.floor(y/SuperLevel.tileHeight);
+				pxtile=Math.floor(x/32);
+				pytile=Math.floor(y/32);
 
 				if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
 					kill();

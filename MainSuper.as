@@ -47,7 +47,6 @@ Unit.currentUnit=new Unit(-1);
 Unit.partnerUnit=new Unit(-1);
 stage.addEventListener(Event.ENTER_FRAME, countHandler);
 stage.addEventListener(Event.ENTER_FRAME,setUp);
-stage.addEventListener(MouseEvent.MOUSE_DOWN, moveHandler);
 
 stage.addEventListener(MouseEvent.MOUSE_WHEEL,cancelActionHandler);
 stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
@@ -71,14 +70,18 @@ function onFocusRegain(e) {
 	lostFocusScreen.removeEventListener(MouseEvent.CLICK, onFocusRegain);
 }
 function moveHandler(e) {
-	count++;
 	if(! GameUnit.superPause&&! GameUnit.menuPause){
 	Unit.currentUnit.mxpos=this.parent.mouseX+ScreenRect.getX();
 	Unit.currentUnit.mypos=this.parent.mouseY+ScreenRect.getY();
 
 	Unit.partnerUnit.mxpos=this.parent.mouseX+ScreenRect.getX();//+Math.floor(Math.random()*64-32);
-	Unit.partnerUnit.mypos=this.parent.mouseY+ScreenRect.getY()+Math.floor(Math.random()*64-32);
-}
+	Unit.partnerUnit.mypos=this.parent.mouseY+ScreenRect.getY()+Math.floor(Math.random()*64-32);/*
+	Unit.currentUnit.teleportToCoord(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
+	Unit.partnerUnit.teleportToCoord(Unit.partnerUnit.mxpos, Unit.partnerUnit.mypos);*/
+	Unit.currentUnit.mover(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
+	Unit.partnerUnit.mover(Unit.partnerUnit.mxpos, Unit.partnerUnit.mypos);	
+	
+	}
 }
 
 function cancelActionHandler(e) {
@@ -140,6 +143,7 @@ function setUp(e) {
 
 		LevelManager.stageRef = stage;
 		LevelManager.loadLevel();
+		stage.addEventListener(MouseEvent.MOUSE_DOWN, moveHandler);
 		//stage.addChild(SuperLevel.mapClip);
 
 		//ScreenRect.createScreenRect(new Array(SuperLevel.mapClip),640,480);

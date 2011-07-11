@@ -4,8 +4,10 @@ package game{
 
 
 	import levels.*;
+	import tileMapper.*;
 	import util.*;
 
+	import flash.geom.*;
 	import flash.events.*;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
@@ -41,7 +43,7 @@ package game{
 		public var pauseAction:Boolean;
 		public var overridePause:Boolean;//don't know if this needs to be used
 		static public var superPause:Boolean;
-		static public var menuPause:Boolean = false;
+		static public var menuPause:Boolean=false;
 		static public var tileMap;
 
 		/**
@@ -50,7 +52,9 @@ package game{
 		public var pxpos:Number;
 		public var pypos:Number;
 		public var speed:Number;
+		var rad;
 
+		public static var allAreas = new Array();
 		/**
 		 *
 		 * dir - direction of GameUnit
@@ -109,6 +113,9 @@ package game{
 
 			pauseAction=false;
 
+			allAreas.push(this);
+			rad=Math.pow(width>>1,2);
+
 			addEventListener(Event.ENTER_FRAME, gameHandler);
 		}
 
@@ -136,6 +143,88 @@ package game{
 		 *
 		 *
 		 */
+
+
+
+		public function mover(ox:Number, oy:Number) {
+			var speedAdjust = (ox != 0 && oy != 0) ? (speed * Math.SQRT2 / 2) : speed;
+			var nx=x+ox*speedAdjust;
+			var ny=y+oy*speedAdjust;
+
+			var ox=x;
+			var oy=y;
+
+			x=nx;
+			y=ny;
+			if (TileMap.hitWall(nx,ny)||hitAreas()) {
+				trace(TileMap.hitWall(nx, ny) + " " + hitAreas());
+				x=ox;
+				y=oy;
+			}
+		}
+		//creates units in a circle around the original unit (u)
+		public function spaceAround(u:GameUnit) {
+			var radRoot=Math.sqrt(u.rad)+20;
+			var addPi=Math.PI/4;
+
+			for (var a = 0; a < 2 * Math.PI; a += addPi) {
+				x=radRoot*Math.cos(a)+u.x;
+				y=radRoot*Math.sin(a)+u.y;
+				if (! hitAreas()&&! TileMap.hitWall(x,y)) {
+					return;
+				}
+			}
+			trace("couldn't find space");
+		}
+		public function getMyRect() {
+			return new Rectangle(x, y, width, height);
+		}
+		public function pointHitAreas(ox, oy):GameUnit {
+			var p=new Point(ox,oy);
+
+			for (var a in allAreas) {
+				var mc=allAreas[a];
+				if (mc==this) {
+					continue;
+				}
+
+				if ((mc.getRect()).containsPoint(p)) {
+					return mc;
+				}
+			}
+			return null;
+		}
+		public function hitAreas() {
+			for (var a in allAreas) {
+				var mc=allAreas[a];
+				if (mc==this) {
+					continue;
+				}
+
+				var dist=Math.pow(mc.x-x,2)+Math.pow(mc.y-y,2);
+				if (dist<rad+mc.rad) {
+					return true;
+				}
+			}
+			return false;
+		}
+		public function hitWhat() {
+			var arr = new Array();
+			for (var a in allAreas.length) {
+				var mc=allAreas[a];
+				if (mc==this) {
+					continue;
+				}
+
+				var dist=Math.pow(mc.x-x,2)+Math.pow(mc.y-y,2);
+				if (dist<rad+mc.rad) {
+					arr.push(mc);
+				}
+			}
+			return arr;
+		}
+
+
 
 
 		public function forceAction(action, f) {
@@ -216,7 +305,7 @@ package game{
 				pypos=py;
 				addEventListener(Event.ENTER_FRAME, moveHandler);
 			}
-		}	
+		}
 		public function teleportToCoord(xpos, ypos) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
@@ -232,8 +321,8 @@ package game{
 				var mapWidth=tileMap[0].length;
 				var mapHeight=tileMap.length;
 				if (r>=0&&r<mapHeight&&c>=0&&c<mapWidth) {
-					x = (r+0.5) * SuperLevel.tileHeight;
-					y = (c+0.5) * SuperLevel.tileWidth;
+					x = (r+0.5) * 32;
+					y = (c+0.5) * 32;
 				}
 				addEventListener(Event.ENTER_FRAME, waitHandler);
 			}
@@ -310,8 +399,8 @@ package game{
 			var mapWidth=tileMap[0].length;
 			var mapHeight=tileMap.length;
 			if (r>=0&&r<mapHeight&&c>=0&&c<mapWidth) {
-				x = (r+0.5) * SuperLevel.tileHeight;
-				y = (c+0.5) * SuperLevel.tileWidth;
+				x = (r+0.5) * 32;
+				y = (c+0.5) * 32;
 			}
 		}
 
@@ -389,7 +478,7 @@ package game{
 		 */
 
 		public function gameHandler(e) {
-			if (! pauseAction && !superPause && !menuPause) {
+			if (! pauseAction&&! superPause&&! menuPause) {
 				if (moveCount>=moveArray.length) {
 					prevMoveCount=-1;
 					moveCount=0;
@@ -421,8 +510,8 @@ package game{
 		}
 		public function talkingConfirmHandler(e) {
 			if (e.keyCode==Keyboard.ENTER || 
-				e.keyCode == "C".charCodeAt(0) || 
-				e.keyCode == Keyboard.SPACE) {
+			e.keyCode == "C".charCodeAt(0) || 
+			e.keyCode == Keyboard.SPACE) {
 				if (! fastforward) {
 					fastforward=true;
 				} else {
@@ -441,17 +530,17 @@ package game{
 		}
 
 		public function moveHandler(e) {
-			if (! pauseAction && !superPause && !menuPause) {
+			if (! pauseAction&&! superPause&&! menuPause) {
 				if (pxpos<0) {
 					pxpos=0;
 				}
 				if (pypos<0) {
 					pypos=0;
 				}
-				var pxtile=Math.floor(pxpos/SuperLevel.tileWidth);
-				var pytile=Math.floor(pypos/SuperLevel.tileHeight);
-				var xtile=Math.floor(x/SuperLevel.tileWidth);
-				var ytile=Math.floor(y/SuperLevel.tileHeight);
+				var pxtile=Math.floor(pxpos/32);
+				var pytile=Math.floor(pypos/32);
+				var xtile=Math.floor(x/32);
+				var ytile=Math.floor(y/32);
 				if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
 					if (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
 						while (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
@@ -462,9 +551,9 @@ package game{
 							}
 						}
 						if (pxpos>x) {
-							pxpos=(pxtile+1)*SuperLevel.tileWidth-1;//-w_collision.x+width/2-4;
+							pxpos=(pxtile+1)*32-1;//-w_collision.x+width/2-4;
 						} else if (x > pxpos) {
-							pxpos=(pxtile)*SuperLevel.tileWidth;
+							pxpos=(pxtile)*32;
 						}
 					}
 					if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
@@ -477,9 +566,9 @@ package game{
 						}
 						if (pypos>y) {
 							//prevent bouncing
-							pypos=(pytile+1)*SuperLevel.tileHeight-1;
+							pypos=(pytile+1)*32-1;
 						} else if (y > pypos) {
-							pypos=(pytile)*SuperLevel.tileHeight;
+							pypos=(pytile)*32;
 						}
 					}
 
@@ -492,8 +581,8 @@ package game{
 						var px=x+speed*Math.cos(radian);
 						var py=y+speed*Math.sin(radian);
 
-						pxtile=Math.floor(px/SuperLevel.tileWidth);
-						pytile=Math.floor(py/SuperLevel.tileHeight);
+						pxtile=Math.floor(px/32);
+						pytile=Math.floor(py/32);
 						if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
 							if (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
 								while (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
@@ -504,9 +593,9 @@ package game{
 									}
 								}
 								if (px>x) {
-									px=(pxtile)*SuperLevel.tileWidth;//-w_collision.x+width/2-4;
+									px=(pxtile)*32;//-w_collision.x+width/2-4;
 								} else if (x > px) {
-									px=(pxtile)*SuperLevel.tileWidth;
+									px=(pxtile)*32;
 								}
 
 								x=px;
@@ -522,9 +611,9 @@ package game{
 								}
 								if (py>y) {
 									//prevent bouncing
-									py=(pytile+1)*SuperLevel.tileHeight-1;//-w_collision.y+height/2-4;
+									py=(pytile+1)*32-1;//-w_collision.y+height/2-4;
 								} else if (y > py) {
-									py=(pytile)*SuperLevel.tileHeight;
+									py=(pytile)*32;
 								}
 								x=px;
 								y=py;

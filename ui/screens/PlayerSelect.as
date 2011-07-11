@@ -82,7 +82,7 @@
 			if (e.keyCode=="X".charCodeAt(0)) {
 				sound = new se_timeout();
 				sound.play();
-				unload(new StageSelect(SuperLevel.setLevel, GameVariables.difficulty, stageRef));
+				unload(new StageSelect(GameVariables.setLevel, GameVariables.difficulty, stageRef));
 			}
 
 		}

@@ -168,6 +168,7 @@
 			return (n != t) ? 0 : (1 << b);
 		}
 		public static function hitWall(ox, oy){
+			trace(getTile(ox, oy));
 			return getTile(ox, oy) != "f";
 		}
 		public static function hitTile(ox, oy){

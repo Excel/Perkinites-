@@ -89,8 +89,7 @@
 					if (selectedArea!="") {
 						sound = new se_chargeup();
 						sound.play();
-						SuperLevel.setLevel=level;
-						SuperLevel.diff=diff;//change this
+						GameVariables.setLevel=level;
 						GameVariables.difficulty=diff;
 						unload(new PlayerSelect(stageRef));
 					} else {
@@ -107,8 +106,7 @@
 		public function selectHandler(e) {
 			var sound = new se_chargeup();
 			sound.play();
-			SuperLevel.setLevel=level;
-			SuperLevel.diff=diff;
+			GameVariables.setLevel=level;
 			GameVariables.difficulty=diff;
 			unload(new PlayerSelect(stageRef));
 		}

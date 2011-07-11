@@ -2,12 +2,12 @@
 	import util.*;
 	import flash.geom.*;
 	import flash.display.MovieClip;
-	public class Unit extends MovieClip{
+	public class TileMapUnit extends MovieClip{
 		var MOVE_SPEED;
 		var rad;
 		
 		public static var allAreas = new Array();
-		public function Unit(s){
+		public function TileMapUnit(s){
 			super();
 			MOVE_SPEED = s;
 			allAreas.push(this);

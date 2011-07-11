@@ -211,8 +211,8 @@ package actors{
 			mxpos=x;
 			mypos=y;
 
-			xtile=Math.floor(x/SuperLevel.tileWidth);
-			ytile=Math.floor(y/SuperLevel.tileHeight);
+			xtile=Math.floor(x/32);
+			ytile=Math.floor(y/32);
 			unitHUD.updateHP();
 		}
 		public function end() {
@@ -457,7 +457,7 @@ package actors{
 		}
 
 		public function movePlayer(){
-			teleportToCoord(mxpos, mypos);
+			
 		}
 		/*public function movePlayer() {
 			moving=true;
