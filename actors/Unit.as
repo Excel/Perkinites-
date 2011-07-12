@@ -87,6 +87,8 @@ package actors{
 		static public var maxLP=20;
 		static public var unitHUD=HUDManager.getUnitHUD();
 
+		static public var path = new Array();
+
 		/**
 		 * Commands of the Unit
 		 */
@@ -225,20 +227,18 @@ package actors{
 				FP=10000;
 			}
 			if (! pauseAction&&! superPause&&! menuPause) {
-
-				movePlayer();
-				useHotKey1();
-				useHotKey2();
-				useHotKey3();
-				useHotKey4();
-				useHotKey5();
-				useHotKey6();
-				useHotKey7();
-				updateDelays();
-				
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 					useComboAttack();
 					openMenu();
+					movePlayer();
+					useHotKey1();
+					useHotKey2();
+					useHotKey3();
+					useHotKey4();
+					useHotKey5();
+					useHotKey6();
+					useHotKey7();
+					updateDelays();
 
 				}
 				if (Unit.partnerUnit==this&&Unit.partnerUnit.parent!=null) {
@@ -401,9 +401,9 @@ package actors{
 				Unit.maxLP+=1;
 				Unit.nextEXP+=Unit.maxLP*200;
 				updateEXP(0);
-				
-				for(var i = 0; i < Menu.sliderValueArray.length; i++){
-					Menu.sliderValueArray[i] += 1;
+
+				for (var i = 0; i < Menu.sliderValueArray.length; i++) {
+					Menu.sliderValueArray[i]+=1;
 				}
 				//change stats here
 			}
@@ -456,106 +456,160 @@ package actors{
 			}
 		}
 
-		public function movePlayer(){
-			
-		}
-		/*public function movePlayer() {
-			moving=true;
-			if (Unit.tileMap!=null) {
-				//if (mxpos!=null&&mypos!=null) {
-				var mxtile=Math.floor(mxpos/SuperLevel.tileWidth);
-				var mytile=Math.floor(mypos/SuperLevel.tileHeight);
-				if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-					if (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-						while (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-							if (mxpos>x) {
-								mxtile--;
-							} else if (x > mxpos) {
-								mxtile++;
-							}
-						}
-						if (mxpos>x) {
-							mxpos=(mxtile+1)*SuperLevel.tileWidth-width/2;//-w_collision.x+width/2-4;
-						} else if (x > mxpos) {
-							mxpos=(mxtile)*SuperLevel.tileWidth+width/2;
-						}
-					}
-					if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-						while (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-							if (mypos>y) {
-								mytile--;
-							} else if (y > mypos) {
-								mytile++;
-							}
-						}
-						if (mypos>y) {
-							//prevent bouncing
-							mypos=(mytile+1)*SuperLevel.tileHeight-1;//-w_collision.y+height/2-4;
-						} else if (y > mypos) {
-							mypos=(mytile)*SuperLevel.tileHeight;
-						}
-					}
-				} else {
-
-					if (Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2))>speed) {
-						var radian=Math.atan2(mypos-y,mxpos-x);
-						var degree = Math.round((radian*180/Math.PI));
-						var mx=x+speed*Math.cos(radian);
-						var my=y+speed*Math.sin(radian);
-
-						mxtile=Math.floor(mx/SuperLevel.tileWidth);
-						mytile=Math.floor(my/SuperLevel.tileHeight);
-						if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-							if (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-								while (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-									if (mx>x) {
-										mxtile--;
-									} else if (x > mx) {
-										mxtile++;
-									}
-								}
-								if (mx>x) {
-									mx=(mxtile)*SuperLevel.tileWidth-width/2;//-w_collision.x+width/2-4;
-								} else if (x > mx) {
-									mx=(mxtile)*SuperLevel.tileWidth+width/2;
-								}
-
-								x=mx;
-								y=my;
-
-							} else if (! tileMap["t_"+mytile+"_"+xtile].walkable) {
-								while (! tileMap["t_"+mytile+"_"+xtile].walkable) {
-									if (my>y) {
-										mytile--;
-									} else if (y > my) {
-										mytile++;
-									}
-								}
-								if (my>y) {
-									//prevent bouncing
-									my=(mytile+1)*SuperLevel.tileHeight-1;//-w_collision.y+height/2-4;
-								} else if (y > my) {
-									my=(mytile)*SuperLevel.tileHeight;
-								}
-								x=mx;
-								y=my;
-							} else {
-								x=mx;
-								y=my;
-							}
-						} else {
-							x=mx;
-							y=my;
-						}
-					} else {
+		public function movePlayer() {
+			if (path.length>0) {
+				var xtile=Math.floor(x/32);
+				var ytile=Math.floor(y/32);
+				if (xtile==path[0].x&&ytile==path[0].y) {
+					path.splice(0, 1);
+				}
+				if (path.length>0) {
+					var xdest=path[0].x;
+					var ydest=path[0].y;
+					var dx=xdest-xtile;
+					var dy=ydest-ytile;
+					/*var dx=mxpos - x;
+					var dy=mypos - y;
+					
+					var radian=Math.atan2(dy, dx);
+					var degree = Math.round((radian*180/Math.PI));
+					
+					if(xdest-xtile == 0 && ydest - ytile == 0){
 						x=mxpos;
 						y=mypos;
 					}
+					else{
+						x+=speed*Math.cos(radian);
+						y+=speed*Math.sin(radian);
+					}*/
+					
+					if (dx==0&&dy==0) {
+						x=mxpos;
+						y=mypos;
+					} else if (dx == 0 && dy < 0) {
+						y-=speed;
+					} else if (dx == 0 && dy > 0) {
+						y+=speed;
+					} else if (dx < 0 && dy == 0) {
+						x-=speed;
+					} else if (dx > 0 && dy == 0) {
+						x+=speed;
+					} else if (dx < 0 && dy < 0) {
+						x-=speed;
+						y-=speed;
+					} else if (dx < 0 && dy > 0) {
+						x-=speed;
+						y+=speed;
+					} else if (dx > 0 && dy < 0) {
+						x+=speed;
+						y-=speed;
+					} else if (dx > 0 && dy > 0) {
+						x+=speed;
+						y+=speed;
+					}
 				}
-				//}
+			} else {
+				x=mxpos;
+				y=mypos;
 			}
-			xtile=Math.floor(x/SuperLevel.tileWidth);
-			ytile=Math.floor(y/SuperLevel.tileHeight);
+		}
+		/*public function movePlayer() {
+		moving=true;
+		if (Unit.tileMap!=null) {
+		//if (mxpos!=null&&mypos!=null) {
+		var mxtile=Math.floor(mxpos/SuperLevel.tileWidth);
+		var mytile=Math.floor(mypos/SuperLevel.tileHeight);
+		if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
+		if (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
+		while (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
+		if (mxpos>x) {
+		mxtile--;
+		} else if (x > mxpos) {
+		mxtile++;
+		}
+		}
+		if (mxpos>x) {
+		mxpos=(mxtile+1)*SuperLevel.tileWidth-width/2;//-w_collision.x+width/2-4;
+		} else if (x > mxpos) {
+		mxpos=(mxtile)*SuperLevel.tileWidth+width/2;
+		}
+		}
+		if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
+		while (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
+		if (mypos>y) {
+		mytile--;
+		} else if (y > mypos) {
+		mytile++;
+		}
+		}
+		if (mypos>y) {
+		//prevent bouncing
+		mypos=(mytile+1)*SuperLevel.tileHeight-1;//-w_collision.y+height/2-4;
+		} else if (y > mypos) {
+		mypos=(mytile)*SuperLevel.tileHeight;
+		}
+		}
+		} else {
+		
+		if (Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2))>speed) {
+		var radian=Math.atan2(mypos-y,mxpos-x);
+		var degree = Math.round((radian*180/Math.PI));
+		var mx=x+speed*Math.cos(radian);
+		var my=y+speed*Math.sin(radian);
+		
+		mxtile=Math.floor(mx/SuperLevel.tileWidth);
+		mytile=Math.floor(my/SuperLevel.tileHeight);
+		if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
+		if (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
+		while (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
+		if (mx>x) {
+		mxtile--;
+		} else if (x > mx) {
+		mxtile++;
+		}
+		}
+		if (mx>x) {
+		mx=(mxtile)*SuperLevel.tileWidth-width/2;//-w_collision.x+width/2-4;
+		} else if (x > mx) {
+		mx=(mxtile)*SuperLevel.tileWidth+width/2;
+		}
+		
+		x=mx;
+		y=my;
+		
+		} else if (! tileMap["t_"+mytile+"_"+xtile].walkable) {
+		while (! tileMap["t_"+mytile+"_"+xtile].walkable) {
+		if (my>y) {
+		mytile--;
+		} else if (y > my) {
+		mytile++;
+		}
+		}
+		if (my>y) {
+		//prevent bouncing
+		my=(mytile+1)*SuperLevel.tileHeight-1;//-w_collision.y+height/2-4;
+		} else if (y > my) {
+		my=(mytile)*SuperLevel.tileHeight;
+		}
+		x=mx;
+		y=my;
+		} else {
+		x=mx;
+		y=my;
+		}
+		} else {
+		x=mx;
+		y=my;
+		}
+		} else {
+		x=mxpos;
+		y=mypos;
+		}
+		}
+		//}
+		}
+		xtile=Math.floor(x/SuperLevel.tileWidth);
+		ytile=Math.floor(y/SuperLevel.tileHeight);
 		}*/
 	}
 }
