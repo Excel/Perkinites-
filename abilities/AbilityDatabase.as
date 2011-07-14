@@ -35,7 +35,8 @@
 		public static const activationLabels = new Array("Automatic",  
 		 "Hotkey",
 		 "Hotkey -> L-Click",
-		 "Hotkey -> Select Unit");
+		 "Hotkey -> Select Unit",
+		 "Hold Down Hotkey");
 		public static var index=new Array();
 
 		public static var damage = new Array();

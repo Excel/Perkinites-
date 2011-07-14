@@ -65,7 +65,7 @@ package items{
 			}
 			maxUses=9;
 		}
-		override public function activate(xpos, ypos) {
+		override public function activate(xpos, ypos, unit) {
 			if (Unit.itemAmounts[id]>0) {
 				Unit.itemAmounts[id]-=1;
 			}

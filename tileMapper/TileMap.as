@@ -168,8 +168,7 @@
 			return (n != t) ? 0 : (1 << b);
 		}
 		public static function hitWall(ox, oy) {
-			trace(getTile(ox, oy));
-			return getTile(ox, oy) != "f";
+			return getTile(ox, oy) == "n";
 		}
 		public static function hitTile(ox, oy) {
 			var xPos=Math.floor(ox/TILE_SIZE);

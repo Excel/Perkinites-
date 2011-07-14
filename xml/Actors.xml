@@ -5,47 +5,71 @@
 		<Health>75</Health>
 		<Attack>3</Attack>
 		<Defense>0</Defense>
-		<Speed>20</Speed>
+		<Speed>15</Speed>
 		<Weapon>Shinai</Weapon>
+		<HPInc>5</HPInc>
+		<APInc>0.5</APInc>
+		<DPInc>0.2</DPInc>
+		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>Nate M.</Name>
 		<Health>100</Health>
 		<Attack>5</Attack>
 		<Defense>0</Defense>
-		<Speed>16</Speed>
+		<Speed>11</Speed>
 		<Weapon>Claws</Weapon>
+		<HPInc>5</HPInc>
+		<APInc>0.5</APInc>
+		<DPInc>0.2</DPInc>
+		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>C. Kata</Name>
 		<Health>75</Health>
 		<Attack>4</Attack>
 		<Defense>0</Defense>
-		<Speed>17</Speed>
+		<Speed>12</Speed>
 		<Weapon>Railgun</Weapon>
+		<HPInc>5</HPInc>
+		<APInc>0.5</APInc>
+		<DPInc>0.2</DPInc>
+		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>Cia M.</Name>
 		<Health>60</Health>
 		<Attack>2</Attack>
 		<Defense>0</Defense>
-		<Speed>17</Speed>
+		<Speed>12</Speed>
 		<Weapon>Magic Wand</Weapon>
+		<HPInc>5</HPInc>
+		<APInc>0.5</APInc>
+		<DPInc>0.2</DPInc>
+		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>Eric H.</Name>
 		<Health>110</Health>
 		<Attack>5</Attack>
 		<Defense>0</Defense>
-		<Speed>20</Speed>
+		<Speed>15</Speed>
 		<Weapon>Tentacles</Weapon>
+		<HPInc>5</HPInc>
+		<APInc>0.5</APInc>
+		<DPInc>0.2</DPInc>
+		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>John T.</Name>
 		<Health>65</Health>
 		<Attack>3</Attack>
 		<Defense>0</Defense>
-		<Speed>25</Speed>
+		<Speed>20</Speed>
 		<Weapon>Hoverpad</Weapon>
+		<HPInc>5</HPInc>
+		<APInc>0.5</APInc>
+		<DPInc>0.2</DPInc>
+		<SPInc>0.3</SPInc>
 	</Actor>
 </Actors>

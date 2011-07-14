@@ -14,6 +14,7 @@ package actors{
 	import game.*;
 	import items.*;
 	import levels.*;
+	import tileMapper.*;
 	import ui.*;
 	import ui.hud.*;
 	import ui.screens.*;
@@ -87,7 +88,7 @@ package actors{
 		static public var maxLP=20;
 		static public var unitHUD=HUDManager.getUnitHUD();
 
-		static public var path = new Array();
+		public var path = new Array();
 
 		/**
 		 * Commands of the Unit
@@ -116,6 +117,7 @@ package actors{
 		 */
 		public var mxpos=0;
 		public var mypos=0;
+		public var range=0;
 		static public var level;
 
 		/**
@@ -132,7 +134,7 @@ package actors{
 		public var canUseHotkeys:Array;
 
 		public var attacking:Boolean;
-		public var moving:Boolean;
+		public var moving:Boolean = false;
 
 
 		static public var tileMap;
@@ -288,46 +290,46 @@ package actors{
 		public function useHotKey1() {
 			if (KeyDown.keyIsDown(hotKey1)&&hk1!=null&&hk1Delay>=0) {
 				hk1Delay=-1*hk1.delay;
-				hk1.activate(x, y);
+				hk1.activate(x, y, this);
 			}
 		}
 
 		public function useHotKey2() {
 			if (KeyDown.keyIsDown(hotKey2)&&hk2!=null&&hk2Delay>=0) {
 				hk2Delay=-1*hk2.delay;
-				hk2.activate(x, y);
+				hk2.activate(x, y, this);
 			}
 		}
 		public function useHotKey3() {
 			if (KeyDown.keyIsDown(hotKey3)&&hk3!=null&&hk3Delay>=0) {
 				hk3Delay=-1*hk3.delay;
-				hk3.activate(x, y);
+				hk3.activate(x, y, this);
 			}
 		}
 
 		public function useHotKey4() {
 			if (KeyDown.keyIsDown(hotKey4)&&hk4!=null&&hk4Delay>=0) {
 				hk4Delay=-1*hk4.delay;
-				hk4.activate(x, y);
+				hk4.activate(x, y, this);
 			}
 		}
 
 		public function useHotKey5() {
 			if (KeyDown.keyIsDown(hotKey5)&&hk5!=null&&hk5Delay>=0) {
 				hk5Delay=-1*hk5.delay;
-				hk5.activate(x, y);
+				hk5.activate(x, y, this);
 			}
 		}
 		public function useHotKey6() {
 			if (KeyDown.keyIsDown(hotKey6)&&hk6!=null&&hk6Delay>=0) {
 				hk6Delay=-1*hk6.delay;
-				hk6.activate(x, y);
+				hk6.activate(x, y, this);
 			}
 		}
 		public function useHotKey7() {
 			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null&&hk7Delay>=0) {
 				hk7Delay=-1*hk7.delay;
-				hk7.activate(x, y);
+				hk7.activate(x, y, this);
 			}
 		}
 
@@ -458,57 +460,70 @@ package actors{
 
 		public function movePlayer() {
 			if (path.length>0) {
-				var xtile=Math.floor(x/32);
-				var ytile=Math.floor(y/32);
-				if (xtile==path[0].x&&ytile==path[0].y) {
-					path.splice(0, 1);
-				}
-				if (path.length>0) {
-					var xdest=path[0].x;
-					var ydest=path[0].y;
-					var dx=xdest-xtile;
-					var dy=ydest-ytile;
-					/*var dx=mxpos - x;
-					var dy=mypos - y;
-					
-					var radian=Math.atan2(dy, dx);
-					var degree = Math.round((radian*180/Math.PI));
-					
-					if(xdest-xtile == 0 && ydest - ytile == 0){
+				var dist = Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
+
+				if (dist>0 && dist > range) {
+					var xtile=Math.floor(x/32);
+					var ytile=Math.floor(y/32);
+					if (xtile==path[0].x&&ytile==path[0].y) {
+						path.splice(0, 1);
+					}
+					if (path.length>0) {
+						moving = true;
+						var xdest=path[0].x;
+						var ydest=path[0].y;
+						var dx=xdest-xtile;
+						var dy=ydest-ytile;
+						/*var dx=mxpos - x;
+						var dy=mypos - y;
+						
+						var radian=Math.atan2(dy, dx);
+						var degree = Math.round((radian*180/Math.PI));
+						
+						if(xdest-xtile == 0 && ydest - ytile == 0){
 						x=mxpos;
 						y=mypos;
-					}
-					else{
+						}
+						else{
 						x+=speed*Math.cos(radian);
 						y+=speed*Math.sin(radian);
-					}*/
-					
-					if (dx==0&&dy==0) {
-						x=mxpos;
-						y=mypos;
-					} else if (dx == 0 && dy < 0) {
-						y-=speed;
-					} else if (dx == 0 && dy > 0) {
-						y+=speed;
-					} else if (dx < 0 && dy == 0) {
-						x-=speed;
-					} else if (dx > 0 && dy == 0) {
-						x+=speed;
-					} else if (dx < 0 && dy < 0) {
-						x-=speed;
-						y-=speed;
-					} else if (dx < 0 && dy > 0) {
-						x-=speed;
-						y+=speed;
-					} else if (dx > 0 && dy < 0) {
-						x+=speed;
-						y-=speed;
-					} else if (dx > 0 && dy > 0) {
-						x+=speed;
-						y+=speed;
+						}*/
+
+						if (dx==0&&dy==0) { //this needs to be fixed so they don't auto-teleport on the same tile
+							x=mxpos;
+							y=mypos;
+							moving = false;
+						} else if (dx == 0 && dy < 0) {
+							y-=speed;
+						} else if (dx == 0 && dy > 0) {
+							y+=speed;
+						} else if (dx < 0 && dy == 0) {
+							x-=speed;
+						} else if (dx > 0 && dy == 0) {
+							x+=speed;
+						} else if (dx < 0 && dy < 0) {
+							x-=speed;
+							y-=speed;
+						} else if (dx < 0 && dy > 0) {
+							x-=speed;
+							y+=speed;
+						} else if (dx > 0 && dy < 0) {
+							x+=speed;
+							y-=speed;
+						} else if (dx > 0 && dy > 0) {
+							x+=speed;
+							y+=speed;
+						}
+					}
+					else{
+						moving = false;
 					}
 				}
-			} else {
+			} else{
+				moving = false;
+			}
+			
+			if(!moving && range == 0){
 				x=mxpos;
 				y=mypos;
 			}

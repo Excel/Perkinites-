@@ -60,6 +60,7 @@
 			Unit.partnerUnit.x=startX*TileMap.TILE_SIZE;//startX+.5*TileMap.TILE_SIZE;
 			Unit.partnerUnit.y=startY*TileMap.TILE_SIZE;//startY+.5*TileMap.TILE_SIZE;
 
+
 			//trace(Unit.currentUnit.x + " " + Unit.currentUnit.y);
 			mapClip.addChild(Unit.currentUnit);
 			mapClip.addChild(Unit.partnerUnit);
@@ -76,8 +77,8 @@
 			if (ScreenRect.getY()<0) {
 				ScreenRect.setY(0);
 			}
-			var firstSep=mapCode.indexOf(":");
-			var secSep=mapCode.indexOf(":",firstSep+1);
+			//var firstSep=mapCode.indexOf(":");
+			//var secSep=mapCode.indexOf(":",firstSep+1);
 
 
 			//var mapWidth=parseInt(mapCode.substring(firstSep+1,secSep));

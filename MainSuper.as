@@ -30,7 +30,7 @@ var lostFocusScreen = new LostFocusScreen();
 //stage.addChild(level);
 var titleScreen=new TitleScreen(stage);
 
-var mouseIsDown = false;
+var mouseIsDown=false;
 var FPS=new FPSDisplay(stage,0,0);
 var Z_KEY="Z".charCodeAt(0);
 var X_KEY="X".charCodeAt(0);
@@ -60,11 +60,11 @@ function countHandler(e) {
 
 }
 
-function mouseDownHandler(e){
-	mouseIsDown = true;
+function mouseDownHandler(e) {
+	mouseIsDown=true;
 }
-function mouseUpHandler(e){
-	mouseIsDown = false;
+function mouseUpHandler(e) {
+	mouseIsDown=false;
 }
 
 function onLostFocus(e) {
@@ -78,10 +78,11 @@ function onFocusRegain(e) {
 	lostFocusScreen.removeEventListener(MouseEvent.CLICK, onFocusRegain);
 }
 function moveHandler(e) {
-	if (! GameUnit.superPause&&! GameUnit.menuPause && mouseIsDown) {
+	if (! GameUnit.superPause&&! GameUnit.menuPause&&mouseIsDown) {
 		Unit.currentUnit.mxpos=this.parent.mouseX+ScreenRect.getX();
 		Unit.currentUnit.mypos=this.parent.mouseY+ScreenRect.getY();
-
+		
+		//trace(Unit.currentUnit.mxpos + " " + Unit.currentUnit.mypos);	
 		Unit.partnerUnit.mxpos=this.parent.mouseX+ScreenRect.getX();//+Math.floor(Math.random()*64-32);
 		Unit.partnerUnit.mypos=this.parent.mouseY+ScreenRect.getY();/*+Math.floor(Math.random()*64-32);
 		Unit.currentUnit.teleportToCoord(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
@@ -89,12 +90,21 @@ function moveHandler(e) {
 		Unit.currentUnit.mover(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
 		Unit.partnerUnit.mover(Unit.partnerUnit.mxpos, Unit.partnerUnit.mypos);*/
 		//trace(TileMap.getTile(Unit.currentUnit.mxpos, Unit.currentUnit.mypos));
-		Unit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
+		Unit.currentUnit.range=0;
+		Unit.partnerUnit.range=0;
+		
+		Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
 		  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
 		  true, true);
-		if (Unit.path.length==0) {
+		Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
+		  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
+		  true, true);
+		if (Unit.currentUnit.path.length==0) {
 			Unit.currentUnit.mxpos=Unit.currentUnit.x;
 			Unit.currentUnit.mypos=Unit.currentUnit.y;
+
+		}
+		if (Unit.partnerUnit.path.length==0) {
 			Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
 			Unit.partnerUnit.mypos=Unit.partnerUnit.y;
 		}

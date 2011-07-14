@@ -3,6 +3,7 @@
 	import actors.*;
 	import enemies.*;
 	import levels.*;
+	import tileMapper.*;
 	import util.*;
 
 	import flash.display.MovieClip;
@@ -22,13 +23,13 @@
 
 		public var pauseMovement:Boolean;
 
-		function Bullet(xs, ys, d, a, tm) {
+		function Bullet(xs, ys, d, a, tm = null) {
 
 			xspeed=xs;
 			yspeed=ys;
 			damage=d;
 			attacker=a;
-			tileMap=tm;
+			//tileMap=tm;
 			exist=150;
 			rotate=0;
 			pauseMovement=false;
@@ -59,16 +60,15 @@
 
 		function checkExplode() {
 			if (! pauseMovement) {
-				var pxtile;
-				var pytile;
-				pxtile=Math.floor(x/32);
-				pytile=Math.floor(y/32);
-
-				if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
+				if(TileMap.hitWall(x, y)){
 					kill();
 					return;
 				}
-
+				/*if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
+					kill();
+					return;
+				}
+*/
 				if (exist<0) {
 					kill();
 					return;
