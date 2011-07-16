@@ -9,28 +9,32 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	import flash.ui.*;
-	public class Bullet extends MovieClip {
+	public class Attack extends MovieClip {
 
 		static public var list:Array=[];
 		var xspeed:Number;
 		var yspeed:Number;
 		var damage:int;
 		var attacker:String;//attacker can only be "PC" or "Enemy"
-		var tileMap;
+		var expand:Boolean;
+		var radius:int;
 		var exist:int;
+
 		var hit=false;
 		var rotate:int;
 
 		public var pauseMovement:Boolean;
 
-		function Bullet(xs, ys, d, a, tm = null) {
+		function Attack(xs, ys, d, a, e:Boolean = false, r:int = 0) {
 
 			xspeed=xs;
 			yspeed=ys;
 			damage=d;
 			attacker=a;
-			//tileMap=tm;
+			expand=e;
+			radius=r;
 			exist=150;
+
 			rotate=0;
 			pauseMovement=false;
 			this.addEventListener(Event.ENTER_FRAME, gameHandler);
@@ -51,8 +55,18 @@
 
 		function update() {
 			if (! pauseMovement) {
-				x+=xspeed;
-				y+=yspeed;
+				if (expand) {
+					if (width<radius*2&&height<radius*2) {
+						width+=xspeed;
+						height+=yspeed;
+					} else {
+						width=radius*2;
+						height=radius*2;
+					}
+				} else {
+					x+=xspeed;
+					y+=yspeed;
+				}
 				exist--;
 				rotation+=rotate;
 			}
@@ -60,15 +74,10 @@
 
 		function checkExplode() {
 			if (! pauseMovement) {
-				if(TileMap.hitWall(x, y)){
+				if (TileMap.hitWall(x,y) && !expand) {
 					kill();
 					return;
 				}
-				/*if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
-					kill();
-					return;
-				}
-*/
 				if (exist<0) {
 					kill();
 					return;

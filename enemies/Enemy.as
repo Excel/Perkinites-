@@ -112,16 +112,6 @@ package enemies{
 			eHPBar.y=y-height/2-20;
 
 
-			/*pxpos=0;
-			pypos=0;
-			
-			moveArray=[];
-			prevMoveCount=0;
-			moveCount=1;
-			waitCount=0;
-			maxWaitCount=24*0;
-			*/
-
 		}
 		public function begin() {
 

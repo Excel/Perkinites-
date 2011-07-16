@@ -17,6 +17,7 @@
 		public static var xmlData:XML = new XML();
 		public static var names = new Array();
 		public static var descriptions = new Array();
+		public static var areas = new Array();
 		public static var ranges = new  Array();
 		public static var uses = new Array();
 		public static var amounts = new Array();
@@ -61,54 +62,9 @@
 		
 		
 		public static var moveToTarget = new Array();
+		public static var bulletNumbers = new Array();
 
 		public static const mvSpeedPerc=new Array(0,0,0,0,0,0,0,0);
-
-
-
-		/*public static const names=new Array("Eyelash Batting","Sharp Shooter","Update","Cheer",":]",":]",":]");
-		public static const descriptions = new Array("Stun certain enemies.",
-		"Increase your team's attack speeds and attack power for Ranger-type Abilities for fifteen seconds.",
-		"Increase your team's dash speeds and reduce your team's cooldown times.",
-		"Restores a small amount of HP to Christina every five seconds.",
-		":O", ":O", ":O");
-		
-		// icon frame in fla
-		
-		public static const ranges=new Array(0,600,0,0,0,0,0);
-		
-		public static const uses=new Array(1,1,1,1,1,1,1,1);
-		public static const amounts=new Array(0,0,0,0,0,0,0,0);
-		public static const cooldowns=new Array(10,60,10,10,10,10,10,10);
-		
-		//actual availability will be defined for each unit, saying what skills they can actually equip :)
-		//this is just the message that shows up in the menu
-		public static const activations=new Array(0,1,0,0,0,0,0);
-		public static const activationLabels = new Array("Automatic",
-		 "Hotkey",
-		 "Hotkey -> L-Click",
-		 "Hotkey -> Select Unit");
-		public static const availabilities=new Array("C. Kata","C. Kata","Charles Y.","Cia M.","","","");
-		public static const specs=new Array("Damage","Passive","Support","Passive","","","");
-		public static const values=new Array(0,0,0,0,0,0,0);
-		public static const delays=new Array(10,10,10,10,10,10,10,10);
-		
-		
-		public static const damage=new Array(0,0,0,0,0,0,0);
-		public static const hpPercChange=new Array(0,0,0,25,0,0,0,0);
-		public static const hpLumpChange=new Array(0,0,0,0,0,0,0,0);
-		public static const atkSpeedPerc=new Array(0,20,0,0,0,0,0,0);
-		public static const mvSpeedPerc=new Array(0,0,0,0,0,0,0,0);
-		public static const atkDmgPerc=new Array(0,10,0,0,0,0,0,0);
-		public static const atkDmgLump=new Array(0,0,0,0,0,0,0,0);
-		public static const cdPercChange=new Array(0,0,0,0,0,0,0,0);
-		
-		public static const stunDurations=new Array(40,0,0,0,0,0,0);
-		public static const slowDurations=new Array(0,0,0,0,0,0,0);
-		public static const slowPercents=new Array(0,0,0,0,0,0,0,0);
-		
-		public static const actives=new Array(false,true,true,true,true,true,true,true);
-		*/
 
 
 		public static function loadData() {
@@ -142,6 +98,9 @@
 			for each (var specElement:XML in input.Ability.Spec) {
 				specs.push(specElement);
 			}
+			for each (var areaElement:XML in input.Ability.Area) {
+				areas.push(areaElement);
+			}			
 			for each (var rangeElement:XML in input.Ability.Range) {
 				ranges.push(rangeElement);
 			}
@@ -240,6 +199,9 @@
 		}
 		public static function getIndex(id:int):int {
 			return index[id];
+		}
+		public static function getAOE(id:int):String{
+			return "Aura";
 		}
 		public static function getRange(id:int):int {
 			return ranges[id];

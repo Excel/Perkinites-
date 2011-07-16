@@ -7,12 +7,12 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	import flash.ui.*;
-	public class DrunkBullet extends Bullet {
+	public class DrunkBullet extends Attack {
 
 
 
-		function DrunkBullet(xs, ys, d, a, tm) {
-			super(xs, ys, d, a, tm);
+		function DrunkBullet(xs, ys, d, a) {
+			super(xs, ys, d, a);
 			this.rotate=30;
 		}
 

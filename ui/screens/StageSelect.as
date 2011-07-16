@@ -28,31 +28,41 @@
 			this.level=level;
 			this.diff=diff;
 			if (this.diff==-1) {
-				this.diff=0;
+				this.diff=1;
 			}
 			this.stageRef=stageRef;
 
 			maxLevel=GameVariables.maxStageLevel;
 
 			decide=false;
-
-			stageArray=new Array("Perkins Hall","Josiah's","CIT","JWW","Sciences Library","???","???");
-			difficultyArray = new Array([1, 4, 7, 9],
+			
+			stageArray=new Array("Perkins Hall","Josiah's","Sharpe Refectory","Watson Center (CIT)","Sciences Library","???","???");
+/*			difficultyArray = new Array([1, 4, 7, 19],
 			  [1, 4, 7, 10],
 			  [1, 5, 7, 10],
 			  [1, 5, 8, 10],
 			  [2, 6, 9, 10],
 			  [3, 7, 10, 11],
-			  [4, 7, 10, 11]);
-
+			  [4, 7, 10, 11]);*/
+			difficultyArray = new Array([1, 4, 7, 19],
+			  [2, 5, 8, 11],
+			  [3, 6, 9, 12],
+			  [4, 7, 11, 14],
+			  [5, 8, 12, 15],
+			  [6, 9, 14, 16],
+			  [7, 10, 15, 18]);
 			arrowGlowFilters=[];
 
+			if(selectedArea == ""){
+				selectedArea=stageArray[0];
+			}
 			difficultyIcon.gotoAndStop(1);
 			updateText();
 			updateDifficulty();
 			updateMarkers();
 
 			addEventListener(MouseEvent.MOUSE_DOWN, dragMap);
+			stageRef.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
 
 			load();
 
@@ -113,7 +123,12 @@
 
 		public function updateDifficulty() {
 			difficultyIcon.gotoAndStop(diff+1);
+			if(difficultyArray[level-1][diff] > 15){
+				difficultyIcon.diffLevel.text = "!!!!";
+			}
+			else{
 			difficultyIcon.diffLevel.text=difficultyArray[level-1][diff];
+		}
 		}
 
 
@@ -128,39 +143,43 @@
 
 			switch (diff) {
 				case 0 :
-					difficultyDescription.text="Units deal 1.5x damage.\n\nEnemies deal 1x damage.";
+					difficultyDescription.text="Units deal 1.5x damage.\n\nEnemies deal 1x damage.\n\nEnemies are average.";
 					break;
 				case 1 :
-					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 1x damage.";
+					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 1x damage.\n\nEnemies are tricky.";
 					break;
 				case 2 :
-					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 2x damage.";
+					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 2x damage.\n\nEnemies are advanced.";
 					break;
 				case 3 :
-					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 3x damage.";
+					difficultyDescription.text="Units deal 1x damage.\n\nEnemies deal 3x damage.\n\nEnemies take after Ananya. AKA, they will f**king destroy you.";
 					break;
 			}
 		}
 
 		public function updateMarkers() {
-			var areaMarkers=new Array(map.perkins, map.josiah);
+			var areaMarkers=new Array(map.perkins,map.josiah,map.ratty,map.cit,map.scili,map.xx,map.yy);
 
-			for(var i = 0; i < areaMarkers.length; i++){
+			for (var i = 0; i < maxLevel; i++) {
 				areaMarkers[i].stageNumber=i+1;
 				areaMarkers[i].addEventListener(MouseEvent.MOUSE_DOWN, setStageHandler);
-				
+			}
+			for (i = i; i < 7; i++) {
+				areaMarkers[i].visible=false;
 			}
 		}
 
 		public function setStageHandler(e) {
 			var obj=e.target;
 			selectedArea=stageArray[obj.stageNumber-1];
+			level = obj.stageNumber;
 
 			/*switch(obj.stageNumber){
 			case 1: 
 			break;
 			}*/
 			updateText();
+			updateDifficulty();
 		}
 
 		public function dragMap(e) {
@@ -172,6 +191,14 @@
 			stageRef.focus=null;
 			removeEventListener(MouseEvent.MOUSE_UP, releaseMap);
 		}
-		//DO SOMETHING IF MOUSE GETS OUT WINDOW >:O
+		private function mouseLeaveHandler(e:Event):void {
+			map.stopDrag();
+			stageRef.addEventListener(MouseEvent.MOUSE_MOVE, mouseReturnHandler);
+		}
+
+		private function mouseReturnHandler(e:Event):void {
+			map.stopDrag();
+			stageRef.removeEventListener(MouseEvent.MOUSE_MOVE, mouseReturnHandler);
+		}
 	}
 }

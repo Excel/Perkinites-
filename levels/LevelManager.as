@@ -55,10 +55,10 @@
 
 			Unit.currentUnit.mxpos=Unit.partnerUnit.mxpos=startX*TileMap.TILE_SIZE;//+.5*TileMap.TILE_SIZE;
 			Unit.currentUnit.mypos=Unit.partnerUnit.mypos=startY*TileMap.TILE_SIZE;//+.5*TileMap.TILE_SIZE;
-			Unit.currentUnit.x=startX*TileMap.TILE_SIZE;//startX+.5*TileMap.TILE_SIZE;
-			Unit.currentUnit.y=startY*TileMap.TILE_SIZE;//startY+.5*TileMap.TILE_SIZE;
-			Unit.partnerUnit.x=startX*TileMap.TILE_SIZE;//startX+.5*TileMap.TILE_SIZE;
-			Unit.partnerUnit.y=startY*TileMap.TILE_SIZE;//startY+.5*TileMap.TILE_SIZE;
+			Unit.currentUnit.x=startX*TileMap.TILE_SIZE+16;//startX+.5*TileMap.TILE_SIZE;
+			Unit.currentUnit.y=startY*TileMap.TILE_SIZE+16;//startY+.5*TileMap.TILE_SIZE;
+			Unit.partnerUnit.x=startX*TileMap.TILE_SIZE+16;//startX+.5*TileMap.TILE_SIZE;
+			Unit.partnerUnit.y=startY*TileMap.TILE_SIZE+16;//startY+.5*TileMap.TILE_SIZE;
 
 
 			//trace(Unit.currentUnit.x + " " + Unit.currentUnit.y);

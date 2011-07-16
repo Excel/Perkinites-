@@ -47,6 +47,7 @@ package abilities{
 		 * Info
 		 */
 
+		public var aoe:String;
 		public var range:int;
 		public var cooldown:int;//cooldown time measured in seconds
 		public var maxCooldown:int;
@@ -94,6 +95,7 @@ package abilities{
 			atkDmgLump=AbilityDatabase.getAtkDmgLump(id);
 			cdPercChange=AbilityDatabase.getCDPercChange(id);
 
+			aoe=AbilityDatabase.getAOE(id);
 			range=AbilityDatabase.getRange(id);
 			maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
 			activation=AbilityDatabase.getActivation(id);
@@ -129,7 +131,8 @@ package abilities{
 						unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
 						break;
 					default :
-						unit.parent.parent.addEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
+						unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+						//unit.parent.parent.addEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
 						break;
 					case "Hotkey -> Select Unit" :
 						targetX=mouseX+ScreenRect.getX();
@@ -142,6 +145,9 @@ package abilities{
 
 		public function moveAbilityHandler(e) {
 			var obj=e.target;
+			
+			obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
+			
 			targetX=mouseX+ScreenRect.getX();
 			targetY=mouseY+ScreenRect.getY();
 			switch (moveToTarget) {
@@ -179,53 +185,20 @@ package abilities{
 		}
 		public function finishAbilityHandler(e) {
 			var obj=e.target;
+			trace(Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2)));
 			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range) {
 				obj.mxpos=obj.x;
 				obj.mypos=obj.y;
 				obj.path=[];
 				obj.range=0;
 
-				var ax=targetX;
-				var ay=targetY;
-
-				var radian=Math.atan2(ay-obj.y,ax-obj.x);
-				var degree = (radian*180/Math.PI);
-
-				var bxspeed=32;
-				var byspeed=32;
-
-				var b1=new Bullet(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC");
-				b1.x=obj.x+width*Math.cos(radian)/2;
-				b1.y=obj.y+height*Math.sin(radian)/2;
-				b1.rotation=degree;
-
-				obj.parent.addChild(b1);
-				obj.parent.setChildIndex(b1, 0);
-
-				/*for (var i = -1; i < 2; i++) {
-				var radian=Math.atan2(ay-Unit.currentUnit.y,ax-Unit.currentUnit.x);
-				
-				var degree = (radian*180/Math.PI);
-				degree+=5*i;
-				radian=degree*Math.PI/180;
-				var bxspeed=20;
-				var byspeed=20;
-				
-				var b1=new CM_BasicShot(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC",Unit.tileMap);
-				b1.x=Unit.currentUnit.x+width*Math.cos(radian)/2;
-				b1.y=Unit.currentUnit.y+height*Math.sin(radian)/2;
-				
-				b1.scaleX=0.40;
-				b1.rotation=90+degree;
-				Unit.currentUnit.parent.addChild(b1);
-				Unit.currentUnit.parent.setChildIndex(b1, 0);
-				
-				}*/
+				sendAttacks(obj);
 				obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
 
 
 			}
 		}
+
 		public function cancel() {
 		}
 		public function enable(switchOn) {
@@ -246,6 +219,10 @@ package abilities{
 			var spec2=spec;
 			if (spec=="Damage") {
 				spec2="Damage = "+damage;
+			} else if (spec == "Set Damage") {
+				spec2="Set Damage = "+damage;
+			} else if (spec=="Siphon") {
+				spec2="Siphon + "+damage;
 			} else if (spec == "Healing+") {
 				spec2="Healing + "+hpLumpChange;
 			} else if (spec == "Healing%") {
@@ -253,5 +230,94 @@ package abilities{
 			}
 			return spec2;
 		}
+		private function sendAttacks(obj) {
+			var a;//the attack to send out
+			var i;//the iterative variable
+
+			var ax=targetX;
+			var ay=targetY;
+
+			var radian=Math.atan2(ay-obj.y,ax-obj.x);
+			var degree = (radian*180/Math.PI);
+
+			var aspeed=32;
+
+			//variables to incorporate into main Ability code
+			var numBullets=8;
+			var radius = 50;
+			
+			switch (aoe) {
+				case "Line" :
+					a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,"PC");
+					a.x=obj.x+width*Math.cos(radian)/2;
+					a.y=obj.y+height*Math.sin(radian)/2;
+					a.rotation=degree;
+
+					obj.parent.addChild(a);
+					obj.parent.setChildIndex(a, 0);
+
+					break;
+				case "Circle" :
+					radian=Math.atan2(ay-obj.y,ax-obj.x);
+					degree = (radian*180/Math.PI);				
+					for (i = 0; i < 360; i+=360/numBullets) {
+						//trace(Math.floor(Math.random()*100));
+						degree+=i;
+						radian=degree*Math.PI/180;
+
+						a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), damage, "PC");
+						a.x=obj.x+width*Math.cos(radian)/2;
+						a.y=obj.y+height*Math.sin(radian)/2;
+
+						a.rotation=degree;
+						obj.parent.addChild(a);
+						obj.parent.setChildIndex(a, 0);
+						
+						radian=Math.atan2(ay-obj.y,ax-obj.x);
+						degree = (radian*180/Math.PI);				
+
+					}				
+					break;
+				case "Cone" :		
+					radian=Math.atan2(ay-obj.y,ax-obj.x);
+					degree = (radian*180/Math.PI);				
+					for (i = -numBullets/2; i < Math.ceil(numBullets/2); i++) {
+						degree+=5*i;
+						radian=degree*Math.PI/180;
+
+						a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), damage, "PC");
+						a.x=obj.x+width*Math.cos(radian)/2;
+						a.y=obj.y+height*Math.sin(radian)/2;
+
+						a.rotation=degree;
+						obj.parent.addChild(a);
+						obj.parent.setChildIndex(a, 0);
+						
+						radian=Math.atan2(ay-obj.y,ax-obj.x);
+						degree = (radian*180/Math.PI);				
+
+					}
+					break;
+				case "Point" :
+					a=new Attack(aspeed/2, aspeed/2,damage,"PC", true, radius);
+					a.x=ax;
+					a.y=ay;
+					
+					obj.parent.addChild(a);
+					obj.parent.setChildIndex(a, 0);				
+					break;
+				case "Aura" :
+					a=new Attack(aspeed/2,aspeed/2,damage,"PC", true, radius);
+					a.x=obj.x;
+					a.y=obj.y;
+
+					obj.parent.addChild(a);
+					obj.parent.setChildIndex(a, 0);				
+					break;
+				default :
+					break;
+			}
+		}
+
 	}
 }

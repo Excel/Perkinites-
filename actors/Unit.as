@@ -354,14 +354,14 @@ package actors{
 					var bxspeed=20;
 					var byspeed=20;
 
-					var b1=new CM_BasicShot(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC",tileMap);
-					b1.x=x+width*Math.cos(radian)/2;
-					b1.y=y+height*Math.sin(radian)/2;
+					var a=new Attack(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC");
+					a.x=x+width*Math.cos(radian)/2;
+					a.y=y+height*Math.sin(radian)/2;
 
-					b1.scaleX=0.40;
-					b1.rotation=90+degree;
-					this.parent.addChild(b1);
-					this.parent.setChildIndex(b1, 0);
+					a.scaleX=0.40;
+					a.rotation=90+degree;
+					this.parent.addChild(a);
+					this.parent.setChildIndex(a, 0);
 				}
 			}
 		}
@@ -474,20 +474,7 @@ package actors{
 						var ydest=path[0].y;
 						var dx=xdest-xtile;
 						var dy=ydest-ytile;
-						/*var dx=mxpos - x;
-						var dy=mypos - y;
-						
-						var radian=Math.atan2(dy, dx);
-						var degree = Math.round((radian*180/Math.PI));
-						
-						if(xdest-xtile == 0 && ydest - ytile == 0){
-						x=mxpos;
-						y=mypos;
-						}
-						else{
-						x+=speed*Math.cos(radian);
-						y+=speed*Math.sin(radian);
-						}*/
+
 
 						if (dx==0&&dy==0) { //this needs to be fixed so they don't auto-teleport on the same tile
 							x=mxpos;

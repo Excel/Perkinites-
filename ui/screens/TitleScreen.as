@@ -32,7 +32,7 @@
 		}
 
 		public function newGame(e:Event):void {
-			unload(new StageSelect(1,0,stage));
+			unload(new StageSelect(1,-1,stage));
 		}
 		public function continueGame(e:Event):void {
 			unload(new FileScreen(true,this,stage));

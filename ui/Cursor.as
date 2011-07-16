@@ -18,8 +18,8 @@
 			mouseChildren=false;
 
 			this.stageRef=stageRef;
-			x=stageRef.mouseX;
-			y=stageRef.mouseY;
+			x=Math.floor(stageRef.mouseX/32)*32+16;
+			y=Math.floor(stageRef.mouseY/32)*32+16;
 			gotoAndStop(1);
 
 			stageRef.addEventListener(MouseEvent.MOUSE_MOVE, updateMouse);
@@ -44,8 +44,8 @@
 		}
 
 		private function updateMouse(e:MouseEvent):void {
-			x=stageRef.mouseX;
-			y=stageRef.mouseY;
+			x=Math.floor(stageRef.mouseX/32)*32+16;
+			y=Math.floor(stageRef.mouseY/32)*32+16;
 
 			p.x=x;
 			p.y=y;
