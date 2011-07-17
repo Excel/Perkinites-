@@ -26,15 +26,10 @@ stage.stageFocusRect=false;
 
 //var cursor = new Cursor(stage);
 var lostFocusScreen = new LostFocusScreen();
-//var level=new Level1B();
-//stage.addChild(level);
 var titleScreen=new TitleScreen(stage);
 
 var mouseIsDown=false;
 var FPS=new FPSDisplay(stage,0,0);
-var Z_KEY="Z".charCodeAt(0);
-var X_KEY="X".charCodeAt(0);
-var C_KEY="C".charCodeAt(0);
 
 var cheatCode="";
 
@@ -48,17 +43,12 @@ Unit.currentUnit=new Unit(-1);
 Unit.partnerUnit=new Unit(-1);
 stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-stage.addEventListener(Event.ENTER_FRAME, countHandler);
 stage.addEventListener(Event.ENTER_FRAME,setUp);
 
 stage.addEventListener(MouseEvent.MOUSE_WHEEL,cancelActionHandler);
 stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
 
 stage.addEventListener(Event.DEACTIVATE, onLostFocus);
-function countHandler(e) {
-
-
-}
 
 function mouseDownHandler(e) {
 	mouseIsDown=true;
@@ -79,35 +69,39 @@ function onFocusRegain(e) {
 }
 function moveHandler(e) {
 	if (! GameUnit.superPause&&! GameUnit.menuPause&&mouseIsDown) {
-		Unit.currentUnit.mxpos=this.parent.mouseX+ScreenRect.getX();
-		Unit.currentUnit.mypos=this.parent.mouseY+ScreenRect.getY();
-		
-		//trace(Unit.currentUnit.mxpos + " " + Unit.currentUnit.mypos);	
-		Unit.partnerUnit.mxpos=this.parent.mouseX+ScreenRect.getX();//+Math.floor(Math.random()*64-32);
-		Unit.partnerUnit.mypos=this.parent.mouseY+ScreenRect.getY();/*+Math.floor(Math.random()*64-32);
-		Unit.currentUnit.teleportToCoord(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
-		Unit.partnerUnit.teleportToCoord(Unit.partnerUnit.mxpos, Unit.partnerUnit.mypos);
-		Unit.currentUnit.mover(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
-		Unit.partnerUnit.mover(Unit.partnerUnit.mxpos, Unit.partnerUnit.mypos);*/
-		//trace(TileMap.getTile(Unit.currentUnit.mxpos, Unit.currentUnit.mypos));
+
+		Unit.currentUnit.mxpos=Math.floor( (this.parent.mouseX+ScreenRect.getX())/32)*32 + 16;
+		Unit.currentUnit.mypos=Math.floor( (this.parent.mouseY+ScreenRect.getY())/32)*32 + 16;
 		Unit.currentUnit.range=0;
-		Unit.partnerUnit.range=0;
-		
 		Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
 		  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
-		  true, true);
-		Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
-		  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
-		  true, true);
+		  false, true);
+		Unit.currentUnit.path=Unit.currentUnit.smoothPath();
+
 		if (Unit.currentUnit.path.length==0) {
 			Unit.currentUnit.mxpos=Unit.currentUnit.x;
 			Unit.currentUnit.mypos=Unit.currentUnit.y;
 
 		}
+
+		Unit.partnerUnit.mxpos=Math.floor((this.parent.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
+		Unit.partnerUnit.mypos=Math.floor((this.parent.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
+
+		Unit.partnerUnit.range=0;
+		
+		Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
+		  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
+		  false, true);
+
+
 		if (Unit.partnerUnit.path.length==0) {
 			Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
 			Unit.partnerUnit.mypos=Unit.partnerUnit.y;
 		}
+		/*trace(TileMap.walkable(new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
+		  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32))));*/
+
+
 	}
 }
 
@@ -158,11 +152,6 @@ function cheatCodeHandler(e) {
 
 }
 
-//var stageSelect=new StageSelect(1,stage);
-//Hide objects
-
-roundDisplay.visible=false;
-
 function setUp(e) {
 	if (GameVariables.startLevel) {
 		transition.alpha=1;
@@ -171,16 +160,10 @@ function setUp(e) {
 		LevelManager.stageRef=stage;
 		LevelManager.loadLevel();
 		stage.addEventListener(Event.ENTER_FRAME, moveHandler);
-		//stage.addChild(SuperLevel.mapClip);
-
-		//ScreenRect.createScreenRect(new Array(SuperLevel.mapClip),640,480);
-		//level.mapSetup();
-
 
 		HUDManager.setup(stage);
 		HUDManager.toggleUnitHUD(true);
 		HUDManager.toggleEnemyHUD(true);
-
 
 		stage.removeEventListener(Event.ENTER_FRAME,setUp);
 	}

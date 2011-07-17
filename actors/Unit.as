@@ -7,6 +7,7 @@ package actors{
 	import flash.events.*;
 	import flash.ui.Keyboard;
 	import flash.utils.Timer;
+	import flash.geom.Point;
 
 	import abilities.*;
 	import attacks.*;
@@ -89,6 +90,7 @@ package actors{
 		static public var unitHUD=HUDManager.getUnitHUD();
 
 		public var path = new Array();
+		public var radian;
 
 		/**
 		 * Commands of the Unit
@@ -134,7 +136,7 @@ package actors{
 		public var canUseHotkeys:Array;
 
 		public var attacking:Boolean;
-		public var moving:Boolean = false;
+		public var moving:Boolean=false;
 
 
 		static public var tileMap;
@@ -418,9 +420,6 @@ package actors{
 		public function KO() {
 			for (var i = 0; i < commands.length; i++) {
 				if (commands[i].Name=="Second Chance"&&commands[i].activate(x,y)) {
-					HP=1;
-					break;
-				} else if (commands[i].Name == "Second Wind" && commands[i].activate(x, y)) {
 					HP=maxHP/2;
 					break;
 				} else if (commands[i].Name == "Second World" && commands[i].activate(x, y)) {
@@ -460,61 +459,80 @@ package actors{
 
 		public function movePlayer() {
 			if (path.length>0) {
-				var dist = Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
+				var dist=Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
 
-				if (dist>0 && dist > range) {
+				if (dist>0&&dist>range) {
 					var xtile=Math.floor(x/32);
 					var ytile=Math.floor(y/32);
 					if (xtile==path[0].x&&ytile==path[0].y) {
 						path.splice(0, 1);
-					}
-					if (path.length>0) {
-						moving = true;
-						var xdest=path[0].x;
-						var ydest=path[0].y;
-						var dx=xdest-xtile;
-						var dy=ydest-ytile;
 
-
-						if (dx==0&&dy==0) { //this needs to be fixed so they don't auto-teleport on the same tile
-							x=mxpos;
-							y=mypos;
-							moving = false;
-						} else if (dx == 0 && dy < 0) {
-							y-=speed;
-						} else if (dx == 0 && dy > 0) {
-							y+=speed;
-						} else if (dx < 0 && dy == 0) {
-							x-=speed;
-						} else if (dx > 0 && dy == 0) {
-							x+=speed;
-						} else if (dx < 0 && dy < 0) {
-							x-=speed;
-							y-=speed;
-						} else if (dx < 0 && dy > 0) {
-							x-=speed;
-							y+=speed;
-						} else if (dx > 0 && dy < 0) {
-							x+=speed;
-							y-=speed;
-						} else if (dx > 0 && dy > 0) {
-							x+=speed;
-							y+=speed;
+						if (path.length>0) {
+							var xdest=path[0].x*32+16;
+							var ydest=path[0].y*32+16;
+							radian=Math.atan2(ydest-y,xdest-x);
 						}
 					}
-					else{
-						moving = false;
+					if (path.length>0) {
+						moving=true;
+
+						x+=speed*Math.cos(radian);
+						y+=speed*Math.sin(radian);
+
+					} else {
+						moving=false;
 					}
 				}
-			} else{
-				moving = false;
+			} else {
+				moving=false;
 			}
-			
-			if(!moving && range == 0){
+
+			if (! moving&&range==0) {
 				x=mxpos;
 				y=mypos;
 			}
 		}
+
+		public function smoothPath() {
+			if (path.length>0) {
+				var newPath=new Array(path[0]);
+
+				var currentIndex=0;
+				var pushIndex=0;
+				var nextIndex=1;
+
+				if(path[0] == path[path.length-1]){
+					return newPath; 
+				}
+				if (TileMap.walkable(path[0],path[path.length-1])) {
+					newPath=new Array(path[0],path[path.length-1]);
+					return newPath;
+					
+				}
+				while (nextIndex < path.length) {
+
+					if (TileMap.walkable(path[nextIndex],path[path.length-1])) {
+						newPath.push(path[nextIndex]);
+						newPath.push(path[path.length-1]);
+						return newPath;
+					} else if (TileMap.walkable(path[currentIndex],path[nextIndex])) {
+						pushIndex=nextIndex;
+					} else {
+						if (currentIndex!=pushIndex) {
+							newPath.push(path[pushIndex]);
+						}
+						currentIndex=pushIndex;
+					}
+					nextIndex++;
+				}
+				newPath.push(path[path.length-1]);
+				return newPath;
+			}
+			else {
+				return new Array();
+			}
+		}
+
 		/*public function movePlayer() {
 		moving=true;
 		if (Unit.tileMap!=null) {

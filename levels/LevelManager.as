@@ -18,7 +18,7 @@
 		public static var stageRef:Stage;
 		public static var mapCode;
 
-		public static var tileTypes=new Array("p","n","p","n","n","n");
+		public static var tileTypes=new Array("p","n","p","w","w","w");
 		public static var tileClings=new Array(false,false,false,true,true,false);
 
 		public static function loadLevel() {
@@ -53,15 +53,13 @@
 
 			//trace(startX+" "+startY);
 
-			Unit.currentUnit.mxpos=Unit.partnerUnit.mxpos=startX*TileMap.TILE_SIZE;//+.5*TileMap.TILE_SIZE;
-			Unit.currentUnit.mypos=Unit.partnerUnit.mypos=startY*TileMap.TILE_SIZE;//+.5*TileMap.TILE_SIZE;
+			Unit.currentUnit.mxpos=Unit.partnerUnit.mxpos=startX*TileMap.TILE_SIZE+16;//+.5*TileMap.TILE_SIZE;
+			Unit.currentUnit.mypos=Unit.partnerUnit.mypos=startY*TileMap.TILE_SIZE+16;//+.5*TileMap.TILE_SIZE;
 			Unit.currentUnit.x=startX*TileMap.TILE_SIZE+16;//startX+.5*TileMap.TILE_SIZE;
 			Unit.currentUnit.y=startY*TileMap.TILE_SIZE+16;//startY+.5*TileMap.TILE_SIZE;
 			Unit.partnerUnit.x=startX*TileMap.TILE_SIZE+16;//startX+.5*TileMap.TILE_SIZE;
 			Unit.partnerUnit.y=startY*TileMap.TILE_SIZE+16;//startY+.5*TileMap.TILE_SIZE;
 
-
-			//trace(Unit.currentUnit.x + " " + Unit.currentUnit.y);
 			mapClip.addChild(Unit.currentUnit);
 			mapClip.addChild(Unit.partnerUnit);
 
@@ -91,9 +89,6 @@
 			if (ScreenRect.getY()+480>mapHeight*32) {
 				ScreenRect.setY(mapHeight*32-480);
 			}
-
-
 		}
-
 	}
 }

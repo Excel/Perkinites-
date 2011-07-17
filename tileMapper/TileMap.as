@@ -168,7 +168,10 @@
 			return (n != t) ? 0 : (1 << b);
 		}
 		public static function hitWall(ox, oy) {
-			return getTile(ox, oy) == "n";
+			return getTile(ox, oy) == "w";
+		}
+		public static function hitNonpass(ox, oy) {
+			return getTile(ox, oy) == "n" || getTile(ox, oy) == "w";
 		}
 		public static function hitTile(ox, oy) {
 			var xPos=Math.floor(ox/TILE_SIZE);
@@ -206,6 +209,38 @@
 			var yPos=Math.floor(oy/TILE_SIZE);
 			interTiles[yPos][xPos].activate();
 		}
+
+		public static function walkable(sTile, eTile, speed:Number = 2, bound:Number = 8) {
+			var sPoint=new Point(sTile.x*32+16,sTile.y*32+16);
+			var ePoint=new Point(eTile.x*32+16,eTile.y*32+16);
+
+			var dist=0;
+			var totalDist=Math.sqrt(Math.pow(ePoint.y-sPoint.y,2)+Math.pow(ePoint.x-sPoint.x,2));
+
+			var radian=Math.atan2(ePoint.y-sPoint.y,ePoint.x-sPoint.x);
+			var degree = (radian*180/Math.PI);
+
+			while (dist < totalDist) {
+
+				if (TileMap.hitWall(sPoint.x,sPoint.y) ||
+					TileMap.hitWall(sPoint.x-bound, sPoint.y) ||
+					TileMap.hitWall(sPoint.x+bound, sPoint.y) ||
+					TileMap.hitWall(sPoint.x, sPoint.y-bound) ||
+					TileMap.hitWall(sPoint.x, sPoint.y+bound) ||
+					
+					TileMap.hitWall(sPoint.x-bound/Math.sqrt(2), sPoint.y-bound/Math.sqrt(2)) ||
+					TileMap.hitWall(sPoint.x-bound/Math.sqrt(2), sPoint.y+bound/Math.sqrt(2)) ||
+					TileMap.hitWall(sPoint.x+bound/Math.sqrt(2), sPoint.y-bound/Math.sqrt(2)) ||
+					TileMap.hitWall(sPoint.x+bound/Math.sqrt(2), sPoint.y+bound/Math.sqrt(2))) {
+					return false;
+				}
+				sPoint.x=sPoint.x+speed*Math.cos(radian);
+				sPoint.y=sPoint.y+speed*Math.sin(radian);
+				dist+=speed;
+			}
+			return true;
+		}
+
 		public static function findPath(mainMap:Array, startP:Point, endP:Point, diagonal:Boolean, diagonalWall:Boolean) {
 			var startx=startP.x;
 			var starty=startP.y;
@@ -310,8 +345,7 @@
 					px=path[0].x;
 					py=path[0].y;
 				}
-			}
-			else{
+			} else {
 				path = new Array();
 			}
 			return path;

@@ -185,7 +185,7 @@ package abilities{
 		}
 		public function finishAbilityHandler(e) {
 			var obj=e.target;
-			trace(Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2)));
+			//trace(Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2)));
 			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range) {
 				obj.mxpos=obj.x;
 				obj.mypos=obj.y;
