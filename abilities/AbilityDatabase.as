@@ -78,6 +78,21 @@
 			xmlData=new XML(e.target.data);
 			parseData(xmlData);
 		}
+		public static function separate(statChange) {
+			var s = new Array();
+			var sep=statChange.indexOf("+");
+			if(sep!=-1){
+				sep = statChange.indexOf("-");
+			}
+
+			s.push(parseFloat(statChange.substring(0,sep)));
+			if (sep!=-1) {
+				s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
+			} else {
+				s.push(0);
+			}
+			return s;
+		}		
 		public static function parseData(input:XML):void {
 
 			var count=2;

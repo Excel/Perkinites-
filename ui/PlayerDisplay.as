@@ -128,12 +128,13 @@
 					}
 					break;
 				case 4 :
-					page4.ffName.text=ActorDatabase.getFFName(index);
+					/*page4.ffName.text=ActorDatabase.getFFName(index);
 					page4.ffDescription.text=ActorDatabase.getFFDescription(index);
 					page4.ffBonus.text=ActorDatabase.getFFBonus(index);
 
 					page4.ffIcon.gotoAndStop(Math.ceil((index+1)/2));
-
+					*/
+					page4.ffIcon.gotoAndStop(1);
 					break;
 			}
 

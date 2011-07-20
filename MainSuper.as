@@ -92,7 +92,7 @@ function moveHandler(e) {
 		Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
 		  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
 		  false, true);
-
+		Unit.partnerUnit.path=Unit.partnerUnit.smoothPath();
 
 		if (Unit.partnerUnit.path.length==0) {
 			Unit.partnerUnit.mxpos=Unit.partnerUnit.x;

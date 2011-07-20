@@ -17,6 +17,9 @@
 		public static var mapClip=new MovieClip  ;
 		public static var stageRef:Stage;
 		public static var mapCode;
+		
+		public static var mapWidth;
+		public static var mapHeight;
 
 		public static var tileTypes=new Array("p","n","p","w","w","w");
 		public static var tileClings=new Array(false,false,false,true,true,false);
@@ -41,6 +44,12 @@
 			TileMap.removeTiles(mapClip);
 			TileMap.createTileMap(mapCode,32,tileTypes,tileClings,"Tile");
 			TileMap.addTiles(mapClip);
+			var firstSep=mapCode.indexOf(":");
+			var secSep=mapCode.indexOf(":",firstSep+1);
+
+
+			mapWidth=parseInt(mapCode.substring(firstSep+1,secSep));
+			mapHeight=parseInt(mapCode.substring(0,firstSep));			
 		}
 		public static function setHeroPosition() {
 			var ind1=mapCode.indexOf("(")+1;
@@ -62,6 +71,8 @@
 
 			mapClip.addChild(Unit.currentUnit);
 			mapClip.addChild(Unit.partnerUnit);
+			Unit.currentUnit.begin();
+			Unit.partnerUnit.begin();
 
 		}
 
@@ -75,14 +86,6 @@
 			if (ScreenRect.getY()<0) {
 				ScreenRect.setY(0);
 			}
-			//var firstSep=mapCode.indexOf(":");
-			//var secSep=mapCode.indexOf(":",firstSep+1);
-
-
-			//var mapWidth=parseInt(mapCode.substring(firstSep+1,secSep));
-			//var mapHeight=parseInt(mapCode.substring(0,firstSep));
-			var mapWidth = 20;
-			var mapHeight = 15;
 			if (ScreenRect.getX()+640>mapWidth*32) {
 				ScreenRect.setX(mapWidth*32-640);
 			}

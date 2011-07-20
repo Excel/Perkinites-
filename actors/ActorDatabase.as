@@ -17,6 +17,10 @@
 		public static var armor=new Array();//new Array(0,0,0,0);
 		public static var speed=new Array();//new Array(16,16,16,16);
 
+		public static var hpChange=new Array();
+		public static var dmgChange=new Array();
+		public static var speedChange=new Array();
+
 		public static var weapons=new Array();
 		public static var ffNames=new Array("Angelic Finale","Angelic Finale","WHAT YOU WANT","WHAT YOU WANT");
 		public static var ffDescriptions=new Array("Shower the field with celestial forces and holy lasers.",
@@ -31,6 +35,8 @@
 		"If Charles Y. is the Current Unit, WHAT YOU WANT",
 		"If Nate M. is the Current Unit, WHAT YOU WANT");
 		public static var basicAbilities = new Array();
+		
+		public static var existingUnits = new Array();
 
 		public static function loadData() {
 			var xmlLoader:URLLoader = new URLLoader();
@@ -43,24 +49,41 @@
 
 		public static function LoadXML(e:Event):void {
 			xmlData=new XML(e.target.data);
-			//trace(xmlData);
 			parseData(xmlData);
+		}
+		public static function separate(statChange) {
+			var s = new Array();
+			var sep=statChange.indexOf("+");
+
+			s.push(parseFloat(statChange.substring(0,sep)));
+			if (sep!=-1) {
+				s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
+			} else {
+				s.push(0);
+			}
+			return s;
 		}
 		public static function parseData(input:XML):void {
 			for each (var nameElement:XML in input.Actor.Name) {
 				names.push(nameElement);
 			}
 			for each (var healthElement:XML in input.Actor.Health) {
-				hp.push(healthElement);
+				var health=separate(healthElement);
+				hp.push(health[0]);
+				hpChange.push(health[1]);
 			}
 			for each (var attackElement:XML in input.Actor.Attack) {
-				dmg.push(attackElement);
+				var attack = separate(attackElement);
+				dmg.push(attack[0]);
+				dmgChange.push(attack[1]);
 			}
 			for each (var defenseElement:XML in input.Actor.Defense) {
 				armor.push(defenseElement);
 			}
 			for each (var speedElement:XML in input.Actor.Speed) {
-				speed.push(speedElement);
+				var sp = separate(speedElement);
+				speed.push(int(sp[0]));
+				speedChange.push(sp[1]);
 			}
 			for each (var weaponElement:XML in input.Actor.Weapon) {
 				weapons.push(weaponElement);
@@ -78,10 +101,18 @@
 		public static function getArmor(id:int):int {
 			return armor[id];
 		}
-		public static function getSpeed(id:int):int {
+		public static function getSpeed(id:int):Number {
 			return speed[id];
 		}
-
+		public static function getHPChange(id:int):int {
+			return hpChange[id];
+		}
+		public static function getDmgChange(id:int):int {
+			return dmgChange[id];
+		}
+		public static function getSpeedChange(id:int):Number {
+			return speedChange[id];
+		}
 
 		public static function getWeapon(id:int):String {
 			return weapons[id];

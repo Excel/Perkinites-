@@ -14,7 +14,6 @@
 	public class PlayerSelect extends BaseScreen {
 
 		public var entries:Array;
-		public var teamSelected:Boolean;
 		public var pn1:int;
 
 		function PlayerSelect(stageRef:Stage) {
@@ -22,7 +21,6 @@
 
 
 			entries = new Array();
-			teamSelected=false;
 			pn1=Unit.currentUnit.id;
 
 
@@ -50,7 +48,6 @@
 
 			if (pn1!=-1) {
 				beginButton.filters=[];
-				teamSelected=true;
 				beginButton.addEventListener(MouseEvent.MOUSE_OVER, overHandler);
 				beginButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler);
 				beginButton.addEventListener(MouseEvent.CLICK, startLevel);
@@ -69,7 +66,7 @@
 				if (! playerDisplay2.visible) {
 					playerDisplay2.displayAgain();
 				}
-			}
+			} 
 
 			load();
 
@@ -83,6 +80,8 @@
 				sound = new se_timeout();
 				sound.play();
 				unload(new StageSelect(GameVariables.setLevel, GameVariables.difficulty, stageRef));
+			} else if (e.keyCode==Keyboard.SPACE && pn1 != -1) {
+				startGame();
 			}
 
 		}
@@ -104,6 +103,7 @@
 				entry.playerName1.text=names[i];
 				entry.playerName2.text=names[i+1];
 				entry.id=i;
+				entry.gotoAndStop(1);
 
 				//GOTTA ADD LISTENERS TO ENTRIES AND GOTTA FIX THEM
 				entry.addEventListener(MouseEvent.MOUSE_OVER, entryOverHandler);
@@ -134,16 +134,17 @@
 			var sound = new se_timeout();
 			sound.play();
 			beginButton.filters=[];
-			teamSelected=true;
 			beginButton.addEventListener(MouseEvent.MOUSE_OVER, overHandler);
 			beginButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler);
 			beginButton.addEventListener(MouseEvent.CLICK, startLevel);
 			unitName1.visible=true;
 			unitName2.visible=true;
 
+			for (var i = 0; i < entries.length; i++) {
+				entries[i].gotoAndStop(1);
+			}
 			pn1=btn.id;
-			//pn1=ActorDatabase.names.indexOf(e.target.playerName1.text);
-
+			btn.gotoAndStop(2);
 			unitName1.text=ActorDatabase.getName(pn1);
 			unitName2.text=ActorDatabase.getName(pn1+1);
 
@@ -159,6 +160,8 @@
 
 			Unit.currentUnit=new Unit(pn1);
 			Unit.partnerUnit=new Unit(pn1+1);
+
+
 
 		}
 
@@ -237,6 +240,5 @@
 			playerDisplay2.button3.filters=[];
 			playerDisplay2.button4.filters=[playerDisplay2.gf1];
 		}
-
 	}
 }

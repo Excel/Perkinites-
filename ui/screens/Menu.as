@@ -53,7 +53,7 @@
 				currentActivated=true;
 			}
 			if (sliderValueArray.length==0) {
-				sliderValueArray=new Array(Unit.maxLP,Unit.maxLP,Unit.maxLP,Unit.maxLP,Unit.maxLP,Unit.maxLP);
+				sliderValueArray=new Array(1,1,1,1,1,1);
 			}
 
 			x=0;
@@ -208,12 +208,12 @@
 					page1.HPDisplay1.text=Unit.currentUnit.HP;
 					page1.maxHPDisplay1.text=Unit.currentUnit.maxHP;
 					page1.APDisplay1.text=Math.floor(Unit.currentUnit.AP);
-					page1.SPDisplay1.text=Math.floor(Unit.currentUnit.speed);
+					page1.SPDisplay1.text=Unit.currentUnit.speed.toFixed(1);
 
 					page1.HPDisplay2.text=Unit.partnerUnit.HP;
 					page1.maxHPDisplay2.text=Unit.partnerUnit.maxHP;
 					page1.APDisplay2.text=Math.floor(Unit.partnerUnit.AP);
-					page1.SPDisplay2.text=Math.floor(Unit.partnerUnit.speed);
+					page1.SPDisplay2.text=Unit.partnerUnit.speed.toFixed(1);
 
 					freezeFaces();
 					eraseDescription();
@@ -489,7 +489,8 @@
 		}
 
 		public function changeHPHandler1(e) {
-			Unit.currentUnit.maxHP = ActorDatabase.getHP(Unit.currentUnit.id) + (e.value-1)*10;
+			Unit.currentUnit.maxHP = ActorDatabase.getHP(Unit.currentUnit.id) + 
+										(e.value-1)*ActorDatabase.getHPChange(Unit.currentUnit.id);
 			if (Unit.currentUnit.HP>Unit.currentUnit.maxHP) {
 				Unit.currentUnit.HP=Unit.currentUnit.maxHP;
 			}
@@ -497,17 +498,20 @@
 			update();
 		}
 		public function changeAPHandler1(e) {
-			Unit.currentUnit.AP = ActorDatabase.getDmg(Unit.currentUnit.id) + (e.value-1)*10;
+			Unit.currentUnit.AP = ActorDatabase.getDmg(Unit.currentUnit.id) +
+										(e.value-1)*ActorDatabase.getDmgChange(Unit.currentUnit.id);
 			sliderValueArray[1]=e.value;
 			update();
 		}
 		public function changeSPHandler1(e) {
-			Unit.currentUnit.speed = ActorDatabase.getSpeed(Unit.currentUnit.id) + (e.value-1)*10;
+			Unit.currentUnit.speed = ActorDatabase.getSpeed(Unit.currentUnit.id) +
+										(e.value-1)*ActorDatabase.getSpeedChange(Unit.currentUnit.id);
 			sliderValueArray[2]=e.value;
 			update();
 		}
 		public function changeHPHandler2(e) {
-			Unit.partnerUnit.maxHP = ActorDatabase.getHP(Unit.partnerUnit.id) + (e.value-1)*10;
+			Unit.partnerUnit.maxHP = ActorDatabase.getHP(Unit.partnerUnit.id)  +
+										(e.value-1)*ActorDatabase.getHPChange(Unit.partnerUnit.id);
 			if (Unit.partnerUnit.HP>Unit.partnerUnit.maxHP) {
 				Unit.partnerUnit.HP=Unit.partnerUnit.maxHP;
 			}
@@ -515,13 +519,15 @@
 			update();
 		}
 		public function changeAPHandler2(e) {
-			Unit.partnerUnit.AP = ActorDatabase.getDmg(Unit.partnerUnit.id) + (e.value-1)*10;
+			Unit.partnerUnit.AP = ActorDatabase.getDmg(Unit.partnerUnit.id)  +
+										(e.value-1)*ActorDatabase.getDmgChange(Unit.partnerUnit.id);
 			sliderValueArray[4]=e.value;
 			update();
 
 		}
 		public function changeSPHandler2(e) {
-			Unit.partnerUnit.speed = ActorDatabase.getSpeed(Unit.partnerUnit.id) + (e.value-1)*10;
+			Unit.partnerUnit.speed = ActorDatabase.getSpeed(Unit.partnerUnit.id)  +
+													(e.value-1)*ActorDatabase.getSpeedChange(Unit.partnerUnit.id);
 			sliderValueArray[5]=e.value;
 			update();
 		}
@@ -1348,7 +1354,7 @@
 
 
 		public function addCovers(index:int, type:String) {
-			var active:Boolean;
+			var active;
 			var availability:String;
 			if (type=="Item") {
 				active=ItemDatabase.getActive(index);

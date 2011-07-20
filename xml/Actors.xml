@@ -2,74 +2,50 @@
 <Actors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Actor>
 		<Name>Charles Y.</Name>
-		<Health>75</Health>
-		<Attack>3</Attack>
+		<Health>75+8</Health>
+		<Attack>3+1</Attack>
 		<Defense>0</Defense>
-		<Speed>15</Speed>
+		<Speed>15+0.2</Speed>
 		<Weapon>Shinai</Weapon>
-		<HPInc>5</HPInc>
-		<APInc>0.5</APInc>
-		<DPInc>0.2</DPInc>
-		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>Nate M.</Name>
-		<Health>100</Health>
-		<Attack>5</Attack>
+		<Health>100+9</Health>
+		<Attack>5+1</Attack>
 		<Defense>0</Defense>
-		<Speed>11</Speed>
+		<Speed>11+0.2</Speed>
 		<Weapon>Claws</Weapon>
-		<HPInc>5</HPInc>
-		<APInc>0.5</APInc>
-		<DPInc>0.2</DPInc>
-		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>C. Kata</Name>
-		<Health>75</Health>
-		<Attack>4</Attack>
+		<Health>75+7</Health>
+		<Attack>4+1</Attack>
 		<Defense>0</Defense>
-		<Speed>12</Speed>
+		<Speed>12+0.2</Speed>
 		<Weapon>Railgun</Weapon>
-		<HPInc>5</HPInc>
-		<APInc>0.5</APInc>
-		<DPInc>0.2</DPInc>
-		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>Cia M.</Name>
-		<Health>60</Health>
-		<Attack>2</Attack>
+		<Health>60+6</Health>
+		<Attack>2+1</Attack>
 		<Defense>0</Defense>
-		<Speed>12</Speed>
+		<Speed>12+0.2</Speed>
 		<Weapon>Magic Wand</Weapon>
-		<HPInc>5</HPInc>
-		<APInc>0.5</APInc>
-		<DPInc>0.2</DPInc>
-		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>Eric H.</Name>
-		<Health>110</Health>
-		<Attack>5</Attack>
+		<Health>110+6</Health>
+		<Attack>5+1.5</Attack>
 		<Defense>0</Defense>
-		<Speed>15</Speed>
+		<Speed>15+0.2</Speed>
 		<Weapon>Tentacles</Weapon>
-		<HPInc>5</HPInc>
-		<APInc>0.5</APInc>
-		<DPInc>0.2</DPInc>
-		<SPInc>0.3</SPInc>
 	</Actor>
 	<Actor>
 		<Name>John T.</Name>
-		<Health>65</Health>
-		<Attack>3</Attack>
+		<Health>65+5</Health>
+		<Attack>3+1</Attack>
 		<Defense>0</Defense>
-		<Speed>20</Speed>
+		<Speed>18+0.2</Speed>
 		<Weapon>Hoverpad</Weapon>
-		<HPInc>5</HPInc>
-		<APInc>0.5</APInc>
-		<DPInc>0.2</DPInc>
-		<SPInc>0.3</SPInc>
 	</Actor>
 </Actors>

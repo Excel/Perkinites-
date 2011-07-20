@@ -250,9 +250,6 @@ package actors{
 						movePlayer();
 					}
 				}
-				if (this.parent!=null) {
-					faceMouse();
-				}
 
 				if (KeyDown.keyIsDown(friendshipKey)) {
 					if (unitHUD.percentage>=10000) {
@@ -457,6 +454,23 @@ package actors{
 			}
 		}
 
+		function faceDirection(radian) {
+			var degree = Math.round((radian*180/Math.PI));
+			if (degree>-45&&45>=degree) {
+				dir=6;
+				gotoAndStop(3);
+			} else if (degree > -135 && -45 >= degree) {
+				dir=8;
+				gotoAndStop(4);
+			} else if (degree > 45 && 135 >= degree) {
+				dir=2;
+				gotoAndStop(1);
+			} else if ((degree > 135 && 180 >= degree) || (degree >=-180 && -135 >= degree)) {
+				dir=4;
+				gotoAndStop(2);
+			}
+		}
+
 		public function movePlayer() {
 			if (path.length>0) {
 				var dist=Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
@@ -471,6 +485,7 @@ package actors{
 							var xdest=path[0].x*32+16;
 							var ydest=path[0].y*32+16;
 							radian=Math.atan2(ydest-y,xdest-x);
+							faceDirection(radian);
 						}
 					}
 					if (path.length>0) {
@@ -501,13 +516,13 @@ package actors{
 				var pushIndex=0;
 				var nextIndex=1;
 
-				if(path[0] == path[path.length-1]){
-					return newPath; 
+				if (path[0]==path[path.length-1]) {
+					return newPath;
 				}
 				if (TileMap.walkable(path[0],path[path.length-1])) {
 					newPath=new Array(path[0],path[path.length-1]);
 					return newPath;
-					
+
 				}
 				while (nextIndex < path.length) {
 
@@ -527,8 +542,7 @@ package actors{
 				}
 				newPath.push(path[path.length-1]);
 				return newPath;
-			}
-			else {
+			} else {
 				return new Array();
 			}
 		}
