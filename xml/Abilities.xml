@@ -4,15 +4,17 @@
 		<Name>Shinai Attack</Name>
 		<Availability>Charles Y.</Availability>
 		<Spec>Damage</Spec>
-		<Range>80</Range>
-		<Cooldown>16</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
-		<Damage>5</Damage>
+		<Range>80</Range>
+		<Cooldown>16-1</Cooldown>
+		<Damage>5+3</Damage>
 		<Speed>32</Speed>
 		<StunDur>0</StunDur>
 		<SlowDur>0</SlowDur>
@@ -31,23 +33,30 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Basic Attack: Strike down on a target.</Description>
+		<Attack>Invis</Attack>
+		<AttackNum>1</AttackNum>
+		<AttackDist>100</AttackDist>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
+		<Description>Basic Attack: Strike down on a target enemy.</Description>
 	</Ability>
 	<Ability>
 		<Name>Kendo Strike</Name>
 		<Availability>Charles Y.</Availability>
 		<Spec>Damage</Spec>
-		<Range>80</Range>
-		<Cooldown>200</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
-		<Damage>15</Damage>
+		<Range>80</Range>
+		<Cooldown>200-5</Cooldown>
+		<Damage>15+5</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
 		<SlowDur>0</SlowDur>
@@ -66,23 +75,30 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<Tank>1</Tank>
-		<Target>Enemy</Target>
-		<Description>Charges in a direction, dealing damage to enemies in a line</Description>
+		<Attack>None</Attack>
+		<AttackNum>0</AttackNum>
+		<AttackDist>0</AttackDist>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
+		<Description>Charges with shinai in a direction, mowing down any enemies or small obstacles in the way.</Description>
 	</Ability>
 	<Ability>
 		<Name>Motivate</Name>
 		<Availability>Charles Y.</Availability>
 		<Spec>Upgrade</Spec>
-		<Range>140</Range>
-		<Cooldown>200</Cooldown>
+		<Area>None</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>140</Range>
+		<Cooldown>200-5</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -102,23 +118,30 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>0</Move>
-		<Target>Team</Target>
-		<Description>Improve self and ally's attack speeds</Description>
+		<Attack>None</Attack>
+		<AttackNum>0</AttackNum>
+		<AttackDist>0</AttackDist>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>Team</ModTarget>
+		<Description>Increases Charles' and Nate's Speed.</Description>
 	</Ability>
 	<Ability>
 		<Name>Ninjutsu</Name>
 		<Availability>Charles Y.</Availability>
 		<Spec>Teleport</Spec>
-		<Range>30</Range>
-		<Cooldown>150</Cooldown>
+		<Area>Circle</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
-		<Damage>10</Damage>
+		<Range>30</Range>
+		<Cooldown>150-10</Cooldown>
+		<Damage>1+0.5</Damage>
 		<Speed>8</Speed>
 		<StunDur>0</StunDur>
 		<SlowDur>0</SlowDur>
@@ -137,23 +160,30 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>2</Move>
-		<Target>Team</Target>
+		<Attack>Kunai</Attack>
+		<AttackNum>8</AttackNum>
+		<AttackDist>50</AttackDist>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Teleports Charles and Nate to a point. Afterwards, shoots kunais outward that temporarily stuns nearby enemies.</Description>
 	</Ability>
 	<Ability>
 		<Name>Claw Attack</Name>
 		<Availability>Nate M.</Availability>
 		<Spec>Damage</Spec>
-		<Range>20</Range>
-		<Cooldown>10</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>6</Delay>
+		<Stand>6</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
-		<Damage>5</Damage>
+		<Range>20</Range>
+		<Cooldown>12-0.5</Cooldown>
+		<Damage>5+3.5</Damage>
 		<Speed>32</Speed>
 		<StunDur>0</StunDur>
 		<SlowDur>0</SlowDur>
@@ -172,22 +202,29 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Invis</Attack>
+		<AttackNum>1</AttackNum>
+		<AttackDist>40</AttackDist>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Swipe at a target with claws.</Description>
 	</Ability>
 	<Ability>
 		<Name>Hulk Rage</Name>
 		<Availability>Nate M.</Availability>
 		<Spec>Upgrade</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>0</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -198,32 +235,38 @@
 		<SlowPerc>0</SlowPerc>
 		<SickPerc>0</SickPerc>
 		<RegenPerc>0</RegenPerc>
-		<HPPerc>0</HPPerc>
+		<HPPerc>2</HPPerc>
 		<HPLump>0</HPLump>
 		<APPerc>0</APPerc>
-		<APLump>0</APLump>
+		<APLump>10</APLump>
 		<DPLump>0</DPLump>
 		<SPPerc>0</SPPerc>
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
-		<Description>Bonus hp regen and atk dmg</Description>
+		<Attack>None</Attack>
+		<AttackDist>0</AttackDist>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>Self</ModTarget>
+		<Description>Strengthens Nate with extra Attack and Health restoration over time.</Description>
 	</Ability>
 	<Ability>
 		<Name>Stare Down</Name>
 		<Availability>Nate M.</Availability>
 		<Spec>Damage</Spec>
-		<Range>120</Range>
-		<Cooldown>100</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
-		<Damage>5</Damage>
+		<Range>120</Range>
+		<Cooldown>100-5</Cooldown>
+		<Damage>5+5</Damage>
 		<Speed>16</Speed>
 		<StunDur>0</StunDur>
 		<SlowDur>0</SlowDur>
@@ -242,22 +285,28 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Damages and stuns target enemy</Description>
+		<Attack>Invis</Attack>
+		<AttackDist>50</AttackDist>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
+		<Description>Deals damage and stuns an enemy through the power of fear.</Description>
 	</Ability>
 	<Ability>
 		<Name>Enrage</Name>
 		<Availability>Nate M.</Availability>
 		<Spec>Upgrade</Spec>
-		<Range>50</Range>
-		<Cooldown>120</Cooldown>
+		<Area>None</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>50</Range>
+		<Cooldown>120-5</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -271,28 +320,34 @@
 		<HPPerc>0</HPPerc>
 		<HPLump>0</HPLump>
 		<APPerc>0</APPerc>
-		<APLump>0</APLump>
+		<APLump>10</APLump>
 		<DPLump>0</DPLump>
 		<SPPerc>0</SPPerc>
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>3</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
-		<Description>The next 3 attacks gain 10 bonus damage each</Description>
+		<Attack>None</Attack>
+		<AttackDist>0</AttackDist>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>Self</ModTarget>
+		<Description>Allows Nate to deal extra damage on his next three moves.</Description>
 	</Ability>
 	<Ability>
 		<Name>Railgun Attack</Name>
 		<Availability>C. Kata</Availability>
 		<Spec>Damage</Spec>
-		<Range>400</Range>
-		<Cooldown>16</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>6</Delay>
+		<Stand>6</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>400</Range>
+		<Cooldown>16</Cooldown>
 		<Damage>5</Damage>
 		<Speed>25</Speed>
 		<StunDur>0</StunDur>
@@ -312,22 +367,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Shot</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Shoots a bullet toward a target.</Description>
 	</Ability>
 	<Ability>
 		<Name>Eyelash Batting</Name>
 		<Availability>C. Kata</Availability>
 		<Spec>Damage</Spec>
-		<Range>500</Range>
-		<Cooldown>150</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>500</Range>
+		<Cooldown>150</Cooldown>
 		<Damage>3</Damage>
 		<Speed>15</Speed>
 		<StunDur>0</StunDur>
@@ -347,22 +407,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Heart</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
 		<Description>Stuns an enemy for a few seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Shoe Throwing</Name>
 		<Availability>C. Kata</Availability>
 		<Spec>Damage</Spec>
-		<Range>500</Range>
-		<Cooldown>72</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>500</Range>
+		<Cooldown>72</Cooldown>
 		<Damage>5</Damage>
 		<Speed>15</Speed>
 		<StunDur>0</StunDur>
@@ -382,22 +447,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Shoe</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Throws a random shoe toward a target out of anger. </Description>
 	</Ability>
 	<Ability>
 		<Name>Death Shout</Name>
 		<Availability>C. Kata</Availability>
 		<Spec>Damage</Spec>
-		<Range>200</Range>
-		<Cooldown>120</Cooldown>
+		<Area>Cone</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>200</Range>
+		<Cooldown>120</Cooldown>
 		<Damage>30</Damage>
 		<Speed>15</Speed>
 		<StunDur>0</StunDur>
@@ -417,23 +487,28 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>0</Move>
 		<Tank>1</Tank>
-		<Target>Enemy</Target>
-		<Description>Stuns all enemies within the shout's range for a second. gogoloudwhitegirl</Description>
+		<Attack>Thunder</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
+		<Description>Stuns all enemies within the shout's range for a second. #loudwhitegirl</Description>
 	</Ability>
 	<Ability>
 		<Name>A. Mediation</Name>
 		<Availability>C. Kata</Availability>
 		<Spec>Damage</Spec>
-		<Range>0</Range>
-		<Cooldown>240</Cooldown>
+		<Area>Aura</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>10</Max>
+		<Range>0</Range>
+		<Cooldown>240</Cooldown>
 		<Damage>0</Damage>
 		<Speed>20</Speed>
 		<StunDur>0</StunDur>
@@ -453,22 +528,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Invis</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
 		<Description>[Aggressive Mediation] Jump up and down violently. Probably does nothing at all. HA TAKE THAT KATA</Description>
 	</Ability>
 	<Ability>
 		<Name>Magic Wand Attack</Name>
 		<Availability>Cia M.</Availability>
 		<Spec>Damage</Spec>
-		<Range>400</Range>
-		<Cooldown>12</Cooldown>
+		<Area>Cone</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>6</Delay>
+		<Stand>6</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>400</Range>
+		<Cooldown>12</Cooldown>
 		<Damage>5</Damage>
 		<Speed>10</Speed>
 		<StunDur>0</StunDur>
@@ -488,22 +568,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Magic</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Shoot beams of magic to targets.</Description>
 	</Ability>
 	<Ability>
 		<Name>Bling Bling</Name>
 		<Availability>Cia M.</Availability>
 		<Spec>Damage</Spec>
-		<Range>50</Range>
-		<Cooldown>120</Cooldown>
+		<Area>Circle</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>50</Range>
+		<Cooldown>120</Cooldown>
 		<Damage>2</Damage>
 		<Speed>5</Speed>
 		<StunDur>0</StunDur>
@@ -523,22 +608,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
+		<Attack>Circles</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Self</ModTarget>
 		<Description>Creates a temporary aura of circles that heals Cia and deals damage to closeby enemies. </Description>
 	</Ability>
 	<Ability>
 		<Name>Taking Heart</Name>
 		<Availability>Cia M.</Availability>
 		<Spec>Siphon</Spec>
-		<Range>800</Range>
-		<Cooldown>120</Cooldown>
+		<Area>Point</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>800</Range>
+		<Cooldown>120</Cooldown>
 		<Damage>5</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -549,7 +639,7 @@
 		<SlowPerc>0</SlowPerc>
 		<SickPerc>0</SickPerc>
 		<RegenPerc>0</RegenPerc>
-		<HPPerc>0</HPPerc>
+		<HPPerc>5</HPPerc>
 		<HPLump>0</HPLump>
 		<APPerc>0</APPerc>
 		<APLump>0</APLump>
@@ -558,22 +648,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>0</Move>
-		<Target>Enemy</Target>
-		<Description>Seals an enemy in a magical circlet, which slows the enemy and siphons HP after a few seconds.</Description>
+		<Attack>Seal</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
+		<Description>Seals an enemy in a magical circlet, which slows the enemy and siphons Health after a few seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Logic Puzzle</Name>
 		<Availability>Cia M.</Availability>
 		<Spec>Downgrade</Spec>
-		<Range>100</Range>
-		<Cooldown>120</Cooldown>
+		<Area>Circle</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>120</Cooldown>
 		<Damage>0</Damage>
 		<Speed>15</Speed>
 		<StunDur>0</StunDur>
@@ -593,22 +688,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>0</Move>
-		<Target>Enemy</Target>
+		<Attack>Invis</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Nearby enemies surrounding Cia are slowed for a few seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Cheer</Name>
 		<Availability>Cia M.</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Spec>Healing +</Spec>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>0</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -628,22 +728,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>0</Move>
-		<Target>Team</Target>
+		<Attack>None</Attack>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>Other</ModTarget>
 		<Description>C. Kata restores some HP every few seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Tentacle Attack</Name>
 		<Availability>Eric H.</Availability>
 		<Spec>Damage</Spec>
-		<Range>80</Range>
-		<Cooldown>12</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>6</Delay>
+		<Stand>6</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>80</Range>
+		<Cooldown>12</Cooldown>
 		<Damage>8</Damage>
 		<Speed>32</Speed>
 		<StunDur>0</StunDur>
@@ -663,22 +768,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Invis</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Slash at nearby enemies with tentacles.</Description>
 	</Ability>
 	<Ability>
 		<Name>Perk-kulate</Name>
 		<Availability>Eric H.</Availability>
 		<Spec>Damage</Spec>
-		<Range>50</Range>
-		<Cooldown>60</Cooldown>
-		<Uses>3</Uses>
+		<Area>Aura</Area>
+		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>50</Range>
+		<Cooldown>60</Cooldown>
 		<Damage>24</Damage>
 		<Speed>32</Speed>
 		<StunDur>0</StunDur>
@@ -698,22 +808,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Damages nearby enemies</Description>
+		<Attack>Invis</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
+		<Description>Charges in and deals damage to surrounding enemies from provocative dance moves.</Description>
 	</Ability>
 	<Ability>
 		<Name>V.P.S.</Name>
 		<Availability>Eric H.</Availability>
 		<Spec>Damage</Spec>
-		<Range>100</Range>
-		<Cooldown>70</Cooldown>
-		<Uses>1</Uses>
+		<Area>Aura</Area>
+		<Uses>3</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>70</Cooldown>
 		<Damage>12</Damage>
 		<Speed>32</Speed>
 		<StunDur>0</StunDur>
@@ -733,22 +848,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>[Violation of Personal Space] Charge in a group of enemies, slowing and damaging them</Description>
+		<Attack>Invis</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
+		<Description>[Violation of Personal Space] Charges in and deals damage to surrounding enemies, slowing them at an uncomfortable distance.</Description>
 	</Ability>
 	<Ability>
 		<Name>Awkward Stare</Name>
 		<Availability>Eric H.</Availability>
 		<Spec>Damage</Spec>
-		<Range>100</Range>
-		<Cooldown>80</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>80</Cooldown>
 		<Damage>6</Damage>
 		<Speed>16</Speed>
 		<StunDur>0</StunDur>
@@ -768,22 +888,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Stuns himself and nearby enemies</Description>
+		<Attack>Invis</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Self+Enemy</ModTarget>
+		<Description>Charges in and stuns himself and nearby enemies.</Description>
 	</Ability>
 	<Ability>
 		<Name>Hoverpad Attack</Name>
 		<Availability>John T.</Availability>
 		<Spec>Damage</Spec>
-		<Range>300</Range>
-		<Cooldown>12</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>4</Delay>
+		<Stand>4</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>300</Range>
+		<Cooldown>12</Cooldown>
 		<Damage>5</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -803,22 +928,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Laser</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Shoots two guided lasers toward a target.</Description>
 	</Ability>
 	<Ability>
 		<Name>Arrow Control</Name>
 		<Availability>John T.</Availability>
-		<Spec>Damage</Spec>
-		<Range>200</Range>
-		<Cooldown>80</Cooldown>
+		<Spec>Set Damage</Spec>
+		<Area>Line</Area>
 		<Uses>8</Uses>
 		<Activate>4</Activate>
 		<Value>0</Value>
-		<Delay>2</Delay>
+		<Stand>2</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>200</Range>
+		<Cooldown>80</Cooldown>
 		<Damage>3</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -838,22 +968,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Shoots arrows toward a target.</Description>
+		<Attack>Arrow</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
+		<Description>Shoots arrows in a direction. Hold down to shoot more arrows.</Description>
 	</Ability>
 	<Ability>
 		<Name>D4X</Name>
 		<Availability>John T.</Availability>
 		<Spec>Damage</Spec>
-		<Range>500</Range>
-		<Cooldown>120</Cooldown>
+		<Area>Line</Area>
 		<Uses>5</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>8</Delay>
+		<Stand>8</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>0</Range>
+		<Cooldown>120</Cooldown>
 		<Damage>10</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -873,23 +1008,28 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<Tank>1</Tank>
-		<Target>Enemy</Target>
-		<Description>Dashes in a straight line, inflicting Stun. </Description>
+		<Attack>None</Attack>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
+		<Description>Dashes in a straight line, stunning any enemies in the way.</Description>
 	</Ability>
 	<Ability>
 		<Name>Mediation</Name>
 		<Availability>John T.</Availability>
 		<Spec>Obstacle</Spec>
-		<Range>300</Range>
-		<Cooldown>90</Cooldown>
+		<Area>Wall</Area>
 		<Uses>2</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>24</Delay>
+		<Stand>24</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>300</Range>
+		<Cooldown>90</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -909,22 +1049,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<Attack>Wall</Attack>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Creates a magic and apologetic wall that lasts for four seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Apologizing</Name>
 		<Availability>John T.</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Spec>Healing +</Spec>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>0</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -944,22 +1089,27 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
+		<Attack>None</Attack>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>Self</ModTarget>
 		<Description>Restores a small amount of HP per second. But really, he stopped doing this a few months ago. REALLY. OMG SHUT UP, YOU HATER.</Description>
 	</Ability>
 	<Ability>
 		<Name>Megaphone Attack</Name>
 		<Availability>Huong V.</Availability>
 		<Spec>Damage</Spec>
-		<Range>100</Range>
-		<Cooldown>16</Cooldown>
+		<Area>Cone</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>16</Delay>
+		<Stand>16</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>16</Cooldown>
 		<Damage>5</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -979,22 +1129,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Basic Attack: Creates a sound shockwave.</Description>
 	</Ability>
 	<Ability>
 		<Name>Tickle Fight</Name>
 		<Availability>Huong V.</Availability>
 		<Spec>Damage</Spec>
-		<Range>100</Range>
-		<Cooldown>55</Cooldown>
+		<Area>Aura</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>55</Cooldown>
 		<Damage>10</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1014,22 +1167,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Damages nearby enemies. If some are hit, friendship points appear</Description>
+		<DamageTarget>Enemy</DamageTarget>
+		<Description>Deals damage to surrounding enemies. Enemies give up extra friendship points.</Description>
 	</Ability>
 	<Ability>
 		<Name>Awkward Turtle</Name>
 		<Availability>Huong V.</Availability>
 		<Spec>Damage</Spec>
-		<Range>150</Range>
-		<Cooldown>24</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>150</Range>
+		<Cooldown>24</Cooldown>
 		<Damage>10</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1049,22 +1205,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Damages and slows targeted enemy</Description>
+		<DamageTarget>Enemy</DamageTarget>
+		<Description>Deals damage and slows an enemy.</Description>
 	</Ability>
 	<Ability>
 		<Name>Ramen!</Name>
 		<Availability>Huong V.</Availability>
 		<Spec>Healing %</Spec>
-		<Range>0</Range>
-		<Cooldown>110</Cooldown>
+		<Area>None</Area>
 		<Uses>1</Uses>
 		<Activate>3</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>0</Range>
+		<Cooldown>110</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1084,22 +1243,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Team</Target>
-		<Description>Heals target</Description>
+		<DamageTarget>Team</DamageTarget>
+		<Description>Restores Health to any Unit. </Description>
 	</Ability>
 	<Ability>
 		<Name>Strength Attack</Name>
 		<Availability>Tevin J.</Availability>
 		<Spec>Damage</Spec>
-		<Range>30</Range>
-		<Cooldown>24</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>30</Range>
+		<Cooldown>24</Cooldown>
 		<Damage>8</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1119,23 +1281,26 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<Tank>1</Tank>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Basic Attack: Charge toward an enemy and overpower it.</Description>
 	</Ability>
 	<Ability>
 		<Name>Lung Crusher</Name>
 		<Availability>Tevin J.</Availability>
 		<Spec>Damage</Spec>
-		<Range>50</Range>
-		<Cooldown>50</Cooldown>
+		<Area>Line</Area>
 		<Uses>3</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>50</Range>
+		<Cooldown>50</Cooldown>
 		<Damage>30</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1155,22 +1320,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Crushes the enemy through the power of hugging at close-range.</Description>
 	</Ability>
 	<Ability>
 		<Name>Deep Sleep</Name>
 		<Availability>Tevin J.</Availability>
 		<Spec>Healing %</Spec>
-		<Range>0</Range>
-		<Cooldown>230</Cooldown>
+		<Area>None</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>0</Range>
+		<Cooldown>230</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1190,22 +1358,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
-		<Description>Restores HP over time. Tevin cannot move nor use abilities during this time. </Description>
+		<DamageTarget>Self</DamageTarget>
+		<Description>Restores Health over time. Tevin cannot move nor use abilities during this time. </Description>
 	</Ability>
 	<Ability>
 		<Name>Sonic Laugh</Name>
 		<Availability>Tevin J.</Availability>
 		<Spec>Damage</Spec>
-		<Range>100</Range>
-		<Cooldown>48</Cooldown>
+		<Area>Cone</Area>
 		<Uses>3</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>48</Cooldown>
 		<Damage>12</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1225,22 +1396,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Launches a conical sound blast in front of him, damaging and slowing down enemies.</Description>
 	</Ability>
 	<Ability>
 		<Name>Staff Attack</Name>
 		<Availability>Chloe  C.</Availability>
 		<Spec>Damage</Spec>
-		<Range>60</Range>
-		<Cooldown>8</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>4</Delay>
+		<Stand>4</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>60</Range>
+		<Cooldown>8</Cooldown>
 		<Damage>5</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1260,22 +1434,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Basic Attack: Whack nearby enemies with a medical staff.</Description>
 	</Ability>
 	<Ability>
 		<Name>Happy Healing</Name>
 		<Availability>Chloe  C.</Availability>
 		<Spec>Healing %</Spec>
-		<Range>70</Range>
-		<Cooldown>720</Cooldown>
+		<Area>None</Area>
 		<Uses>3</Uses>
 		<Activate>3</Activate>
 		<Value>0</Value>
-		<Delay>4</Delay>
+		<Stand>4</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>70</Range>
+		<Cooldown>720</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1295,22 +1472,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Team</Target>
+		<DamageTarget>Team</DamageTarget>
 		<Description>Restores some HP to a target Unit.</Description>
 	</Ability>
 	<Ability>
 		<Name>Shield</Name>
 		<Availability>Chloe  C.</Availability>
 		<Spec>Upgrade</Spec>
-		<Range>50</Range>
-		<Cooldown>720</Cooldown>
+		<Area>None</Area>
 		<Uses>3</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>72</Delay>
+		<Stand>72</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>50</Range>
+		<Cooldown>720</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1330,22 +1510,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
+		<DamageTarget>Self</DamageTarget>
 		<Description>Creates an invulnerable barrier around Chloe that lasts for five seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Healthy Explosion</Name>
 		<Availability>Chloe  C.</Availability>
 		<Spec>Damage</Spec>
-		<Range>80</Range>
-		<Cooldown>100</Cooldown>
+		<Area>Point</Area>
 		<Uses>5</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>80</Range>
+		<Cooldown>100</Cooldown>
 		<Damage>10</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1365,92 +1548,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Damages close target</Description>
-	</Ability>
-	<Ability>
-		<Name>Ouchies :(</Name>
-		<Availability>Chloe C.</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
-		<Uses>0</Uses>
-		<Activate>0</Activate>
-		<Value>0</Value>
-		<Delay>0</Delay>
-		<Min>0</Min>
-		<Max>5</Max>
-		<Damage>0</Damage>
-		<Speed>0</Speed>
-		<StunDur>0</StunDur>
-		<SlowDur>0</SlowDur>
-		<SickDur>0</SickDur>
-		<ExhaustDur>0</ExhaustDur>
-		<RegenDur>0</RegenDur>
-		<SlowPerc>0</SlowPerc>
-		<SickPerc>0</SickPerc>
-		<RegenPerc>0</RegenPerc>
-		<HPPerc>0</HPPerc>
-		<HPLump>0</HPLump>
-		<APPerc>0</APPerc>
-		<APLump>0</APLump>
-		<DPLump>0</DPLump>
-		<SPPerc>0</SPPerc>
-		<SPLump>0</SPLump>
-		<CDPerc>0</CDPerc>
-		<CDLump>0</CDLump>
-		<Move>1</Move>
-		<Target>Self</Target>
-		<Description>Reduce ongoing cooldowns by 6 frames each time this Unit is hit.</Description>
-	</Ability>
-	<Ability>
-		<Name>Grrsies &gt;:(</Name>
-		<Availability>Veronica C.</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
-		<Uses>0</Uses>
-		<Activate>0</Activate>
-		<Value>0</Value>
-		<Delay>0</Delay>
-		<Min>0</Min>
-		<Max>5</Max>
-		<Damage>0</Damage>
-		<Speed>0</Speed>
-		<StunDur>0</StunDur>
-		<SlowDur>0</SlowDur>
-		<SickDur>0</SickDur>
-		<ExhaustDur>0</ExhaustDur>
-		<RegenDur>0</RegenDur>
-		<SlowPerc>0</SlowPerc>
-		<SickPerc>0</SickPerc>
-		<RegenPerc>0</RegenPerc>
-		<HPPerc>0</HPPerc>
-		<HPLump>0</HPLump>
-		<APPerc>0</APPerc>
-		<APLump>0</APLump>
-		<DPLump>0</DPLump>
-		<SPPerc>0</SPPerc>
-		<SPLump>0</SPLump>
-		<CDPerc>0</CDPerc>
-		<CDLump>0</CDLump>
-		<Move>1</Move>
-		<Target>Team</Target>
-		<Description>Increase your team's attack powers by 1 each time this Unit is hit.</Description>
 	</Ability>
 	<Ability>
 		<Name>Orgo Book Attack</Name>
 		<Availability>Vivian H.</Availability>
 		<Spec>Damage</Spec>
-		<Range>30</Range>
-		<Cooldown>16</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>4</Delay>
+		<Stand>4</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
+		<Range>30</Range>
+		<Cooldown>16</Cooldown>
 		<Damage>5</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1470,22 +1586,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Basic Attack: Whack nearby enemies with an Orgo textbook.</Description>
 	</Ability>
 	<Ability>
 		<Name>Final Destination</Name>
 		<Availability>Ananya A.</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Spec>Finale Mod</Spec>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>0</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1505,23 +1624,26 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Team</Target>
+		<DamageTarget>Team</DamageTarget>
 		<Description>Change X's and Ananya's Friendship Finale to Destination Zero.</Description>
 	</Ability>
 	<Ability>
 		<Name>Sunshine</Name>
 		<Availability>Beatrice C.</Availability>
 		<Spec>Damage</Spec>
-		<Range>800</Range>
-		<Cooldown>12</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
-		<Damage>5</Damage>
+		<Range>800</Range>
+		<Cooldown>12</Cooldown>
+		<Damage>10</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
 		<SlowDur>0</SlowDur>
@@ -1540,22 +1662,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Gains one solar charge every few seconds. After gaining three charges and activating again, sends forth bursts of solar energy. </Description>
 	</Ability>
 	<Ability>
 		<Name>Happiness</Name>
 		<Availability>Beatrice C.</Availability>
 		<Spec>Damage</Spec>
-		<Range>100</Range>
-		<Cooldown>64</Cooldown>
+		<Area>Cone</Area>
 		<Uses>10</Uses>
 		<Activate>4</Activate>
 		<Value>0</Value>
-		<Delay>1</Delay>
+		<Stand>1</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>64</Cooldown>
 		<Damage>15</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1575,23 +1700,26 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Creates a ray of solar energy.</Description>
 	</Ability>
 	<Ability>
-		<Name>Machine Gun Attack</Name>
+		<Name>M. Gun Attack</Name>
 		<Availability>Raymon B.</Availability>
-		<Spec>Damage</Spec>
-		<Range>300</Range>
-		<Cooldown>16</Cooldown>
+		<Spec>Set Damage</Spec>
+		<Area>Line</Area>
 		<Uses>10</Uses>
 		<Activate>4</Activate>
 		<Value>0</Value>
-		<Delay>1</Delay>
+		<Stand>1</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>5</Max>
-		<Damage>3</Damage>
+		<Range>300</Range>
+		<Cooldown>16</Cooldown>
+		<Damage>2</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
 		<SlowDur>0</SlowDur>
@@ -1610,22 +1738,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Basic Attack: Shoot down an enemy with rapid gunfire. </Description>
 	</Ability>
 	<Ability>
 		<Name>Shockwave</Name>
 		<Availability>Raymon B.</Availability>
 		<Spec>Damage</Spec>
-		<Range>100</Range>
-		<Cooldown>72</Cooldown>
+		<Area>Cone</Area>
 		<Uses>3</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>16</Delay>
+		<Stand>16</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>100</Range>
+		<Cooldown>72</Cooldown>
 		<Damage>25</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1645,22 +1776,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Damages enemies in a wave</Description>
+		<DamageTarget>Enemy</DamageTarget>
+		<Description>Creates an energy wave that damages enemies in its path.</Description>
 	</Ability>
 	<Ability>
 		<Name>Bio-Leech</Name>
 		<Availability>Raymon B.</Availability>
 		<Spec>Siphon</Spec>
-		<Range>50</Range>
-		<Cooldown>48</Cooldown>
+		<Area>Point</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>50</Range>
+		<Cooldown>48</Cooldown>
 		<Damage>5</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1680,22 +1814,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>Drain HP from target enemy</Description>
+		<DamageTarget>Enemy</DamageTarget>
+		<Description>Siphons Health from target enemy.</Description>
 	</Ability>
 	<Ability>
 		<Name>Overload</Name>
 		<Availability>Raymon B.</Availability>
 		<Spec>Damage</Spec>
-		<Range>80</Range>
-		<Cooldown>120</Cooldown>
+		<Area>Circle</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>0</Min>
 		<Max>5</Max>
+		<Range>80</Range>
+		<Cooldown>120</Cooldown>
 		<Damage>40</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1715,23 +1852,26 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<Tank>1</Tank>
-		<Target>Enemy</Target>
-		<Description>After channeling, unleash massive damage to nearby enemies</Description>
+		<DamageTarget>Enemy</DamageTarget>
+		<Description>Powers up Raymon on first time activation. Unleashes a destructive attack to nearby enemies on second activation, powering down Raymon.</Description>
 	</Ability>
 	<Ability>
 		<Name>Break Time</Name>
 		<Availability>All Perkinites</Availability>
 		<Spec>Stop</Spec>
-		<Range>0</Range>
-		<Cooldown>720</Cooldown>
+		<Area>None</Area>
 		<Uses>1</Uses>
 		<Activate>1</Activate>
 		<Value>20</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>720</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1751,22 +1891,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
-		<Description>All enemies and their attacks are frozen for three seconds.</Description>
+		<DamageTarget>Enemy</DamageTarget>
+		<Description>Freezes all enemies and their attacks for three seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Greedy</Name>
 		<Availability>All Perkinites</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Spec>FP Boost</Spec>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>5</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1786,22 +1929,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Team</Target>
-		<Description>Increase the Flexpoint drop rate of defeated enemies.</Description>
+		<DamageTarget>Team</DamageTarget>
+		<Description>Increases the Flexpoint drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
 		<Name>Popularity</Name>
 		<Availability>All Perkinites</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Spec>Item Boost</Spec>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>5</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1821,22 +1967,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Team</Target>
-		<Description>Increase the item drop rate of defeated enemies.</Description>
+		<DamageTarget>Team</DamageTarget>
+		<Description>Increases the item drop rate of defeated enemies.</Description>
 	</Ability>
 	<Ability>
 		<Name>Second Chance</Name>
 		<Availability>All Perkinites</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Spec>Revive</Spec>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>30</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1856,22 +2005,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
+		<DamageTarget>Self</DamageTarget>
 		<Description>Revives this Unit to half HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
 		<Name>Second World</Name>
 		<Availability>All Perkinites</Availability>
-		<Spec>Passive</Spec>
-		<Range>0</Range>
-		<Cooldown>0</Cooldown>
+		<Spec>Revive</Spec>
+		<Area>None</Area>
 		<Uses>0</Uses>
 		<Activate>0</Activate>
 		<Value>60</Value>
+		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1891,22 +2043,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Self</Target>
+		<DamageTarget>Self</DamageTarget>
 		<Description>Revives this Unit to full HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
 		<Name>Girly Swirl</Name>
 		<Availability>All Girls</Availability>
 		<Spec>Damage</Spec>
-		<Range>400</Range>
-		<Cooldown>48</Cooldown>
+		<Area>Line</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>400</Range>
+		<Cooldown>48</Cooldown>
 		<Damage>20</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1926,22 +2081,25 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Launches a grrl-rific swirl attack at an enemy. Gangsters take 2800 damage.</Description>
 	</Ability>
 	<Ability>
 		<Name>Gossip</Name>
 		<Availability>All Girls</Availability>
 		<Spec>Damage</Spec>
-		<Range>400</Range>
-		<Cooldown>48</Cooldown>
+		<Area>Cone</Area>
 		<Uses>1</Uses>
 		<Activate>2</Activate>
 		<Value>0</Value>
-		<Delay>12</Delay>
+		<Stand>12</Stand>
+		<Delay>0</Delay>
 		<Min>1</Min>
 		<Max>1</Max>
+		<Range>400</Range>
+		<Cooldown>48</Cooldown>
 		<Damage>40</Damage>
 		<Speed>0</Speed>
 		<StunDur>0</StunDur>
@@ -1961,8 +2119,9 @@
 		<SPLump>0</SPLump>
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<Target>Enemy</Target>
+		<DamageTarget>Enemy</DamageTarget>
 		<Description>Launches a grrl-rific gossip attack at an enemy. Gangsters take 28000 damage.</Description>
 	</Ability>
 </Abilities>

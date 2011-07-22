@@ -17,7 +17,7 @@
 	import actors.*;
 	import game.*;
 	import items.*;
-	import levels.*;
+	import maps.*;
 
 	public class Menu extends BaseScreen {
 
@@ -108,6 +108,7 @@
 			page3.partnerButton.addEventListener(MouseEvent.CLICK, setPartnerHandler);
 
 			flexPointsDisplay.text=Unit.flexPoints.toFixed(2);
+			locationDisplay.text=MapManager.mapName;
 
 
 			exampleIcon.useCount.visible=false;
@@ -208,12 +209,12 @@
 					page1.HPDisplay1.text=Unit.currentUnit.HP;
 					page1.maxHPDisplay1.text=Unit.currentUnit.maxHP;
 					page1.APDisplay1.text=Math.floor(Unit.currentUnit.AP);
-					page1.SPDisplay1.text=Unit.currentUnit.speed.toFixed(1);
+					page1.SPDisplay1.text=Math.floor(Unit.currentUnit.speed);
 
 					page1.HPDisplay2.text=Unit.partnerUnit.HP;
 					page1.maxHPDisplay2.text=Unit.partnerUnit.maxHP;
 					page1.APDisplay2.text=Math.floor(Unit.partnerUnit.AP);
-					page1.SPDisplay2.text=Unit.partnerUnit.speed.toFixed(1);
+					page1.SPDisplay2.text=Math.floor(Unit.partnerUnit.speed);
 
 					freezeFaces();
 					eraseDescription();
@@ -250,6 +251,9 @@
 			effectInfo.text="";
 			rangeInfo.text="";
 			cooldownInfo.text="";
+			extraInfo4.text="";
+			extraInfo5.text="";
+			extraInfo6.text="";			
 			availabilityInfo.text="";
 			thingDescription.text="";
 		}
@@ -1482,7 +1486,7 @@
 					page3.maxHolder.getChildAt(i).visible=true;
 					hotkeyIconArray[i].gotoAndStop(basicAbilities[i].index);
 					names[i].text=basicAbilities[i].Name;
-					descriptions[i].text=AbilityDatabase.getSpecInfo(basicAbilities[i].id);
+					descriptions[i].text=basicAbilities[i].getSpecInfo();
 					fractions[i].text=basicAbilities[i].min+"\n-\n"+basicAbilities[i].max;
 					hotkeyIconArray[i].gotoAndStop(AbilityDatabase.getIndex(basicAbilities[i].id));
 

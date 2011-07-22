@@ -6,7 +6,6 @@ package enemies{
 	import attacks.*;
 	import effects.*;
 	import game.*;
-	import levels.*;
 	import ui.*;
 	import ui.hud.*;
 	import util.*;
@@ -39,9 +38,9 @@ package enemies{
 		public var xspeed;
 		public var yspeed;
 		//public var speed;
-		public var attackDelay;
+		public var attackDelay;/*
 		public var collideCountC;
-		public var collideCountP;
+		public var collideCountP;*/
 		public var eHPBar;
 
 		/*public var pxpos;
@@ -82,8 +81,8 @@ package enemies{
 			speed=EnemyDatabase.getSpeed(id);
 			barrier=0;
 			maxBarrier=EnemyDatabase.getBarrier(id);
-			collideCountC=0;
-			collideCountP=0;
+/*			collideCountC=0;
+			collideCountP=0;*/
 			EXP=200;
 			Value=100.50;
 			HUDOn=false;
@@ -102,7 +101,7 @@ package enemies{
 					break;
 			}
 			list.push(this);
-			addEventListener(Event.ENTER_FRAME, collideHandler);
+			//addEventListener(Event.ENTER_FRAME, collideHandler);
 
 			mouseChildren=false;
 
@@ -124,7 +123,7 @@ package enemies{
 		override public function gameHandler(e) {
 		}
 
-		public function collideHandler(e) {
+		/*public function collideHandler(e) {
 			if (! superPause&&! menuPause) {
 				if (this.hitTestObject(Unit.currentUnit)) {
 					if (collideCountC%3==0) {
@@ -142,7 +141,7 @@ package enemies{
 					collideCountP++;
 				}
 			}
-		}
+		}*/
 		public function kill() {
 			end();
 			this.parent.removeChild(this);

@@ -14,7 +14,6 @@ package actors{
 	import enemies.*;
 	import game.*;
 	import items.*;
-	import levels.*;
 	import tileMapper.*;
 	import ui.*;
 	import ui.hud.*;
@@ -40,6 +39,7 @@ package actors{
 		static public var hotKey5="S".charCodeAt(0);
 		static public var hotKey6="D".charCodeAt(0);
 		static public var hotKey7="F".charCodeAt(0);
+		static public var hotKey8="R".charCodeAt(0);
 		static public var friendshipKey=Keyboard.SPACE;
 		static public var menuKey="X".charCodeAt(0);
 		/**
@@ -55,6 +55,7 @@ package actors{
 		public var hk5Delay=0;
 		public var hk6Delay=0;
 		public var hk7Delay=0;
+		public var hk8Delay=0;
 		/**
 		 * Numerical Stats for the Units
 		 * FP - Friendship Points (max 10000)
@@ -86,7 +87,7 @@ package actors{
 		public var DP;
 		static public var EXP=0;
 		static public var nextEXP=200;
-		static public var maxLP=20;
+		static public var maxLP=1;
 		static public var unitHUD=HUDManager.getUnitHUD();
 
 		public var path = new Array();
@@ -102,6 +103,7 @@ package actors{
 		static public var hk5;
 		static public var hk6;
 		static public var hk7;
+		static public var hk8;
 		static public var finale;
 
 		public var basicAbilities:Array;//the initial abilities
@@ -139,9 +141,7 @@ package actors{
 		public var moving:Boolean=false;
 
 
-		static public var tileMap;
-		public var xtile,ytile;
-		//public var dir;
+
 
 		public var animate=0;
 		public var pauseMovement:Boolean;
@@ -162,8 +162,6 @@ package actors{
 				AP=ActorDatabase.getDmg(id);
 				DP=ActorDatabase.getArmor(id);
 				speed=ActorDatabase.getSpeed(id);
-				xtile=0;//Math.floor(x/SuperLevel.tileWidth);
-				ytile=0;//Math.floor(y/SuperLevel.tileHeight);
 				dir=8;
 				commands=[];
 
@@ -182,7 +180,7 @@ package actors{
 
 				basicAbilities=AbilityDatabase.getBasicAbilities(Name);
 
-				powerpoints=70;
+				powerpoints=1;
 			}
 		}
 
@@ -209,6 +207,9 @@ package actors{
 				case 7 :
 					hk7=a;
 					break;
+				case 8 :
+					hk8=a;
+					break;
 			}
 		}
 
@@ -217,8 +218,6 @@ package actors{
 			mxpos=x;
 			mypos=y;
 
-			xtile=Math.floor(x/32);
-			ytile=Math.floor(y/32);
 			unitHUD.updateHP();
 		}
 		public function end() {
@@ -376,8 +375,7 @@ package actors{
 				}
 				HPBar.update(HP, maxHP);
 				if (damage>0) {
-
-					var radian,xs,ys,exfrag;
+					/*var radian,xs,ys,exfrag;
 					radian=Math.floor(Math.random()*360)*Math.PI/180;
 					xs=5*Math.cos(radian);
 					ys=5*Math.sin(radian);
@@ -386,7 +384,7 @@ package actors{
 					exfrag.y=y;
 					exfrag.scaleX=0.3;
 					exfrag.scaleY=0.3;
-					this.parent.addChild(exfrag);
+					this.parent.addChild(exfrag);*/
 				}
 				if (0>=HP) {
 					KO();
@@ -546,104 +544,5 @@ package actors{
 				return new Array();
 			}
 		}
-
-		/*public function movePlayer() {
-		moving=true;
-		if (Unit.tileMap!=null) {
-		//if (mxpos!=null&&mypos!=null) {
-		var mxtile=Math.floor(mxpos/SuperLevel.tileWidth);
-		var mytile=Math.floor(mypos/SuperLevel.tileHeight);
-		if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-		if (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-		while (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-		if (mxpos>x) {
-		mxtile--;
-		} else if (x > mxpos) {
-		mxtile++;
-		}
-		}
-		if (mxpos>x) {
-		mxpos=(mxtile+1)*SuperLevel.tileWidth-width/2;//-w_collision.x+width/2-4;
-		} else if (x > mxpos) {
-		mxpos=(mxtile)*SuperLevel.tileWidth+width/2;
-		}
-		}
-		if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-		while (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-		if (mypos>y) {
-		mytile--;
-		} else if (y > mypos) {
-		mytile++;
-		}
-		}
-		if (mypos>y) {
-		//prevent bouncing
-		mypos=(mytile+1)*SuperLevel.tileHeight-1;//-w_collision.y+height/2-4;
-		} else if (y > mypos) {
-		mypos=(mytile)*SuperLevel.tileHeight;
-		}
-		}
-		} else {
-		
-		if (Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2))>speed) {
-		var radian=Math.atan2(mypos-y,mxpos-x);
-		var degree = Math.round((radian*180/Math.PI));
-		var mx=x+speed*Math.cos(radian);
-		var my=y+speed*Math.sin(radian);
-		
-		mxtile=Math.floor(mx/SuperLevel.tileWidth);
-		mytile=Math.floor(my/SuperLevel.tileHeight);
-		if (! tileMap["t_"+mytile+"_"+mxtile].walkable) {
-		if (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-		while (! tileMap["t_"+ytile+"_"+mxtile].walkable) {
-		if (mx>x) {
-		mxtile--;
-		} else if (x > mx) {
-		mxtile++;
-		}
-		}
-		if (mx>x) {
-		mx=(mxtile)*SuperLevel.tileWidth-width/2;//-w_collision.x+width/2-4;
-		} else if (x > mx) {
-		mx=(mxtile)*SuperLevel.tileWidth+width/2;
-		}
-		
-		x=mx;
-		y=my;
-		
-		} else if (! tileMap["t_"+mytile+"_"+xtile].walkable) {
-		while (! tileMap["t_"+mytile+"_"+xtile].walkable) {
-		if (my>y) {
-		mytile--;
-		} else if (y > my) {
-		mytile++;
-		}
-		}
-		if (my>y) {
-		//prevent bouncing
-		my=(mytile+1)*SuperLevel.tileHeight-1;//-w_collision.y+height/2-4;
-		} else if (y > my) {
-		my=(mytile)*SuperLevel.tileHeight;
-		}
-		x=mx;
-		y=my;
-		} else {
-		x=mx;
-		y=my;
-		}
-		} else {
-		x=mx;
-		y=my;
-		}
-		} else {
-		x=mxpos;
-		y=mypos;
-		}
-		}
-		//}
-		}
-		xtile=Math.floor(x/SuperLevel.tileWidth);
-		ytile=Math.floor(y/SuperLevel.tileHeight);
-		}*/
 	}
 }

@@ -67,7 +67,7 @@ package collects{
 				this.removeEventListener(Event.ENTER_FRAME, gameHandler);
 				this.removeEventListener(Event.ENTER_FRAME, endHandler);
 				var rand=Math.floor(Math.random()*10+10);
-				for (var i = 0; i < Math.floor(Math.random()*5+5); i++) {
+				/*for (var i = 0; i < Math.floor(Math.random()*5+5); i++) {
 					var radian = (Math.floor(Math.random()*10) * Math.floor(360/rand)*i)*Math.PI/180;
 					var xs=8*Math.cos(radian);
 					var ys=8*Math.sin(radian);
@@ -75,7 +75,7 @@ package collects{
 					exfrag.x=x;
 					exfrag.y=y;
 					this.parent.addChild(exfrag);
-				}
+				}*/
 
 				list.splice(list.indexOf(this),1);
 				this.parent.removeChild(this);

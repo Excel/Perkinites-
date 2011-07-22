@@ -113,11 +113,11 @@ package abilities{
 
 		public function updateStats() {
 			if (min==0) {
-				damage=0;
-				range=0;
-				maxCooldown=cooldown=0;
+				damage=AbilityDatabase.getDamage(id);
+				range=AbilityDatabase.getRange(id);
+				maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
 			} else {
-				damage = AbilityDatabase.getDamage(id) + (min-1)*10;
+				damage = AbilityDatabase.getDamage(id) + (min-1)*AbilityDatabase.getDamageChange(id);
 				range = AbilityDatabase.getRange(id) + (min-1)*50;
 				maxCooldown = cooldown = AbilityDatabase.getCooldown(id) - (min-1)*2;
 			}
@@ -176,12 +176,10 @@ package abilities{
 					Unit.partnerUnit.teleportToCoord(Unit.partnerUnit.mxpos,Unit.partnerUnit.mypos)+Math.floor(Math.random()*64-32);
 					break;
 			}
-			uses-=1;
+
 			obj.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
 			obj.parent.parent.removeEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
-			if (uses<=0) {
-				addEventListener(Event.ENTER_FRAME, cooldownHandler);
-			}
+
 		}
 		public function finishAbilityHandler(e) {
 			var obj=e.target;
@@ -193,6 +191,11 @@ package abilities{
 				obj.range=0;
 
 				sendAttacks(obj);
+				
+				uses-=1;
+				if (uses<=0) {
+					addEventListener(Event.ENTER_FRAME, cooldownHandler);
+				}				
 				obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
 
 
@@ -228,6 +231,7 @@ package abilities{
 			} else if (spec == "Healing%") {
 				spec2="Healing % "+hpPercChange+"%";
 			}
+			spec2=spec2+"\n"+activation;
 			return spec2;
 		}
 		private function sendAttacks(obj) {
@@ -254,14 +258,13 @@ package abilities{
 					a.rotation=degree;
 
 					obj.parent.addChild(a);
-					obj.parent.setChildIndex(a, 0);
+					//obj.parent.setChildIndex(a, 0);
 
 					break;
 				case "Circle" :
 					radian=Math.atan2(ay-obj.y,ax-obj.x);
 					degree = (radian*180/Math.PI);				
 					for (i = 0; i < 360; i+=360/numBullets) {
-						//trace(Math.floor(Math.random()*100));
 						degree+=i;
 						radian=degree*Math.PI/180;
 
@@ -271,7 +274,7 @@ package abilities{
 
 						a.rotation=degree;
 						obj.parent.addChild(a);
-						obj.parent.setChildIndex(a, 0);
+						//obj.parent.setChildIndex(a, 0);
 						
 						radian=Math.atan2(ay-obj.y,ax-obj.x);
 						degree = (radian*180/Math.PI);				
@@ -291,7 +294,7 @@ package abilities{
 
 						a.rotation=degree;
 						obj.parent.addChild(a);
-						obj.parent.setChildIndex(a, 0);
+						//obj.parent.setChildIndex(a, 0);
 						
 						radian=Math.atan2(ay-obj.y,ax-obj.x);
 						degree = (radian*180/Math.PI);				
@@ -304,7 +307,7 @@ package abilities{
 					a.y=ay;
 					
 					obj.parent.addChild(a);
-					obj.parent.setChildIndex(a, 0);				
+					//obj.parent.setChildIndex(a, 0);				
 					break;
 				case "Aura" :
 					a=new Attack(aspeed/2,aspeed/2,damage,"PC", true, radius);
@@ -312,7 +315,7 @@ package abilities{
 					a.y=obj.y;
 
 					obj.parent.addChild(a);
-					obj.parent.setChildIndex(a, 0);				
+					//obj.parent.setChildIndex(a, 0);				
 					break;
 				default :
 					break;

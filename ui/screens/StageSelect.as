@@ -9,7 +9,6 @@
 	import flash.ui.Keyboard;
 
 	import game.*;
-	import levels.*;
 	public class StageSelect extends BaseScreen {
 
 		public var level:int;

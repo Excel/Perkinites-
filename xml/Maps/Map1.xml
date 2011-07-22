@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MapEvents xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<MapEvent>
+		<ID>1</ID>
+		<Position>(7,12)</Position>
+		<Graphic>Happy Orb</Graphic>
+		<Activation>0</Activation>
+
+
+		<Command>Message:rawr</Command>
+		<Command>Teleport:2(9,12)</Command>
+	</MapEvent>
+</MapEvents>

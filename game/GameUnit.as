@@ -3,7 +3,7 @@
 package game{
 
 
-	import levels.*;
+	import maps.*;
 	import tileMapper.*;
 	import util.*;
 

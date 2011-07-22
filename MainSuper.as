@@ -6,7 +6,7 @@ import actors.*;
 import attacks.*;
 import enemies.*;
 import game.*;
-import levels.*;
+import maps.*;
 import tileMapper.*;
 import ui.*;
 import ui.hud.*;
@@ -20,7 +20,6 @@ import util.*;
 AbilityDatabase.loadData();
 ActorDatabase.loadData();
 //EnemyDatabase.loadData();
-//ItemDatabase.loadData();
 
 stage.stageFocusRect=false;
 
@@ -98,8 +97,6 @@ function moveHandler(e) {
 			Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
 			Unit.partnerUnit.mypos=Unit.partnerUnit.y;
 		}
-		/*trace(TileMap.walkable(new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
-		  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32))));*/
 
 
 	}
@@ -154,16 +151,13 @@ function cheatCodeHandler(e) {
 
 function setUp(e) {
 	if (GameVariables.startLevel) {
-		transition.alpha=1;
-		transition.visible=false;
-
-		LevelManager.stageRef=stage;
-		LevelManager.loadLevel();
+		MapManager.stageRef=stage;
+		MapManager.loadMap(1);
 		stage.addEventListener(Event.ENTER_FRAME, moveHandler);
 
 		HUDManager.setup(stage);
 		HUDManager.toggleUnitHUD(true);
-		HUDManager.toggleEnemyHUD(true);
+		HUDManager.toggleEnemyHUD(false);
 
 		stage.removeEventListener(Event.ENTER_FRAME,setUp);
 	}

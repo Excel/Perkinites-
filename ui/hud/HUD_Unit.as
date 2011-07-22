@@ -22,7 +22,7 @@
 
 		function HUD_Unit() {
 			x=0;
-			y=385;
+			y=385+16;
 			currentHP=-1;
 			partnerHP=-1;
 			percentage=0;
@@ -34,6 +34,7 @@
 			var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
 			   hotkeyHolder.eIcon,
+			   hotkeyHolder.rIcon,
 			   hotkeyHolder.aIcon,
 			   hotkeyHolder.sIcon,
 			   hotkeyHolder.dIcon,
@@ -64,6 +65,7 @@
 			var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
 			   hotkeyHolder.eIcon,
+			   hotkeyHolder.rIcon,
 			   hotkeyHolder.aIcon,
 			   hotkeyHolder.sIcon,
 			   hotkeyHolder.dIcon,
@@ -74,7 +76,7 @@
 
 			var obj=e.target;
 			var index=hotkeyIconArray.indexOf(obj);
-			var hotkeys=new Array("Q","W","E","A","S","D","F");
+			var hotkeys=new Array("Q","W","E","R","A","S","D","F");
 			description.text="["+hotkeys[index]+"]: ";
 
 			if (hotkeyArray[index]!=null) {
@@ -99,10 +101,11 @@
 		public function updateHKeys() {
 			var hotkeyArray =[Unit.hk1, Unit.hk2, Unit.hk3, 
 			  Unit.hk4, Unit.hk5, Unit.hk6, 
-			  Unit.hk7];
+			  Unit.hk7, Unit.hk8];
 			var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
 			   hotkeyHolder.eIcon,
+			   hotkeyHolder.rIcon,
 			   hotkeyHolder.aIcon,
 			   hotkeyHolder.sIcon,
 			   hotkeyHolder.dIcon,

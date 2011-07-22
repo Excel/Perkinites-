@@ -2,7 +2,6 @@
 
 	import actors.*;
 	import enemies.*;
-	import levels.*;
 	
 	import flash.display.MovieClip;
 	import flash.events.*;

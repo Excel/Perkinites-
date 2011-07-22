@@ -3,7 +3,7 @@
 
 		public static var difficulty:int;
 		public static var stageLevel:int;
-		public static var maxStageLevel:int = 4;
+		public static var maxStageLevel:int = 1;
 		public static var setLevel:int = 0;
 		public static var startLevel:Boolean=false;
 

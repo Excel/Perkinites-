@@ -2,7 +2,6 @@
 
 	import actors.*;
 	import enemies.*;
-	import levels.*;
 	import tileMapper.*;
 	import util.*;
 

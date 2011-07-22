@@ -8,8 +8,8 @@
 	import flash.ui.Keyboard;
 
 	import actors.*;
-	import game.*;
-	import levels.*;
+	import game.*
+	import maps.*;
 
 	public class PlayerSelect extends BaseScreen {
 
@@ -56,6 +56,8 @@
 				unitName2.visible=true;
 				unitName1.text=ActorDatabase.getName(pn1);
 				unitName2.text=ActorDatabase.getName(pn1+1);
+				
+				entries[pn1/2].gotoAndStop(2);
 
 				playerDisplay1.setUnitIndex(pn1);
 				playerDisplay2.setUnitIndex(pn1+1);
