@@ -46,7 +46,7 @@
 			this.stageRef=stageRef;
 
 			if (iaOption==-1) {
-				iaOption=0;
+				iaOption=1;
 			}
 			if (Unit.currentUnit.id!=setUnitIndex&&Unit.partnerUnit.id!=setUnitIndex) {
 				setUnitIndex=Unit.currentUnit.id;
@@ -404,7 +404,7 @@
 			if (type=="Item") {
 				activation=activation+ItemDatabase.getActivation(index);
 			} else if (type == "Ability") {
-				activation=activation+AbilityDatabase.getActivation(index);
+				activation=activation+AbilityDatabase.getActivationLabel(index);
 			}
 			return activation;
 		}

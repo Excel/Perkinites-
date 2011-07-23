@@ -12,6 +12,7 @@ package abilities{
 	import attacks.*;
 	import game.*;
 	import tileMapper.*;
+	import ui.*;
 	import util.*;
 
 	public class Ability extends MovieClip {
@@ -32,8 +33,8 @@ package abilities{
 		public var amount;
 		public var spec;
 
-		public var hpPercChange:int;
-		public var hpLumpChange:int;
+		public var hpPerc:int;
+		public var hpLump:int;
 		public var atkSpeed:int;
 		public var mvSpeedPerc:int;
 		public var atkDmgPerc:int;
@@ -49,13 +50,15 @@ package abilities{
 
 		public var aoe:String;
 		public var range:int;
-		public var cooldown:int;//cooldown time measured in seconds
+		public var cooldown:int;
 		public var maxCooldown:int;
-		public var activation:String;//change into int later
+		public var activation:int;
+		public var activationLabel:String;
 		public var uses:int;
 		public var maxUses:int;//number of uses before cooldown
 		public var active:Boolean;//whether or not the ability can be equipped to a hotkey or passive
-		public var delay:int;//wait time before using again immediately
+		public var stand:int;//how long the unit is using the ability
+		public var delay:int;//wait time before actually activating ability
 
 		public var min:int;
 		public var max:int;
@@ -63,16 +66,11 @@ package abilities{
 		public var damage;
 
 		public var moveToTarget:int;
-		static public var tileMap;
 
-		/**
-		 * What kind of ability it is
-		 */
-		public var bomber:Boolean;
-		public var dasher:Boolean;
-		public var ranger:Boolean;
-		public var targeter:Boolean;
-		public var other:Boolean;
+		public var activating:Boolean=false;
+		public var finish:Boolean=true;
+
+		public static var sd = new SelectDisplay();
 
 		/**
 		 * Targets
@@ -87,8 +85,8 @@ package abilities{
 			spec=AbilityDatabase.getSpec(id);
 
 			damage=AbilityDatabase.getDamage(id);
-			hpPercChange=AbilityDatabase.getHPPercChange(id);
-			hpLumpChange=AbilityDatabase.getHPLumpChange(id);
+			hpPerc=AbilityDatabase.getHPPerc(id);
+			hpLump=AbilityDatabase.getHPLump(id);
 			atkSpeed=AbilityDatabase.getAtkSpeed(id);
 			mvSpeedPerc=AbilityDatabase.getMvSpeedPerc(id);
 			atkDmgPerc=AbilityDatabase.getAtkDmgPerc(id);
@@ -99,16 +97,16 @@ package abilities{
 			range=AbilityDatabase.getRange(id);
 			maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
 			activation=AbilityDatabase.getActivation(id);
+			activationLabel=AbilityDatabase.getActivationLabel(id);
 			amount=a;
-			uses=AbilityDatabase.getUses(id);
-			maxUses=AbilityDatabase.getUses(id);
-			active=false;
-			delay=10;
+			maxUses=uses=AbilityDatabase.getUses(id);
+			active=AbilityDatabase.getActive(id);
+			stand=AbilityDatabase.getStand(id);
+			delay=AbilityDatabase.getDelay(id);
 			min=AbilityDatabase.getMin(id);
 			max=AbilityDatabase.getMax(id);
 
 			moveToTarget=AbilityDatabase.getMoveToTarget(id);
-			bomber=dasher=ranger=targeter=other=false;
 		}
 
 		public function updateStats() {
@@ -118,36 +116,85 @@ package abilities{
 				maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
 			} else {
 				damage = AbilityDatabase.getDamage(id) + (min-1)*AbilityDatabase.getDamageChange(id);
-				range = AbilityDatabase.getRange(id) + (min-1)*50;
-				maxCooldown = cooldown = AbilityDatabase.getCooldown(id) - (min-1)*2;
+				range = AbilityDatabase.getRange(id) + (min-1)*AbilityDatabase.getRangeChange(id);
+				maxCooldown = cooldown = AbilityDatabase.getCooldown(id) - (min-1)*AbilityDatabase.getCooldownChange(id);
 			}
 		}
-		public function activate(xpos, ypos, unit) {
-			if (uses>0&&min>0) {
-				switch (activation) {
-					case "Hotkey" :
-						targetX=mouseX+ScreenRect.getX();
-						targetY=mouseY+ScreenRect.getY();
-						unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-						break;
-					default :
-						unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-						//unit.parent.parent.addEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
-						break;
-					case "Hotkey -> Select Unit" :
-						targetX=mouseX+ScreenRect.getX();
-						targetY=mouseY+ScreenRect.getY();
-						break;
-				}
 
+
+		/**
+		 * Figure out what kind of activation it is.
+		 * 0 = You don't activate it. 
+		 * 1 = Start activating and get the target X/Y.
+		 * 2 = Let the user click first and then activate.
+		 * 3 = Bring up the Select Unit Display.
+		 * 4 = Hold Down. Essentially No. 1
+		 **/
+
+		public function activate(xpos, ypos, unit) {
+			if (! activating) {
+				activating=true;
+
+				if (uses>0&&min>0) {
+					switch (activation) {
+						case 1 :
+							targetX=mouseX+ScreenRect.getX();
+							targetY=mouseY+ScreenRect.getY();
+							unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+							break;
+						case 2 :
+							break;
+						case 3 :
+							if (sd.parent==null) {
+								GameVariables.stageRef.addChild(sd);
+							}
+							GameVariables.stageRef.addEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
+							Unit.disableHotkeys=true;
+							finish=false;
+							unit.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
+							break;
+						default :
+							targetX=mouseX+ScreenRect.getX();
+							targetY=mouseY+ScreenRect.getY();
+							unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+							//unit.parent.parent.addEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
+							break;
+
+					}
+
+				}
 			}
 		}
+
+		public function selectUnitHandler(e) {
+			if (e.keyCode=="X".charCodeAt(0)) {
+				GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
+				GameVariables.stageRef.removeChild(sd);
+				finish = true;
+								
+			} else if (e.keyCode == "A".charCodeAt(0) || e.keyCode == "S".charCodeAt(0)) {
+				GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
+				GameVariables.stageRef.removeChild(sd);				
+				finish = true;
+			} else if (e.keyCode == "D".charCodeAt(0) || e.keyCode == "F".charCodeAt(0)) {
+				GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
+				GameVariables.stageRef.removeChild(sd);
+				finish = true;
+			}
+
+		}
+		public function clickTargetHandler(e) {
+			targetX=mouseX+ScreenRect.getX();
+			targetY=mouseY+ScreenRect.getY();
+		}
+
+
 
 		public function moveAbilityHandler(e) {
 			var obj=e.target;
-			
+
 			obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
-			
+
 			targetX=mouseX+ScreenRect.getX();
 			targetY=mouseY+ScreenRect.getY();
 			switch (moveToTarget) {
@@ -158,12 +205,12 @@ package abilities{
 					obj.mxpos=ax;
 					obj.mypos=ay;
 
-					obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
-					  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
+					obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
+					  new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
 					  true, true);
 					obj.range=range;
 
-					obj.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
+
 					break;
 				case 2 :
 					Unit.currentUnit.mxpos=mouseX+ScreenRect.getX();
@@ -177,35 +224,47 @@ package abilities{
 					break;
 			}
 
+			obj.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
 			obj.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
 			obj.parent.parent.removeEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
 
 		}
 		public function finishAbilityHandler(e) {
 			var obj=e.target;
-			//trace(Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2)));
-			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range) {
+			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range&&finish) {
 				obj.mxpos=obj.x;
 				obj.mypos=obj.y;
 				obj.path=[];
 				obj.range=0;
 
-				sendAttacks(obj);
-				
-				uses-=1;
-				if (uses<=0) {
-					addEventListener(Event.ENTER_FRAME, cooldownHandler);
-				}				
-				obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
+				//sprite++;
 
+				if (delay==0) {
+					sendAttacks(obj);
+					sendMod(obj);
+
+					uses-=1;
+					if (uses<=0) {
+						addEventListener(Event.ENTER_FRAME, cooldownHandler);
+					}
+				}
+				if (stand<=0) {
+					obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
+					activating=false;
+					stand=AbilityDatabase.getStand(id);
+					delay=AbilityDatabase.getDelay(id);
+				} else {
+					stand--;
+					delay--;
+				}
 
 			}
 		}
 
 		public function cancel() {
 		}
-		public function enable(switchOn) {
-		}
+
+
 		public function cooldownHandler(e) {
 			if (! GameUnit.menuPause&&! GameUnit.superPause) {
 				cooldown--;
@@ -218,22 +277,6 @@ package abilities{
 		}
 
 
-		public function getSpecInfo():String {
-			var spec2=spec;
-			if (spec=="Damage") {
-				spec2="Damage = "+damage;
-			} else if (spec == "Set Damage") {
-				spec2="Set Damage = "+damage;
-			} else if (spec=="Siphon") {
-				spec2="Siphon + "+damage;
-			} else if (spec == "Healing+") {
-				spec2="Healing + "+hpLumpChange;
-			} else if (spec == "Healing%") {
-				spec2="Healing % "+hpPercChange+"%";
-			}
-			spec2=spec2+"\n"+activation;
-			return spec2;
-		}
 		private function sendAttacks(obj) {
 			var a;//the attack to send out
 			var i;//the iterative variable
@@ -248,11 +291,11 @@ package abilities{
 
 			//variables to incorporate into main Ability code
 			var numBullets=8;
-			var radius = 50;
-			
+			var radius=50;
+
 			switch (aoe) {
 				case "Line" :
-					a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,"PC");
+					a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
 					a.x=obj.x+width*Math.cos(radian)/2;
 					a.y=obj.y+height*Math.sin(radian)/2;
 					a.rotation=degree;
@@ -261,66 +304,85 @@ package abilities{
 					//obj.parent.setChildIndex(a, 0);
 
 					break;
-				case "Circle" :
+					/*case "Circle" :
 					radian=Math.atan2(ay-obj.y,ax-obj.x);
-					degree = (radian*180/Math.PI);				
+					degree = (radian*180/Math.PI);
 					for (i = 0; i < 360; i+=360/numBullets) {
-						degree+=i;
-						radian=degree*Math.PI/180;
-
-						a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), damage, "PC");
-						a.x=obj.x+width*Math.cos(radian)/2;
-						a.y=obj.y+height*Math.sin(radian)/2;
-
-						a.rotation=degree;
-						obj.parent.addChild(a);
-						//obj.parent.setChildIndex(a, 0);
-						
-						radian=Math.atan2(ay-obj.y,ax-obj.x);
-						degree = (radian*180/Math.PI);				
-
-					}				
-					break;
-				case "Cone" :		
+					degree+=i;
+					radian=degree*Math.PI/180;
+					
+					a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), damage, range,"PC");
+					a.x=obj.x+width*Math.cos(radian)/2;
+					a.y=obj.y+height*Math.sin(radian)/2;
+					
+					a.rotation=degree;
+					obj.parent.addChild(a);
+					//obj.parent.setChildIndex(a, 0);
+					
 					radian=Math.atan2(ay-obj.y,ax-obj.x);
-					degree = (radian*180/Math.PI);				
+					degree = (radian*180/Math.PI);
+					
+					}
+					break;*/
+				case "Cone" :
+					radian=Math.atan2(ay-obj.y,ax-obj.x);
+					degree = (radian*180/Math.PI);
 					for (i = -numBullets/2; i < Math.ceil(numBullets/2); i++) {
 						degree+=5*i;
 						radian=degree*Math.PI/180;
 
-						a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), damage, "PC");
+						a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
 						a.x=obj.x+width*Math.cos(radian)/2;
 						a.y=obj.y+height*Math.sin(radian)/2;
 
 						a.rotation=degree;
 						obj.parent.addChild(a);
 						//obj.parent.setChildIndex(a, 0);
-						
+
 						radian=Math.atan2(ay-obj.y,ax-obj.x);
-						degree = (radian*180/Math.PI);				
+						degree = (radian*180/Math.PI);
 
 					}
 					break;
-				case "Point" :
-					a=new Attack(aspeed/2, aspeed/2,damage,"PC", true, radius);
+					/*case "Point" :
+					a=new Attack(aspeed/2, aspeed/2,damage,radius,"Unit", true);
 					a.x=ax;
 					a.y=ay;
 					
 					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);				
+					//obj.parent.setChildIndex(a, 0);
 					break;
-				case "Aura" :
-					a=new Attack(aspeed/2,aspeed/2,damage,"PC", true, radius);
+					case "Aura" :
+					a=new Attack(aspeed/2,aspeed/2,damage,radius,"Unit", true);
 					a.x=obj.x;
 					a.y=obj.y;
-
+					
 					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);				
-					break;
+					//obj.parent.setChildIndex(a, 0);
+					break;*/
 				default :
 					break;
 			}
 		}
 
+		private function sendMod(obj) {
+			Unit.currentUnit.updateHP(10);
+		}
+		public function getSpecInfo():String {
+			var spec2=spec;
+			if (spec=="Damage") {
+				spec2="Damage = "+damage;
+			} else if (spec == "S-Damage") {
+				spec2="S-Damage = "+damage;
+			} else if (spec=="Siphon") {
+				spec2="Siphon + "+damage;
+			} else if (spec == "Healing+") {
+				spec2="Healing + "+hpLump;
+			} else if (spec == "Healing%") {
+				spec2="Healing % "+hpPerc+"%";
+			}
+			spec2=spec2+"\n"+activationLabel;
+			return spec2;
+		}
 	}
 }

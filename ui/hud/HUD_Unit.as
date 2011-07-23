@@ -34,7 +34,6 @@
 			var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
 			   hotkeyHolder.eIcon,
-			   hotkeyHolder.rIcon,
 			   hotkeyHolder.aIcon,
 			   hotkeyHolder.sIcon,
 			   hotkeyHolder.dIcon,
@@ -65,7 +64,6 @@
 			var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
 			   hotkeyHolder.eIcon,
-			   hotkeyHolder.rIcon,
 			   hotkeyHolder.aIcon,
 			   hotkeyHolder.sIcon,
 			   hotkeyHolder.dIcon,
@@ -101,11 +99,10 @@
 		public function updateHKeys() {
 			var hotkeyArray =[Unit.hk1, Unit.hk2, Unit.hk3, 
 			  Unit.hk4, Unit.hk5, Unit.hk6, 
-			  Unit.hk7, Unit.hk8];
+			  Unit.hk7];
 			var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
 			   hotkeyHolder.eIcon,
-			   hotkeyHolder.rIcon,
 			   hotkeyHolder.aIcon,
 			   hotkeyHolder.sIcon,
 			   hotkeyHolder.dIcon,

@@ -48,4 +48,20 @@
 		<Speed>18+0.2</Speed>
 		<Weapon>Hoverpad</Weapon>
 	</Actor>
+	<Actor>
+		<Name>Huong V.</Name>
+		<Health>70+6</Health>
+		<Attack>3+1.5</Attack>
+		<Defense>0</Defense>
+		<Speed>13+0.2</Speed>
+		<Weapon>Megaphone</Weapon>
+	</Actor>
+	<Actor>
+		<Name>Sophie Q.</Name>
+		<Health>70+5.5</Health>
+		<Attack>3+1</Attack>
+		<Defense>0</Defense>
+		<Speed>14+0.2</Speed>
+		<Weapon>Voice</Weapon>
+	</Actor>
 </Actors>

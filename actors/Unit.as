@@ -59,11 +59,9 @@ package actors{
 		/**
 		 * Numerical Stats for the Units
 		 * FP - Friendship Points (max 10000)
-		 * Score - The score on each stage
 		 * flexPoints - How many flexpoints they have
 		 */
 		static public var FP=0;
-		static public var score=0;
 		static public var flexPoints=0;
 
 		/**
@@ -107,7 +105,7 @@ package actors{
 		static public var finale;
 
 		public var basicAbilities:Array;//the initial abilities
-		public var commands:Array;
+		//public var commands:Array;
 
 		static public var abilityAmounts:Array=AbilityDatabase.amounts;
 		//work on implementing this
@@ -137,9 +135,10 @@ package actors{
 		public var canOpenMenu:Boolean;
 		public var canUseHotkeys:Array;
 
-		public var attacking:Boolean;
-		public var moving:Boolean=false;
 
+		public var attacking:Boolean=false;
+		public var moving:Boolean=false;
+		public static var disableHotkeys:Boolean=false;
 
 
 
@@ -163,7 +162,7 @@ package actors{
 				DP=ActorDatabase.getArmor(id);
 				speed=ActorDatabase.getSpeed(id);
 				dir=8;
-				commands=[];
+				//commands=[];
 
 				passiveItems=[];
 				passiveAbilities=[];
@@ -207,9 +206,6 @@ package actors{
 				case 7 :
 					hk7=a;
 					break;
-				case 8 :
-					hk8=a;
-					break;
 			}
 		}
 
@@ -232,16 +228,19 @@ package actors{
 			if (! pauseAction&&! superPause&&! menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 					useComboAttack();
-					openMenu();
+
 					movePlayer();
-					useHotKey1();
-					useHotKey2();
-					useHotKey3();
-					useHotKey4();
-					useHotKey5();
-					useHotKey6();
-					useHotKey7();
-					updateDelays();
+					if (! disableHotkeys) {
+						openMenu();
+						useHotKey1();
+						useHotKey2();
+						useHotKey3();
+						useHotKey4();
+						useHotKey5();
+						useHotKey6();
+						useHotKey7();
+						updateDelays();
+					}
 
 				}
 				if (Unit.partnerUnit==this&&Unit.partnerUnit.parent!=null) {
@@ -308,26 +307,26 @@ package actors{
 		public function useHotKey4() {
 			if (KeyDown.keyIsDown(hotKey4)&&hk4!=null&&hk4Delay>=0) {
 				hk4Delay=-1*hk4.delay;
-				hk4.activate(x, y, this);
+				hk4.activate(x, y, Unit.currentUnit);
 			}
 		}
 
 		public function useHotKey5() {
 			if (KeyDown.keyIsDown(hotKey5)&&hk5!=null&&hk5Delay>=0) {
 				hk5Delay=-1*hk5.delay;
-				hk5.activate(x, y, this);
+				hk5.activate(x, y, Unit.currentUnit);
 			}
 		}
 		public function useHotKey6() {
 			if (KeyDown.keyIsDown(hotKey6)&&hk6!=null&&hk6Delay>=0) {
 				hk6Delay=-1*hk6.delay;
-				hk6.activate(x, y, this);
+				hk6.activate(x, y, Unit.partnerUnit);
 			}
 		}
 		public function useHotKey7() {
 			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null&&hk7Delay>=0) {
 				hk7Delay=-1*hk7.delay;
-				hk7.activate(x, y, this);
+				hk7.activate(x, y, Unit.partnerUnit);
 			}
 		}
 
@@ -337,30 +336,27 @@ package actors{
 				Unit.FP+=1000;
 				unitHUD.updateFP();
 				attackDelay=-5;
-				var ax=this.parent.mouseX;
+				/*var ax=this.parent.mouseX;
 				var ay=this.parent.mouseY;
-
-
-				score+=Math.floor(Math.random()*1000+100);
-
+				
 				for (var i = -1; i < 2; i++) {
-					var radian=Math.atan2(ay-this.y,ax-this.x);
-
-					var degree = (radian*180/Math.PI);
-					degree+=5*i;
-					radian=degree*Math.PI/180;
-					var bxspeed=20;
-					var byspeed=20;
-
-					var a=new Attack(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC");
-					a.x=x+width*Math.cos(radian)/2;
-					a.y=y+height*Math.sin(radian)/2;
-
-					a.scaleX=0.40;
-					a.rotation=90+degree;
-					this.parent.addChild(a);
-					this.parent.setChildIndex(a, 0);
-				}
+				var radian=Math.atan2(ay-this.y,ax-this.x);
+				
+				var degree = (radian*180/Math.PI);
+				degree+=5*i;
+				radian=degree*Math.PI/180;
+				var bxspeed=20;
+				var byspeed=20;
+				
+				var a=new Attack(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC");
+				a.x=x+width*Math.cos(radian)/2;
+				a.y=y+height*Math.sin(radian)/2;
+				
+				a.scaleX=0.40;
+				a.rotation=90+degree;
+				this.parent.addChild(a);
+				//this.parent.setChildIndex(a, 0);
+				}*/
 			}
 		}
 		public function updateHP(damage) {
@@ -374,21 +370,8 @@ package actors{
 					HP=0;
 				}
 				HPBar.update(HP, maxHP);
-				if (damage>0) {
-					/*var radian,xs,ys,exfrag;
-					radian=Math.floor(Math.random()*360)*Math.PI/180;
-					xs=5*Math.cos(radian);
-					ys=5*Math.sin(radian);
-					exfrag=new ExFrag1(xs,ys,Unit.tileMap);
-					exfrag.x=x;
-					exfrag.y=y;
-					exfrag.scaleX=0.3;
-					exfrag.scaleY=0.3;
-					this.parent.addChild(exfrag);*/
-				}
 				if (0>=HP) {
 					KO();
-					toggleAbilities(false);
 				}
 			}
 			unitHUD.updateHP();
@@ -407,21 +390,12 @@ package actors{
 				//change stats here
 			}
 		}
-		public function toggleAbilities(switchOn) {
-			for (var i = 0; i < commands.length; i++) {
-				commands[i].enable(switchOn);
-			}
+		/*public function toggleAbilities(switchOn) {
+		for (var i = 0; i < commands.length; i++) {
+		commands[i].enable(switchOn);
 		}
+		}*/
 		public function KO() {
-			for (var i = 0; i < commands.length; i++) {
-				if (commands[i].Name=="Second Chance"&&commands[i].activate(x,y)) {
-					HP=maxHP/2;
-					break;
-				} else if (commands[i].Name == "Second World" && commands[i].activate(x, y)) {
-					HP=maxHP;
-					break;
-				}
-			}
 			if (Unit.currentUnit.HP<=0&&Unit.partnerUnit.HP<=0) {
 				var gameover=new GameOverScreen(stage);
 				Unit.currentUnit.end();
@@ -432,6 +406,10 @@ package actors{
 			} else if (Unit.partnerUnit.HP<=0) {
 				Unit.partnerUnit.end();
 			}//this.parent.removeChild(Unit.partnerUnit);
+		}
+
+		public function reviveHandler(e) {
+
 		}
 
 		function faceMouse() {

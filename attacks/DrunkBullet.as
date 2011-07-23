@@ -10,8 +10,8 @@
 
 
 
-		function DrunkBullet(xs, ys, d, a) {
-			super(xs, ys, d, a);
+		function DrunkBullet(xs, ys, d, r,a) {
+			super(xs, ys, d, r, a);
 			this.rotate=30;
 		}
 

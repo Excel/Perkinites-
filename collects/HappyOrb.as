@@ -62,7 +62,7 @@ package collects{
 			if (this.parent != null &&
 			(this.hitTestObject(Unit.currentUnit)||this.hitTestObject(Unit.partnerUnit))) {
 				Unit.FP+=050;
-				Unit.score+=500;
+				//Unit.score+=500;
 				this.removeEventListener(Event.ENTER_FRAME, startHandler);
 				this.removeEventListener(Event.ENTER_FRAME, gameHandler);
 				this.removeEventListener(Event.ENTER_FRAME, endHandler);

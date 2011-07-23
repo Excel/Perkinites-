@@ -15,24 +15,23 @@
 
 
 		public static var xmlData:XML = new XML();
+		
 		public static var names = new Array();
-		public static var descriptions = new Array();
-		public static var areas = new Array();
-		public static var stands = new Array();
-		public static var ranges = new  Array();
-		public static var uses = new Array();
-		public static var amounts = new Array();
-
-
-
-		public static var activations = new Array();
 		public static var availabilities = new Array();
-		public static var basics = new Array();
-		public static var specs = new Array();
+		public static var specs = new Array();	
+		public static var areas = new Array();
+		
+		public static var uses = new Array();
+		public static var activations = new Array();
 		public static var values = new Array();
+		public static var stands = new Array();
 		public static var delays = new Array();
 		public static var mins = new Array();
 		public static var maxes = new Array();
+		
+		public static var descriptions = new Array();
+		public static var amounts = new Array();
+		public static var basics = new Array();
 		public static var actives = new Array();
 		public static const activationLabels = new Array("Passive",  
 		 "Hotkey",
@@ -41,6 +40,8 @@
 		 "Hold Down Hotkey");
 		public static var index=new Array();
 
+		public static var range = new  Array();
+		public static var rangeChange = new Array();
 		public static var cooldown = new Array();
 		public static var cooldownChange = new Array();		
 		public static var damage = new Array();
@@ -137,9 +138,7 @@
 			for each (var areaElement:XML in input.Ability.Area) {
 				areas.push(areaElement);
 			}
-			for each (var rangeElement:XML in input.Ability.Range) {
-				ranges.push(rangeElement);
-			}
+
 
 			for each (var useElement:XML in input.Ability.Uses) {
 				uses.push(useElement);
@@ -172,6 +171,11 @@
 
 			//Requires leveling up
 
+			for each (var rangeElement:XML in input.Ability.Range) {
+				var r = separate(rangeElement);
+				range.push(r[0]);
+				rangeChange.push(r[1]);
+			}
 			for each (var cooldownElement:XML in input.Ability.Cooldown) {
 				var c = separate(cooldownElement);
 				cooldown.push(c[0]);
@@ -280,16 +284,17 @@
 		public static function getAOE(id:int):String {
 			return areas[id];
 		}
-		public static function getRange(id:int):int {
-			return ranges[id];
-		}
+
 		public static function getUses(id:int):int {
 			return uses[id];
 		}
 
-		public static function getActivation(id:int):String {
-			return activationLabels[activations[id]];
+		public static function getActivation(id:int):int{
+			return activations[id];
 		}
+		public static function getActivationLabel(id:int):String {
+			return activationLabels[activations[id]];
+		}		
 		public static function getAvailability(id:int):String {
 			return availabilities[id];
 		}
@@ -315,6 +320,12 @@
 			return maxes[id];
 		}
 
+		public static function getRange(id:int):int {
+			return range[id];
+		}
+		public static function getRangeChange(id:int):Number{
+			return rangeChange[id];
+		}
 		public static function getCooldown(id:int):int {
 			return cooldown[id];
 		}
@@ -402,12 +413,16 @@
 		var spec=specs[id];
 		if (spec=="Damage") {
 			spec="Damage = "+damage[id];
+		} else if (spec == "S-Damage") {
+			spec="S-Damage = "+damage[id];
+		} else if (spec=="Siphon") {
+			spec="Siphon + "+damage[id];
 		} else if (spec == "Healing+") {
 			spec="Healing + "+hpLump[id];
 		} else if (spec == "Healing%") {
 			spec="Healing % "+hpPerc[id]+"%";
-		}
-		spec=spec+"\n"+getActivation(id);
+		}		
+		spec=spec+"\n"+getActivationLabel(id);
 		return spec;
 	}
 }

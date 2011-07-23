@@ -21,6 +21,7 @@ AbilityDatabase.loadData();
 ActorDatabase.loadData();
 //EnemyDatabase.loadData();
 
+GameVariables.stageRef = stage;
 stage.stageFocusRect=false;
 
 //var cursor = new Cursor(stage);

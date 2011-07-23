@@ -11,7 +11,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>16-1</Cooldown>
 		<Damage>5+3</Damage>
@@ -53,7 +53,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>200-5</Cooldown>
 		<Damage>15+5</Damage>
@@ -96,7 +96,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>140</Range>
 		<Cooldown>200-5</Cooldown>
 		<Damage>0</Damage>
@@ -125,7 +125,7 @@
 		<AttackDist>0</AttackDist>
 		<DamageTarget>None</DamageTarget>
 		<ModTarget>Team</ModTarget>
-		<Description>Increases Charles' and Nate's Speed.</Description>
+		<Description>Reduces Charles' and Nate's Reload Times.</Description>
 	</Ability>
 	<Ability>
 		<Name>Ninjutsu</Name>
@@ -138,7 +138,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>30</Range>
 		<Cooldown>150-10</Cooldown>
 		<Damage>1+0.5</Damage>
@@ -180,7 +180,7 @@
 		<Stand>6</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>20</Range>
 		<Cooldown>12-0.5</Cooldown>
 		<Damage>5+3.5</Damage>
@@ -222,7 +222,7 @@
 		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
@@ -263,7 +263,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>120</Range>
 		<Cooldown>100-5</Cooldown>
 		<Damage>5+5</Damage>
@@ -304,7 +304,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>120-5</Cooldown>
 		<Damage>0</Damage>
@@ -345,7 +345,7 @@
 		<Stand>6</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>400</Range>
 		<Cooldown>16</Cooldown>
 		<Damage>5</Damage>
@@ -372,7 +372,7 @@
 		<Attack>Shot</Attack>
 		<DamageTarget>Enemy</DamageTarget>
 		<ModTarget>None</ModTarget>
-		<Description>Basic Attack: Shoots a bullet toward a target.</Description>
+		<Description>Basic Attack: Shoots a bullet toward a target enemy.</Description>
 	</Ability>
 	<Ability>
 		<Name>Eyelash Batting</Name>
@@ -385,7 +385,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>500</Range>
 		<Cooldown>150</Cooldown>
 		<Damage>3</Damage>
@@ -425,7 +425,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>500</Range>
 		<Cooldown>72</Cooldown>
 		<Damage>5</Damage>
@@ -465,7 +465,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>200</Range>
 		<Cooldown>120</Cooldown>
 		<Damage>30</Damage>
@@ -546,7 +546,7 @@
 		<Stand>6</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>400</Range>
 		<Cooldown>12</Cooldown>
 		<Damage>5</Damage>
@@ -586,7 +586,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>120</Cooldown>
 		<Damage>2</Damage>
@@ -613,7 +613,7 @@
 		<Attack>Circles</Attack>
 		<DamageTarget>Enemy</DamageTarget>
 		<ModTarget>Self</ModTarget>
-		<Description>Creates a temporary aura of circles that heals Cia and deals damage to closeby enemies. </Description>
+		<Description>Creates a temporary aura of circles that heals Cia and deals damage to nearby enemies. </Description>
 	</Ability>
 	<Ability>
 		<Name>Taking Heart</Name>
@@ -626,7 +626,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>800</Range>
 		<Cooldown>120</Cooldown>
 		<Damage>5</Damage>
@@ -666,7 +666,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>120</Cooldown>
 		<Damage>0</Damage>
@@ -706,7 +706,7 @@
 		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
@@ -733,7 +733,7 @@
 		<Attack>None</Attack>
 		<DamageTarget>None</DamageTarget>
 		<ModTarget>Other</ModTarget>
-		<Description>C. Kata restores some HP every few seconds.</Description>
+		<Description>C. Kata restores some Health every few seconds.</Description>
 	</Ability>
 	<Ability>
 		<Name>Tentacle Attack</Name>
@@ -746,7 +746,7 @@
 		<Stand>6</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>12</Cooldown>
 		<Damage>8</Damage>
@@ -786,7 +786,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>60</Cooldown>
 		<Damage>24</Damage>
@@ -826,7 +826,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>70</Cooldown>
 		<Damage>12</Damage>
@@ -866,7 +866,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>80</Cooldown>
 		<Damage>6</Damage>
@@ -906,7 +906,7 @@
 		<Stand>4</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>300</Range>
 		<Cooldown>12</Cooldown>
 		<Damage>5</Damage>
@@ -938,7 +938,7 @@
 	<Ability>
 		<Name>Arrow Control</Name>
 		<Availability>John T.</Availability>
-		<Spec>Set Damage</Spec>
+		<Spec>S-Damage</Spec>
 		<Area>Line</Area>
 		<Uses>8</Uses>
 		<Activate>4</Activate>
@@ -946,7 +946,7 @@
 		<Stand>2</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>200</Range>
 		<Cooldown>80</Cooldown>
 		<Damage>3</Damage>
@@ -986,7 +986,7 @@
 		<Stand>8</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>120</Cooldown>
 		<Damage>10</Damage>
@@ -1027,7 +1027,7 @@
 		<Stand>24</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>300</Range>
 		<Cooldown>90</Cooldown>
 		<Damage>0</Damage>
@@ -1067,7 +1067,7 @@
 		<Stand>0</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Damage>0</Damage>
@@ -1107,7 +1107,7 @@
 		<Stand>16</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>16</Cooldown>
 		<Damage>5</Damage>
@@ -1132,6 +1132,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Creates a sound shockwave.</Description>
 	</Ability>
 	<Ability>
@@ -1145,7 +1146,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>55</Cooldown>
 		<Damage>10</Damage>
@@ -1170,6 +1171,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Deals damage to surrounding enemies. Enemies give up extra friendship points.</Description>
 	</Ability>
 	<Ability>
@@ -1183,7 +1185,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>150</Range>
 		<Cooldown>24</Cooldown>
 		<Damage>10</Damage>
@@ -1208,6 +1210,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
 		<Description>Deals damage and slows an enemy.</Description>
 	</Ability>
 	<Ability>
@@ -1221,7 +1224,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>110</Cooldown>
 		<Damage>0</Damage>
@@ -1246,6 +1249,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Team</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Restores Health to any Unit. </Description>
 	</Ability>
 	<Ability>
@@ -1259,7 +1263,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>30</Range>
 		<Cooldown>24</Cooldown>
 		<Damage>8</Damage>
@@ -1285,6 +1289,7 @@
 		<Move>1</Move>
 		<Tank>1</Tank>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Charge toward an enemy and overpower it.</Description>
 	</Ability>
 	<Ability>
@@ -1298,7 +1303,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>50</Cooldown>
 		<Damage>30</Damage>
@@ -1323,6 +1328,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Crushes the enemy through the power of hugging at close-range.</Description>
 	</Ability>
 	<Ability>
@@ -1336,7 +1342,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>230</Cooldown>
 		<Damage>0</Damage>
@@ -1361,6 +1367,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Self</DamageTarget>
+		<ModTarget>Self</ModTarget>
 		<Description>Restores Health over time. Tevin cannot move nor use abilities during this time. </Description>
 	</Ability>
 	<Ability>
@@ -1374,7 +1381,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>48</Cooldown>
 		<Damage>12</Damage>
@@ -1399,6 +1406,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
 		<Description>Launches a conical sound blast in front of him, damaging and slowing down enemies.</Description>
 	</Ability>
 	<Ability>
@@ -1412,7 +1420,7 @@
 		<Stand>4</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>60</Range>
 		<Cooldown>8</Cooldown>
 		<Damage>5</Damage>
@@ -1437,6 +1445,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Whack nearby enemies with a medical staff.</Description>
 	</Ability>
 	<Ability>
@@ -1450,7 +1459,7 @@
 		<Stand>4</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>70</Range>
 		<Cooldown>720</Cooldown>
 		<Damage>0</Damage>
@@ -1475,6 +1484,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Team</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Restores some HP to a target Unit.</Description>
 	</Ability>
 	<Ability>
@@ -1488,7 +1498,7 @@
 		<Stand>72</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>720</Cooldown>
 		<Damage>0</Damage>
@@ -1512,7 +1522,8 @@
 		<CDLump>0</CDLump>
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<DamageTarget>Self</DamageTarget>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>Self</ModTarget>
 		<Description>Creates an invulnerable barrier around Chloe that lasts for five seconds.</Description>
 	</Ability>
 	<Ability>
@@ -1526,7 +1537,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>100</Cooldown>
 		<Damage>10</Damage>
@@ -1551,6 +1562,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Damages close target</Description>
 	</Ability>
 	<Ability>
@@ -1564,7 +1576,7 @@
 		<Stand>4</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>30</Range>
 		<Cooldown>16</Cooldown>
 		<Damage>5</Damage>
@@ -1589,7 +1601,125 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Basic Attack: Whack nearby enemies with an Orgo textbook.</Description>
+	</Ability>
+	<Ability>
+		<Name>Maul</Name>
+		<Availability>Vivian H.</Availability>
+		<Spec>Damage</Spec>
+		<Area>Cone</Area>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Stand>4</Stand>
+		<Delay>0</Delay>
+		<Min>0</Min>
+		<Max>10</Max>
+		<Range>40</Range>
+		<Cooldown>48</Cooldown>
+		<Damage>15</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
+		<Move>1</Move>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
+		<Description>Shreds any enemies in front of Vivian with ferocious claws.</Description>
+	</Ability>
+	<Ability>
+		<Name>"That's What She Said"</Name>
+		<Availability>Vivian H.</Availability>
+		<Spec>Downgrade</Spec>
+		<Area>Aura</Area>
+		<Uses>1</Uses>
+		<Activate>1</Activate>
+		<Value>0</Value>
+		<Stand>4</Stand>
+		<Delay>0</Delay>
+		<Min>0</Min>
+		<Max>10</Max>
+		<Range>80</Range>
+		<Cooldown>120</Cooldown>
+		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>0</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>48</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
+		<Move>1</Move>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
+		<Description>Exhausts nearby enemies with a meme that still remains relatively popular in correge culture.</Description>
+	</Ability>
+	<Ability>
+		<Name>Silent Treatment</Name>
+		<Availability>Vivian H.</Availability>
+		<Spec>Downgrade</Spec>
+		<Area>Line</Area>
+		<Uses>1</Uses>
+		<Activate>2</Activate>
+		<Value>0</Value>
+		<Stand>4</Stand>
+		<Delay>0</Delay>
+		<Min>0</Min>
+		<Max>10</Max>
+		<Range>150</Range>
+		<Cooldown>120</Cooldown>
+		<Damage>0</Damage>
+		<Speed>0</Speed>
+		<StunDur>48</StunDur>
+		<SlowDur>0</SlowDur>
+		<SickDur>0</SickDur>
+		<ExhaustDur>0</ExhaustDur>
+		<RegenDur>0</RegenDur>
+		<SlowPerc>0</SlowPerc>
+		<SickPerc>0</SickPerc>
+		<RegenPerc>0</RegenPerc>
+		<HPPerc>0</HPPerc>
+		<HPLump>0</HPLump>
+		<APPerc>0</APPerc>
+		<APLump>0</APLump>
+		<DPLump>0</DPLump>
+		<SPPerc>0</SPPerc>
+		<SPLump>0</SPLump>
+		<CDPerc>0</CDPerc>
+		<CDLump>0</CDLump>
+		<CustomDur>0</CustomDur>
+		<Move>1</Move>
+		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
+		<Description>Stuns an enemy by socially rejecting them. :(</Description>
 	</Ability>
 	<Ability>
 		<Name>Final Destination</Name>
@@ -1627,6 +1757,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Team</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Change X's and Ananya's Friendship Finale to Destination Zero.</Description>
 	</Ability>
 	<Ability>
@@ -1640,7 +1771,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>800</Range>
 		<Cooldown>12</Cooldown>
 		<Damage>10</Damage>
@@ -1665,6 +1796,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Gains one solar charge every few seconds. After gaining three charges and activating again, sends forth bursts of solar energy. </Description>
 	</Ability>
 	<Ability>
@@ -1678,7 +1810,7 @@
 		<Stand>1</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>64</Cooldown>
 		<Damage>15</Damage>
@@ -1703,12 +1835,13 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Creates a ray of solar energy.</Description>
 	</Ability>
 	<Ability>
 		<Name>M. Gun Attack</Name>
 		<Availability>Raymon B.</Availability>
-		<Spec>Set Damage</Spec>
+		<Spec>S-Damage</Spec>
 		<Area>Line</Area>
 		<Uses>10</Uses>
 		<Activate>4</Activate>
@@ -1716,7 +1849,7 @@
 		<Stand>1</Stand>
 		<Delay>0</Delay>
 		<Min>1</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>300</Range>
 		<Cooldown>16</Cooldown>
 		<Damage>2</Damage>
@@ -1741,7 +1874,8 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
-		<Description>Basic Attack: Shoot down an enemy with rapid gunfire. </Description>
+		<ModTarget>None</ModTarget>
+		<Description>Basic Attack: Fire a bullet at a target enemy. Hold down for rapid gunfire.</Description>
 	</Ability>
 	<Ability>
 		<Name>Shockwave</Name>
@@ -1754,7 +1888,7 @@
 		<Stand>16</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>72</Cooldown>
 		<Damage>25</Damage>
@@ -1779,6 +1913,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Creates an energy wave that damages enemies in its path.</Description>
 	</Ability>
 	<Ability>
@@ -1792,7 +1927,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>48</Cooldown>
 		<Damage>5</Damage>
@@ -1817,6 +1952,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Siphons Health from target enemy.</Description>
 	</Ability>
 	<Ability>
@@ -1830,7 +1966,7 @@
 		<Stand>12</Stand>
 		<Delay>0</Delay>
 		<Min>0</Min>
-		<Max>5</Max>
+		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>120</Cooldown>
 		<Damage>40</Damage>
@@ -1856,6 +1992,7 @@
 		<Move>1</Move>
 		<Tank>1</Tank>
 		<DamageTarget>Enemy</DamageTarget>
+		<ModTarget>None</ModTarget>
 		<Description>Powers up Raymon on first time activation. Unleashes a destructive attack to nearby enemies on second activation, powering down Raymon.</Description>
 	</Ability>
 	<Ability>
@@ -1893,7 +2030,8 @@
 		<CDLump>0</CDLump>
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
-		<DamageTarget>Enemy</DamageTarget>
+		<DamageTarget>None</DamageTarget>
+		<ModTarget>Enemy</ModTarget>
 		<Description>Freezes all enemies and their attacks for three seconds.</Description>
 	</Ability>
 	<Ability>
@@ -2008,7 +2146,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Self</DamageTarget>
-		<Description>Revives this Unit to half HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
+		<Description>Revives this Unit to half Health immediately after he/she reaches 0 Health. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
 		<Name>Second World</Name>
@@ -2046,7 +2184,7 @@
 		<CustomDur>0</CustomDur>
 		<Move>1</Move>
 		<DamageTarget>Self</DamageTarget>
-		<Description>Revives this Unit to full HP after he/she reaches 0 HP. Can only be used once per stage.</Description>
+		<Description>Revives this Unit to full Health immediately after he/she reaches 0 Health. Can only be used once per stage.</Description>
 	</Ability>
 	<Ability>
 		<Name>Girly Swirl</Name>

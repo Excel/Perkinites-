@@ -49,8 +49,8 @@
 			description=ItemDatabase.getDescription(id);
 			index=ItemDatabase.getIndex(id);
 
-			hpPercChange=ItemDatabase.getHPPercChange(id);
-			hpLumpChange=ItemDatabase.getHPLumpChange(id);
+			hpPerc=ItemDatabase.getHPPercChange(id);
+			hpLump=ItemDatabase.getHPLumpChange(id);
 			atkSpeed=ItemDatabase.getAtkSpeedPerc(id);
 			mvSpeedPerc=ItemDatabase.getMvSpeedPerc(id);
 			atkDmgPerc=ItemDatabase.getAtkDmgPerc(id);

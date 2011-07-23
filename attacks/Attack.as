@@ -2,6 +2,7 @@
 
 	import actors.*;
 	import enemies.*;
+	import game.*;
 	import tileMapper.*;
 	import util.*;
 
@@ -14,9 +15,10 @@
 		var xspeed:Number;
 		var yspeed:Number;
 		var damage:int;
-		var attacker:String;//attacker can only be "PC" or "Enemy"
+		var attacker:GameUnit;//attacker can only be Unit or Enemy
 		var expand:Boolean;
-		var radius:int;
+		var range:int;
+		var totalRange:int;
 		var exist:int;
 
 		var hit=false;
@@ -24,14 +26,15 @@
 
 		public var pauseMovement:Boolean;
 
-		function Attack(xs, ys, d, a, e:Boolean = false, r:int = 0) {
+		function Attack(xs, ys, d, r, a, e:Boolean = false) {
 
 			xspeed=xs;
 			yspeed=ys;
 			damage=d;
 			attacker=a;
 			expand=e;
-			radius=r;
+			range = 0;
+			totalRange = r;
 			exist=150;
 
 			rotate=0;
@@ -55,16 +58,17 @@
 		function update() {
 			if (! pauseMovement) {
 				if (expand) {
-					if (width<radius*2&&height<radius*2) {
+/*					if (width<radius*2&&height<radius*2) {
 						width+=xspeed;
 						height+=yspeed;
 					} else {
 						width=radius*2;
 						height=radius*2;
-					}
+					}*/
 				} else {
 					x+=xspeed;
 					y+=yspeed;
+					totalRange -= Math.sqrt(Math.pow(xspeed,2) + Math.pow(yspeed,2));
 				}
 				exist--;
 				rotation+=rotate;
@@ -81,12 +85,16 @@
 					kill();
 					return;
 				}
+				if(totalRange <= 0){
+					kill();
+					return;
+				}
 			}
 		}
 		function checkHit() {
 			if (! pauseMovement) {
 				var list=[];
-				if (attacker=="PC") {
+				if (attacker is Unit) {
 					list=Enemy.list;
 					for (var i = 0; i < list.length; i++) {
 						if (this.hitTestObject(list[i].collision)) {
@@ -96,7 +104,7 @@
 						}
 					}
 
-				} else if (attacker=="Enemy") {
+				} else if (attacker is Enemy) {
 					if (this.hitTestObject(Unit.currentUnit)&&hit==false) {
 						Unit.currentUnit.updateHP(damage);
 						//hit = true;
