@@ -45,6 +45,7 @@
 			TileMap.removeTiles(mapClip);
 			TileMap.createTileMap(mapCode,32,tileTypes,tileClings,"Tile");
 			TileMap.addTiles(mapClip);
+						
 			var firstSep=mapCode.indexOf(":");
 			var secSep=mapCode.indexOf(":",firstSep+1);
 
@@ -69,6 +70,7 @@
 
 			mapClip.addChild(Unit.currentUnit);
 			mapClip.addChild(Unit.partnerUnit);
+
 			Unit.currentUnit.begin();
 			Unit.partnerUnit.begin();
 

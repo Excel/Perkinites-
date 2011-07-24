@@ -35,6 +35,7 @@
 		"If Charles Y. is the Current Unit, WHAT YOU WANT",
 		"If Nate M. is the Current Unit, WHAT YOU WANT");
 		public static var basicAbilities = new Array();
+
 		
 		public static var existingUnits = new Array();
 
@@ -130,5 +131,16 @@
 		public static function getBasicAbilities(id:int):Array {
 			return basicAbilities[id];
 		}
+		public static function getExistingUnits(id:int):Array{
+			var units = [];
+			for(var i = 0; i < existingUnits.length; i+2){
+				if(existingUnits[i].id == id){
+					units.push(existingUnits[i]);
+					units.push(existingUnits[i+1]);
+					return units;
+				}
+			}
+			return units;
+		}		
 	}
 }

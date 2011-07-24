@@ -7,8 +7,9 @@
 	import flash.filters.GlowFilter;
 	import flash.ui.Keyboard;
 
+	import abilities.*;
 	import actors.*;
-	import game.*
+	import game.*;
 	import maps.*;
 
 	public class PlayerSelect extends BaseScreen {
@@ -56,7 +57,7 @@
 				unitName2.visible=true;
 				unitName1.text=ActorDatabase.getName(pn1);
 				unitName2.text=ActorDatabase.getName(pn1+1);
-				
+
 				entries[pn1/2].gotoAndStop(2);
 
 				playerDisplay1.setUnitIndex(pn1);
@@ -68,7 +69,7 @@
 				if (! playerDisplay2.visible) {
 					playerDisplay2.displayAgain();
 				}
-			} 
+			}
 
 			load();
 
@@ -160,8 +161,14 @@
 				playerDisplay2.displayAgain();
 			}
 
-			Unit.currentUnit=new Unit(pn1);
-			Unit.partnerUnit=new Unit(pn1+1);
+			var units=ActorDatabase.getExistingUnits(pn1);
+			if (units.length==0) {
+				Unit.currentUnit=new Unit(pn1);
+				Unit.partnerUnit=new Unit(pn1+1);
+			} else {
+				Unit.currentUnit=units[0];
+				Unit.partnerUnit=units[1];
+			}
 
 
 
@@ -177,19 +184,46 @@
 			unload();
 			GameVariables.startLevel=true;
 
-			Unit.currentUnit=new Unit(pn1);
-			Unit.partnerUnit=new Unit(pn1+1);
+			var units=ActorDatabase.getExistingUnits(pn1);
+			if (units.length==0) {
+				Unit.currentUnit=new Unit(pn1);
+				Unit.partnerUnit=new Unit(pn1+1);
+			} else {
+				Unit.currentUnit=units[0];
+				Unit.partnerUnit=units[1];
+			}
 
+			removeOtherBasicAbilities();
 			//implement this later
-			var i;
-			for (i = 0; i < Unit.currentUnit.basicAbilities.length; i++) {
-				Unit.abilityAmounts[Unit.currentUnit.basicAbilities[i].id]=1;
-			}
-			for (i = 0; i < Unit.partnerUnit.basicAbilities.length; i++) {
-				Unit.abilityAmounts[Unit.partnerUnit.basicAbilities[i].id]=1;
-			}
+
 		}
 
+		public function removeOtherBasicAbilities() {
+			var i;
+			var id;
+			var hotkeySet;
+			for(i = 0; i < AbilityDatabase.basicAbilityCutoff; i++){
+				Unit.abilityAmounts[i]=0;
+			}
+			for (i = 0; i < Unit.currentUnit.basicAbilities.length; i++) {
+				id=Unit.currentUnit.basicAbilities[i].id;
+				hotkeySet = Unit.currentUnit.hotkeySet;
+				
+				if ((hotkeySet[0] == null || (hotkeySet[0] != null && hotkeySet[0].id != id)) && 
+					(hotkeySet[1] == null || (hotkeySet[1] != null && hotkeySet[1].id != id))) {
+					Unit.abilityAmounts[id]=1;
+				}
+			}
+			for (i = 0; i < Unit.partnerUnit.basicAbilities.length; i++) {
+				id=Unit.partnerUnit.basicAbilities[i].id;
+				hotkeySet = Unit.partnerUnit.hotkeySet;				
+				if ((hotkeySet[0] == null || (hotkeySet[0] != null && hotkeySet[0].id != id)) && 
+					(hotkeySet[1] == null || (hotkeySet[1] != null && hotkeySet[1].id != id))) {
+					Unit.abilityAmounts[id]=1;
+				}
+
+			}
+		}
 		public function pageHandler(e) {
 			playerDisplay1.gotoPage(1);
 			playerDisplay1.button1.filters=[playerDisplay1.gf1];

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<MapEvents xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<MapEvent>
-		<ID>1</ID>
-		<Position>(7,12)</Position>
-		<Graphic>Happy Orb</Graphic>
-		<Activation>0</Activation>
-
-
-		<Command>Message:rawr</Command>
-		<Command>Teleport:2(9,12)</Command>
-	</MapEvent>
-</MapEvents>
+<Map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<MapCode>15:20:333333333333333333333333333333333333333333444444444444444433334444444444444444333300000000000000003333000000000000000033330000333003330000333300003330033300003333000033300333000033330000333003330000333300003330033300003333000000000000000033330000000000000000333333333333333333333333333333333333333333000000000000000(9,12)</MapCode>
+	<MapName>Clarissa's Room</MapName>
+		<MapEvent>
+			<ID>1</ID>
+			<Position>(7,12)</Position>
+			<Graphic>Happy Orb</Graphic>
+			<Activation>0</Activation>
+			<Commands>
+				<Command>Message:rawr</Command>
+				<Command>Teleport:2(9,12)</Command>
+			</Commands>
+		</MapEvent>
+</Map>

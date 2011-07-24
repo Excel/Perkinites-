@@ -1382,14 +1382,26 @@
 					//check for boys
 				} else if (availability != "All Perkinites") {
 					if (Unit.currentUnit.Name!=availability) {
+						hotkeyIconArray[0].transform.colorTransform=iconCover;
+						hotkeyIconArray[1].transform.colorTransform=iconCover;
+						hotkeyIconArray[2].transform.colorTransform=iconCover;
 						hotkeyIconArray[3].transform.colorTransform=iconCover;
 						hotkeyIconArray[4].transform.colorTransform=iconCover;
+						blockedHotkeyArray[0]=true;
+						blockedHotkeyArray[1]=true;
+						blockedHotkeyArray[2]=true;						
 						blockedHotkeyArray[3]=true;
 						blockedHotkeyArray[4]=true;
 					}
 					if (Unit.partnerUnit.Name!=availability) {
+						hotkeyIconArray[0].transform.colorTransform=iconCover;
+						hotkeyIconArray[1].transform.colorTransform=iconCover;
+						hotkeyIconArray[2].transform.colorTransform=iconCover;						
 						hotkeyIconArray[5].transform.colorTransform=iconCover;
 						hotkeyIconArray[6].transform.colorTransform=iconCover;
+						blockedHotkeyArray[0]=true;
+						blockedHotkeyArray[1]=true;
+						blockedHotkeyArray[2]=true;
 						blockedHotkeyArray[5]=true;
 						blockedHotkeyArray[6]=true;
 					}

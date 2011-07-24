@@ -1,6 +1,7 @@
 ﻿package attacks{
 
 	import actors.*;
+	import abilities.*;
 	import enemies.*;
 	import game.*;
 	import tileMapper.*;
@@ -43,6 +44,9 @@
 
 		}
 
+		function setMods(ability:Ability){
+			
+		}
 		function gameHandler(e) {
 			if (! pauseMovement) {
 				//Update position

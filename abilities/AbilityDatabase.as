@@ -86,6 +86,8 @@
 
 		public static const mvSpeedPerc=new Array(0,0,0,0,0,0,0,0);
 
+		public static var basicAbilityCutoff:int = -1;
+		public static var abilityCutoff:int = -1;
 
 		public static function loadData() {
 			var xmlLoader:URLLoader = new URLLoader();
@@ -125,12 +127,17 @@
 				count++;
 			}
 			for each (var availabilityElement:XML in input.Ability.Availability) {
+				count = 0;
 				availabilities.push(availabilityElement);
 				if (availabilityElement=="All Girls"||availabilityElement=="All Perkinites") {
 					basics.push(false);
+					if(basicAbilityCutoff == -1){
+						basicAbilityCutoff = count;
+					}
 				} else {
 					basics.push(true);
 				}
+				count++;
 			}
 			for each (var specElement:XML in input.Ability.Spec) {
 				specs.push(specElement);

@@ -17,7 +17,6 @@ package abilities{
 
 	public class Ability extends MovieClip {
 
-		static public var FPS:int=24;
 		/**
 		 * Name - Name of the Ability
 		 * Description - Description of the Ability
@@ -69,6 +68,7 @@ package abilities{
 
 		public var activating:Boolean=false;
 		public var finish:Boolean=true;
+		public var target:String="Team";
 
 		public static var sd = new SelectDisplay();
 
@@ -150,7 +150,7 @@ package abilities{
 							}
 							GameVariables.stageRef.addEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
 							Unit.disableHotkeys=true;
-							finish=false;
+							finish=false;			
 							unit.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
 							break;
 						default :
@@ -168,19 +168,21 @@ package abilities{
 
 		public function selectUnitHandler(e) {
 			if (e.keyCode=="X".charCodeAt(0)) {
-				GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
-				GameVariables.stageRef.removeChild(sd);
-				finish = true;
-								
+				target="Team";
+				finishSelection();
 			} else if (e.keyCode == "A".charCodeAt(0) || e.keyCode == "S".charCodeAt(0)) {
-				GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
-				GameVariables.stageRef.removeChild(sd);				
-				finish = true;
+				target="Current";
+				finishSelection();
 			} else if (e.keyCode == "D".charCodeAt(0) || e.keyCode == "F".charCodeAt(0)) {
-				GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
-				GameVariables.stageRef.removeChild(sd);
-				finish = true;
+				target="Partner";
+				finishSelection();
 			}
+		}
+		function finishSelection() {
+			GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
+			GameVariables.stageRef.removeChild(sd);
+			finish=true;
+			Unit.disableHotkeys=false;
 
 		}
 		public function clickTargetHandler(e) {
@@ -209,8 +211,6 @@ package abilities{
 					  new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
 					  true, true);
 					obj.range=range;
-
-
 					break;
 				case 2 :
 					Unit.currentUnit.mxpos=mouseX+ScreenRect.getX();
@@ -226,12 +226,11 @@ package abilities{
 
 			obj.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
 			obj.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-			obj.parent.parent.removeEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
 
 		}
 		public function finishAbilityHandler(e) {
 			var obj=e.target;
-			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range&&finish) {
+			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range || finish) {
 				obj.mxpos=obj.x;
 				obj.mypos=obj.y;
 				obj.path=[];
@@ -241,8 +240,7 @@ package abilities{
 
 				if (delay==0) {
 					sendAttacks(obj);
-					sendMod(obj);
-
+					sendMod(obj, target);
 					uses-=1;
 					if (uses<=0) {
 						addEventListener(Event.ENTER_FRAME, cooldownHandler);
@@ -251,8 +249,10 @@ package abilities{
 				if (stand<=0) {
 					obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
 					activating=false;
+					finish = false;
 					stand=AbilityDatabase.getStand(id);
 					delay=AbilityDatabase.getDelay(id);
+
 				} else {
 					stand--;
 					delay--;
@@ -296,12 +296,12 @@ package abilities{
 			switch (aoe) {
 				case "Line" :
 					a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
+					//a.setMods(this);
 					a.x=obj.x+width*Math.cos(radian)/2;
 					a.y=obj.y+height*Math.sin(radian)/2;
 					a.rotation=degree;
 
 					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);
 
 					break;
 					/*case "Circle" :
@@ -324,27 +324,28 @@ package abilities{
 					
 					}
 					break;*/
-				case "Cone" :
+					/*case "Cone" :
 					radian=Math.atan2(ay-obj.y,ax-obj.x);
 					degree = (radian*180/Math.PI);
 					for (i = -numBullets/2; i < Math.ceil(numBullets/2); i++) {
-						degree+=5*i;
-						radian=degree*Math.PI/180;
-
-						a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
-						a.x=obj.x+width*Math.cos(radian)/2;
-						a.y=obj.y+height*Math.sin(radian)/2;
-
-						a.rotation=degree;
-						obj.parent.addChild(a);
-						//obj.parent.setChildIndex(a, 0);
-
-						radian=Math.atan2(ay-obj.y,ax-obj.x);
-						degree = (radian*180/Math.PI);
-
+					degree+=5*i;
+					radian=degree*Math.PI/180;
+					
+					a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
+					a.setMods(this);
+					a.x=obj.x+width*Math.cos(radian)/2;
+					a.y=obj.y+height*Math.sin(radian)/2;
+					
+					a.rotation=degree;
+					obj.parent.addChild(a);
+					//obj.parent.setChildIndex(a, 0);
+					
+					radian=Math.atan2(ay-obj.y,ax-obj.x);
+					degree = (radian*180/Math.PI);
+					
 					}
 					break;
-					/*case "Point" :
+					case "Point" :
 					a=new Attack(aspeed/2, aspeed/2,damage,radius,"Unit", true);
 					a.x=ax;
 					a.y=ay;
@@ -365,8 +366,21 @@ package abilities{
 			}
 		}
 
-		private function sendMod(obj) {
-			Unit.currentUnit.updateHP(10);
+		private function sendMod(obj, target) {
+			switch (target) {
+				case "Current" :
+					Unit.currentUnit.updateHP(10);
+					break;
+				case "Partner" :
+					Unit.partnerUnit.updateHP(10);
+					break;
+				case "Team" :
+					Unit.currentUnit.updateHP(10);
+					break;
+					Unit.partnerUnit.updateHP(10);
+					break;
+
+			}
 		}
 		public function getSpecInfo():String {
 			var spec2=spec;

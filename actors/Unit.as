@@ -14,6 +14,7 @@ package actors{
 	import enemies.*;
 	import game.*;
 	import items.*;
+	import maps.*;
 	import tileMapper.*;
 	import ui.*;
 	import ui.hud.*;
@@ -39,7 +40,6 @@ package actors{
 		static public var hotKey5="S".charCodeAt(0);
 		static public var hotKey6="D".charCodeAt(0);
 		static public var hotKey7="F".charCodeAt(0);
-		static public var hotKey8="R".charCodeAt(0);
 		static public var friendshipKey=Keyboard.SPACE;
 		static public var menuKey="X".charCodeAt(0);
 		/**
@@ -55,7 +55,6 @@ package actors{
 		public var hk5Delay=0;
 		public var hk6Delay=0;
 		public var hk7Delay=0;
-		public var hk8Delay=0;
 		/**
 		 * Numerical Stats for the Units
 		 * FP - Friendship Points (max 10000)
@@ -101,7 +100,6 @@ package actors{
 		static public var hk5;
 		static public var hk6;
 		static public var hk7;
-		static public var hk8;
 		static public var finale;
 
 		public var basicAbilities:Array;//the initial abilities
@@ -123,11 +121,6 @@ package actors{
 		static public var level;
 
 		/**
-		 * Speed of the Unit
-		 */
-		//public var speed;
-
-		/**
 		 * Unit Booleans
 		 */
 
@@ -147,7 +140,9 @@ package actors{
 
 		public var HPBar;
 
+		public var knockout:int;
 		public var powerpoints;
+		public var hotkeySet:Array;
 
 		public function Unit(id:int) {
 			/*if (id==undefined) {
@@ -178,8 +173,10 @@ package actors{
 				HPBar=new HealthBar(HP,maxHP,this,48);
 
 				basicAbilities=AbilityDatabase.getBasicAbilities(Name);
+				hotkeySet = new Array(basicAbilities[0], null);
 
 				powerpoints=1;
+				knockout=24*30;
 			}
 		}
 
@@ -213,8 +210,19 @@ package actors{
 			addEventListener(Event.ENTER_FRAME,gameHandler);
 			mxpos=x;
 			mypos=y;
-
+			
 			unitHUD.updateHP();
+			knockout=24*5;
+			
+			if(Unit.currentUnit == this){
+				Unit.setHotkey(4, hotkeySet[0]);
+				Unit.setHotkey(5, hotkeySet[1]);				
+			}
+			else if (Unit.partnerUnit == this){
+				Unit.setHotkey(6, hotkeySet[0]);
+				Unit.setHotkey(7, hotkeySet[1]);				
+			}
+
 		}
 		public function end() {
 			removeEventListener(Event.ENTER_FRAME,gameHandler);
@@ -360,7 +368,7 @@ package actors{
 			}
 		}
 		public function updateHP(damage) {
-			damage=Math.round(damage);
+			damage=Math.floor(damage);
 			if (HP>0) {
 				HP-=damage;
 				if (HP>maxHP) {
@@ -402,14 +410,23 @@ package actors{
 				Unit.partnerUnit.end();
 			} else if (Unit.currentUnit.HP<=0) {
 				Unit.currentUnit.end();
+				Unit.currentUnit.addEventListener(Event.ENTER_FRAME, reviveHandler);
 				//this.parent.removeChild(Unit.currentUnit);
 			} else if (Unit.partnerUnit.HP<=0) {
 				Unit.partnerUnit.end();
+				Unit.partnerUnit.addEventListener(Event.ENTER_FRAME, reviveHandler);
 			}//this.parent.removeChild(Unit.partnerUnit);
 		}
 
 		public function reviveHandler(e) {
-
+			if (! pauseAction&&! superPause&&! menuPause) {
+				knockout--;
+				if (knockout<=0) {
+					HP=Math.floor(maxHP/2);
+					updateHP(0);
+					begin();
+				}
+			}
 		}
 
 		function faceMouse() {
@@ -481,7 +498,16 @@ package actors{
 			if (! moving&&range==0) {
 				x=mxpos;
 				y=mypos;
+			} else {
+				/*var bottomTileY:int = Math.ceil((y+height/2)/32);
+				var rightTileX:int = Math.ceil((x+width/2)/32);
+				var newIndex:int = (bottomTileY-1)*Number(MapManager.mapWidth)+rightTileX;
+				
+				if(this.parent.getChildIndex(this) != newIndex) {
+				this.parent.setChildIndex(this, newIndex);
+				}*/
 			}
+
 		}
 
 		public function smoothPath() {
