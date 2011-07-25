@@ -34,7 +34,7 @@
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
 		<CustomDur>0</CustomDur>
-		<Move>1</Move>
+		<Move>2</Move>
 		<Attack>Invis</Attack>
 		<AttackNum>1</AttackNum>
 		<AttackDist>100</AttackDist>
@@ -76,7 +76,7 @@
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
 		<CustomDur>0</CustomDur>
-		<Move>1</Move>
+		<Move>2</Move>
 		<Tank>1</Tank>
 		<Attack>None</Attack>
 		<AttackNum>0</AttackNum>
@@ -161,7 +161,7 @@
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
 		<CustomDur>0</CustomDur>
-		<Move>2</Move>
+		<Move>3</Move>
 		<Attack>Kunai</Attack>
 		<AttackNum>8</AttackNum>
 		<AttackDist>50</AttackDist>
@@ -203,7 +203,7 @@
 		<CDPerc>0</CDPerc>
 		<CDLump>0</CDLump>
 		<CustomDur>0</CustomDur>
-		<Move>1</Move>
+		<Move>2</Move>
 		<Attack>Invis</Attack>
 		<AttackNum>1</AttackNum>
 		<AttackDist>40</AttackDist>

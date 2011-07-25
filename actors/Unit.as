@@ -173,7 +173,7 @@ package actors{
 				HPBar=new HealthBar(HP,maxHP,this,48);
 
 				basicAbilities=AbilityDatabase.getBasicAbilities(Name);
-				hotkeySet = new Array(basicAbilities[0], null);
+				hotkeySet=new Array(basicAbilities[0],null);
 
 				powerpoints=1;
 				knockout=24*30;
@@ -210,17 +210,16 @@ package actors{
 			addEventListener(Event.ENTER_FRAME,gameHandler);
 			mxpos=x;
 			mypos=y;
-			
+
 			unitHUD.updateHP();
 			knockout=24*5;
-			
-			if(Unit.currentUnit == this){
+
+			if (Unit.currentUnit==this) {
 				Unit.setHotkey(4, hotkeySet[0]);
-				Unit.setHotkey(5, hotkeySet[1]);				
-			}
-			else if (Unit.partnerUnit == this){
+				Unit.setHotkey(5, hotkeySet[1]);
+			} else if (Unit.partnerUnit == this) {
 				Unit.setHotkey(6, hotkeySet[0]);
-				Unit.setHotkey(7, hotkeySet[1]);				
+				Unit.setHotkey(7, hotkeySet[1]);
 			}
 
 		}
@@ -498,15 +497,25 @@ package actors{
 			if (! moving&&range==0) {
 				x=mxpos;
 				y=mypos;
-			} else {
-				/*var bottomTileY:int = Math.ceil((y+height/2)/32);
-				var rightTileX:int = Math.ceil((x+width/2)/32);
-				var newIndex:int = (bottomTileY-1)*Number(MapManager.mapWidth)+rightTileX;
-				
-				if(this.parent.getChildIndex(this) != newIndex) {
-				this.parent.setChildIndex(this, newIndex);
-				}*/
 			}
+			trace(this.parent.getChildIndex(this));
+/*			var bottomTileY:int = Math.ceil((y+height/2)/32);
+			var rightTileX:int = Math.ceil((x+width/2)/32);
+			var newIndex:int = (bottomTileY-2)*Number(MapManager.mapWidth)+rightTileX;
+
+			var depthArray:Array = new Array();
+			for (var i:int = parent.getChildIndex(this); i < parent.numChildren; i++) {
+				if ( ! (parent.getChildAt(i) is Tile0)) {
+					depthArray.push(parent.getChildAt(i));
+				}
+			}
+			depthArray.sortOn("y", Array.NUMERIC);
+//			i=depthArray.length;
+			while (i--) {
+				if (parent.getChildIndex(depthArray[i])!=i) {
+					parent.setChildIndex(depthArray[i], i);
+				}
+			}*/
 
 		}
 

@@ -101,9 +101,30 @@
 			}
 		}
 		public static function addTiles(mc:MovieClip) {
-			for (var a = 0; a < ROWS / MAX_IN_2880; a++) {
-				for (var b = 0; b < COLS / MAX_IN_2880; b++) {
-					mc.addChild(theBitmaps[a][b]);
+			/*for (var a = 0; a < ROWS / MAX_IN_2880; a++) {
+			for (var b = 0; b < COLS / MAX_IN_2880; b++) {
+			mc.addChild(theBitmaps[a][b]);
+			}
+			}*/
+			for (var a = 0; a < ROWS; a++) {
+				for (var b = 0; b < COLS; b++) {
+					//var t=tileSet[map[a][b]];
+					var ClassReference = getDefinitionByName("Tile"+map[a][b]) as Class;
+					var t = new ClassReference();
+					mc.addChild(t);
+					t.x=b*32;
+					t.y=a*32;
+					t.gotoAndStop(1);
+					/*var bitmap = new Bitmap();
+					var tileWidth = 32;
+					var tileHeight = tileSet[map[a][b]].height;
+					trace(tileHeight);
+					var bitmapData = new BitmapData(tileWidth, 48);
+					bitmapData.draw(tileSet[map[a][b]]);
+					bitmap.bitmapData = bitmapData;
+					bitmap.x = b*32;
+					bitmap.y = a*32;
+					mc.addChild(bitmap);*/
 				}
 			}
 		}
@@ -158,7 +179,6 @@
 				var c=Math.floor(b/MAX_IN_2880);
 				var r=Math.floor(a/MAX_IN_2880);
 				mat.translate((b % MAX_IN_2880) * TILE_SIZE, (a % MAX_IN_2880) * TILE_SIZE);
-
 				var b=theData[r][c];
 				b.draw(t, mat, undefined, "normal");
 			}
@@ -223,15 +243,15 @@
 			while (dist < totalDist) {
 
 				if (TileMap.hitWall(sPoint.x,sPoint.y) ||
-					TileMap.hitWall(sPoint.x-bound, sPoint.y) ||
-					TileMap.hitWall(sPoint.x+bound, sPoint.y) ||
-					TileMap.hitWall(sPoint.x, sPoint.y-bound) ||
-					TileMap.hitWall(sPoint.x, sPoint.y+bound) ||
-					
-					TileMap.hitWall(sPoint.x-bound/Math.sqrt(2), sPoint.y-bound/Math.sqrt(2)) ||
-					TileMap.hitWall(sPoint.x-bound/Math.sqrt(2), sPoint.y+bound/Math.sqrt(2)) ||
-					TileMap.hitWall(sPoint.x+bound/Math.sqrt(2), sPoint.y-bound/Math.sqrt(2)) ||
-					TileMap.hitWall(sPoint.x+bound/Math.sqrt(2), sPoint.y+bound/Math.sqrt(2))) {
+				TileMap.hitWall(sPoint.x-bound, sPoint.y) ||
+				TileMap.hitWall(sPoint.x+bound, sPoint.y) ||
+				TileMap.hitWall(sPoint.x, sPoint.y-bound) ||
+				TileMap.hitWall(sPoint.x, sPoint.y+bound) ||
+				
+				TileMap.hitWall(sPoint.x-bound/Math.sqrt(2), sPoint.y-bound/Math.sqrt(2)) ||
+				TileMap.hitWall(sPoint.x-bound/Math.sqrt(2), sPoint.y+bound/Math.sqrt(2)) ||
+				TileMap.hitWall(sPoint.x+bound/Math.sqrt(2), sPoint.y-bound/Math.sqrt(2)) ||
+				TileMap.hitWall(sPoint.x+bound/Math.sqrt(2), sPoint.y+bound/Math.sqrt(2))) {
 					return false;
 				}
 				sPoint.x=sPoint.x+speed*Math.cos(radian);

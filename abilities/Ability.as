@@ -193,6 +193,8 @@ package abilities{
 
 
 		public function moveAbilityHandler(e) {
+			var ax;
+			var ay;
 			var obj=e.target;
 
 			obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
@@ -201,8 +203,8 @@ package abilities{
 			targetY=mouseY+ScreenRect.getY();
 			switch (moveToTarget) {
 				case 1 :
-					var ax=mouseX+ScreenRect.getX();
-					var ay=mouseY+ScreenRect.getY();
+					ax=mouseX+ScreenRect.getX();
+					ay=mouseY+ScreenRect.getY();
 
 					obj.mxpos=ax;
 					obj.mypos=ay;
@@ -212,7 +214,19 @@ package abilities{
 					  true, true);
 					obj.range=range;
 					break;
-				case 2 :
+				case 2:	
+					ax=mouseX+ScreenRect.getX();
+					ay=mouseY+ScreenRect.getY();
+
+					obj.mxpos=ax;
+					obj.mypos=ay;
+
+					obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
+					  new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
+					  true, true);
+					obj.range=range;
+					break;				
+				case 3 :
 					Unit.currentUnit.mxpos=mouseX+ScreenRect.getX();
 					Unit.currentUnit.mypos=mouseY+ScreenRect.getY();
 
@@ -287,7 +301,7 @@ package abilities{
 			var radian=Math.atan2(ay-obj.y,ax-obj.x);
 			var degree = (radian*180/Math.PI);
 
-			var aspeed=32;
+			var aspeed=1;
 
 			//variables to incorporate into main Ability code
 			var numBullets=8;
@@ -302,7 +316,7 @@ package abilities{
 					a.rotation=degree;
 
 					obj.parent.addChild(a);
-
+					obj.parent.setChildIndex(a, 0);
 					break;
 					/*case "Circle" :
 					radian=Math.atan2(ay-obj.y,ax-obj.x);

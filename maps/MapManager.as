@@ -35,9 +35,27 @@
 			stageRef.addChild(mapClip);
 			ScreenRect.createScreenRect(new Array(mapClip),640,480);
 			stageRef.addEventListener(Event.ENTER_FRAME, VCamHandler);
+			stageRef.addEventListener(Event.ENTER_FRAME, depthSortHandler);
 
 		}
+		public static function depthSortHandler(e) {
+			var depthArray:Array = new Array();
+			for (var i:int = 0; i < mapClip.numChildren; i++) {
+				if ( ! (mapClip.getChildAt(i) is Tile0)) {
+				depthArray.push(mapClip.getChildAt(i));
+				}
+			}
+			depthArray.sortOn("y", Array.NUMERIC);
+			var t=mapClip.numChildren;
+			i=depthArray.length;
+			while (i--) {
+				t--;
+				if (mapClip.getChildIndex(depthArray[i])!=t) {
+					mapClip.setChildIndex(depthArray[i], t);
+				}
 
+			}
+		}
 		public static function loadMapData(mapNumber:int) {
 			var mapData=MapDatabase.getMapData(mapNumber);
 			mapCode = mapData[0];
@@ -83,6 +101,7 @@
 			
 		}
 
+		
 		public static function VCamHandler(e) {
 			ScreenRect.setX(Unit.currentUnit.x-640/2);
 			ScreenRect.setY(Math.max(Unit.currentUnit.y-480/2,0));
