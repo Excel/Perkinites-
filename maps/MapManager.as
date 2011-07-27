@@ -29,7 +29,7 @@
 			InteractiveTile.resetTiles();
 			loadMapData(mapNumber);
 			setHeroPosition();
-			setGameUnits();
+			setMapEvents();
 			setEnemies();
 
 			stageRef.addChild(mapClip);
@@ -41,7 +41,7 @@
 		public static function depthSortHandler(e) {
 			var depthArray:Array = new Array();
 			for (var i:int = 0; i < mapClip.numChildren; i++) {
-				if ( ! (mapClip.getChildAt(i) is Tile0)) {
+				if ( ! (mapClip.getChildAt(i) is Tile0) && ScreenRect.inBounds(mapClip.getChildAt(i))) {
 				depthArray.push(mapClip.getChildAt(i));
 				}
 			}
@@ -57,9 +57,9 @@
 			}
 		}
 		public static function loadMapData(mapNumber:int) {
-			var mapData=MapDatabase.getMapData(mapNumber);
-			mapCode = mapData[0];
-			mapName = mapData[1];
+			var map = MapDatabase.getMap(mapNumber-1);
+			mapCode = map.mapCode;
+			mapName = map.mapName;
 			TileMap.removeTiles(mapClip);
 			TileMap.createTileMap(mapCode,32,tileTypes,tileClings,"Tile");
 			TileMap.addTiles(mapClip);
@@ -94,7 +94,7 @@
 
 		}
 		
-		public static function setGameUnits(){
+		public static function setMapEvents(){
 			
 		}
 		public static function setEnemies(){

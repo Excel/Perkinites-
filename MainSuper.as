@@ -20,6 +20,7 @@ import util.*;
 AbilityDatabase.loadData();
 ActorDatabase.loadData();
 //EnemyDatabase.loadData();
+MapDatabase.loadData();
 
 GameVariables.stageRef = stage;
 stage.stageFocusRect=false;

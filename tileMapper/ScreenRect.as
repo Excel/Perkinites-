@@ -42,5 +42,9 @@
 				clips[a].scrollRect = screen;
 			}
 		}
+		
+		public static function inBounds(obj){
+			return obj.x >= screen.x && obj.y >= screen.y && obj.x <= screen.x+STAGE_WIDTH && obj.y <= screen.y + STAGE_HEIGHT;
+		}
 	}
 }

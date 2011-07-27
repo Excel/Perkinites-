@@ -498,7 +498,6 @@ package actors{
 				x=mxpos;
 				y=mypos;
 			}
-			trace(this.parent.getChildIndex(this));
 /*			var bottomTileY:int = Math.ceil((y+height/2)/32);
 			var rightTileX:int = Math.ceil((x+width/2)/32);
 			var newIndex:int = (bottomTileY-2)*Number(MapManager.mapWidth)+rightTileX;
