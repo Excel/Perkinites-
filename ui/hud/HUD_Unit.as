@@ -216,16 +216,15 @@
 
 
 		public function collide() {
-			var u1;
-			var u2;
 			if (Unit.currentUnit!=null) {
-				u1=Unit.currentUnit;
+				checkCollide(Unit.currentUnit);
 			}
 			if (Unit.partnerUnit!=null) {
-				u2=Unit.partnerUnit;
+				checkCollide(Unit.partnerUnit);
 			}
-
-			if (this.hitTestObject(u1)||this.hitTestObject(u2)) {
+		}
+		public function checkCollide(unit) {
+			if (this.hitTestObject(unit)) {
 				if (alpha>0.5) {
 					alpha-=0.1;
 				}

@@ -32,16 +32,17 @@
 			setMapEvents();
 			setEnemies();
 
-			stageRef.addChild(mapClip);
 			ScreenRect.createScreenRect(new Array(mapClip),640,480);
 			stageRef.addEventListener(Event.ENTER_FRAME, VCamHandler);
 			stageRef.addEventListener(Event.ENTER_FRAME, depthSortHandler);
-
+			return mapClip;
+			
 		}
 		public static function depthSortHandler(e) {
 			var depthArray:Array = new Array();
 			for (var i:int = 0; i < mapClip.numChildren; i++) {
-				if ( ! (mapClip.getChildAt(i) is Tile0) && ScreenRect.inBounds(mapClip.getChildAt(i))) {
+				var child = mapClip.getChildAt(i);
+				if ( ! (mapClip.getChildAt(i) is Tile0)){ //&& ScreenRect.inBounds(mapClip.getChildAt(i))) {
 				depthArray.push(mapClip.getChildAt(i));
 				}
 			}
@@ -63,6 +64,8 @@
 			TileMap.removeTiles(mapClip);
 			TileMap.createTileMap(mapCode,32,tileTypes,tileClings,"Tile");
 			TileMap.addTiles(mapClip);
+			
+		
 						
 			var firstSep=mapCode.indexOf(":");
 			var secSep=mapCode.indexOf(":",firstSep+1);

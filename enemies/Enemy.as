@@ -199,7 +199,7 @@ package enemies{
 		}
 		//All possible non-time moves
 		public function changeWait(mwc) {
-			maxWaitCount=mwc;
+			wait=mwc;
 		}
 		/*
 		//All possible sequential moves

@@ -28,6 +28,7 @@ package actors{
 		 */
 		static public var currentUnit;
 		static public var partnerUnit;
+		static public var decoyUnit;
 
 		/**
 		 * Key Commands
@@ -82,6 +83,7 @@ package actors{
 		public var maxHP;
 		public var AP;
 		public var DP;
+		public var weapon:String;
 		static public var EXP=0;
 		static public var nextEXP=200;
 		static public var maxLP=1;
@@ -117,7 +119,7 @@ package actors{
 		 */
 		public var mxpos=0;
 		public var mypos=0;
-		public var range=0;
+		//public var range=0;
 		static public var level;
 
 		/**
@@ -143,8 +145,11 @@ package actors{
 		public var knockout:int;
 		public var powerpoints;
 		public var hotkeySet:Array;
+		
+		public var unitWidth:Number = 28;
+		public var unitHeight:Number = 28;
 
-		public function Unit(id:int) {
+		public function Unit(id:int = -1) {
 			/*if (id==undefined) {
 			id=0;
 			}*/
@@ -156,6 +161,7 @@ package actors{
 				AP=ActorDatabase.getDmg(id);
 				DP=ActorDatabase.getArmor(id);
 				speed=ActorDatabase.getSpeed(id);
+				weapon = ActorDatabase.getWeapon(id);
 				dir=8;
 				//commands=[];
 
@@ -237,6 +243,7 @@ package actors{
 					useComboAttack();
 
 					movePlayer();
+					//moveDirection();
 					if (! disableHotkeys) {
 						openMenu();
 						useHotKey1();
@@ -284,6 +291,7 @@ package actors{
 				GameUnit.menuPause=true;
 			}
 		}
+		
 		public function switchUnits() {
 			var temp=Unit.currentUnit;
 			Unit.currentUnit=Unit.partnerUnit;
@@ -498,23 +506,14 @@ package actors{
 				x=mxpos;
 				y=mypos;
 			}
-/*			var bottomTileY:int = Math.ceil((y+height/2)/32);
-			var rightTileX:int = Math.ceil((x+width/2)/32);
-			var newIndex:int = (bottomTileY-2)*Number(MapManager.mapWidth)+rightTileX;
 
-			var depthArray:Array = new Array();
-			for (var i:int = parent.getChildIndex(this); i < parent.numChildren; i++) {
-				if ( ! (parent.getChildAt(i) is Tile0)) {
-					depthArray.push(parent.getChildAt(i));
-				}
-			}
-			depthArray.sortOn("y", Array.NUMERIC);
-//			i=depthArray.length;
-			while (i--) {
-				if (parent.getChildIndex(depthArray[i])!=i) {
-					parent.setChildIndex(depthArray[i], i);
-				}
-			}*/
+/*			var bottomTileY:int = Math.floor((y+unitHeight/2)/32);
+
+			var rightTileX:int = Math.floor((x+unitWidth/2)/32);
+			var newIndex = (bottomTileY)*MapManager.mapWidth+rightTileX+1;
+			if(parent.getChildIndex(this) != newIndex) {
+                parent.setChildIndex(this, newIndex);
+            }			*/
 
 		}
 

@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <MapEvents xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<MapEvent>
-		<Page>
-			<Graphic>
-				<Class>Happy Orb</Class>
-				<Dir>2</Dir>
-				<Position>(7,12)</Position>
-			</Graphic>
-			<Conditions>
-			</Conditions>
-			<Movement>
-				<Type>None</Type>
-				<Speed>0</Speed>
-				<Wait>0</Wait>
-			</Movement>
-			<Activation>0</Activation>
-			<Commands>
-				<Message>rawr</Message>
-				<SelfSwitchOn>A</SelfSwitchOn>
-			</Commands>
-		</Page>
-		<Page>
-			<Graphic>
-				<Class>Happy Orb</Class>
-				<Dir>2</Dir>
-				<Position>(7,12)</Position>
-			</Graphic>
-			<Conditions>
-				<Condition>SelfSwitchOn:A</Condition>
-			</Conditions>
-			<Movement>
-				<Type>Random</Type>
-				<Speed>8</Speed>
-				<Wait>24</Wait>
-			</Movement>
-			<Activation>0</Activation>
-			<Commands>
-				<Message>hey</Message>
-				<Teleport>Teleport:2(9,12)</Teleport>
-			</Commands>
-		</Page>
+		<Graphic>
+			<Class>Happy Orb</Class>
+			<Dir>2</Dir>
+			<Position>(7,12)</Position>
+		</Graphic>
+		<Conditions>
+		</Conditions>
+		<Movement>
+			<Type>None</Type>
+			<Speed>0</Speed>
+			<Wait>0</Wait>
+		</Movement>
+		<Activation>
+			<Trigger>Click</Trigger>
+			<Range>24</Range>
+		</Activation>
+		<Commands>
+			<Message>rawr</Message>
+			<SelfSwitchOn>A</SelfSwitchOn>
+		</Commands>
+	</MapEvent>
+	<MapEvent>
+		<Graphic>
+			<Class>Happy Orb</Class>
+			<Dir>4</Dir>
+			<Position>(7,12)</Position>
+		</Graphic>
+		<Conditions>
+			<Condition>SelfSwitchOn:A</Condition>
+		</Conditions>
+		<Movement>
+			<Type>Random</Type>
+			<Speed>8</Speed>
+			<Wait>24</Wait>
+		</Movement>
+		<Activation>
+			<Trigger>Click</Trigger>
+			<Range>24</Range>
+		</Activation>
+		<Commands>
+			<Message>hey</Message>
+			<Teleport>Teleport:2(9,12)</Teleport>
+		</Commands>
 	</MapEvent>
 </MapEvents>

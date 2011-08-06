@@ -3,19 +3,29 @@
 	import abilities.*;
 	import xml.*;
 
-	import flash.events.*;
-	import flash.xml.*;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.geom.Point;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	public class ActorDatabase {
+	import flash.xml.*;
 
-		public static var xmlData:XML = new XML();
+	/**
+	 * Holds Actor information and maybe dispatches events to signal when loading is complete.
+	 */
+	public class ActorDatabase extends EventDispatcher {
 
-		public static var names = new Array();//=new Array("C. Kata","Cia M.","Charles Y.","Nate M.");
-		public static var hp=new Array();//new Array(75,90,60,100);
-		public static var dmg=new Array();//new Array(3,3,3,3);
-		public static var armor=new Array();//new Array(0,0,0,0);
-		public static var speed=new Array();//new Array(16,16,16,16);
+		public var xmlLoader:URLLoader = new URLLoader();
+
+		public const actorsURL:String="xml/Actors.xml";
+
+		public var actorInfo:Array = new Array();
+
+		public static var names = new Array();
+		public static var hp=new Array();
+		public static var dmg=new Array();
+		public static var armor=new Array();
+		public static var speed=new Array();
 
 		public static var hpChange=new Array();
 		public static var dmgChange=new Array();
@@ -36,23 +46,84 @@
 		"If Nate M. is the Current Unit, WHAT YOU WANT");
 		public static var basicAbilities = new Array();
 
-		
 		public static var existingUnits = new Array();
 
-		public static function loadData() {
+		public function ActorDatabase() {
+
+		}
+
+		public function loadData() {
+			this.loadObject(actorsURL, handleLoadedActors);
+			/*
 			var xmlLoader:URLLoader = new URLLoader();
-
+			
 			xmlLoader.addEventListener(Event.COMPLETE, LoadXML);
-			xmlLoader.load(new URLRequest("xml/Actors.xml"));
+			xmlLoader.load(new URLRequest("xml/Actors.xml"));*/
 
 
 		}
 
-		public static function LoadXML(e:Event):void {
-			xmlData=new XML(e.target.data);
-			parseData(xmlData);
+		public function loadObject(url:String, handleFunction:Function):void {
+			var request:URLRequest=new URLRequest(url);
+			xmlLoader.addEventListener(Event.COMPLETE, handleFunction);
+			xmlLoader.load(request);
 		}
-		public static function separate(statChange) {
+
+		/**
+		 * Loads the Actors/Units. :)
+		 */
+		public function handleLoadedActors(e:Event):void {
+			xmlLoader.removeEventListener(Event.COMPLETE, handleLoadedActors);
+			var xmlData=new XML(e.target.data);
+			parseActorData(xmlData);
+		}
+		public function parseActorData(input:XML):void {
+			for each (var actorElement:XML in input.Actor) {
+				var actor = new Unit();
+
+				var health=separate(actorElement.Health);
+				var attack = separate(actorElement.Attack);
+				var defense = separate(actorElement.Defense);
+				var sp = separate(actorElement.Speed);
+				actor.name=actorElement.Name;
+
+				actor.maxHP=actor.HP=health[0];
+				actor.AP=attack[0]
+				actor.DP=defense[0];
+				actor.speed=sp[0];
+				actor.weapon=actorElement.Weapon;
+
+				actorInfo.push(actor);
+			}
+
+			for each (var nameElement:XML in input.Actor.Name) {
+				names.push(nameElement);
+			}
+			for each (var healthElement:XML in input.Actor.Health) {
+				health=separate(healthElement);
+				hp.push(health[0]);
+				hpChange.push(health[1]);
+			}
+			for each (var attackElement:XML in input.Actor.Attack) {
+				attack=separate(attackElement);
+				dmg.push(attack[0]);
+				dmgChange.push(attack[1]);
+			}
+			for each (var defenseElement:XML in input.Actor.Defense) {
+				armor.push(defenseElement);
+			}
+			for each (var speedElement:XML in input.Actor.Speed) {
+				sp=separate(speedElement);
+				speed.push(int(sp[0]));
+				speedChange.push(sp[1]);
+			}
+			for each (var weaponElement:XML in input.Actor.Weapon) {
+				weapons.push(weaponElement);
+			}
+
+		}
+
+		public function separate(statChange) {
 			var s = new Array();
 			var sep=statChange.indexOf("+");
 
@@ -64,32 +135,7 @@
 			}
 			return s;
 		}
-		public static function parseData(input:XML):void {
-			for each (var nameElement:XML in input.Actor.Name) {
-				names.push(nameElement);
-			}
-			for each (var healthElement:XML in input.Actor.Health) {
-				var health=separate(healthElement);
-				hp.push(health[0]);
-				hpChange.push(health[1]);
-			}
-			for each (var attackElement:XML in input.Actor.Attack) {
-				var attack = separate(attackElement);
-				dmg.push(attack[0]);
-				dmgChange.push(attack[1]);
-			}
-			for each (var defenseElement:XML in input.Actor.Defense) {
-				armor.push(defenseElement);
-			}
-			for each (var speedElement:XML in input.Actor.Speed) {
-				var sp = separate(speedElement);
-				speed.push(int(sp[0]));
-				speedChange.push(sp[1]);
-			}
-			for each (var weaponElement:XML in input.Actor.Weapon) {
-				weapons.push(weaponElement);
-			}
-		}
+
 		public static function getName(id:int):String {
 			return names[id];
 		}
@@ -131,16 +177,16 @@
 		public static function getBasicAbilities(id:int):Array {
 			return basicAbilities[id];
 		}
-		public static function getExistingUnits(id:int):Array{
-			var units = [];
-			for(var i = 0; i < existingUnits.length; i+2){
-				if(existingUnits[i].id == id){
-					units.push(existingUnits[i]);
-					units.push(existingUnits[i+1]);
-					return units;
-				}
+		public static function getExistingUnits(id:int):Array {
+			var units=[];
+			for(var i = 0; i < existingUnits.length; i+2){;
+			if (existingUnits[i].id==id) {
+				units.push(existingUnits[i]);
+				units.push(existingUnits[i+1]);
+				return units;
 			}
-			return units;
-		}		
+		}
+		return units;
 	}
+}
 }

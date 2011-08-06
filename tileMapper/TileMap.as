@@ -109,22 +109,24 @@
 			for (var a = 0; a < ROWS; a++) {
 				for (var b = 0; b < COLS; b++) {
 					//var t=tileSet[map[a][b]];
-					var ClassReference = getDefinitionByName("Tile"+map[a][b]) as Class;
+					var ClassReference=getDefinitionByName("Tile"+map[a][b]) as Class;
 					var t = new ClassReference();
-					mc.addChild(t);
-					t.x=b*32;
-					t.y=a*32;
+
 					t.gotoAndStop(1);
-					/*var bitmap = new Bitmap();
-					var tileWidth = 32;
-					var tileHeight = tileSet[map[a][b]].height;
-					trace(tileHeight);
-					var bitmapData = new BitmapData(tileWidth, 48);
-					bitmapData.draw(tileSet[map[a][b]]);
-					bitmap.bitmapData = bitmapData;
-					bitmap.x = b*32;
-					bitmap.y = a*32;
-					mc.addChild(bitmap);*/
+					mc.addChild(t);
+					t.x = b*32;
+					t.y = a*32;
+
+/*					var bitmapData:BitmapData=new BitmapData(32,32);
+					bitmapData.draw(t);
+					var bitmap:Bitmap=new Bitmap(bitmapData);
+					
+					mc.addChild(bitmap);
+
+					bitmap.x=b*32;
+					bitmap.y=a*32;*/
+
+
 				}
 			}
 		}

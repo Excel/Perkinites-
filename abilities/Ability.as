@@ -301,7 +301,7 @@ package abilities{
 			var radian=Math.atan2(ay-obj.y,ax-obj.x);
 			var degree = (radian*180/Math.PI);
 
-			var aspeed=1;
+			var aspeed=15;
 
 			//variables to incorporate into main Ability code
 			var numBullets=8;
@@ -309,14 +309,13 @@ package abilities{
 
 			switch (aoe) {
 				case "Line" :
-					a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
-					//a.setMods(this);
+					//a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
+					a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), this, obj);
 					a.x=obj.x+width*Math.cos(radian)/2;
 					a.y=obj.y+height*Math.sin(radian)/2;
 					a.rotation=degree;
-
 					obj.parent.addChild(a);
-					obj.parent.setChildIndex(a, 0);
+					//obj.parent.setChildIndex(a, 0);
 					break;
 					/*case "Circle" :
 					radian=Math.atan2(ay-obj.y,ax-obj.x);

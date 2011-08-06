@@ -14,32 +14,26 @@ package game{
 
 	public class GameUnit extends MovieClip {
 
-		/**
-		 * How to activate the GameUnit
-		 * 0 - Click on it/press C
-		 * 1 - Run over it
-		 * 2 - Automatically activates
-		 * 3 - Runs in parallel
-		 */
-		public var activate:int;
+
+		public var range:int;
 
 		/**
 		 * Move route of the GameUnit
 		 * prevMoveCount - helps track when a new move has begun
 		 * moveCount - current index of move
 		 * waitCount - current time after a move has finished
-		 * maxWaitCount - time between moves
+		 * wait - time between moves
 		 * tileMap - area of GameUnit to move around in
 		 * pauseAction - pause the movement of the GameUnit
 		 * overridePause - used for cutscenes and shit
 		 * superPause - pauses everything for like, special custcene attacks or something - doesn't conflict with pauseAction
 		 * menuPause - pauses everything for like menus and stuff
 		 */
-		public var moveArray:Array;
+		public var commands:Array;
 		public var prevMoveCount:int;
 		public var moveCount:int;
 		public var waitCount:int;
-		public var maxWaitCount:int;
+		public var wait:int;
 		public var pauseAction:Boolean;
 		public var overridePause:Boolean;//don't know if this needs to be used
 		static public var superPause:Boolean;
@@ -86,13 +80,11 @@ package game{
 
 
 		public function GameUnit() {
-			activate=0;
-
-			moveArray=[];
+			commands=[];
 			prevMoveCount=-1;
 			moveCount=0;
 			waitCount=0;
-			maxWaitCount=24*0;
+			wait=24*0;
 
 			pxpos=0;
 			pypos=0;
@@ -479,15 +471,17 @@ package game{
 
 		public function gameHandler(e) {
 			if (! pauseAction&&! superPause&&! menuPause) {
-				if (moveCount>=moveArray.length) {
+				if (moveCount>=commands.length) {
 					prevMoveCount=-1;
 					moveCount=0;
 				}
-				moveArray[moveCount]();
+				if(commands.length != 0){
+				//commands[moveCount]();
+				}
 			}
 		}
 		public function waitHandler(e) {
-			if (waitCount<maxWaitCount) {
+			if (waitCount<wait) {
 				waitCount++;
 			} else {
 				prevMoveCount=moveCount;

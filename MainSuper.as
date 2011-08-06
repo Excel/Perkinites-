@@ -1,6 +1,8 @@
 ﻿import flash.events.Event;
 import flash.display.Stage;
 
+//clean this class up more eventually...
+
 import abilities.*;
 import actors.*;
 import attacks.*;
@@ -13,50 +15,41 @@ import ui.hud.*;
 import ui.screens.*;
 import util.*;
 
-//Screens
-
-//Load all XML Data
-//Loading abilities must go first. :(
-AbilityDatabase.loadData();
-ActorDatabase.loadData();
-//EnemyDatabase.loadData();
-MapDatabase.loadData();
-
-GameVariables.stageRef = stage;
-stage.stageFocusRect=false;
-
-//var cursor = new Cursor(stage);
-var lostFocusScreen = new LostFocusScreen();
-var titleScreen=new TitleScreen(stage);
-
+var tileWidth=32;
+var tileHeight=32;
 var mouseIsDown=false;
-var FPS=new FPSDisplay(stage,0,0);
+
+var lostFocusScreen;
+var titleScreen;
+var gameClient=new GameClient(stage,tileWidth,tileHeight);
+gameClient.addEventListener(GameDataEvent.DATA_LOADED, initialize);
+stage.addEventListener(GameDataEvent.MAP_ON, showMap);
+
 
 var cheatCode="";
 
-var WIDTH=640;
-var HEIGHT=480;
-var count=0;
-KeyDown.init(stage);
+function initialize(e:GameDataEvent):void {
+	lostFocusScreen = new LostFocusScreen();
+	titleScreen=new TitleScreen(stage);
+	Unit.currentUnit=new Unit(-1);
+	Unit.partnerUnit=new Unit(-1);
+	GameVariables.stageRef=stage;
+	stage.stageFocusRect=false;
 
-
-Unit.currentUnit=new Unit(-1);
-Unit.partnerUnit=new Unit(-1);
-stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-stage.addEventListener(Event.ENTER_FRAME,setUp);
-
-stage.addEventListener(MouseEvent.MOUSE_WHEEL,cancelActionHandler);
+	stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+	stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+	stage.addEventListener(Event.DEACTIVATE, onLostFocus);
+	
+	stage.addEventListener(MouseEvent.MOUSE_WHEEL,cancelActionHandler);
 stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
-
-stage.addEventListener(Event.DEACTIVATE, onLostFocus);
-
-function mouseDownHandler(e) {
-	mouseIsDown=true;
 }
-function mouseUpHandler(e) {
-	mouseIsDown=false;
+
+function showMap(e:GameDataEvent):void {
+	gameClient.showMap();
+
+	stage.addEventListener(Event.ENTER_FRAME, moveHandler);
 }
+
 
 function onLostFocus(e) {
 	stage.addChild(lostFocusScreen);
@@ -68,9 +61,15 @@ function onFocusRegain(e) {
 	GameUnit.superPause=false;
 	lostFocusScreen.removeEventListener(MouseEvent.CLICK, onFocusRegain);
 }
+
+function mouseDownHandler(e) {
+	mouseIsDown=true;
+}
+function mouseUpHandler(e) {
+	mouseIsDown=false;
+}
 function moveHandler(e) {
 	if (! GameUnit.superPause&&! GameUnit.menuPause&&mouseIsDown) {
-
 		Unit.currentUnit.mxpos=Math.floor( (this.parent.mouseX+ScreenRect.getX())/32)*32 + 16;
 		Unit.currentUnit.mypos=Math.floor( (this.parent.mouseY+ScreenRect.getY())/32)*32 + 16;
 		Unit.currentUnit.range=0;
@@ -78,7 +77,6 @@ function moveHandler(e) {
 		  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
 		  false, true);
 		Unit.currentUnit.path=Unit.currentUnit.smoothPath();
-
 		if (Unit.currentUnit.path.length==0) {
 			Unit.currentUnit.mxpos=Unit.currentUnit.x;
 			Unit.currentUnit.mypos=Unit.currentUnit.y;
@@ -89,7 +87,7 @@ function moveHandler(e) {
 		Unit.partnerUnit.mypos=Math.floor((this.parent.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 
 		Unit.partnerUnit.range=0;
-		
+
 		Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
 		  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
 		  false, true);
@@ -99,14 +97,12 @@ function moveHandler(e) {
 			Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
 			Unit.partnerUnit.mypos=Unit.partnerUnit.y;
 		}
-
-
 	}
 }
-
 function cancelActionHandler(e) {
 
 }
+
 function cheatCodeHandler(e) {
 	switch (e.keyCode) {
 		case "1".charCodeAt(0) :
@@ -147,21 +143,6 @@ function cheatCodeHandler(e) {
 			}
 			cheatCode="";
 			break;
-	}
-
-}
-
-function setUp(e) {
-	if (GameVariables.startLevel) {
-		MapManager.stageRef=stage;
-		MapManager.loadMap(1);
-		stage.addEventListener(Event.ENTER_FRAME, moveHandler);
-
-		HUDManager.setup(stage);
-		HUDManager.toggleUnitHUD(true);
-		HUDManager.toggleEnemyHUD(false);
-
-		stage.removeEventListener(Event.ENTER_FRAME,setUp);
 	}
 
 }

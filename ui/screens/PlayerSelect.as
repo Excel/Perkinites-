@@ -181,7 +181,6 @@
 		function startGame() {
 			var sound = new se_chargeup();
 			sound.play();
-			unload();
 			GameVariables.startLevel=true;
 
 			var units=ActorDatabase.getExistingUnits(pn1);
@@ -194,6 +193,9 @@
 			}
 
 			removeOtherBasicAbilities();
+			stageRef.dispatchEvent(new GameDataEvent(GameDataEvent.MAP_ON));
+			unload();
+			
 			//implement this later
 
 		}
