@@ -45,9 +45,14 @@
 		
 		public function buildMap(){
 			MapManager.stageRef=stageRef;
-			mapClip = MapManager.loadMap(1);
+			
+			var mapID = GameVariables.nextMapID;
+			if(mapID == -1){
+				mapID = GameVariables.prevMapID;
+			}
+			mapClip = MapManager.loadMap(mapID);
 			stageRef.addChild(mapClip);
-			HUDManager.setup(stageRef);
+			HUDManager.construct(stageRef);
 			HUDManager.toggleUnitHUD(true);
 			HUDManager.toggleEnemyHUD(false);
 		}
@@ -55,6 +60,7 @@
 		public function destroyMap(){
 			stageRef.removeChild(mapClip);
 			mapClip = new MovieClip();
+			HUDManager.deconstruct(stageRef);
 		}
     }
 }

@@ -39,6 +39,7 @@
 			//Load XML Data in order!
 			AbilityDatabase.loadData();
 			actorDatabase.loadData();
+			mapDatabase.addEventListener(MapDataEvent.MAPS_LOADED, startGame);
 			mapDatabase.loadData();
 			
 			var mapClip = new MovieClip();
@@ -47,10 +48,22 @@
             mapDatabase.addEventListener(MapDataEvent.MAPS_LOADED, startGame);
 		}
 
+
+		public function loadAbilities(){
+			
+		}
+		public function loadUnits(){
+			
+		}
+		public function loadEnemies(){
+			
+		}
+		public function loadMaps(){
+			
+		}
 		/**
 		 * Called when the tilesets and maps are ready.  Tells the document class that the game is ready to be initialized.
-		 */
-
+		 */		
 		public function startGame(e:MapDataEvent):void {
 			this.dispatchEvent(new GameDataEvent(GameDataEvent.DATA_LOADED));
 		}

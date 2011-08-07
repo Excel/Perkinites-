@@ -1,6 +1,7 @@
 ﻿package maps{
 
 	import actors.*;
+	import game.GameVariables;
 
 	import util.*;
 	import com.*;
@@ -14,7 +15,7 @@
 	import flash.events.TimerEvent;
 
 	public class MapManager extends MovieClip {
-		public static var mapClip=new MovieClip  ;
+		public static var mapClip=new MovieClip();
 		public static var stageRef:Stage;
 		public static var mapCode:String;
 		public static var mapName:String;
@@ -22,7 +23,6 @@
 		public static var mapWidth;
 		public static var mapHeight;
 
-		public static var tileTypes=new Array("p","n","p","w","w","w");
 		public static var tileClings=new Array(false,false,false,true,true,false);
 
 		public static function loadMap(mapNumber:int) {
@@ -58,10 +58,12 @@
 			}
 		}
 		public static function loadMapData(mapNumber:int) {
-			var map = MapDatabase.getMap(mapNumber-1);
+			var map = MapDatabase.getMap(mapNumber);
 			mapCode = map.mapCode;
 			mapName = map.mapName;
 			TileMap.removeTiles(mapClip);
+			var tileset = MapDatabase.getTileset(map.tilesetID);
+			var tileTypes = tileset.tileTypes;
 			TileMap.createTileMap(mapCode,32,tileTypes,tileClings,"Tile");
 			TileMap.addTiles(mapClip);
 			
@@ -75,12 +77,16 @@
 			mapHeight=parseInt(mapCode.substring(0,firstSep));			
 		}
 		public static function setHeroPosition() {
-			var ind1=mapCode.indexOf("(")+1;
-			var ind2=mapCode.indexOf(",",ind1);
-			var startX=parseInt(mapCode.substring(ind1,ind2));
-			ind1=ind2+1;
-			ind2=mapCode.indexOf(")");
-			var startY=parseInt(mapCode.substring(ind1,ind2));
+			var startX = GameVariables.xTile;
+			var startY = GameVariables.yTile;
+			if(startX == -1 && startY == -1){
+				var ind1=mapCode.indexOf("(")+1;
+				var ind2=mapCode.indexOf(",",ind1);
+				startX=parseInt(mapCode.substring(ind1,ind2));
+				ind1=ind2+1;
+				ind2=mapCode.indexOf(")");
+				startY=parseInt(mapCode.substring(ind1,ind2));
+			}
 
 			Unit.currentUnit.mxpos=Unit.partnerUnit.mxpos=startX*TileMap.TILE_SIZE+16;//+.5*TileMap.TILE_SIZE;
 			Unit.currentUnit.mypos=Unit.partnerUnit.mypos=startY*TileMap.TILE_SIZE+16;//+.5*TileMap.TILE_SIZE;

@@ -21,6 +21,7 @@
 		public var decide:Boolean;
 		public var stageArray:Array;
 		public var difficultyArray:Array;
+		public var mapIDArray:Array;
 
 		public var arrowGlowFilters:Array;
 		function StageSelect(level:int, diff:int, stageRef:Stage) {
@@ -50,6 +51,7 @@
 			  [5, 8, 12, 15],
 			  [6, 9, 14, 16],
 			  [7, 10, 15, 18]);
+			mapIDArray = new Array(0, 3, 4, 5, 6, 7, 8);
 			arrowGlowFilters=[];
 
 			if(selectedArea == ""){
@@ -94,12 +96,14 @@
 				} else if (e.keyCode == "X".charCodeAt(0)) {
 					sound = new se_timeout();
 					sound.play();
+					GameVariables.nextMapID = -1;
 				} else if (e.keyCode == Keyboard.SPACE) {
 					if (selectedArea!="") {
 						sound = new se_chargeup();
 						sound.play();
 						GameVariables.setLevel=level;
 						GameVariables.difficulty=diff;
+						GameVariables.nextMapID = mapIDArray[level-1];
 						unload(new PlayerSelect(stageRef));
 					} else {
 
@@ -173,10 +177,6 @@
 			selectedArea=stageArray[obj.stageNumber-1];
 			level = obj.stageNumber;
 
-			/*switch(obj.stageNumber){
-			case 1: 
-			break;
-			}*/
 			updateText();
 			updateDifficulty();
 		}

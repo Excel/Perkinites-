@@ -1,7 +1,4 @@
-﻿/*
-Units are the general heroes.
-*/
-package actors{
+﻿package actors{
 
 	import flash.display.MovieClip;
 	import flash.events.*;
@@ -21,6 +18,9 @@ package actors{
 	import ui.screens.*;
 	import util.*;
 
+    /**
+     * Units are the general heroes. Units that are currentUnit/partnerUnit are controllable. Others are NPCs.
+     */
 	public class Unit extends GameUnit {
 
 		/**
@@ -146,13 +146,8 @@ package actors{
 		public var powerpoints;
 		public var hotkeySet:Array;
 		
-		public var unitWidth:Number = 28;
-		public var unitHeight:Number = 28;
-
 		public function Unit(id:int = -1) {
-			/*if (id==undefined) {
-			id=0;
-			}*/
+			super();
 
 			this.id=id;
 			if (id!=-1) {

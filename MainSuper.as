@@ -41,7 +41,7 @@ function initialize(e:GameDataEvent):void {
 	stage.addEventListener(Event.DEACTIVATE, onLostFocus);
 	
 	stage.addEventListener(MouseEvent.MOUSE_WHEEL,cancelActionHandler);
-stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
+	stage.addEventListener(KeyboardEvent.KEY_UP, cheatCodeHandler);
 }
 
 function showMap(e:GameDataEvent):void {

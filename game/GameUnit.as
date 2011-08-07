@@ -9,12 +9,23 @@ package game{
 
 	import flash.geom.*;
 	import flash.events.*;
-	import flash.display.MovieClip;
+    import flash.display.MovieClip;
+
+
 	import flash.ui.Keyboard;
 
+    /**
+     * The basic unit in the game. Can be a Unit, Enemy, NPC, Event, etc.
+     */
 	public class GameUnit extends MovieClip {
 
 
+
+		public var xTile:int;
+		public var yTile:int;
+		public var objectWidth:Number;
+		public var objectHeight:Number;
+		
 		public var range:int;
 
 		/**
@@ -23,7 +34,6 @@ package game{
 		 * moveCount - current index of move
 		 * waitCount - current time after a move has finished
 		 * wait - time between moves
-		 * tileMap - area of GameUnit to move around in
 		 * pauseAction - pause the movement of the GameUnit
 		 * overridePause - used for cutscenes and shit
 		 * superPause - pauses everything for like, special custcene attacks or something - doesn't conflict with pauseAction

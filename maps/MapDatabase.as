@@ -14,7 +14,7 @@
 
 		public var xmlLoader:URLLoader = new URLLoader();
 
-		public const tilesetsURL:String = "xml/Tilesets.xml";
+		public const tilesetsURL:String="xml/Tilesets.xml";
 		public const mapsURL:String="xml/Maps.xml";
 		public const mapEventsURL:String="xml/Maps/Map";
 
@@ -48,7 +48,7 @@
 			xmlLoader.addEventListener(Event.COMPLETE, handleFunction);
 			xmlLoader.load(request);
 		}
-		
+
 		/**
 		 * Loads the tilesets.
 		 */
@@ -58,9 +58,20 @@
 			parseTilesetData(xmlData);
 		}
 		public function parseTilesetData(input:XML):void {
+			for each (var tilesetElement:XML in input.Tileset) {
+				var tileset = new Tileset();
+				tileset.ID=tilesetElement.ID;
+				tileset.picture=tilesetElement.Picture;
+				
+				for each (var tileElement:XML in tilesetElement.Tile) {
+					tileset.tileTypes.push(""+tileElement.Type);
+				}
+				
+				tilesetInfo.push(tileset);
+			}
 			this.dispatchEvent(new MapDataEvent(MapDataEvent.TILESETS_LOADED, true));
 		}
-		
+
 		/**
 		 * Loads the maps after loading tilesets.
 		 */
@@ -145,6 +156,9 @@
 		}
 
 
+		public static function getTileset(id:int):Tileset{
+			return tilesetInfo[id];
+		}
 		public static function getMap(id:int):Map {
 			return mapInfo[id];
 		}

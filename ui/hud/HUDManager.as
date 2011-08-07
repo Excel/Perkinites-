@@ -16,10 +16,13 @@
 		static public var unitHUD = new HUD_Unit();
 		static public var enemyHUD = new HUD_Enemy();
 
-		static public function setup(stageRef:Stage) {
+		static public function construct(stageRef:Stage) {
 			stageRef.addChild(unitHUD);
 			stageRef.addChild(enemyHUD);
-	
+		}
+		static public function deconstruct(stageRef:Stage){
+			stageRef.removeChild(unitHUD);
+			stageRef.removeChild(enemyHUD);
 		}
 		static public function toggleUnitHUD(showHUD:Boolean) {
 			if (showHUD) {
