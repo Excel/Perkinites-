@@ -119,15 +119,18 @@
 			redIcon.gotoAndStop(1);
 			coverIcon.transform.colorTransform=iconCover;
 			redIcon.transform.colorTransform=redCover;
+			
+			
+			GameUnit.menuPause=true;
 			load();
 
 		}
 
 
 		override public function keyHandler(e:KeyboardEvent):void {
-			if (e.keyCode=="X".charCodeAt(0)) {
+			/*if (e.keyCode=="X".charCodeAt(0)) {
 				exit();
-			}
+			}*/
 		}
 
 		public function pageHandler(e) {
@@ -170,7 +173,6 @@
 			sound.play();
 			unload();
 			GameUnit.menuPause=false;
-			Unit.menuDelay=-5;
 		}
 		public function gotoPage(i:int) {
 			gotoAndStop(i);

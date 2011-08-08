@@ -1,4 +1,5 @@
 ﻿package game {
+	import actors.Controls;
 	import maps.*;
 	import tileMapper.*;
 	import ui.hud.*;
@@ -18,6 +19,7 @@
 
 		public var stageRef:Stage;
         public var mapClip:MovieClip;
+		public var controls:Controls;
 
         /**
          *
@@ -41,6 +43,8 @@
 			this.mapClip = mapClip;
             this.tileW = tileW;
             this.tileH = tileH;
+			
+			this.controls = new Controls(this, stageRef);
         }
 		
 		public function buildMap(){
@@ -55,12 +59,14 @@
 			HUDManager.construct(stageRef);
 			HUDManager.toggleUnitHUD(true);
 			HUDManager.toggleEnemyHUD(false);
+			controls.enable();
 		}
 		
 		public function destroyMap(){
 			stageRef.removeChild(mapClip);
 			mapClip = new MovieClip();
 			HUDManager.deconstruct(stageRef);
+			controls.disable();
 		}
 		
 		public function changeMap(){

@@ -19,7 +19,7 @@
 		</Activation>
 			<Commands>
 				<Message>Event:rawr::</Message>
-				<Teleport>1(9,11)</Teleport>
+				<Teleport>1(9,11):2:Yes</Teleport>
 			</Commands>
 	</MapEvent>
 </MapEvents>

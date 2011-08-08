@@ -46,6 +46,7 @@ package game{
 		public var overridePause:Boolean;//don't know if this needs to be used
 		static public var superPause:Boolean;
 		static public var menuPause:Boolean=false;
+		static public var objectPause:Boolean=false;
 		static public var tileMap;
 
 		/**

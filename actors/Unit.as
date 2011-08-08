@@ -42,12 +42,10 @@
 		static public var hotKey6="D".charCodeAt(0);
 		static public var hotKey7="F".charCodeAt(0);
 		static public var friendshipKey=Keyboard.SPACE;
-		static public var menuKey="X".charCodeAt(0);
 		/**
 		 * Delays
 		 */
 
-		static public var menuDelay=0;
 		public var attackDelay=0;
 		public var hk1Delay=0;
 		public var hk2Delay=0;
@@ -240,7 +238,6 @@
 					movePlayer();
 					//moveDirection();
 					if (! disableHotkeys) {
-						openMenu();
 						useHotKey1();
 						useHotKey2();
 						useHotKey3();
@@ -278,15 +275,8 @@
 			hk5Delay++;
 			hk6Delay++;
 			hk7Delay++;
-			menuDelay++;
 		}
-		public function openMenu() {
-			if (KeyDown.keyIsDown(menuKey)&&menuDelay>=0) {
-				var menu=new Menu(stage);
-				GameUnit.menuPause=true;
-			}
-		}
-		
+
 		public function switchUnits() {
 			var temp=Unit.currentUnit;
 			Unit.currentUnit=Unit.partnerUnit;
