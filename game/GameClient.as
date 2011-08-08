@@ -70,5 +70,8 @@
 		public function showMap():void{
 			mainGame.buildMap();
 		}
+		public function changeMap():void{
+			mainGame.changeMap();
+		}
 	}
 }

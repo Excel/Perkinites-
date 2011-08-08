@@ -101,12 +101,12 @@
 			}
 		}
 		public static function addTiles(mc:MovieClip) {
-			/*for (var a = 0; a < ROWS / MAX_IN_2880; a++) {
+			for (var a = 0; a < ROWS / MAX_IN_2880; a++) {
 			for (var b = 0; b < COLS / MAX_IN_2880; b++) {
 			mc.addChild(theBitmaps[a][b]);
 			}
-			}*/
-			for (var a = 0; a < ROWS; a++) {
+			}
+/*			for (var a = 0; a < ROWS; a++) {
 				for (var b = 0; b < COLS; b++) {
 					//var t=tileSet[map[a][b]];
 					var ClassReference=getDefinitionByName("Tile"+map[a][b]) as Class;
@@ -117,18 +117,18 @@
 					t.x = b*32;
 					t.y = a*32;
 
-/*					var bitmapData:BitmapData=new BitmapData(32,32);
+					var bitmapData:BitmapData=new BitmapData(32,32);
 					bitmapData.draw(t);
 					var bitmap:Bitmap=new Bitmap(bitmapData);
 					
 					mc.addChild(bitmap);
 
 					bitmap.x=b*32;
-					bitmap.y=a*32;*/
+					bitmap.y=a*32;
 
 
 				}
-			}
+			}*/
 		}
 		public static function removeTiles(mc:MovieClip) {
 			for (var a = 0; a < ROWS / MAX_IN_2880; a++) {

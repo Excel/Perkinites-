@@ -15,7 +15,6 @@ package maps{
 
 		//public var graphic;
 		//public var dir:int;
-		public var pos:String;
 		
 		public var conditions:Array;
 		
@@ -30,16 +29,27 @@ package maps{
 		 * 2 - Automatically activates
 		 * 3 - Runs in parallel
 		 */
-		public var aTrigger:String;
 		//public var range:int;
 		
 		//public var commands:Array;
 		public function MapEvent(){
-			aTrigger = "None";
-			pos = "(0,0)";
 			conditions = new Array();
 			movement = "None";
-			
+		}
+		
+		public function determineActivation():void{
+			switch(aTrigger){
+				case "Click": 
+				addEventListener(MouseEvent.MOUSE_DOWN, clickHandler);
+				break;
+				case "Collide": 
+				break;
+				case "Automatic": break;
+				case "Parallel": break;
+			}
+		}
+		public function clickHandler(e:MouseEvent):void{
+			addEventListener(Event.ENTER_FRAME, gameHandler);
 		}
 	}
 }

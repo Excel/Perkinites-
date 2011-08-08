@@ -2,7 +2,7 @@
 <MapEvents xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<MapEvent>
 		<Graphic>
-			<Class>Happy Orb</Class>
+			<FlashClass>Happy Orb</FlashClass>
 			<Dir>2</Dir>
 			<Position>(7,12)</Position>
 		</Graphic>
@@ -17,32 +17,9 @@
 			<Trigger>Click</Trigger>
 			<Range>24</Range>
 		</Activation>
-		<Commands>
-			<Message>rawr</Message>
-			<SelfSwitchOn>A</SelfSwitchOn>
-		</Commands>
-	</MapEvent>
-	<MapEvent>
-		<Graphic>
-			<Class>Happy Orb</Class>
-			<Dir>4</Dir>
-			<Position>(7,12)</Position>
-		</Graphic>
-		<Conditions>
-			<Condition>SelfSwitchOn:A</Condition>
-		</Conditions>
-		<Movement>
-			<Type>Random</Type>
-			<Speed>8</Speed>
-			<Wait>24</Wait>
-		</Movement>
-		<Activation>
-			<Trigger>Click</Trigger>
-			<Range>24</Range>
-		</Activation>
-		<Commands>
-			<Message>hey</Message>
-			<Teleport>Teleport:2(9,12)</Teleport>
-		</Commands>
+			<Commands>
+				<Message>Event:rawr::</Message>
+				<Teleport>1(9,11)</Teleport>
+			</Commands>
 	</MapEvent>
 </MapEvents>

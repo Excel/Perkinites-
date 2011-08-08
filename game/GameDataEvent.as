@@ -10,6 +10,7 @@
 		public static const SCREEN_ON:String = "screenOn";
 		public static const MAP_ON:String = "mapOn";
         public static const DATA_LOADED:String = "gameLoaded";
+		public static const CHANGE_MAP:String = "changeMap";
         
         public function GameDataEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) {
             super(type, bubbles, cancelable);

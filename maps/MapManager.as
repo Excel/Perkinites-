@@ -29,12 +29,12 @@
 			InteractiveTile.resetTiles();
 			loadMapData(mapNumber);
 			setHeroPosition();
-			setMapEvents();
+			setMapEvents(mapNumber);
 			setEnemies();
 
 			ScreenRect.createScreenRect(new Array(mapClip),640,480);
 			stageRef.addEventListener(Event.ENTER_FRAME, VCamHandler);
-			stageRef.addEventListener(Event.ENTER_FRAME, depthSortHandler);
+			//stageRef.addEventListener(Event.ENTER_FRAME, depthSortHandler);
 			return mapClip;
 			
 		}
@@ -58,6 +58,7 @@
 			}
 		}
 		public static function loadMapData(mapNumber:int) {
+			TileMap.removeTiles(mapClip);
 			var map = MapDatabase.getMap(mapNumber);
 			mapCode = map.mapCode;
 			mapName = map.mapName;
@@ -103,8 +104,11 @@
 
 		}
 		
-		public static function setMapEvents(){
-			
+		public static function setMapEvents(mapNumber:int){
+			var mapEvents = MapDatabase.getMapEvents(mapNumber);			
+			for(var i = 0; i < mapEvents.length; i++){
+				mapClip.addChild(mapEvents[i]);
+			}
 		}
 		public static function setEnemies(){
 			

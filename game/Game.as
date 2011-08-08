@@ -62,5 +62,10 @@
 			mapClip = new MovieClip();
 			HUDManager.deconstruct(stageRef);
 		}
+		
+		public function changeMap(){
+			destroyMap();
+			buildMap();
+		}
     }
 }

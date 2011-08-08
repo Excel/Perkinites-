@@ -1,5 +1,6 @@
 ﻿package maps{
 
+	import util.FunctionUtils;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
@@ -62,11 +63,11 @@
 				var tileset = new Tileset();
 				tileset.ID=tilesetElement.ID;
 				tileset.picture=tilesetElement.Picture;
-				
+
 				for each (var tileElement:XML in tilesetElement.Tile) {
 					tileset.tileTypes.push(""+tileElement.Type);
 				}
-				
+
 				tilesetInfo.push(tileset);
 			}
 			this.dispatchEvent(new MapDataEvent(MapDataEvent.TILESETS_LOADED, true));
@@ -122,17 +123,15 @@
 
 				mapEvent.dir=eventElement.Graphic.Dir;
 
-				var pos=new Point(0,0);
 				var posString=eventElement.Graphic.Position;
 				var ind1=posString.indexOf("(")+1;
 				var ind2=posString.indexOf(",",ind1);
-				pos.x=parseInt(posString.substring(ind1,ind2));
-				mapEvent.x=pos.x*32+16;
+				mapEvent.xTile=parseInt(posString.substring(ind1,ind2));
+				mapEvent.x=mapEvent.xTile*32+16;
 				ind1=ind2+1;
 				ind2=posString.indexOf(")");
-				pos.y=parseInt(posString.substring(ind1,ind2));
-				mapEvent.y=pos.y*32+16;
-				mapEvent.pos=pos;
+				mapEvent.yTile=parseInt(posString.substring(ind1,ind2));
+				mapEvent.y=mapEvent.yTile*32+16;
 
 				for each (var conditionElement:XML in eventElement.Conditions) {
 					mapEvent.conditions.push(conditionElement);
@@ -143,24 +142,51 @@
 				mapEvent.wait=eventElement.Movement.Wait;
 
 				mapEvent.aTrigger=eventElement.Activation.Trigger;
+				mapEvent.determineActivation();
 				mapEvent.range=eventElement.Activation.Range;
 
-				for each (var commandElement:XML in eventElement.Commands) {
-					mapEvent.commands.push(commandElement);
+				for each (var commandElement:XML in eventElement.Commands.children()) {
+					var action=parseCommand(mapEvent,commandElement);
+					mapEvent.commands.push(action);
 				}
-
 				eventArray.push(mapEvent);
 			}
 			mapEventInfo.push(eventArray);
 			this.dispatchEvent(new MapDataEvent(MapDataEvent.MAPEVENTS_LOADED, true));
 		}
 
+		public function parseCommand(mapEvent, command) {
+			var func;
+			var ind;
 
-		public static function getTileset(id:int):Tileset{
+			if (command.name()=="Message") {
+				ind=command.indexOf(":");
+				var nameString=command.substring(0,ind);
+				var messageString=command.substring(ind+1,command.indexOf(":",ind+1));
+				ind=command.indexOf(":",ind+1);
+				var portrait=command.substring(ind+1,command.indexOf(":",ind+1));
+				ind=command.indexOf(":",ind+1);
+				var faceIcon=command.substring(ind+1,command.toString().length);
+				func=FunctionUtils.thunkify(mapEvent.displayMessage,nameString,messageString,portrait,faceIcon);
+			} else if (command.name() == "Teleport") {
+				ind=command.indexOf("(");
+				var mapID=parseInt(command.substring(0,ind));
+				var xTile=parseInt(command.substring(ind+1,command.indexOf(",")));
+				ind=command.indexOf(",");
+				var yTile=parseInt(command.substring(ind+1,command.indexOf(")")));
+				func=FunctionUtils.thunkify(mapEvent.teleportToMap,mapID, xTile, yTile);
+			}
+			return func;
+
+		}
+		public static function getTileset(id:int):Tileset {
 			return tilesetInfo[id];
 		}
 		public static function getMap(id:int):Map {
 			return mapInfo[id];
+		}
+		public static function getMapEvents(id:int):Array {
+			return mapEventInfo[id];
 		}
 	}
 

@@ -9,23 +9,21 @@ package game{
 
 	import flash.geom.*;
 	import flash.events.*;
-    import flash.display.MovieClip;
+	import flash.display.MovieClip;
 
 
 	import flash.ui.Keyboard;
 
-    /**
-     * The basic unit in the game. Can be a Unit, Enemy, NPC, Event, etc.
-     */
+	/**
+	     * The basic unit in the game. Can be a Unit, Enemy, NPC, Event, etc.
+	     */
 	public class GameUnit extends MovieClip {
-
-
 
 		public var xTile:int;
 		public var yTile:int;
 		public var objectWidth:Number;
 		public var objectHeight:Number;
-		
+
 		public var range:int;
 
 		/**
@@ -88,6 +86,8 @@ package game{
 		public var dialogueIndex:int;
 		public var charIndex:int;
 
+		public var aTrigger:String;
+
 
 		public function GameUnit() {
 			commands=[];
@@ -113,12 +113,12 @@ package game{
 			charIndex=0;
 
 
+			aTrigger="None";
 			pauseAction=false;
 
 			allAreas.push(this);
 			rad=Math.pow(width>>1,2);
 
-			addEventListener(Event.ENTER_FRAME, gameHandler);
 		}
 
 
@@ -308,6 +308,16 @@ package game{
 				addEventListener(Event.ENTER_FRAME, moveHandler);
 			}
 		}
+		public function teleportToMap(mapID:int, xTile:int, yTile:int) {
+			if (prevMoveCount!=moveCount) {
+				prevMoveCount=moveCount;
+				GameVariables.nextMapID = mapID;
+				GameVariables.xTile = xTile;
+				GameVariables.yTile = yTile;
+				GameVariables.stageRef.dispatchEvent(new GameDataEvent(GameDataEvent.CHANGE_MAP, true));
+				addEventListener(Event.ENTER_FRAME, waitHandler);
+			}
+		}		
 		public function teleportToCoord(xpos, ypos) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
@@ -330,33 +340,36 @@ package game{
 			}
 		}
 
-		public function displayMessage() {
+		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
-				talking(dialogueIndex, fastforward);
-				addEventListener(Event.ENTER_FRAME,talkingHandler);
+				talking(nameString, messageString, portrait, faceIcon, fastforward);
+				//addEventListener(Event.ENTER_FRAME,talkingHandler);
 				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 			}
 		}
 
-		public function talking(index, fastforward) {
-			if (index<names.length) {
-				messagebox.nameDisplay.text=names[index];
-				messagebox.messageDisplay.text=messages[index].substr(0,charIndex);
-				if (charIndex==0) {
-					messagebox.x=mbx;
-					messagebox.y=mby;
-					stage.addChild(messagebox);
-					addEventListener(Event.ENTER_FRAME,talkingHandler);
-					stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
-				}
 
-				if (charIndex==messages[index].length||fastforward) {
-					messagebox.messageDisplay.text=messages[index];
-					charIndex=messages[index].length;
-				} else if (charIndex<messages[index].length) {
-					charIndex++;
-				}
+		public function talking(nameString, messageString, portrait, faceIcon, fastforward) {
+			if (nameString!=null) {
+				messagebox.nameDisplay.text=nameString;
+			}
+			if (messageString!=null) {
+				messagebox.messageDisplay.text=messageString;//.substr(0,charIndex);
+			}
+			if (charIndex==0) {
+				messagebox.x=mbx;
+				messagebox.y=mby;
+				stage.addChild(messagebox);
+				//addEventListener(Event.ENTER_FRAME,talkingHandler);
+				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
+			}
+
+			if (charIndex==messageString.length||fastforward) {
+				messagebox.messageDisplay.text=messageString;
+				charIndex=messageString.length;
+			} else if (charIndex<messageString.length) {
+				charIndex++;
 			}
 		}
 
@@ -481,12 +494,15 @@ package game{
 
 		public function gameHandler(e) {
 			if (! pauseAction&&! superPause&&! menuPause) {
+				if (commands.length!=0 && moveCount < commands.length) {
+					commands[moveCount]();
+				}				
 				if (moveCount>=commands.length) {
 					prevMoveCount=-1;
 					moveCount=0;
-				}
-				if(commands.length != 0){
-				//commands[moveCount]();
+					if (aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None") {
+						removeEventListener(Event.ENTER_FRAME, gameHandler);
+					}
 				}
 			}
 		}
@@ -501,7 +517,7 @@ package game{
 				removeEventListener(Event.ENTER_FRAME, waitHandler);
 			}
 		}
-		public function talkingHandler(e) {
+/*		public function talkingHandler(e) {
 			if (dialogueIndex>=messages.length) {
 				dialogueIndex=0;
 				charIndex=0;
@@ -511,7 +527,7 @@ package game{
 			} else {
 				talking(dialogueIndex,fastforward);
 			}
-		}
+		}*/
 		public function talkingConfirmHandler(e) {
 			if (e.keyCode==Keyboard.ENTER || 
 			e.keyCode == "C".charCodeAt(0) || 
@@ -521,12 +537,12 @@ package game{
 				} else {
 					if (messagebox.parent==stage) {
 						stage.removeChild(messagebox);
-						removeEventListener(Event.ENTER_FRAME,talkingHandler);
+						//removeEventListener(Event.ENTER_FRAME,talkingHandler);
 						stage.removeEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 						addEventListener(Event.ENTER_FRAME, waitHandler);
 					}
 					charIndex=0;
-					dialogueIndex++;
+					//dialogueIndex++;
 					fastforward=false;
 				}
 

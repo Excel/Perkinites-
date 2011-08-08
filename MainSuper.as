@@ -24,6 +24,7 @@ var titleScreen;
 var gameClient=new GameClient(stage,tileWidth,tileHeight);
 gameClient.addEventListener(GameDataEvent.DATA_LOADED, initialize);
 stage.addEventListener(GameDataEvent.MAP_ON, showMap);
+stage.addEventListener(GameDataEvent.CHANGE_MAP, changeMap);
 
 
 var cheatCode="";
@@ -48,6 +49,10 @@ function showMap(e:GameDataEvent):void {
 	gameClient.showMap();
 
 	stage.addEventListener(Event.ENTER_FRAME, moveHandler);
+}
+
+function changeMap(e:GameDataEvent):void{
+	gameClient.changeMap();
 }
 
 
