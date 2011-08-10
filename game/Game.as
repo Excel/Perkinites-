@@ -53,6 +53,7 @@
 			var mapID = GameVariables.nextMapID;
 			if(mapID == -1){
 				mapID = GameVariables.prevMapID;
+				GameVariables.nextMapID = mapID;
 			}
 			mapClip = MapManager.loadMap(mapID);
 			stageRef.addChild(mapClip);

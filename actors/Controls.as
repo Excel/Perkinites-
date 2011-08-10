@@ -65,11 +65,11 @@
 		protected function handleKeyControls(e:Event):void {
 
 			// 88 = x
-			if (KeyDown.keyIsDown(88)&&! lockedKeys[88] && !GameUnit.objectPause) {
+			if (KeyDown.keyIsDown(88)&&! lockedKeys[88]&&! GameUnit.objectPause) {
 				if (GameUnit.menuPause) {
-					for(var i = 0; i < stageRef.numChildren; i++){
-						if(stageRef.getChildAt(i) is Menu){
-							(Menu)(stageRef.getChildAt(i)).exit();
+					for (var i = 0; i < stageRef.numChildren; i++) {
+						if (stageRef.getChildAt(i) is Menu) {
+							Menu(stageRef.getChildAt(i)).exit();
 							break;
 						}
 					}
@@ -97,7 +97,7 @@
 			mouseIsDown=false;
 		}
 		public function moveHandler(e:Event):void {
-			if (! GameUnit.superPause&&! GameUnit.menuPause&&mouseIsDown) {
+			if (! GameUnit.superPause&&! GameUnit.menuPause&&! GameUnit.objectPause&&mouseIsDown) {
 				Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
 				Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
 				Unit.currentUnit.range=0;

@@ -3,8 +3,12 @@
 package game{
 
 
+	import actors.*;
+	import abilities.*;
+	import items.*;
 	import maps.*;
 	import tileMapper.*;
+	import ui.*;
 	import util.*;
 
 	import flash.geom.*;
@@ -235,13 +239,6 @@ package game{
 			action.decreaseMove();
 			advanceMove();
 		}
-
-		public function eraseAction() {
-			removeEventListener(Event.ENTER_FRAME, gameHandler);
-			if (this.parent!=null) {
-				this.parent.removeChild(this);
-			}
-		}
 		//All possible sequential moves
 		public function moveLeft() {
 			if (prevMoveCount!=moveCount) {
@@ -309,16 +306,16 @@ package game{
 				addEventListener(Event.ENTER_FRAME, moveHandler);
 			}
 		}
-		public function teleportToMap(mapID:int, xTile:int, yTile:int) {
+		public function teleportToMap(mapID:int, xTile:int, yTile:int, dir:int, transition:String) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
-				GameVariables.nextMapID = mapID;
-				GameVariables.xTile = xTile;
-				GameVariables.yTile = yTile;
+				GameVariables.nextMapID=mapID;
+				GameVariables.xTile=xTile;
+				GameVariables.yTile=yTile;
 				GameVariables.stageRef.dispatchEvent(new GameDataEvent(GameDataEvent.CHANGE_MAP, true));
 				addEventListener(Event.ENTER_FRAME, waitHandler);
 			}
-		}		
+		}
 		public function teleportToCoord(xpos, ypos) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
@@ -328,19 +325,142 @@ package game{
 			}
 
 		}
-		public function teleportToTile(r, c) {
+		public function eraseObject() {
+			GameUnit.objectPause=false;
+			parent.removeChild(this);
+			this.removeEventListener(Event.ENTER_FRAME, gameHandler);
+		}
+		public function jumpTo(commandIndex:int) {
+			if (prevMoveCount!=moveCount) {
+				moveCount=commandIndex;
+				prevMoveCount=moveCount-1;
+			}
+		}
+		public function changeObjectPosition(eventID:int, xTile:int, yTile:int, dir:int) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
-				var mapWidth=tileMap[0].length;
-				var mapHeight=tileMap.length;
-				if (r>=0&&r<mapHeight&&c>=0&&c<mapWidth) {
-					x = (r+0.5) * 32;
-					y = (c+0.5) * 32;
+				if (eventID==-1) {
+					x = (xTile+0.5) * 32;
+					y = (yTile+0.5) * 32;
+					if (dir!=0) {
+						this.dir=dir;
+					}
+				} else {
+					var mapObjects=MapDatabase.getMapObjects(GameVariables.nextMapID);
+					mapObjects[eventID].x = (xTile+0.5) * 32;
+					mapObjects[eventID].y = (yTile+0.5) * 32;
+					if (dir!=0) {
+						mapObjects[eventID].dir=dir;
+					}
 				}
+
 				addEventListener(Event.ENTER_FRAME, waitHandler);
 			}
 		}
 
+		public function changeFlexPoints(changeType:String, changeValue:Number) {
+			if (prevMoveCount!=moveCount) {
+				prevMoveCount=moveCount;
+				if (changeType=="Increase") {
+					Unit.flexPoints+=changeValue;
+					if (Unit.flexPoints>999999) {//what should the upper limit be?
+						Unit.flexPoints=999999;
+					}
+				} else if (changeType == "Decrease") {
+					Unit.flexPoints-=changeValue;
+					if (Unit.flexPoints<0) {
+						Unit.flexPoints=0;
+					}
+				} else if (changeType == "Set") {
+					Unit.flexPoints=changeValue;
+					if (Unit.flexPoints<0) {
+						Unit.flexPoints=0;
+					}
+					if (Unit.flexPoints>999999) {
+						Unit.flexPoints=999999;
+					}
+				}
+
+				addEventListener(Event.ENTER_FRAME, waitHandler);
+			}
+		}
+		public function changeStat(unitType:String, statType:String, newStat:Number) {
+			if (prevMoveCount!=moveCount) {
+				prevMoveCount=moveCount;
+				if (statType=="Health") {
+					if (unitType=="Current") {
+						Unit.currentUnit.HP=newStat;
+						Unit.currentUnit.updateHP(0);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.HP=newStat;
+						Unit.partnerUnit.updateHP(0);
+					}
+				} else if (statType == "MaxHealth") {
+					if (unitType=="Current") {
+						Unit.currentUnit.maxHP=newStat;
+						Unit.currentUnit.updateHP(0);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.maxHP=newStat;
+						Unit.partnerUnit.updateHP(0);
+					}
+				} else if (statType == "Attack") {
+					if (unitType=="Current") {
+						Unit.currentUnit.AP=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.AP=newStat;
+					}
+				} else if (statType == "Defense") {
+					if (unitType=="Current") {
+						Unit.currentUnit.DP=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.DP=newStat;
+					}
+				} else if (statType == "Speed") {
+					if (unitType=="Current") {
+						Unit.currentUnit.speed=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.speed=newStat;
+					}
+				}
+
+				addEventListener(Event.ENTER_FRAME, waitHandler);
+			}
+		}
+		public function getPrize(type:String, prizeID:int, amount:int, displayMode:String) {
+			if (prevMoveCount!=moveCount) {
+				prevMoveCount=moveCount;
+				var addUses;
+				if (displayMode=="Simple"||displayMode=="Cutscene") {
+					var getDisplay=new GetDisplay(prizeID,amount,type,displayMode);
+					GameVariables.stageRef.addChild(getDisplay);
+				}
+				if (type=="Item") {
+					addUses=Unit.itemAmounts[prizeID]+amount;
+					if (addUses<ItemDatabase.getMaxUses(prizeID)) {
+						Unit.itemAmounts[prizeID]=addUses;
+					} else {
+						Unit.itemAmounts[prizeID]=ItemDatabase.getMaxUses(prizeID);
+					}
+				} else if (type == "Ability") {
+					addUses=Unit.abilityAmounts[prizeID]+amount;
+					if (addUses<9) {
+						Unit.abilityAmounts[prizeID]=addUses;
+					} else {
+						Unit.abilityAmounts[prizeID]=9;
+					}
+				}
+				addEventListener(Event.ENTER_FRAME, waitHandler);
+			}
+		}
+		public function scrollMap(scrollDir:int,numTiles:int,speed:int) {
+			if (prevMoveCount!=moveCount) {
+				prevMoveCount=moveCount;
+				MapManager.startScrolling(scrollDir, numTiles, speed);
+				addEventListener(Event.ENTER_FRAME, waitHandler);
+			}
+
+
+		}
 		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
@@ -349,7 +469,6 @@ package game{
 				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 			}
 		}
-
 
 		public function talking(nameString, messageString, portrait, faceIcon, fastforward) {
 			if (nameString!=null) {
@@ -495,13 +614,14 @@ package game{
 
 		public function gameHandler(e) {
 			if (! pauseAction&&! superPause&&! menuPause) {
-				if (commands.length!=0 && moveCount < commands.length) {
+				if (commands.length!=0&&moveCount<commands.length) {
 					commands[moveCount]();
-				}				
+				}
 				if (moveCount>=commands.length) {
 					prevMoveCount=-1;
 					moveCount=0;
 					if (aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None") {
+						GameUnit.objectPause=false;
 						removeEventListener(Event.ENTER_FRAME, gameHandler);
 					}
 				}
@@ -518,16 +638,16 @@ package game{
 				removeEventListener(Event.ENTER_FRAME, waitHandler);
 			}
 		}
-/*		public function talkingHandler(e) {
-			if (dialogueIndex>=messages.length) {
-				dialogueIndex=0;
-				charIndex=0;
-				removeEventListener(Event.ENTER_FRAME,talkingHandler);
-				stage.removeEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
-				addEventListener(Event.ENTER_FRAME, waitHandler);
-			} else {
-				talking(dialogueIndex,fastforward);
-			}
+		/*public function talkingHandler(e) {
+		if (dialogueIndex>=messages.length) {
+		dialogueIndex=0;
+		charIndex=0;
+		removeEventListener(Event.ENTER_FRAME,talkingHandler);
+		stage.removeEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
+		addEventListener(Event.ENTER_FRAME, waitHandler);
+		} else {
+		talking(dialogueIndex,fastforward);
+		}
 		}*/
 		public function talkingConfirmHandler(e) {
 			if (e.keyCode==Keyboard.ENTER || 

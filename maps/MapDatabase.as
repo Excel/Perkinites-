@@ -16,14 +16,14 @@
 
 		public const tilesetsURL:String="xml/Tilesets.xml";
 		public const mapsURL:String="xml/Maps.xml";
-		public const mapEventsURL:String="xml/Maps/Map";
+		public const mapObjectsURL:String="xml/Maps/Map";
 
 		public static var tilesetInfo = new Array();
 		public static var mapInfo = new Array();
-		public static var mapEventInfo = new Array();
+		public static var mapObjectInfo = new Array();
 
 		/**
-		 * Loads the tilesets, maps, and events.
+		 * Loads the tilesets, maps, and objects.
 		 */
 
 		public function MapDatabase() {
@@ -33,7 +33,7 @@
 		public function loadData() {
 			this.loadObject(tilesetsURL, handleLoadedTilesets);
 			this.addEventListener(MapDataEvent.TILESETS_LOADED, loadMaps);
-			this.addEventListener(MapDataEvent.MAPS_LOADED, loadMapEvents);
+			this.addEventListener(MapDataEvent.MAPS_LOADED, loadMapObjects);
 		}
 
 		/**
@@ -93,32 +93,32 @@
 		}
 
 		/**
-		 * Loads the events on the maps after loading maps.
+		 * Loads the objects on the maps after loading maps.
 		 */
-		public function loadMapEvents(e:MapDataEvent):void {
-			var eventXMLLoaders:Array = new Array();
+		public function loadMapObjects(e:MapDataEvent):void {
+			var objectXMLLoaders:Array = new Array();
 
 			for (var i = 0; i < mapInfo.length; i++) {
-				var eXMLLoader:URLLoader = new URLLoader();
-				eventXMLLoaders.push(eXMLLoader);
+				var oXMLLoader:URLLoader = new URLLoader();
+				objectXMLLoaders.push(oXMLLoader);
 			}
 
 			for (var j = 0; j< mapInfo.length; j++) {
-				eventXMLLoaders[j].addEventListener(Event.COMPLETE, handleLoadedMapEvents);
-				eventXMLLoaders[j].load(new URLRequest(mapEventsURL+(j+1)+".xml"));
+				objectXMLLoaders[j].addEventListener(Event.COMPLETE, handleLoadedMapObjects);
+				objectXMLLoaders[j].load(new URLRequest(mapObjectsURL+(j+1)+".xml"));
 
 			}
 		}
-		public function handleLoadedMapEvents(e:Event):void {
-			e.target.removeEventListener(Event.COMPLETE, handleLoadedMaps);
+		public function handleLoadedMapObjects(e:Event):void {
+			e.target.removeEventListener(Event.COMPLETE, handleLoadedMapObjects);
 			var xmlData=new XML(e.target.data);
-			parseMapEventData(xmlData);
+			parseMapObjectData(xmlData);
 		}
-		public function parseMapEventData(input:XML):void {
+		public function parseMapObjectData(input:XML):void {
 			var eventArray = new Array();
 
 			for each (var eventElement:XML in input.MapEvent) {
-				var mapEvent = new MapEvent();
+				var mapEvent = new MapObject();
 
 				mapEvent.dir=eventElement.Graphic.Dir;
 
@@ -150,8 +150,8 @@
 				}
 				eventArray.push(mapEvent);
 			}
-			mapEventInfo.push(eventArray);
-			this.dispatchEvent(new MapDataEvent(MapDataEvent.MAPEVENTS_LOADED, true));
+			mapObjectInfo.push(eventArray);
+			this.dispatchEvent(new MapDataEvent(MapDataEvent.MAPOBJECTS_LOADED, true));
 		}
 
 		public static function getTileset(id:int):Tileset {
@@ -160,8 +160,8 @@
 		public static function getMap(id:int):Map {
 			return mapInfo[id];
 		}
-		public static function getMapEvents(id:int):Array {
-			return mapEventInfo[id];
+		public static function getMapObjects(id:int):Array {
+			return mapObjectInfo[id];
 		}
 	}
 

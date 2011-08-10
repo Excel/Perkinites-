@@ -60,7 +60,7 @@ package collects{
 				var addUses;
 				if (prize is Item) {
 					var i=ItemDatabase.getDatabaseIndex(prize.Name);
-					getDisplay=new GetDisplay(i,prize.amount, "Item");
+					getDisplay=new GetDisplay(i,prize.amount, "Item", "Simple");
 
 					addUses=Unit.itemAmounts[i]+prize.amount;
 					if (addUses<ItemDatabase.getMaxUses(i)) {
@@ -71,7 +71,7 @@ package collects{
 
 				} else if (prize is Ability) {
 					var a=AbilityDatabase.getName(prize.id);
-					getDisplay=new GetDisplay(prize.id,prize.amount, "Ability");
+					getDisplay=new GetDisplay(prize.id,prize.amount, "Ability", "Simple");
 					addUses=Unit.abilityAmounts[prize.id]+prize.amount;
 					if (addUses<9) {
 						Unit.abilityAmounts[prize.id]=addUses;

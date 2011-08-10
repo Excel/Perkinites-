@@ -10,7 +10,7 @@
 	public class GetDisplay extends MovieClip {
 
 		public var frame:int;
-		function GetDisplay(id:int, a:int, type:String) {
+		function GetDisplay(id:int, a:int, type:String, displayMode:String) {
 			x = -160;
 			frame = 0;
 			if(type == "Item"){
