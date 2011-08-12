@@ -413,16 +413,19 @@
 				Unit.partnerUnit.end();
 			} else if (Unit.currentUnit.HP<=0) {
 				Unit.currentUnit.end();
+				Unit.currentUnit.startAnimation(Unit.currentUnit.moveDir, true);
 				Unit.currentUnit.addEventListener(Event.ENTER_FRAME, reviveHandler);
 				//this.parent.removeChild(Unit.currentUnit);
 			} else if (Unit.partnerUnit.HP<=0) {
 				Unit.partnerUnit.end();
+				Unit.partnerUnit.startAnimation(Unit.partnerUnit.moveDir, true);
 				Unit.partnerUnit.addEventListener(Event.ENTER_FRAME, reviveHandler);
 			}//this.parent.removeChild(Unit.partnerUnit);
 		}
 
 		public function reviveHandler(e) {
-			if (! pauseAction&&! superPause&&! menuPause) {
+			if (! pauseAction && ! superPause && ! menuPause) {
+				checkStop();
 				knockout--;
 				if (knockout<=0) {
 					HP=Math.floor(maxHP/2);
@@ -470,7 +473,6 @@
 		public function movePlayer() {
 			if (path.length > 0) {
 				var dist=Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
-
 				checkLoop();
 				if (dist>0&&dist>range) {
 					var xtile=Math.floor(x/32);

@@ -36,7 +36,7 @@
 			InteractiveTile.resetTiles();
 			loadMapData(mapNumber);
 			setHeroPosition();
-			//setMapObjects(mapNumber);
+			setMapObjects(mapNumber);
 			setEnemies();
 
 			ScreenRect.createScreenRect(new Array(mapClip),640,480);

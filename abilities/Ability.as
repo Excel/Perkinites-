@@ -382,13 +382,13 @@ package abilities{
 		private function sendMod(obj, target) {
 			switch (target) {
 				case "Current" :
-					Unit.currentUnit.updateHP(10);
+					Unit.currentUnit.updateHP(100);
 					break;
 				case "Partner" :
 					Unit.partnerUnit.updateHP(10);
 					break;
 				case "Team" :
-					Unit.currentUnit.updateHP(10);
+					Unit.currentUnit.updateHP(100);
 					break;
 					Unit.partnerUnit.updateHP(10);
 					break;

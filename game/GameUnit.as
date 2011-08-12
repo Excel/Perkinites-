@@ -262,7 +262,7 @@ package game{
 				if (this.currentLabels[i+1]) {
 					lengths[this.currentLabels[i].name] = this.currentLabels[i + 1].frame-this.currentLabels[i].frame;
 				} else {
-					lengths[this.currentLabels[i].name]=this.totalFrames-this.currentLabels[i].frame+1;
+					lengths[this.currentLabels[i].name]=this.totalFrames-this.currentLabels[i].frame;
 				}
 			}
 		}
@@ -270,18 +270,32 @@ package game{
 		public function checkLoop():void {
 			gotoAndStop(currentFrame + 1);
             var labelFrame:int = getFrameNumber(currentAnimLabel);
-            if (currentFrame == totalFrames) {
-				 gotoAndStop(labelFrame);
+			if(labelFrame != -1){
+				if (currentFrame == totalFrames) {
+					 gotoAndStop(labelFrame);
+				}
+				if(currentFrame == labelFrame + lengths[currentAnimLabel]) {
+					gotoAndStop(labelFrame);
+				}
 			}
-			if(currentFrame == labelFrame + lengths[currentAnimLabel]) {
-                gotoAndStop(labelFrame);
-            }
         }		
+		public function checkStop():void {			
+            var labelFrame:int = getFrameNumber(currentAnimLabel);
+			if (labelFrame != -1) {
+				if(currentFrame != labelFrame + lengths[currentAnimLabel]-1) {
+					gotoAndStop(currentFrame+1);
+				}
+			}
+		}
 		/**
 		 * Gets the animation label for the direction and action.
 		 */
-		public function getAnimLabel(moveDir):String { 
+		public function getAnimLabel(moveDir:int, KO:Boolean):String { 
 			var label = "";
+			if (KO) {
+				label = "_KO";
+			}
+			else {
 			switch(moveDir) {
 			case 2: label =  "_walkDown";
 			break;
@@ -294,7 +308,9 @@ package game{
 				label = "_walkUp";
 				break;
 			
+			}				
 			}
+
 			return label;
 		}		
         /**
@@ -302,9 +318,9 @@ package game{
 		 * 
          */
 
-		public function startAnimation(moveDir:int):void {
-			if(this.moveDir != moveDir){
-				var animLabel:String = this.getAnimLabel(moveDir);
+		public function startAnimation(moveDir:int, KO:Boolean = false):void {
+			if(this.moveDir != moveDir || KO){
+				var animLabel:String = this.getAnimLabel(moveDir, KO);
 				this.currentAnimLabel = animLabel;
                 this.gotoAndPlay(this.getFrameNumber(animLabel));
 				this.dir = moveDir;
