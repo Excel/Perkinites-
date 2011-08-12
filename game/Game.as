@@ -2,6 +2,7 @@
 	import actors.Controls;
 	import maps.*;
 	import tileMapper.*;
+	import ui.*;
 	import ui.hud.*;
 	
     import flash.display.MovieClip;
@@ -61,6 +62,7 @@
 			HUDManager.toggleUnitHUD(true);
 			HUDManager.toggleEnemyHUD(false);
 			controls.enable();
+			var cursor = new Cursor(stageRef);
 		}
 		
 		public function destroyMap(){

@@ -2,6 +2,9 @@
 package maps{
 
 	import game.GameUnit;
+	import game.GameVariables;
+	
+	import ui.Target;
 
 	import flash.display.MovieClip;
 	import flash.display.Stage;
@@ -35,6 +38,7 @@ package maps{
 		public function MapObject() {
 			conditions = new Array();
 			movement="None";
+			addEventListener(Event.ENTER_FRAME, detectHandler);
 		}
 
 		public function determineActivation():void {
@@ -51,7 +55,16 @@ package maps{
 			}
 		}
 		public function clickHandler(e:MouseEvent):void {
+			var target = new Target(this);
 			addEventListener(Event.ENTER_FRAME, gameHandler);
+		}
+		override public function detectHandler(e:Event):void{
+			if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)){
+				GameVariables.mouseMapObject = true;
+			}
+			else{
+				GameVariables.mouseMapObject = false;
+			}
 		}
 
 		override public function gameHandler(e) {
@@ -61,6 +74,7 @@ package maps{
 			
 			if (! pauseAction&&! superPause&&! menuPause) {
 				if (commands.length!=0&&moveCount<commands.length) {
+					
 					commands[moveCount]();
 				}
 				if (moveCount>=commands.length) {
@@ -68,6 +82,7 @@ package maps{
 					moveCount=0;
 					if (aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None") {
 						GameUnit.objectPause=false;
+						removeEventListener(Event.ENTER_FRAME, detectHandler);
 						removeEventListener(Event.ENTER_FRAME, gameHandler);
 					}
 				}

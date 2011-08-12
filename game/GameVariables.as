@@ -1,5 +1,9 @@
 ﻿package game{
 	
+	import enemies.*;
+	import ui.*;
+	
+	import flash.display.MovieClip;
 	import flash.display.Stage;
 	
 	public class GameVariables {
@@ -24,5 +28,20 @@
 		public static var nextMapID:int = -1;
 		public static var xTile:int = -1;
 		public static var yTile:int = -1;
+		
+		
+		/**
+		 * These are the variables to determine the mouse type.
+		 */
+		public static var mouseEnemy:Boolean = false;
+		public static var mouseMapObject:Boolean = false;
+		public static var mouseUnit:Boolean = false;
+		public static var mouseAttack:Boolean = false;
+		
+		/**
+		 * These are the variables involving battle.
+		 * The target is the targeted enemy. All Unit attacks will be directed to that target.
+		 */
+		public static var target:MovieClip;
 	}
 }

@@ -176,6 +176,7 @@
 
 				powerpoints=1;
 				knockout=24*30;
+				addEventListener(Event.ENTER_FRAME, detectHandler);
 			}
 		}
 
@@ -226,7 +227,14 @@
 			removeEventListener(Event.ENTER_FRAME,gameHandler);
 		}
 
-
+		override public function detectHandler(e:Event):void{
+			if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)  && parent != null){
+				GameVariables.mouseUnit = true;
+			}
+			else{
+				GameVariables.mouseUnit = false;
+			}
+		}
 		override public function gameHandler(e) {
 			if (FP>10000) {
 				FP=10000;

@@ -11,16 +11,17 @@ package game{
 	import ui.*;
 	import util.*;
 
+	import flash.display.FrameLabel;
+	import flash.display.MovieClip;
 	import flash.geom.*;
 	import flash.events.*;
-	import flash.display.MovieClip;
 
 
 	import flash.ui.Keyboard;
 
 	/**
-	     * The basic unit in the game. Can be a Unit, Enemy, NPC, Event, etc.
-	     */
+	  * The basic unit in the game. Can be a Unit, Enemy, NPC, Event, etc.
+	  */
 	public class GameUnit extends MovieClip {
 
 		public var xTile:int;
@@ -29,6 +30,14 @@ package game{
 		public var objectHeight:Number;
 
 		public var range:int;
+
+		/**
+		 * Animation.
+		 */
+		public var requiredLabels:Array = new Array();
+		public var lengths:Array = new Array();
+		public var currentAnimLabel:String;
+
 
 		/**
 		 * Move route of the GameUnit
@@ -152,7 +161,9 @@ package game{
 		 */
 
 
+		public function detectHandler(e:Event):void {
 
+		}
 		public function mover(ox:Number, oy:Number) {
 			var speedAdjust = (ox != 0 && oy != 0) ? (speed * Math.SQRT2 / 2) : speed;
 			var nx=x+ox*speedAdjust;
@@ -231,7 +242,24 @@ package game{
 			return arr;
 		}
 
+		public function getFrameNumber(label:String):int {
+			for each (var frameLabel:FrameLabel in this.currentLabels) {
+				if (frameLabel.name==label) {
+					return frameLabel.frame;
+				}
+			}
+			return -1;
+		}
 
+		public function setLengths():void {
+			for each (var key:String in this.currentLabels) {
+				if (this.currentLabels[String(Number(key)+1)]) {
+					lengths[this.currentLabels[key].name]=this.currentLabels[String(Number(key)+1)].frame-this.currentLabels[key].frame-1;
+				} else {
+					lengths[this.currentLabels[key].name]=this.totalFrames-this.currentLabels[key].frame;
+				}
+			}
+		}
 
 
 		public function forceAction(action, f) {
@@ -328,6 +356,7 @@ package game{
 		public function eraseObject() {
 			GameUnit.objectPause=false;
 			parent.removeChild(this);
+			removeEventListener(Event.ENTER_FRAME, detectHandler);
 			this.removeEventListener(Event.ENTER_FRAME, gameHandler);
 		}
 		public function jumpTo(commandIndex:int) {
@@ -622,6 +651,7 @@ package game{
 					moveCount=0;
 					if (aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None") {
 						GameUnit.objectPause=false;
+						removeEventListener(Event.ENTER_FRAME, detectHandler);
 						removeEventListener(Event.ENTER_FRAME, gameHandler);
 					}
 				}
