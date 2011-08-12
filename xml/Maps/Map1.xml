@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<MapEvents xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<MapEvent>
+<MapObjects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<MapObject>
 		<Graphic>
 			<FlashClass>Happy Orb</FlashClass>
 			<Dir>2</Dir>
@@ -20,10 +20,11 @@
 			<Commands>
 				<Message>Event:omg i love shopping at the mall! i love there shoes.::</Message>
 				<ChangeObjectPosition>-1(4,5):0</ChangeObjectPosition>
+				<Wait>24</Wait>
 				<ChangeFlexPoints>Increase:999</ChangeFlexPoints>
 				<Message>Event:omg i love shopping at the mall! i love there shoes.::</Message>
 				<GetPrize>Ability:1:8:Simple</GetPrize>
-				<EraseObject></EraseObject>
+				<Wait>20</Wait>
 			</Commands>
-	</MapEvent>
-</MapEvents>
+	</MapObject>
+</MapObjects>

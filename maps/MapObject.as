@@ -1,6 +1,7 @@
 ﻿
 package maps{
 
+	import actors.Unit;
 	import game.GameUnit;
 	import game.GameVariables;
 	
@@ -56,7 +57,19 @@ package maps{
 		}
 		public function clickHandler(e:MouseEvent):void {
 			var target = new Target(this);
-			addEventListener(Event.ENTER_FRAME, gameHandler);
+			Unit.currentUnit.range = range;
+			Unit.partnerUnit.range = range;
+			addEventListener(Event.ENTER_FRAME, rangeHandler);
+		}
+		
+		public function rangeHandler(e:Event):void {
+			if ((Unit.currentUnit.HP > 0 && Unit.currentUnit.checkDistance() <= range && Unit.currentUnit.moving) && 
+			(Unit.partnerUnit.HP > 0 && Unit.partnerUnit.checkDistance() <= range && Unit.partnerUnit.moving)){
+				Unit.currentUnit.moving = false;
+				Unit.partnerUnit.moving = false;
+				removeEventListener(Event.ENTER_FRAME, rangeHandler);
+				addEventListener(Event.ENTER_FRAME, gameHandler);
+			}
 		}
 		override public function detectHandler(e:Event):void{
 			if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)){

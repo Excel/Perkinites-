@@ -208,11 +208,12 @@
 		}
 
 		public function begin() {
-			startAnimation(dir);
+			startAnimation(dir, true);
 			addEventListener(Event.ENTER_FRAME, gameHandler);
-			//addEventListener(Event.ENTER_FRAME, checkLoop);
 			mxpos=x;
-			mypos=y;
+			mypos = y;
+			moving = false;
+			range = 0;
 
 			unitHUD.updateHP();
 			knockout=24*5;
@@ -274,6 +275,8 @@
 					}
 
 				}
+			}else {
+				gotoAndStop(currentFrame);
 			}
 		}
 
@@ -413,12 +416,12 @@
 				Unit.partnerUnit.end();
 			} else if (Unit.currentUnit.HP<=0) {
 				Unit.currentUnit.end();
-				Unit.currentUnit.startAnimation(Unit.currentUnit.moveDir, true);
+				Unit.currentUnit.startAnimation(Unit.currentUnit.moveDir, false, true);
 				Unit.currentUnit.addEventListener(Event.ENTER_FRAME, reviveHandler);
 				//this.parent.removeChild(Unit.currentUnit);
 			} else if (Unit.partnerUnit.HP<=0) {
 				Unit.partnerUnit.end();
-				Unit.partnerUnit.startAnimation(Unit.partnerUnit.moveDir, true);
+				Unit.partnerUnit.startAnimation(Unit.partnerUnit.moveDir, false,true);
 				Unit.partnerUnit.addEventListener(Event.ENTER_FRAME, reviveHandler);
 			}//this.parent.removeChild(Unit.partnerUnit);
 		}
@@ -431,6 +434,7 @@
 					HP=Math.floor(maxHP/2);
 					updateHP(0);
 					begin();
+					removeEventListener(Event.ENTER_FRAME,reviveHandler);					
 				}
 			}
 		}
@@ -469,6 +473,10 @@
 				//gotoAndStop(2);
 			}
 		}
+		
+		public function checkDistance() {
+			return Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
+		}
 
 		public function movePlayer() {
 			if (path.length > 0) {
@@ -500,8 +508,7 @@
 			} else {
 				moving=false;
 			}
-
-			if (! moving&&range==0) {
+			if (! moving&&checkDistance()<=range) {
 				x=mxpos;
 				y = mypos;
 				stopAnimation();

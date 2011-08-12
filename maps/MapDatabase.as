@@ -117,7 +117,7 @@
 		public function parseMapObjectData(input:XML):void {
 			var eventArray = new Array();
 
-			for each (var eventElement:XML in input.MapEvent) {
+			for each (var eventElement:XML in input.MapObject) {
 				var mapEvent = new MapObject();
 
 				mapEvent.dir=eventElement.Graphic.Dir;
@@ -138,7 +138,7 @@
 
 				mapEvent.movement=eventElement.Movement.Type;
 				mapEvent.speed=eventElement.Movement.Speed;
-				mapEvent.wait=eventElement.Movement.Wait;
+				mapEvent.moveWait=eventElement.Movement.Wait;
 
 				mapEvent.aTrigger=eventElement.Activation.Trigger;
 				mapEvent.determineActivation();

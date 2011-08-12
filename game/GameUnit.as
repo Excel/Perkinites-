@@ -44,7 +44,9 @@ package game{
 		 * prevMoveCount - helps track when a new move has begun
 		 * moveCount - current index of move
 		 * waitCount - current time after a move has finished
-		 * wait - time between moves
+		 * wait - time between commands
+		 * moveWait - time between actual movement
+		 * moveWaitCount - current time after finishing one movement of a tile
 		 * pauseAction - pause the movement of the GameUnit
 		 * overridePause - used for cutscenes and shit
 		 * superPause - pauses everything for like, special custcene attacks or something - doesn't conflict with pauseAction
@@ -55,6 +57,9 @@ package game{
 		public var moveCount:int;
 		public var waitCount:int;
 		public var wait:int;
+		
+		public var moveWait:int;
+		public var moveWaitCount:int;
 		public var pauseAction:Boolean;
 		public var overridePause:Boolean;//don't know if this needs to be used
 		static public var superPause:Boolean;
@@ -110,7 +115,9 @@ package game{
 			prevMoveCount=-1;
 			moveCount=0;
 			waitCount=0;
-			wait=24*0;
+			wait = 0;
+			moveWaitCount = 0;
+			moveWait = 0;
 
 			pxpos=0;
 			pypos=0;
@@ -128,7 +135,6 @@ package game{
 			fastforward=false;
 			dialogueIndex=0;
 			charIndex=0;
-
 
 			aTrigger="None";
 			pauseAction=false;
@@ -279,7 +285,7 @@ package game{
 				}
 			}
         }		
-		public function checkStop():void {			
+		public function checkStop():void {	
             var labelFrame:int = getFrameNumber(currentAnimLabel);
 			if (labelFrame != -1) {
 				if(currentFrame != labelFrame + lengths[currentAnimLabel]-1) {
@@ -296,19 +302,20 @@ package game{
 				label = "_KO";
 			}
 			else {
-			switch(moveDir) {
-			case 2: label =  "_walkDown";
-			break;
-			case 4: label =  "_walkLeft";
-			break;
-			case 6:
-				label =  "_walkRight";
-				break;
-			case 8: 
-				label = "_walkUp";
-				break;
-			
-			}				
+				switch(moveDir) {
+					case 2: 
+						label =  "_walkDown";
+					break;
+					case 4: 
+						label =  "_walkLeft";
+					break;
+					case 6:
+						label =  "_walkRight";
+					break;
+					case 8: 
+						label = "_walkUp";
+					break;	
+				}				
 			}
 
 			return label;
@@ -318,8 +325,8 @@ package game{
 		 * 
          */
 
-		public function startAnimation(moveDir:int, KO:Boolean = false):void {
-			if(this.moveDir != moveDir || KO){
+		public function startAnimation(moveDir:int, auto:Boolean = false, KO:Boolean = false):void {
+			if(this.moveDir != moveDir || auto || KO){
 				var animLabel:String = this.getAnimLabel(moveDir, KO);
 				this.currentAnimLabel = animLabel;
                 this.gotoAndPlay(this.getFrameNumber(animLabel));
@@ -414,15 +421,15 @@ package game{
 				GameVariables.xTile=xTile;
 				GameVariables.yTile=yTile;
 				GameVariables.stageRef.dispatchEvent(new GameDataEvent(GameDataEvent.CHANGE_MAP, true));
-				addEventListener(Event.ENTER_FRAME, waitHandler);
+				moveCount++;
 			}
 		}
 		public function teleportToCoord(xpos, ypos) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
 				x=xpos;
-				y=ypos;
-				addEventListener(Event.ENTER_FRAME, waitHandler);
+				y = ypos;
+				moveCount++;
 			}
 
 		}
@@ -455,8 +462,7 @@ package game{
 						mapObjects[eventID].dir=dir;
 					}
 				}
-
-				addEventListener(Event.ENTER_FRAME, waitHandler);
+				moveCount++;
 			}
 		}
 
@@ -482,8 +488,7 @@ package game{
 						Unit.flexPoints=999999;
 					}
 				}
-
-				addEventListener(Event.ENTER_FRAME, waitHandler);
+				moveCount++;
 			}
 		}
 		public function changeStat(unitType:String, statType:String, newStat:Number) {
@@ -524,8 +529,7 @@ package game{
 						Unit.partnerUnit.speed=newStat;
 					}
 				}
-
-				addEventListener(Event.ENTER_FRAME, waitHandler);
+				moveCount++;
 			}
 		}
 		public function getPrize(type:String, prizeID:int, amount:int, displayMode:String) {
@@ -560,12 +564,15 @@ package game{
 				MapManager.startScrolling(scrollDir, numTiles, speed);
 				addEventListener(Event.ENTER_FRAME, waitHandler);
 			}
-
-
+		}
+		public function waitFor(wait:int) {
+			this.wait = wait;
+			addEventListener(Event.ENTER_FRAME, waitHandler);
+			
 		}
 		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null) {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
 				talking(nameString, messageString, portrait, faceIcon, fastforward);
 				//addEventListener(Event.ENTER_FRAME,talkingHandler);
 				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
@@ -706,7 +713,6 @@ package game{
 
 		public function faceRandom() {
 			this.dir=2*Math.floor(Math.random()*4+1);
-
 			turn();
 		}
 
@@ -715,7 +721,7 @@ package game{
 		 */
 
 		public function gameHandler(e) {
-			if (! pauseAction&&! superPause&&! menuPause) {
+			if (! pauseAction && ! superPause && ! menuPause) {
 				if (commands.length!=0&&moveCount<commands.length) {
 					commands[moveCount]();
 				}
@@ -726,6 +732,8 @@ package game{
 						GameUnit.objectPause=false;
 						removeEventListener(Event.ENTER_FRAME, detectHandler);
 						removeEventListener(Event.ENTER_FRAME, gameHandler);
+						Unit.currentUnit.range = 0;
+						Unit.partnerUnit.range = 0;
 					}
 				}
 			}
@@ -734,9 +742,10 @@ package game{
 			if (waitCount<wait) {
 				waitCount++;
 			} else {
-				prevMoveCount=moveCount;
+				prevMoveCount = moveCount;
 				moveCount++;
-				waitCount=0;
+				waitCount = 0;
+				wait = 0;
 				addEventListener(Event.ENTER_FRAME, gameHandler);
 				removeEventListener(Event.ENTER_FRAME, waitHandler);
 			}
@@ -763,7 +772,7 @@ package game{
 						stage.removeChild(messagebox);
 						//removeEventListener(Event.ENTER_FRAME,talkingHandler);
 						stage.removeEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
-						addEventListener(Event.ENTER_FRAME, waitHandler);
+						moveCount++;
 					}
 					charIndex=0;
 					//dialogueIndex++;
@@ -873,7 +882,7 @@ package game{
 						x=pxpos;
 						y=pypos;
 						removeEventListener(Event.ENTER_FRAME, moveHandler);
-						addEventListener(Event.ENTER_FRAME, waitHandler);
+						moveCount++;
 					}
 				}
 			}

@@ -65,7 +65,15 @@
 		}
 
 		public function changeMouseType(e:Event):void {
-			if (GameVariables.mouseEnemy) {
+			if (GameUnit.menuPause) {
+				this.filters = [];
+				this.type1.text = "Menu";
+			}
+			else if (GameUnit.objectPause || GameUnit.superPause) {
+				this.filters = [];
+				this.type1.text = "";
+			}
+			else if (GameVariables.mouseEnemy) {
 				this.filters=[enemyFilter];
 				this.type1.text = "Enemy";
 			} else if (GameVariables.mouseAttack){

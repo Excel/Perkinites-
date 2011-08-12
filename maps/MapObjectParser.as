@@ -29,10 +29,12 @@
 			} else if (command.name() == "Choices") {
 				//<Choices></Choices>
 			
-			} else if (command.name() == "EraseObject") {
+			} else if (command.name() == "Wait") {
+				//<Wait>time</Wait>
+				func = FunctionUtils.thunkify(mapEvent.waitFor, parseInt(command.toString()));
+			}else if (command.name() == "EraseObject") {
 				//<EraseObject></EraseObject>
-				func=mapEvent.eraseObject;
-			
+				func=mapEvent.eraseObject;			
 			} else if (command.name() == "JumpTo") {
 				//<JumpTo>CommandIndex</JumpTo>
 				var commandIndex=parseInt(command.substring(0,command.toString().length));
