@@ -36,7 +36,7 @@ package game{
 		 */
 		public var requiredLabels:Array = new Array();
 		public var lengths:Array = new Array();
-		public var currentAnimLabel:String;
+		public var currentAnimLabel:String = "_walkDown";
 
 
 		/**
@@ -74,8 +74,10 @@ package game{
 		/**
 		 *
 		 * dir - direction of GameUnit
+		 * moveDir - direction of GameUnit when moving
 		 */
 		public var dir:int;
+		public var moveDir:int;
 
 		/**
 		 * Dialogue system
@@ -114,7 +116,8 @@ package game{
 			pypos=0;
 			speed=8;
 
-			dir=2;
+			dir = 0;
+			moveDir = 0;
 
 			names=[];
 			messages=[];
@@ -131,8 +134,10 @@ package game{
 			pauseAction=false;
 
 			allAreas.push(this);
-			rad=Math.pow(width>>1,2);
-
+			rad = Math.pow(width >> 1, 2);
+			
+			setLengths();
+			
 		}
 
 
@@ -164,6 +169,7 @@ package game{
 		public function detectHandler(e:Event):void {
 
 		}
+		
 		public function mover(ox:Number, oy:Number) {
 			var speedAdjust = (ox != 0 && oy != 0) ? (speed * Math.SQRT2 / 2) : speed;
 			var nx=x+ox*speedAdjust;
@@ -252,15 +258,66 @@ package game{
 		}
 
 		public function setLengths():void {
-			for each (var key:String in this.currentLabels) {
-				if (this.currentLabels[String(Number(key)+1)]) {
-					lengths[this.currentLabels[key].name]=this.currentLabels[String(Number(key)+1)].frame-this.currentLabels[key].frame-1;
+			for (var i = 0; i < this.currentLabels.length; i++) {
+				if (this.currentLabels[i+1]) {
+					lengths[this.currentLabels[i].name] = this.currentLabels[i + 1].frame-this.currentLabels[i].frame;
 				} else {
-					lengths[this.currentLabels[key].name]=this.totalFrames-this.currentLabels[key].frame;
+					lengths[this.currentLabels[i].name]=this.totalFrames-this.currentLabels[i].frame+1;
 				}
 			}
 		}
 
+		public function checkLoop():void {
+			gotoAndStop(currentFrame + 1);
+            var labelFrame:int = getFrameNumber(currentAnimLabel);
+            if (currentFrame == totalFrames) {
+				 gotoAndStop(labelFrame);
+			}
+			if(currentFrame == labelFrame + lengths[currentAnimLabel]) {
+                gotoAndStop(labelFrame);
+            }
+        }		
+		/**
+		 * Gets the animation label for the direction and action.
+		 */
+		public function getAnimLabel(moveDir):String { 
+			var label = "";
+			switch(moveDir) {
+			case 2: label =  "_walkDown";
+			break;
+			case 4: label =  "_walkLeft";
+			break;
+			case 6:
+				label =  "_walkRight";
+				break;
+			case 8: 
+				label = "_walkUp";
+				break;
+			
+			}
+			return label;
+		}		
+        /**
+         * Starts the animation based on direction.
+		 * 
+         */
+
+		public function startAnimation(moveDir:int):void {
+			if(this.moveDir != moveDir){
+				var animLabel:String = this.getAnimLabel(moveDir);
+				this.currentAnimLabel = animLabel;
+                this.gotoAndPlay(this.getFrameNumber(animLabel));
+				this.dir = moveDir;
+				this.moveDir = moveDir;
+			}
+		}
+        /**
+         * Stops the current animation. It's pretty simple enough. :|
+         */		
+		public function stopAnimation():void {
+            this.gotoAndStop(getFrameNumber(currentAnimLabel));
+			moveDir = 0;
+		}
 
 		public function forceAction(action, f) {
 			f();

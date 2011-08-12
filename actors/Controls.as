@@ -103,6 +103,9 @@
 			} else if (GameVariables.mouseMapObject) {
 
 			} else {
+				
+				Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
+				Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);				
 				if (! GameUnit.superPause&&! GameUnit.menuPause&&! GameUnit.objectPause&&mouseIsDown) {
 					Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
 					Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;

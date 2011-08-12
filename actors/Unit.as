@@ -155,7 +155,7 @@
 				DP=ActorDatabase.getArmor(id);
 				speed=ActorDatabase.getSpeed(id);
 				weapon = ActorDatabase.getWeapon(id);
-				dir=8;
+				dir=2;
 				//commands=[];
 
 				passiveItems=[];
@@ -167,7 +167,7 @@
 
 				attacking=false;
 				moving=false;
-				gotoAndStop(4);
+				//gotoAndStop(1);
 
 				HPBar=new HealthBar(HP,maxHP,this,48);
 
@@ -177,6 +177,7 @@
 				powerpoints=1;
 				knockout=24*30;
 				addEventListener(Event.ENTER_FRAME, detectHandler);
+				
 			}
 		}
 
@@ -207,7 +208,9 @@
 		}
 
 		public function begin() {
-			addEventListener(Event.ENTER_FRAME,gameHandler);
+			startAnimation(dir);
+			addEventListener(Event.ENTER_FRAME, gameHandler);
+			//addEventListener(Event.ENTER_FRAME, checkLoop);
 			mxpos=x;
 			mypos=y;
 
@@ -239,7 +242,7 @@
 			if (FP>10000) {
 				FP=10000;
 			}
-			if (! pauseAction&&! superPause&&! menuPause) {
+			if (! pauseAction && ! superPause && ! menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 					useComboAttack();
 
@@ -434,40 +437,41 @@
 			var degree = Math.round((radian*180/Math.PI));
 			if (degree>-45&&45>=degree) {
 				dir=6;
-				gotoAndStop(3);
+				//gotoAndStop(3);
 			} else if (degree > -135 && -45 >= degree) {
 				dir=8;
-				gotoAndStop(4);
+				//gotoAndStop(4);
 			} else if (degree > 45 && 135 >= degree) {
 				dir=2;
-				gotoAndStop(1);
+				//gotoAndStop(1);
 			} else if ((degree > 135 && 180 >= degree) || (degree >=-180 && -135 >= degree)) {
 				dir=4;
-				gotoAndStop(2);
+				//gotoAndStop(2);
 			}
 		}
 
 		function faceDirection(radian) {
 			var degree = Math.round((radian*180/Math.PI));
 			if (degree>-45&&45>=degree) {
-				dir=6;
-				gotoAndStop(3);
+				startAnimation(6);
+				//gotoAndStop(3);
 			} else if (degree > -135 && -45 >= degree) {
-				dir=8;
-				gotoAndStop(4);
+				startAnimation(8);
+				//gotoAndStop(4);
 			} else if (degree > 45 && 135 >= degree) {
-				dir=2;
-				gotoAndStop(1);
+				startAnimation(2);
+				//gotoAndStop(1);
 			} else if ((degree > 135 && 180 >= degree) || (degree >=-180 && -135 >= degree)) {
-				dir=4;
-				gotoAndStop(2);
+				startAnimation(4);
+				//gotoAndStop(2);
 			}
 		}
 
 		public function movePlayer() {
-			if (path.length>0) {
+			if (path.length > 0) {
 				var dist=Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
 
+				checkLoop();
 				if (dist>0&&dist>range) {
 					var xtile=Math.floor(x/32);
 					var ytile=Math.floor(y/32);
@@ -490,24 +494,17 @@
 					} else {
 						moving=false;
 					}
-				}
+				}				
 			} else {
 				moving=false;
 			}
 
 			if (! moving&&range==0) {
 				x=mxpos;
-				y=mypos;
+				y = mypos;
+				stopAnimation();
 			}
-
-/*			var bottomTileY:int = Math.floor((y+unitHeight/2)/32);
-
-			var rightTileX:int = Math.floor((x+unitWidth/2)/32);
-			var newIndex = (bottomTileY)*MapManager.mapWidth+rightTileX+1;
-			if(parent.getChildIndex(this) != newIndex) {
-                parent.setChildIndex(this, newIndex);
-            }			*/
-
+		
 		}
 
 		public function smoothPath() {

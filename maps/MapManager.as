@@ -36,7 +36,7 @@
 			InteractiveTile.resetTiles();
 			loadMapData(mapNumber);
 			setHeroPosition();
-			setMapObjects(mapNumber);
+			//setMapObjects(mapNumber);
 			setEnemies();
 
 			ScreenRect.createScreenRect(new Array(mapClip),640,480);
@@ -106,7 +106,6 @@
 
 			Unit.currentUnit.begin();
 			Unit.partnerUnit.begin();
-
 		}
 
 		public static function setMapObjects(mapNumber:int) {

@@ -5,7 +5,7 @@
 		<Health>75+8</Health>
 		<Attack>3+1</Attack>
 		<Defense>0</Defense>
-		<Speed>15+0.2</Speed>
+		<Speed>5+0.2</Speed>
 		<Weapon>Shinai</Weapon>
 	</Actor>
 	<Actor>
