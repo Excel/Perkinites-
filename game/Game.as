@@ -16,7 +16,6 @@
      */
 
     public class Game {
-        public static const FILLER_TILE_CLASS:String = "com.ironcoding.game.content.tiles.FillerTile"
 
 		public var stageRef:Stage;
         public var mapClip:MovieClip;
@@ -39,11 +38,11 @@
          * @param tileH The height in pixels of the tiles
          */
 
-        public function Game(stageRef:Stage, mapClip:MovieClip, tileW:int, tileH:int) {
+        public function Game(stageRef:Stage, mapClip:MovieClip) {
             this.stageRef = stageRef;
 			this.mapClip = mapClip;
-            this.tileW = tileW;
-            this.tileH = tileH;
+            this.tileW = 32;
+            this.tileH = 32;
 			
 			this.controls = new Controls(this, stageRef);
         }

@@ -28,7 +28,21 @@
 				
 			} else if (command.name() == "Choices") {
 				//<Choices></Choices>
-			
+				var answersArray = new Array();
+				var commandsArray = new Array();
+				
+				for each (var choiceElement:XML in command.children()) {
+					for each(var subchoiceElement:XML in choiceElement.children()) {
+						if (subchoiceElement.name() == "Display") {
+							answersArray.push(subchoiceElement);
+						} else {
+							var action=MapObjectParser.parseCommand(mapEvent,subchoiceElement);
+							commandsArray.push(action);							
+						}
+					}
+				}
+				
+				func = FunctionUtils.thunkify(mapEvent.displayChoices, answersArray, commandsArray);
 			} else if (command.name() == "Wait") {
 				//<Wait>time</Wait>
 				func = FunctionUtils.thunkify(mapEvent.waitFor, parseInt(command.toString()));

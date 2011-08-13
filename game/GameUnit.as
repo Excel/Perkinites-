@@ -578,6 +578,13 @@ package game{
 				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 			}
 		}
+		public function displayChoices(answersArray:Array, commandsArray:Array) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				var decisionDisplay = new DecisionDisplay(GameVariables.stageRef,answersArray,commandsArray,this);
+				//addEventListener(Event.ENTER_FRAME, waitHandler);
+			}			
+		}
 
 		public function talking(nameString, messageString, portrait, faceIcon, fastforward) {
 			if (nameString!=null) {

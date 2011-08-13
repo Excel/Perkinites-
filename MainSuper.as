@@ -15,13 +15,12 @@ import ui.hud.*;
 import ui.screens.*;
 import util.*;
 
-var tileWidth=32;
-var tileHeight=32;
 
 var lostFocusScreen;
 var titleScreen;
-var gameClient=new GameClient(stage,tileWidth,tileHeight);
+var gameClient = new GameClient(stage);
 gameClient.addEventListener(GameDataEvent.DATA_LOADED, initialize);
+GameVariables.gameClient = gameClient;
 stage.addEventListener(GameDataEvent.MAP_ON, showMap);
 stage.addEventListener(GameDataEvent.CHANGE_MAP, changeMap);
 

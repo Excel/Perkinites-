@@ -160,10 +160,12 @@
 
 		}
 		public function saveHandler(e) {
-			unload(new FileScreen(false,this,stageRef));
+			GameVariables.gameClient.saveGame();
+			//unload(new FileScreen(false,this,stageRef));
 		}
 		public function loadHandler(e) {
-			unload(new FileScreen(true,this,stageRef));
+			GameVariables.gameClient.loadGame();
+			//unload(new FileScreen(true,this,stageRef));
 		}
 		public function exitHandler(e) {
 			exit();

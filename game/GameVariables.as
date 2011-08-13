@@ -17,7 +17,7 @@
 
 		public static var stageRef:Stage;
 		public static var time:int = 0;
-		
+		public static var gameClient:GameClient; 
 		
 		/**
 		 * These are the destination variables. MapEvents will modify this a lot.

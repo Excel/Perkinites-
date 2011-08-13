@@ -14,11 +14,50 @@
 
 	public class DecisionDisplay extends MovieClip {
 
-		public var entries:Array;
-		public var pn1:int;
+		public var stageRef:Stage;
+		public var commandsArray:Array;
+		public var gameObject:GameUnit;
 		
-		function DecisionDisplay(){
+		public var optionsArray:Array;
+		
+		function DecisionDisplay(stageRef:Stage, answersArray:Array, commandsArray:Array, gameObject:GameUnit) {
+			this.stageRef = stageRef;
+			this.commandsArray = commandsArray;
+			this.gameObject = gameObject;
 			
+			this.optionsArray = new Array(choice1, choice2, choice3, choice4);
+			x = 235;
+			y = 186;
+			for (var i = 0; i < answersArray.length; i++) {
+				optionsArray[i].visible = true;
+				optionsArray[i].choice.text = answersArray[i];
+				optionsArray[i].mouseChildren = false;
+				optionsArray[i].addEventListener(MouseEvent.MOUSE_OVER, overHandler);
+				optionsArray[i].addEventListener(MouseEvent.MOUSE_OUT, outHandler);
+				optionsArray[i].addEventListener(MouseEvent.CLICK, clickHandler);
+			}
+			for (i = i; i < optionsArray.length; i++) {
+				optionsArray[i].visible = false;
+			}
+			
+			stageRef.addChild(this);
+			
+		}
+		
+		function overHandler(e) {
+			var gf1=new GlowFilter(0xFFFFFF,100,10,10,1,10,false,false);
+			e.target.filters=[gf1];
+		}
+		function outHandler(e) {
+			e.target.filters=[];
+		}		
+		function clickHandler(e) {
+			parent.removeChild(this);
+			gameObject.pauseAction = true;
+		}
+		
+		function finish() {
+			gameObject.pauseAction = false;
 		}
 		/*function showEntries() {
 			//TEMPORARY FIX

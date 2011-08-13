@@ -18,7 +18,16 @@
 			<Range>48</Range>
 		</Activation>
 			<Commands>
-				<Message>Event:omg i love shopping at the mall! i love there shoes.::</Message>
+				<Choices>
+					<Answer>
+						<Display>That is SO not Raven.</Display>
+						<Message>A:AHHHHHHHHH::</Message>
+					</Answer>
+					<Answer>
+						<Display>That is SO Raven.</Display>
+						<Message>Raven:yay.::</Message>
+					</Answer>
+				</Choices>
 				<ChangeObjectPosition>-1(4,5):0</ChangeObjectPosition>
 				<ChangeFlexPoints>Increase:999</ChangeFlexPoints>
 				<Message>Event:omg i love shopping at the mall! i love there shoes.::</Message>
