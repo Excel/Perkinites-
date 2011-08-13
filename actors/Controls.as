@@ -114,7 +114,7 @@
 						Unit.currentUnit.mxpos=Unit.currentUnit.x;
 						Unit.currentUnit.mypos=Unit.currentUnit.y;
 
-					}//this.parent.
+					}
 
 					Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 					Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
@@ -130,10 +130,13 @@
 					}
 				}
 			} else {
-				
-				Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
-				Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);				
 				if (! GameUnit.superPause&&! GameUnit.menuPause&&! GameUnit.objectPause&&mouseIsDown) {
+					if (GameVariables.mapObject != null) {
+						GameVariables.mapObject.stopFocus();
+					}
+					Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
+					Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);				
+					
 					Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
 					Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
 					Unit.currentUnit.range=0;

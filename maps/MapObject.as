@@ -56,33 +56,67 @@ package maps{
 			}
 		}
 		public function clickHandler(e:MouseEvent):void {
-			var target = new Target(this);
+			GameVariables.mapObject = this;			
 			Unit.currentUnit.range = range;
 			Unit.partnerUnit.range = range;
 			addEventListener(Event.ENTER_FRAME, rangeHandler);
 		}
 		
+		public function stopFocus():void {
+			removeEventListener(Event.ENTER_FRAME, rangeHandler);
+			GameVariables.mapObject = null;
+		}
+		
 		public function rangeHandler(e:Event):void {
-			if ((Unit.currentUnit.HP > 0 && Unit.currentUnit.checkDistance() <= range && Unit.currentUnit.moving) && 
-			(Unit.partnerUnit.HP > 0 && Unit.partnerUnit.checkDistance() <= range && Unit.partnerUnit.moving)){
-				Unit.currentUnit.moving = false;
-				Unit.partnerUnit.moving = false;
+			if ((Unit.currentUnit.HP <= 0 || (Unit.currentUnit.HP > 0 && Unit.currentUnit.checkDistance(x, y) <= range)) && 
+			(Unit.partnerUnit.HP <= 0 || (Unit.partnerUnit.HP > 0 && Unit.partnerUnit.checkDistance(x, y) <= range))) {		
+				GameVariables.mapObject = null;
 				removeEventListener(Event.ENTER_FRAME, rangeHandler);
 				addEventListener(Event.ENTER_FRAME, gameHandler);
 			}
-		}
-		override public function detectHandler(e:Event):void{
-			if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)){
-				GameVariables.mouseMapObject = true;
-			}
 			else{
-				GameVariables.mouseMapObject = false;
+				if (Unit.currentUnit.HP > 0 && Unit.currentUnit.checkDistance(x, y) <= range && Unit.currentUnit.moving) {
+					Unit.currentUnit.moving = false;
+					Unit.currentUnit.mxpos=Unit.currentUnit.x;
+					Unit.currentUnit.mypos=Unit.currentUnit.y;
+					Unit.currentUnit.range = 0;
+					Unit.currentUnit.path = [];					
+				}
+				if (Unit.partnerUnit.HP > 0 && Unit.partnerUnit.checkDistance(x, y) <= range && Unit.partnerUnit.moving){
+					Unit.partnerUnit.moving = false;
+					Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
+					Unit.partnerUnit.mypos=Unit.partnerUnit.y;
+					Unit.partnerUnit.range = 0;
+					Unit.partnerUnit.path = [];
+				}
+			}
+		}
+
+		override public function detectHandler(e:Event):void {
+			if(aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None"){
+				if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)){
+					GameVariables.mouseMapObject = true;
+				}
+				else{
+					GameVariables.mouseMapObject = false;
+				}
 			}
 		}
 
 		override public function gameHandler(e) {
 			if (moveCount == 0 && (aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None")) {
-				GameUnit.objectPause=true;
+				GameUnit.objectPause = true;
+				Unit.currentUnit.moving = false;
+				Unit.currentUnit.range = 0;
+				Unit.currentUnit.mxpos=Unit.currentUnit.x;
+				Unit.currentUnit.mypos = Unit.currentUnit.y;
+				Unit.currentUnit.path = [];
+				
+				Unit.partnerUnit.moving = false;
+				Unit.partnerUnit.range = 0;
+				Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
+				Unit.partnerUnit.mypos=Unit.partnerUnit.y;
+				Unit.partnerUnit.path = [];				
 			}
 			
 			if (! pauseAction&&! superPause&&! menuPause) {
@@ -95,7 +129,6 @@ package maps{
 					moveCount=0;
 					if (aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None") {
 						GameUnit.objectPause=false;
-						removeEventListener(Event.ENTER_FRAME, detectHandler);
 						removeEventListener(Event.ENTER_FRAME, gameHandler);
 					}
 				}

@@ -5,7 +5,7 @@
 		<Health>75+8</Health>
 		<Attack>3+1</Attack>
 		<Defense>0</Defense>
-		<Speed>15+0.2</Speed>
+		<Speed>360+5</Speed>
 		<Weapon>Shinai</Weapon>
 	</Actor>
 	<Actor>
@@ -13,7 +13,7 @@
 		<Health>100+9</Health>
 		<Attack>5+1</Attack>
 		<Defense>0</Defense>
-		<Speed>11+0.2</Speed>
+		<Speed>264+5</Speed>
 		<Weapon>Claws</Weapon>
 	</Actor>
 	<Actor>
@@ -21,7 +21,7 @@
 		<Health>75+7</Health>
 		<Attack>4+1</Attack>
 		<Defense>0</Defense>
-		<Speed>12+0.2</Speed>
+		<Speed>288+5</Speed>
 		<Weapon>Railgun</Weapon>
 	</Actor>
 	<Actor>
@@ -29,7 +29,7 @@
 		<Health>60+6</Health>
 		<Attack>2+1</Attack>
 		<Defense>0</Defense>
-		<Speed>12+0.2</Speed>
+		<Speed>312+5</Speed>
 		<Weapon>Magic Wand</Weapon>
 	</Actor>
 	<Actor>
@@ -37,7 +37,7 @@
 		<Health>110+6</Health>
 		<Attack>5+1.5</Attack>
 		<Defense>0</Defense>
-		<Speed>15+0.2</Speed>
+		<Speed>360+5</Speed>
 		<Weapon>Tentacles</Weapon>
 	</Actor>
 	<Actor>
@@ -45,7 +45,7 @@
 		<Health>65+5</Health>
 		<Attack>3+1</Attack>
 		<Defense>0</Defense>
-		<Speed>18+0.2</Speed>
+		<Speed>432+5</Speed>
 		<Weapon>Hoverpad</Weapon>
 	</Actor>
 	<Actor>
@@ -53,7 +53,7 @@
 		<Health>70+6</Health>
 		<Attack>3+1.5</Attack>
 		<Defense>0</Defense>
-		<Speed>13+0.2</Speed>
+		<Speed>312+5</Speed>
 		<Weapon>Megaphone</Weapon>
 	</Actor>
 	<Actor>
@@ -61,7 +61,7 @@
 		<Health>70+5.5</Health>
 		<Attack>3+1</Attack>
 		<Defense>0</Defense>
-		<Speed>14+0.2</Speed>
+		<Speed>336+5</Speed>
 		<Weapon>Voice</Weapon>
 	</Actor>
 </Actors>

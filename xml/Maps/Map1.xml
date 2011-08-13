@@ -15,16 +15,14 @@
 		</Movement>
 		<Activation>
 			<Trigger>Click</Trigger>
-			<Range>24</Range>
+			<Range>48</Range>
 		</Activation>
 			<Commands>
 				<Message>Event:omg i love shopping at the mall! i love there shoes.::</Message>
 				<ChangeObjectPosition>-1(4,5):0</ChangeObjectPosition>
-				<Wait>24</Wait>
 				<ChangeFlexPoints>Increase:999</ChangeFlexPoints>
 				<Message>Event:omg i love shopping at the mall! i love there shoes.::</Message>
 				<GetPrize>Ability:1:8:Simple</GetPrize>
-				<Wait>20</Wait>
 			</Commands>
 	</MapObject>
 </MapObjects>

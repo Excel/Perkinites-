@@ -20,25 +20,27 @@
 		private var filter3=new GlowFilter(0x330066,250,3,3,3,10,false,false);
 		private var filter4=new GlowFilter(0x00FF00,250,3,3,3,10,false,false);
 
-		public function Target(enemyRef) {
+		public function Target(enemyRef = null) {
 			mouseEnabled=false;
 			mouseChildren=false;
 
 			this.filters=[filter1];
 			alpha = 0.75;
-
-			this.enemyRef=enemyRef;
-			enemyRef.addChild(this);
+			
+			if(enemyRef != null){
+				this.enemyRef=enemyRef;
+				enemyRef.addChild(this);
+			}
 		}
 
-		public function changeEnemy(enemyRef:Enemy) {
+		public function changeEnemy(enemyRef = null) {
 			if(parent != null){
 				parent.removeChild(this);
 			}
 			this.enemyRef=enemyRef;
-			x=enemyRef.x;
-			y=enemyRef.y;
-			enemyRef.addChild(this);
+			if(enemyRef != null){
+				enemyRef.addChild(this);
+			}
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿package game{
 	
 	import enemies.*;
+	import maps.MapObject;
 	import ui.*;
 	
 	import flash.display.MovieClip;
@@ -40,8 +41,14 @@
 		
 		/**
 		 * These are the variables involving battle.
-		 * The target is the targeted enemy. All Unit attacks will be directed to that target.
+		 * The attackTarget is the target to be moving around.
 		 */
-		public static var target:MovieClip;
+		public static var attackTarget:Target = new Target();
+		
+		/**
+		 * These are the variables involving Map Objects.
+		 * The mapObject is the MapObject currently being selected.
+		 */
+		public static var mapObject:MapObject;
 	}
 }

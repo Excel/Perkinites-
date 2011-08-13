@@ -210,8 +210,13 @@
 		public function begin() {
 			startAnimation(dir, true);
 			addEventListener(Event.ENTER_FRAME, gameHandler);
-			mxpos=x;
-			mypos = y;
+/*			if (this == Unit.currentUnit) {
+			mxpos=Unit.partnerUnit.mxpos;
+			mypos=Unit.partnerUnit.mypos;
+			} else if (this == Unit.partnerUnit) {
+			mxpos=Unit.currentUnit.mxpos;
+			mypos=Unit.currentUnit.mypos;
+			}*/
 			moving = false;
 			range = 0;
 
@@ -474,8 +479,8 @@
 			}
 		}
 		
-		public function checkDistance() {
-			return Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
+		public function checkDistance(tx:int, ty:int) {
+			return Math.sqrt(Math.pow(tx-this.x,2)+Math.pow(ty-this.y,2));
 		}
 
 		public function movePlayer() {
@@ -498,8 +503,8 @@
 					if (path.length>0) {
 						moving=true;
 
-						x+=speed*Math.cos(radian);
-						y+=speed*Math.sin(radian);
+						x+=speed*Math.cos(radian)/24;
+						y+=speed*Math.sin(radian)/24;
 
 					} else {
 						moving=false;
@@ -508,9 +513,9 @@
 			} else {
 				moving=false;
 			}
-			if (! moving&&checkDistance()<=range) {
+			if (! moving && range == 0) {
 				x=mxpos;
-				y = mypos;
+				y=mypos;
 				stopAnimation();
 			}
 		
