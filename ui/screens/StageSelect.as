@@ -51,7 +51,7 @@
 			  [5, 8, 12, 15],
 			  [6, 9, 14, 16],
 			  [7, 10, 15, 18]);
-			mapIDArray = new Array(0, 3, 4, 5, 6, 7, 8);
+			mapIDArray = new Array(2, 16, 4, 5, 6, 7, 8);
 			arrowGlowFilters=[];
 
 			if(selectedArea == ""){

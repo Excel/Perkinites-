@@ -9,9 +9,9 @@ package maps{
 	 */
 	public class MapObjectConditionChecker {
 
-		public static function checkCondition(mapObject:MapObject):Boolean {
-			for (var i = 0; i < mapObject.conditions.length; i++) {
-				var condition = mapObject.conditions[i];
+		public static function checkCondition(conditions:Array):Boolean {
+			for (var i = 0; i < conditions.length; i++) {
+				var condition = conditions[i];
 				if (condition.name() == "Unit") {
 					if (Unit.currentUnit.Name != condition && Unit.partnerUnit.Name != condition) {
 						return false;

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MapObjects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<MapObject>
+		<Graphic>
+			<FlashClass>None</FlashClass>
+			<Dir>2</Dir>
+			<Position>(0,0)</Position>
+		</Graphic>
+		<Conditions>
+			<SwitchOFF>0</SwitchOFF>
+		</Conditions>
+		<Movement>
+			<Type>None</Type>
+			<Speed>0</Speed>
+			<Wait>20</Wait>
+		</Movement>
+		<Activation>
+			<Trigger>Auto</Trigger>
+			<Range>800</Range>
+		</Activation>
+			<Commands>
+				<StartCutscene></StartCutscene>
+				<Wait>50</Wait>
+				<Message>-:Date and Time\c XX/XX/201X, 10\c00 AM\nLocation\c Outside of Perkins Hall:None:None:No</Message>
+				<Message>-:You come back to Perkins Hall to find out that most of the door locks are malfunctioning. As a result, most of them will not open.:None:None:No</Message>
+				<Message>-:Fortunately enough, the door lock leading to the Trash Room on the Ground Floor works perfectly fine.:None:None:No</Message>
+				<Wait>20</Wait>
+				<Message>-:It seems like one of your cellphones is ringing. Do you want to take the call? It might be really important, you know.:None:None:Yes</Message>
+				<Conditional>
+					<Conditions>
+						<Unit>Huong V.</Unit>
+					</Conditions>
+					<Pass>
+						<Message>C. Kata:Oh god, THANK YOU for picking up Huong.:None:None:None</Message>	
+						<Message>C. Kata:Okay, where are you right now? Who's with you?:None:None:None</Message>				
+						<Message>-:You tell the frazzled teenager you are on the ground floor and that Sophie was with you.:None:None:No</Message>
+						<Message>C. Kata:Okay good, I need both of you to listen to me really carefully.:None:None:No</Message>
+						<Message>C. Kata:There's some kind of crazy bitch who somehow got into Perkins.:None:None:No</Message>
+						<Message>C. Kata:She started running around the hallways like some kind of madman. Once she saw me leave my room, she pushed me back and managed to lock it from the outside.:None:None:No</Message>
+						<Message>C. Kata:I don't know what's going on outside, but it doesn't sound good.:None:None:No</Message>
+						<Message>-:Rescue her from the crazy lady?:None:None:Yes</Message>
+						<Choices>
+							<Answer>
+								<Display>Of course! Crazy ladies are serious threats. D:</Display>
+								<Message>C. Kata:Oh my god, you and Sophie are so AWESOME right now!:None:None:No</Message>
+							</Answer>
+							<Answer>
+								<Display>Nahhhhhhhhhhhhh. D:</Display>
+								<Message>C. Kata:...:None:None:None</Message>
+								<Message>C. Kata.:Yeah I'm just going to assume you said you're going to help me...:None:None:None</Message>
+								<Message>C. Kata:You don't want me to die. \c|:None:None:None</Message>
+							</Answer>
+						</Choices>
+						<Message>C. Kata:...I think the crazy bitch is coming back.:None:None:No</Message>
+						<Message>C. Kata:I'll try to deal with her myself, but you should find help or go to the second floor!:None:None:No</Message>
+						<Message>C. Kata:Thank you so much, guys! \3:None:None:No</Message>
+					</Pass>
+					<Fail>
+						<Message>Huong V.:OH MY GOD SOMEONE FINALLY PICKED UP. DON'T HANG UP!:None:None:None</Message>	
+						<Message>Huong V.:Where are you!? Who's with you!?:None:None:None</Message>				
+						<Message>-:You tell the frazzled teenager you are on the ground floor and the person with you.:None:None:No</Message>
+						<Message>Huong V.:Okay guys. GUYS. You gotta help me.:None:None:No</Message>
+						<Message>Huong V.:An evil scary lady somehow got into Perkins and completely took over EVERYTHING!:None:None:No</Message>
+						<Message>Huong V.:I don't know what she's planning, but she trapped me inside my room and started terrorizing the other keen teens with scary sounds and darkness!:None:None:No</Message>
+						<Message>Huong V.:She must be planning something evil!:None:None:No</Message>
+						<Message>Huong V.:You gotta rescue me!!:None:None:No</Message>
+						<Message>-:Rescue her from the evil darkness thing?:None:None:Yes</Message>
+						<Choices>
+							<Answer>
+								<Display>Of course! Darkness is no laughing matter. :D</Display>
+								<Message>Huong V.:I knew I could count on you guys! \c):None:None:None</Message>
+							</Answer>
+							<Answer>
+								<Display>Of course not! I shall turn the other way. :D</Display>
+								<Message>Huong V.:Hahaha, you're really funny.:None:None:None</Message>
+								<Message>Huong V.:Wait, you're kidding, right?:None:None:None</Message>
+								<Message>Huong V.:...:None:None:None</Message>
+								<Message>Huong V.:OH SCREW YOU. YOU DON'T HAVE A CHOICE IN THE MATTER.\nILLUSION OF FREEDOM, JERK.:None:None:None</Message>
+							</Answer>
+						</Choices>
+						<Message>Huong V.:...oh crap, I think she's coming back.:None:None:No</Message>
+						<Message>Huong V.:Get to the second floor! Hurry!!:None:None:No</Message>
+					</Fail>
+				</Conditional>
+				<Wait>40</Wait>
+				<Message>-:It seems like the call has ended. You should probably go to the second floor.:None:None:No</Message>
+				<Message>-:Or I mean, you could go to the police and call for backup, but maybe you feel like that the power of friendship and the weapons you hide under your clothes right now might be more powerful or something.:None:None:No</Message>
+				<EndCutscene></EndCutscene>
+				<Message>-:If you're having trouble with the general control scheme of the game, please consult the tutorial! \cD:None:None:No</Message>
+				<EraseObject></EraseObject>
+			</Commands>
+	</MapObject>
+</MapObjects>

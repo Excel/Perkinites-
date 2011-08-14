@@ -67,6 +67,13 @@ package maps{
 			GameVariables.mapObject = null;
 		}
 		
+		public function forceActivation():void {
+			
+		}
+		public function forceAppear():void {
+			
+		}
+		
 		public function rangeHandler(e:Event):void {
 			if ((Unit.currentUnit.HP <= 0 || (Unit.currentUnit.HP > 0 && Unit.currentUnit.checkDistance(x, y) <= range)) && 
 			(Unit.partnerUnit.HP <= 0 || (Unit.partnerUnit.HP > 0 && Unit.partnerUnit.checkDistance(x, y) <= range))) {		
@@ -121,7 +128,6 @@ package maps{
 			
 			if (! pauseAction&&! superPause&&! menuPause) {
 				if (commands.length!=0&&moveCount<commands.length) {
-					
 					commands[moveCount]();
 				}
 				if (moveCount>=commands.length) {

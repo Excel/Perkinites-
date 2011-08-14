@@ -54,7 +54,26 @@
 			} else if (command.name() == "Wait") {
 				//<Wait>time</Wait>
 				func = FunctionUtils.thunkify(mapEvent.waitFor, parseInt(command.toString()));
-			}else if (command.name() == "EraseObject") {
+			} else if (command.name() == "Conditional") {
+				//<Conditional><Conditions></Conditions><Pass></Pass><Fail></Fail></Conditional>
+				var conditionsArray = new Array();
+				var passArray = new Array();
+				var failArray = new Array();
+				
+				for each(var conditionElement:XML in command.Conditions.children()) {
+					conditionsArray.push(conditionElement);
+				}
+				for each (var passElement:XML in command.Pass.children()) {
+					var pass=MapObjectParser.parseCommand(mapEvent,passElement);
+					passArray.push(pass);			
+				}
+				for each (var failElement:XML in command.Fail.children()) {
+					var fail=MapObjectParser.parseCommand(mapEvent,failElement);
+					failArray.push(fail);			
+				}				
+				
+				func = FunctionUtils.thunkify(mapEvent.useConditional,conditionsArray,passArray,failArray);
+			} else if (command.name() == "EraseObject") {
 				//<EraseObject></EraseObject>
 				func=mapEvent.eraseObject;			
 			} else if (command.name() == "JumpTo") {
@@ -120,8 +139,16 @@
 				var numTiles=parseInt(command.substring(ind+1,command.indexOf(":",ind+1)));
 				ind=command.indexOf(":",ind+1);
 				var speed=parseInt(command.substring(ind+1,command.toString().length));
-				func=FunctionUtils.thunkify(mapEvent.scrollMap,scrollDir,numTiles,speed);
-
+				func = FunctionUtils.thunkify(mapEvent.scrollMap, scrollDir, numTiles, speed);
+				
+			} else if (command.name() == "StartCutscene") {
+				//<StartCutscene></StartCutscene>
+				func=mapEvent.startCutscene;
+			
+			} else if (command.name() == "EndCutscene") {
+				//<EndCutscene></EndCutscene>
+				func = mapEvent.endCutscene;
+			
 			}
 			return func;
 

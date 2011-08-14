@@ -441,6 +441,9 @@ package game{
 
 		}
 		public function eraseObject() {
+			if (aTrigger == "Auto") {
+				GameUnit.superPause = false;
+			}
 			GameUnit.objectPause=false;
 			parent.removeChild(this);
 			removeEventListener(Event.ENTER_FRAME, detectHandler);
@@ -577,6 +580,18 @@ package game{
 			addEventListener(Event.ENTER_FRAME, waitHandler);
 			
 		}
+		public function startCutscene() {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				moveCount++;
+			}
+		}
+		public function endCutscene() {			
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				moveCount++;
+			}
+		}
 		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null, withChoices:String = "No") {
 			
 			if (prevMoveCount != moveCount) {
@@ -591,6 +606,22 @@ package game{
 				prevMoveCount = moveCount;
 				var decisionDisplay = new DecisionDisplay(GameVariables.stageRef,answersArray,commandsArray,this);
 			}			
+		}
+		
+		public function useConditional(conditionsArray:Array, passArray:Array, failArray:Array) {
+			var check = MapObjectConditionChecker.checkCondition(conditionsArray);
+			var tempPrevMoveCount = prevMoveCount;
+			var tempMoveCount = moveCount+1;
+			var tempCommands = commands;
+			
+			if (check) {
+				swapActions(-1, 0, passArray);
+			}
+			else {
+				swapActions(-1, 0, failArray);
+			}
+			var func = FunctionUtils.thunkify(swapActions, tempPrevMoveCount, tempMoveCount, tempCommands);
+			commands.push(func);
 		}
 
 		public function talking(nameString, messageString, portrait, faceIcon, fastforward) {

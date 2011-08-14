@@ -1,8 +1,9 @@
 ﻿package maps{
 
 	import actors.*;
+	import game.GameUnit;
 	import game.GameVariables;
-
+	
 	import util.*;
 	import com.*;
 	import tileMapper.*;
@@ -109,10 +110,16 @@
 		}
 
 		public static function setMapObjects(mapNumber:int) {
-			var mapObjects=MapDatabase.getMapObjects(mapNumber);
+			var mapObjects = MapDatabase.getMapObjects(mapNumber);
+			var auto = -1;
 			for (var i = 0; i < mapObjects.length; i++) {
-				if (MapObjectConditionChecker.checkCondition(mapObjects[i])) {
+				if (MapObjectConditionChecker.checkCondition(mapObjects[i].conditions)) {
 					mapClip.addChild(mapObjects[i]);
+					if (mapObjects[i].aTrigger == "Auto" && auto == -1) {
+						mapObjects[i].addEventListener(Event.ENTER_FRAME, mapObjects[i].gameHandler);
+						auto = i;
+						GameUnit.objectPause = true;
+					}
 				}
 			}
 		}
