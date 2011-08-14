@@ -43,6 +43,10 @@
 			mapDatabase.addEventListener(MapDataEvent.MAPS_LOADED, startGame);
 			mapDatabase.loadData();
 
+			for (var i = 0; i < 100; i++) {
+				GameVariables.switchesArray[i] = false;
+				GameVariables.variablesArray[i] = 0;				
+			}
 			var mapClip = new MovieClip();
 
 			mainGame = new Game(stageRef, mapClip);

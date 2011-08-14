@@ -9,6 +9,7 @@ package game{
 	import maps.*;
 	import tileMapper.*;
 	import ui.*;
+	import ui.hud.HUDManager;
 	import util.*;
 
 	import flash.display.FrameLabel;
@@ -583,19 +584,22 @@ package game{
 		public function startCutscene() {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
+				HUDManager.toggleUnitHUD(false);
+				HUDManager.toggleEnemyHUD(false);				
 				moveCount++;
 			}
 		}
 		public function endCutscene() {			
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
+				HUDManager.toggleUnitHUD(true);
 				moveCount++;
 			}
 		}
 		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null, withChoices:String = "No") {
-			
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
+						
 				talking(nameString, messageString, portrait, faceIcon, fastforward);
 				//addEventListener(Event.ENTER_FRAME,talkingHandler);
 				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
@@ -607,6 +611,44 @@ package game{
 				var decisionDisplay = new DecisionDisplay(GameVariables.stageRef,answersArray,commandsArray,this);
 			}			
 		}
+		
+		public function changeSwitch(ID:int, binary:String) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				if (binary == "TRUE") {
+					GameVariables.switchesArray[ID] = true;
+				} else if (binary == "FALSE") {
+					GameVariables.switchesArray[ID] = false;
+				}
+				moveCount++;
+			}
+ 		}
+
+		public function changeVariable(ID:int, operation:String, value:int) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				var tempValue = GameVariables.variablesArray[ID];
+
+				if (operation == "=") {
+					tempValue = value;
+				} else if (operation == "+") {
+					tempValue += value;
+				} else if (operation == "*") {
+					tempValue *= value;
+				}else if (operation == "/") {
+					if (value == 0) { //... don't divide by 0 anyway. I don't actually want to use this mod. >.>
+						tempValue = 0;
+					}
+					else{
+						tempValue /= value;
+					}
+				}else if (operation == "RAND") {
+					tempValue = Math.floor(Math.random() * value);
+				}
+				GameVariables.variablesArray[ID] = tempValue;
+				moveCount++;
+			}
+ 		}
 		
 		public function useConditional(conditionsArray:Array, passArray:Array, failArray:Array) {
 			var check = MapObjectConditionChecker.checkCondition(conditionsArray);
@@ -660,17 +702,17 @@ package game{
 		}
 
 		public function toggleUHUD(showOn) {
-			if (showOn) {
-
-			} else {
-
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				HUDManager.toggleUnitHUD(showOn);
+				moveCount++;
 			}
 		}
 		public function toggleEHUD(showOn) {
-			if (showOn) {
-
-			} else {
-
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				HUDManager.toggleEnemyHUD(showOn);
+				moveCount++;
 			}
 		}
 		public function toggleFBar(showOn) {

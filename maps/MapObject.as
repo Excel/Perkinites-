@@ -48,6 +48,7 @@ package maps{
 					addEventListener(MouseEvent.MOUSE_DOWN, clickHandler);
 					break;
 				case "Collide" :
+					addEventListener(Event.ENTER_FRAME, rangeHandler);				
 					break;
 				case "Automatic" :
 					break;
@@ -61,7 +62,7 @@ package maps{
 			Unit.partnerUnit.range = range;
 			addEventListener(Event.ENTER_FRAME, rangeHandler);
 		}
-		
+			
 		public function stopFocus():void {
 			removeEventListener(Event.ENTER_FRAME, rangeHandler);
 			GameVariables.mapObject = null;
@@ -100,7 +101,7 @@ package maps{
 		}
 
 		override public function detectHandler(e:Event):void {
-			if(aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None"){
+			if(aTrigger=="Click"){
 				if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY) && parent != null){
 					GameVariables.mouseMapObject = true;
 				}

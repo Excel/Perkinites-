@@ -50,5 +50,11 @@
 		 * The mapObject is the MapObject currently being selected.
 		 */
 		public static var mapObject:MapObject;
+		
+		/**
+		 * Switches and variables of the game. Very very very content/game-specific.
+		 */
+		public static var switchesArray = new Array(100);
+		public static var variablesArray = new Array(100);
 	}
 }

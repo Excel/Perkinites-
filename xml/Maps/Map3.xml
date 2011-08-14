@@ -7,7 +7,8 @@
 			<Position>(0,0)</Position>
 		</Graphic>
 		<Conditions>
-			<SwitchOFF>0</SwitchOFF>
+			<Switch>0:OFF</Switch>
+			<Variable>0:==:1</Variable>
 		</Conditions>
 		<Movement>
 			<Type>None</Type>
@@ -87,7 +88,30 @@
 				<Message>-:Or I mean, you could go to the police and call for backup, but maybe you feel like that the power of friendship and the weapons you hide under your clothes right now might be more powerful or something.:None:None:No</Message>
 				<EndCutscene></EndCutscene>
 				<Message>-:If you're having trouble with the general control scheme of the game, please consult the tutorial! \cD:None:None:No</Message>
+				<Switch>0:TRUE</Switch>
+				<Variable>0:=:1</Variable>
 				<EraseObject></EraseObject>
+			</Commands>
+	</MapObject>
+	<MapObject>
+		<Graphic>
+			<FlashClass>None</FlashClass>
+			<Dir>2</Dir>
+			<Position>(4,11)</Position>
+		</Graphic>
+		<Conditions>
+		</Conditions>
+		<Movement>
+			<Type>None</Type>
+			<Speed>0</Speed>
+			<Wait>20</Wait>
+		</Movement>
+		<Activation>
+			<Trigger>Collide</Trigger>
+			<Range>12</Range>
+		</Activation>
+			<Commands>
+				<Teleport>1(9,10):2:Yes</Teleport>
 			</Commands>
 	</MapObject>
 </MapObjects>

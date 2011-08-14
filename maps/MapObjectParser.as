@@ -15,6 +15,7 @@
 			var xTile;
 			var yTile;
 			var dir;
+			var ID;
 
 			if (command.name()=="Message") {//PAGE 1
 				//<Message>Name:Message:Portrait:FaceIcon</Message>
@@ -81,13 +82,28 @@
 				var commandIndex=parseInt(command.substring(0,command.toString().length));
 				func=FunctionUtils.thunkify(mapEvent.jumpTo,commandIndex);
 			
+			} else if (command.name() == "Switch") {
+				//<Switch>SwitchID:TRUE/FALSE</Switch>
+				ind=command.indexOf(":");
+				ID = parseInt(command.substring(0,ind));
+				var binary=command.substring(ind + 1, command.toString().length);
+				func = FunctionUtils.thunkify(mapEvent.changeSwitch, ID, binary);
+				
+			} else if (command.name() == "Variable") {
+				//<Variable>VariableID:Operation:Value</Variable>
+				ind=command.indexOf(":");
+				ID=parseInt(command.substring(0,ind));
+				var operation=command.substring(ind+1,command.indexOf(":",ind+1));
+				ind=command.indexOf(":",ind+1);
+				var value=parseInt(command.substring(ind+1,command.toString().length));
+				func=FunctionUtils.thunkify(mapEvent.changeVariable,ID, operation, value);			
 			} else if (command.name() == "ChangeFlexPoints") {
 				//<ChangeStat>ChangeType:ChangeValue</ChangeStat>
 				ind=command.indexOf(":");
 				var changeType=command.substring(0,ind);
 				var changeValue=parseFloat(command.substring(ind+1,command.toString().length));
 				func=FunctionUtils.thunkify(mapEvent.changeFlexPoints,changeType,changeValue);
-			
+
 			} else if (command.name() == "ChangeStat") {
 				//<ChangeStat>UnitType:StatType:NewStat</ChangeStat>
 				ind=command.indexOf(":");
@@ -101,7 +117,7 @@
 				//<GetPrize>Type:PrizeID:Amount:DisplayType</GetPrize>
 				ind=command.indexOf(":");
 				var type=command.substring(0,ind);
-				var ID=parseInt(command.substring(ind+1,command.indexOf(":",ind+1)));
+				ID=parseInt(command.substring(ind+1,command.indexOf(":",ind+1)));
 				ind=command.indexOf(":",ind+1);
 				var amount=parseInt(command.substring(ind+1,command.indexOf(":",ind+1)));
 				ind=command.indexOf(":",ind+1);
