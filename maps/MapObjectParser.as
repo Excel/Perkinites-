@@ -1,5 +1,6 @@
 ﻿package maps{
 
+	import game.GameUnit;
 	import util.FunctionUtils;
 
 	/**
@@ -21,10 +22,15 @@
 				var nameString=command.substring(0,ind);
 				var messageString=command.substring(ind+1,command.indexOf(":",ind+1));
 				ind=command.indexOf(":",ind+1);
-				var portrait=command.substring(ind+1,command.indexOf(":",ind+1));
-				ind=command.indexOf(":",ind+1);
-				var faceIcon=command.substring(ind+1,command.toString().length);
-				func=FunctionUtils.thunkify(mapEvent.displayMessage,nameString,messageString,portrait,faceIcon);
+				var portrait = command.substring(ind + 1, command.indexOf(":", ind + 1));
+				if (portrait == command) {
+					portrait = "";
+				}
+				ind = command.indexOf(":", ind + 1);
+				var faceIcon=command.substring(ind+1,command.indexOf(":",ind+1));
+				ind=command.indexOf(":",ind+1);				
+				var withChoices = command.substring(ind + 1, command.toString().length);
+				func=FunctionUtils.thunkify(mapEvent.displayMessage,nameString,messageString,portrait,faceIcon, withChoices);
 				
 			} else if (command.name() == "Choices") {
 				//<Choices></Choices>
@@ -32,14 +38,16 @@
 				var commandsArray = new Array();
 				
 				for each (var choiceElement:XML in command.children()) {
+					var actions = new Array();
 					for each(var subchoiceElement:XML in choiceElement.children()) {
 						if (subchoiceElement.name() == "Display") {
 							answersArray.push(subchoiceElement);
 						} else {
-							var action=MapObjectParser.parseCommand(mapEvent,subchoiceElement);
-							commandsArray.push(action);							
+							var action = MapObjectParser.parseCommand(mapEvent, subchoiceElement);
+							actions.push(action);
 						}
 					}
+					commandsArray.push(actions);						
 				}
 				
 				func = FunctionUtils.thunkify(mapEvent.displayChoices, answersArray, commandsArray);

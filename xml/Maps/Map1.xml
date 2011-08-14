@@ -7,6 +7,7 @@
 			<Position>(7,12)</Position>
 		</Graphic>
 		<Conditions>
+			<Unit>Charles Y.</Unit>
 		</Conditions>
 		<Movement>
 			<Type>None</Type>
@@ -18,20 +19,33 @@
 			<Range>48</Range>
 		</Activation>
 			<Commands>
+				<Message>Event:omg i love shopping at the mall! i love there shoes.:None:None:Yes</Message>
 				<Choices>
 					<Answer>
 						<Display>That is SO not Raven.</Display>
-						<Message>A:AHHHHHHHHH::</Message>
+						<Message>A:AHHHHHHHHH:None:None:No</Message>
+						<GetPrize>Ability:2:8:Simple</GetPrize>
 					</Answer>
 					<Answer>
 						<Display>That is SO Raven.</Display>
-						<Message>Raven:yay.::</Message>
+						<GetPrize>Ability:1:8:Simple</GetPrize>
+						<Message>Raven:yay.:None:None:Yes</Message>
+						<Choices>
+							<Answer>
+								<Display>You da cow.</Display>
+								<Message>A:AHHHHHHHHH:None:None:No</Message>
+								<GetPrize>Ability:2:8:Simple</GetPrize>
+							</Answer>
+							<Answer>
+								<Display>No YOU DA Cow.</Display>
+								<Message>Raven:yay.:None:None:No</Message>
+								<GetPrize>Ability:1:8:Simple</GetPrize>
+							</Answer>
+						</Choices>
 					</Answer>
 				</Choices>
 				<ChangeObjectPosition>-1(4,5):0</ChangeObjectPosition>
 				<ChangeFlexPoints>Increase:999</ChangeFlexPoints>
-				<Message>Event:omg i love shopping at the mall! i love there shoes.::</Message>
-				<GetPrize>Ability:1:8:Simple</GetPrize>
 			</Commands>
 	</MapObject>
 </MapObjects>

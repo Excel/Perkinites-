@@ -11,7 +11,8 @@
 	import actors.*;
 	import game.*;
 	import maps.*;
-
+	import util.FunctionUtils;
+	
 	public class DecisionDisplay extends MovieClip {
 
 		public var stageRef:Stage;
@@ -19,6 +20,10 @@
 		public var gameObject:GameUnit;
 		
 		public var optionsArray:Array;
+		
+		public var commands:Array;
+		public var prevMoveCount:int;
+		public var moveCount:int;
 		
 		function DecisionDisplay(stageRef:Stage, answersArray:Array, commandsArray:Array, gameObject:GameUnit) {
 			this.stageRef = stageRef;
@@ -53,12 +58,18 @@
 		}		
 		function clickHandler(e) {
 			parent.removeChild(this);
-			gameObject.pauseAction = true;
+			var message = gameObject.messagebox;
+			if (message.parent != null) {
+				message.parent.removeChild(message);
+			}
+			prevMoveCount = gameObject.prevMoveCount;
+			moveCount = gameObject.moveCount+1;
+			commands = gameObject.commands;
+			gameObject.swapActions(-1, 0, commandsArray[optionsArray.indexOf(e.target)]);
+			var func = FunctionUtils.thunkify(gameObject.swapActions, prevMoveCount, moveCount, commands);
+			gameObject.commands.push(func);
 		}
 		
-		function finish() {
-			gameObject.pauseAction = false;
-		}
 		/*function showEntries() {
 			//TEMPORARY FIX
 			var yOffset=0;

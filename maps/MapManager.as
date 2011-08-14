@@ -111,7 +111,9 @@
 		public static function setMapObjects(mapNumber:int) {
 			var mapObjects=MapDatabase.getMapObjects(mapNumber);
 			for (var i = 0; i < mapObjects.length; i++) {
-				mapClip.addChild(mapObjects[i]);
+				if (MapObjectConditionChecker.checkCondition(mapObjects[i])) {
+					mapClip.addChild(mapObjects[i]);
+				}
 			}
 		}
 		public static function setEnemies() {

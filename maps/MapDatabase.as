@@ -132,7 +132,7 @@
 				mapEvent.yTile=parseInt(posString.substring(ind1,ind2));
 				mapEvent.y=mapEvent.yTile*32+16;
 
-				for each (var conditionElement:XML in eventElement.Conditions) {
+				for each (var conditionElement:XML in eventElement.Conditions.children()) {
 					mapEvent.conditions.push(conditionElement);
 				}
 

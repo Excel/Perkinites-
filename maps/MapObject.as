@@ -94,7 +94,7 @@ package maps{
 
 		override public function detectHandler(e:Event):void {
 			if(aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None"){
-				if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)){
+				if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY) && parent != null){
 					GameVariables.mouseMapObject = true;
 				}
 				else{

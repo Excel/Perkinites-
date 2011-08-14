@@ -130,7 +130,7 @@ package game{
 			messages=[];
 			messageModes=[];
 			mbx=34;
-			mby=302-64;
+			mby = 302;//302-64;
 			messagebox = new MessageBox();
 			fastforward=false;
 			dialogueIndex=0;
@@ -324,7 +324,6 @@ package game{
          * Starts the animation based on direction.
 		 * 
          */
-
 		public function startAnimation(moveDir:int, auto:Boolean = false, KO:Boolean = false):void {
 			if(this.moveDir != moveDir || auto || KO){
 				var animLabel:String = this.getAnimLabel(moveDir, KO);
@@ -342,10 +341,18 @@ package game{
 			moveDir = 0;
 		}
 
-		public function forceAction(action, f) {
+		
+		public function swapActions(prevMoveCount:int, moveCount:int, commands:Array) {
+			this.prevMoveCount = prevMoveCount;
+			this.moveCount = moveCount;
+			this.commands = commands;
+			addEventListener(Event.ENTER_FRAME, gameHandler);
+			
+		}
+		public static function forceAction(action, f) {
+			action.prevMoveCount--;
 			f();
-			action.decreaseMove();
-			advanceMove();
+			action.moveCount--;
 		}
 		//All possible sequential moves
 		public function moveLeft() {
@@ -570,7 +577,8 @@ package game{
 			addEventListener(Event.ENTER_FRAME, waitHandler);
 			
 		}
-		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null) {
+		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null, withChoices:String = "No") {
+			
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				talking(nameString, messageString, portrait, faceIcon, fastforward);
@@ -582,7 +590,6 @@ package game{
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				var decisionDisplay = new DecisionDisplay(GameVariables.stageRef,answersArray,commandsArray,this);
-				//addEventListener(Event.ENTER_FRAME, waitHandler);
 			}			
 		}
 
@@ -734,8 +741,8 @@ package game{
 				}
 				if (moveCount>=commands.length) {
 					prevMoveCount=-1;
-					moveCount=0;
-					if (aTrigger=="Click"||aTrigger=="Collide"||aTrigger=="None") {
+					moveCount = 0;
+					if (aTrigger == "Click" || aTrigger == "Collide" || aTrigger == "None") {
 						GameUnit.objectPause=false;
 						removeEventListener(Event.ENTER_FRAME, detectHandler);
 						removeEventListener(Event.ENTER_FRAME, gameHandler);
@@ -788,6 +795,17 @@ package game{
 
 			}
 		}
+		
+		public function talkingConfirmWithChoicesHandler(e) {
+			if (e.keyCode==Keyboard.ENTER || 
+			e.keyCode == "C".charCodeAt(0) || 
+			e.keyCode == Keyboard.SPACE) {
+				stage.removeEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmWithChoicesHandler);
+				moveCount++;
+				charIndex=0;
+				//dialogueIndex++;
+				}
+		}		
 
 		public function moveHandler(e) {
 			if (! pauseAction&&! superPause&&! menuPause) {
