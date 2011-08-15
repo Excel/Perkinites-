@@ -139,7 +139,6 @@
 					
 					Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
 					Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
-					Unit.currentUnit.range=0;
 					Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
 					  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
 					  false, true);
@@ -148,12 +147,10 @@
 						Unit.currentUnit.mxpos=Unit.currentUnit.x;
 						Unit.currentUnit.mypos=Unit.currentUnit.y;
 
-					}//this.parent.
+					}
 
 					Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 					Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
-
-					Unit.partnerUnit.range=0;
 
 					Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
 					  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 

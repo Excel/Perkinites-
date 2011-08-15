@@ -3,6 +3,8 @@
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.xml.*;
@@ -14,14 +16,16 @@
 
 		public var xmlLoader:URLLoader = new URLLoader();
 
-		public const BGMURL:String="xml/BGM.xml";
+		public const BGMURL:String = "xml/BGM.xml";
 
 		/**
+		 * bgmInfo - actual BGMs
 		 * nameInfo - names of the BGMs
 		 * offsetInfo - starting offsets of the BGMs
 		 * loopInfo - looping offsets of the BGMs
 		 * endInfo - when to end the loop for the BGMs
 		 */
+		public static var bgmInfo = new Array();
 		public static var nameInfo = new Array();
 		public static var offsetInfo = new Array();
 		public static var loopInfo = new Array();
@@ -62,6 +66,8 @@
 		}
 		public function parseData(input:XML):void {
 			for each (var BGMElement:XML in input.BGM) {
+				var sndUrl:URLRequest = new URLRequest("_music/BGM/" + BGMElement.Name);		
+				bgmInfo.push(new Sound(sndUrl));
 				nameInfo.push(BGMElement.Name);
 				offsetInfo.push(parseInt(BGMElement.Offset));
 				loopInfo.push(parseInt(BGMElement.Loop));
@@ -76,6 +82,10 @@
 				}
 			}
 			return -1;
+		}
+		public static function getBGM(Name:String):Sound {
+			var id = getIndex(Name);
+			return bgmInfo[id];
 		}
 		public static function getName(id:int):String {
 			return nameInfo[id];

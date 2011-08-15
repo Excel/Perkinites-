@@ -129,8 +129,7 @@
 		public static function playBGM(BGM:String, loop:Boolean = false):void {
 			GameClient.BGM = BGM;
 			stopBGM();
-			var sndUrl:URLRequest = new URLRequest("_music/BGM/" + BGM);		
-			var snd = new Sound(sndUrl);
+			var snd = BGMDatabase.getBGM(BGM);
 			if(loop){
 				GameVariables.bgmChannel = snd.play(BGMDatabase.getLoop(BGM), 9999);
 			}

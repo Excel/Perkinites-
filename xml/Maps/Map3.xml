@@ -43,11 +43,11 @@
 						<Message>-:Rescue her from the crazy lady?:None:None:Yes</Message>
 						<Choices>
 							<Answer>
-								<Display>Of course! Crazy ladies are serious threats. D:</Display>
+								<Display>Of course! Crazy ladies are serious threats. :D</Display>
 								<Message>C. Kata:Oh my god, you and Sophie are so AWESOME right now!:None:None:No</Message>
 							</Answer>
 							<Answer>
-								<Display>Nahhhhhhhhhhhhh. D:</Display>
+								<Display>Nahhhhhhhhhhhhh. :D</Display>
 								<Message>C. Kata:...:None:None:None</Message>
 								<Message>C. Kata.:Yeah I'm just going to assume you said you're going to help me...:None:None:None</Message>
 								<Message>C. Kata:You don't want me to die. COLON|:None:None:None</Message>
@@ -115,7 +115,8 @@
 			<Range>12</Range>
 		</Activation>
 			<Commands>
-				<Teleport>1(9,10):2:Yes</Teleport>
+				<Shop></Shop>
+				<Message>Raven:cool:None:None:No</Message>
 			</Commands>
 	</MapObject>
 </MapObjects>

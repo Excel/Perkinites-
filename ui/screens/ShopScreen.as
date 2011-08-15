@@ -3,6 +3,7 @@
 	import flash.text.TextField;
 	import actors.*;
 	import abilities.*;
+	import game.GameUnit;
 	import items.*;
 	
 	import flash.display.MovieClip;
@@ -17,58 +18,110 @@
 		public var prevScreen:BaseScreen;
 		public var itemArray:Array;
 		public var abilityArray:Array;
-		function ShopScreen(prevScreen:BaseScreen, itemArray:Array, abilityArray:Array, stageRef:Stage = null) {
+		public var gameObject:GameUnit;
+		public var gf1:GlowFilter;
+		function ShopScreen(prevScreen:BaseScreen, itemArray:Array, abilityArray:Array, stageRef:Stage = null, gameObject:GameUnit = null) {
 
 			this.prevScreen=prevScreen;
 			this.stageRef=stageRef;
 			this.itemArray=itemArray;
-			this.abilityArray=abilityArray;
+			this.abilityArray = abilityArray;
+			this.gameObject = gameObject;
 
 			flexPointsDisplay.text=Unit.flexPoints.toFixed(2);
 
 			iaButton.buttonText.text="I + A";
-			iaButton.buttonText.text="A + I";
-			iaButton.buttonText.text="Items";
-			iaButton.buttonText.text="Abilities";
+			aiButton.buttonText.text="A + I";
+			iButton.buttonText.text="Items";
+			aButton.buttonText.text = "Abilities";
+			
+			iaButton.addEventListener(MouseEvent.CLICK, iaHandler);
+			aiButton.addEventListener(MouseEvent.CLICK, aiHandler);
+			iButton.addEventListener(MouseEvent.CLICK, iHandler);
+			aButton.addEventListener(MouseEvent.CLICK, aHandler);
+			
+			gf1=new GlowFilter(0xFF9900,100,20,20,1,5,true,false);
 
-			gotoPage(1);
+			gotoAndStop(1);
+			setInventory();
 			load();
 		}
+		
+		public function iaHandler(e) {
+			setInventory(0);
+			colorButtons(0);
+		}
+		public function aiHandler(e) {
+			setInventory(1);
+			colorButtons(1);
+		}
+		public function iHandler(e) {
+			setInventory(2);
+			colorButtons(2);
+		}
+		public function aHandler(e) {
+			setInventory(3);
+			colorButtons(3);
+		}
+		
+		public function colorButtons(iaOption) {
+			switch (iaOption) {
+				case 0 :
+					iaButton.filters=[gf1];
+					aiButton.filters=[];
+					iButton.filters=[];
+					aButton.filters=[];
+					break;
+				case 1 :
+					iaButton.filters=[];
+					aiButton.filters=[gf1];
+					iButton.filters=[];
+					aButton.filters=[];
+					break;
+				case 2 :
+					iaButton.filters=[];
+					aiButton.filters=[];
+					iButton.filters=[gf1];
+					aButton.filters=[];
+					break;
+				case 3 :
+					iaButton.filters=[];
+					aiButton.filters=[];
+					iButton.filters=[];
+					aButton.filters=[gf1];
+					break;
+			}
+		}		
+		
 
 		override public function keyHandler(e:KeyboardEvent):void {
 			var sound;
 			if (e.keyCode=="X".charCodeAt(0)) {
 				sound = new se_timeout();
 				sound.play();
+				if (gameObject != null) {
+					gameObject.moveCount++;
+				}
 				unload(prevScreen);
 			}
 		}
 
-		public function gotoPage(i:int) {
-			gotoAndStop(i);
-			update();
-		}
 
 
-		public function update() {
-			switch (currentFrame) {
-				case 1 :
-					break;
-				case 2 :
-					break;
-
-			}
-		}
-
-
-		public function setInventory(option:int = 0) {
+		public function setInventory(option:int = 1) {
 			/*
 			option = 0 // items + abilities
 			option = 1 //abilities + items
 			option = 2 only i
 			option = 3 only a
 			*/
-			var yOffset=96;
+			for (var i = 0; i < numChildren; i++ ) {
+				if (getChildAt(i) is AbilityIcon) {
+					removeChild(getChildAt(i));
+					i--;
+				}
+			}
+			var yOffset=128;
 			switch (option) {
 				case 0 :
 					yOffset=setInventoryItems(yOffset);
@@ -89,10 +142,10 @@
 
 		public function setInventoryItems(yOffset:int) {
 			var i;
-			var xOffset=196;
+			var xOffset=196+16;
 			for (i = 0; i < itemArray.length; i++) {
 				if (i%6==0&&i!=0) {
-					xOffset=196;
+					xOffset=196+16;
 					yOffset+=36;
 				}
 				if (itemArray[i].amount>0) {
@@ -112,10 +165,10 @@
 		}
 		public function setInventoryAbilities(yOffset:int) {
 			var i;
-			var xOffset=196;
+			var xOffset=196+16;
 			for (i = 0; i < abilityArray.length; i++) {
 				if (i%6==0&&i!=0) {
-					xOffset=196;
+					xOffset=196+16;
 					yOffset+=36;
 				}
 				if (abilityArray[i].amount>0) {

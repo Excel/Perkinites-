@@ -4,18 +4,18 @@
 		<Name>P.S.F. -Perkinite Strike Force-.mp3</Name>
 		<Offset>20</Offset>
 		<Loop>15000</Loop>
-		<End>44000</End>
+		<End>61641</End>
 	</BGM>
 	<BGM>
 		<Name>Perk Step.mp3</Name>
 		<Offset>20</Offset>
 		<Loop>20</Loop>
-		<End>43000</End>
+		<End>42333</End>
 	</BGM>
 	<BGM>
 		<Name>perkinite panic!!.mp3</Name>
 		<Offset>20</Offset>
 		<Loop>20</Loop>
-		<End>29000</End>
+		<End>28647</End>
 	</BGM>
 </BGMs>

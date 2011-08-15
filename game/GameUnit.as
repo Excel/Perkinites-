@@ -10,6 +10,7 @@ package game{
 	import tileMapper.*;
 	import ui.*;
 	import ui.hud.HUDManager;
+	import ui.screens.ShopScreen;
 	import util.*;
 
 	import flash.display.FrameLabel;
@@ -603,7 +604,7 @@ package game{
 				messageString = messageString.replace(pattern, ":");
 				pattern = /NEWSPACE/g; 
 				messageString = messageString.replace(pattern, '\n');
-				pattern = /HEARTSIGN/g; 
+				pattern = /LESSTHANTHREE/g; 
 				messageString = messageString.replace(pattern, '<3');				
 				talking(nameString, messageString, portrait, faceIcon, fastforward);
 				//addEventListener(Event.ENTER_FRAME,talkingHandler);
@@ -615,6 +616,15 @@ package game{
 				prevMoveCount = moveCount;
 				var decisionDisplay = new DecisionDisplay(GameVariables.stageRef,answersArray,commandsArray,this);
 			}			
+		}
+		
+		public function createShop(itemsArray:Array, abilitiesArray:Array, amountsArray:Array, priceMod:Number) {
+			if(prevMoveCount != moveCount){
+				prevMoveCount = moveCount;
+				var itemArray = new Array(new Ability(0, 5));
+				var abilityArray = new Array(new Ability(0, 9), new Ability(1, 9), new Ability(2, 9));
+				var shopScreen = new ShopScreen(null, itemArray, abilityArray, GameVariables.stageRef, this);
+			}
 		}
 		
 		public function changeSwitch(ID:int, binary:String) {

@@ -163,9 +163,17 @@
 			}  else if (command.name() == "StopBGM") {
 				//<StopBGM></StopBGM>
 				func = mapEvent.stopBGM;
+			} else if (command.name() == "Shop") {
+				//<Shop>(Item1:Item2:etc)(Abilities)(Amounts)PriceMod</Shop>
+				var itemsArray = new Array();
+				var abilitiesArray = new Array();
+				var amountsArray = new Array();
+				var priceMod = 1;
+				func = FunctionUtils.thunkify(mapEvent.createShop, itemsArray, abilitiesArray, amountsArray,priceMod);
 			} else if (command.name() == "StartCutscene") {
 				//<StartCutscene></StartCutscene>
 				func = mapEvent.startCutscene;
+			
 				
 			} else if (command.name() == "EndCutscene") {
 				//<EndCutscene></EndCutscene>
