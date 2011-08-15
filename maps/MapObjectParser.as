@@ -157,10 +157,16 @@
 				var speed=parseInt(command.substring(ind+1,command.toString().length));
 				func = FunctionUtils.thunkify(mapEvent.scrollMap, scrollDir, numTiles, speed);
 				
+			} else if (command.name() == "PlayBGM") {
+				//<PlayBGM>BGM</PlayBGM>
+				func = FunctionUtils.thunkify(mapEvent.playBGM, command);
+			}  else if (command.name() == "StopBGM") {
+				//<StopBGM></StopBGM>
+				func = mapEvent.stopBGM;
 			} else if (command.name() == "StartCutscene") {
 				//<StartCutscene></StartCutscene>
-				func=mapEvent.startCutscene;
-			
+				func = mapEvent.startCutscene;
+				
 			} else if (command.name() == "EndCutscene") {
 				//<EndCutscene></EndCutscene>
 				func = mapEvent.endCutscene;

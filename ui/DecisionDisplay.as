@@ -31,7 +31,7 @@
 			this.gameObject = gameObject;
 			
 			this.optionsArray = new Array(choice1, choice2, choice3, choice4);
-			x = 235;
+			x = 320-150;
 			y = 186;
 			for (var i = 0; i < answersArray.length; i++) {
 				optionsArray[i].visible = true;

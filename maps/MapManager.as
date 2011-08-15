@@ -1,6 +1,7 @@
 ﻿package maps{
 
 	import actors.*;
+	import game.GameClient;
 	import game.GameUnit;
 	import game.GameVariables;
 	
@@ -43,6 +44,7 @@
 			ScreenRect.createScreenRect(new Array(mapClip),640,480);
 			stageRef.addEventListener(Event.ENTER_FRAME, VCamHandler);
 			//stageRef.addEventListener(Event.ENTER_FRAME, depthSortHandler);
+			
 			return mapClip;
 
 		}
@@ -81,7 +83,13 @@
 			var secSep=mapCode.indexOf(":",firstSep+1);
 
 			mapWidth=parseInt(mapCode.substring(firstSep+1,secSep));
-			mapHeight=parseInt(mapCode.substring(0,firstSep));
+			mapHeight = parseInt(mapCode.substring(0, firstSep));
+			if (map.BGM == "Stop") {
+				GameClient.stopBGM();
+			}
+			else if (map.BGM != "None") {
+				GameClient.playBGM(map.BGM);
+			}
 		}
 		public static function setHeroPosition() {
 			var startX=GameVariables.xTile;

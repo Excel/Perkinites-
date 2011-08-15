@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<BGMs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<BGM>
+		<Name>P.S.F. -Perkinite Strike Force-.mp3</Name>
+		<Offset>20</Offset>
+		<Loop>15000</Loop>
+		<End>44000</End>
+	</BGM>
+	<BGM>
+		<Name>Perk Step.mp3</Name>
+		<Offset>20</Offset>
+		<Loop>20</Loop>
+		<End>43000</End>
+	</BGM>
+	<BGM>
+		<Name>perkinite panic!!.mp3</Name>
+		<Offset>20</Offset>
+		<Loop>20</Loop>
+		<End>29000</End>
+	</BGM>
+</BGMs>

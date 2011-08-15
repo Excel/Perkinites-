@@ -6,6 +6,7 @@
 	
 	import flash.display.MovieClip;
 	import flash.display.Stage;
+	import flash.media.SoundChannel;
 	
 	public class GameVariables {
 
@@ -56,5 +57,13 @@
 		 */
 		public static var switchesArray = new Array(100);
 		public static var variablesArray = new Array(100);
+		
+		/**
+		 * Handles music. :3
+		 */
+		public static var bgmChannel:SoundChannel = new SoundChannel();
+		public static var bgsChannel:SoundChannel = new SoundChannel();
+		public static var seChannel:SoundChannel = new SoundChannel();		
+		
 	}
 }

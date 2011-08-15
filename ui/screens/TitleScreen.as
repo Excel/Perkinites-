@@ -1,5 +1,6 @@
 ﻿package ui.screens{
 
+	import game.*;
 	import flash.display.MovieClip;
 	import flash.events.*;
 	import flash.ui.*;
@@ -32,7 +33,8 @@
 		}
 
 		public function newGame(e:Event):void {
-			unload(new StageSelect(1,-1,stage));
+			unload(new StageSelect(1, -1, stage));
+			GameClient.playBGM("perkinite panic!!.mp3");
 		}
 		public function continueGame(e:Event):void {
 			unload(new FileScreen(true,this,stage));

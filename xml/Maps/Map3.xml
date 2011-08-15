@@ -8,7 +8,7 @@
 		</Graphic>
 		<Conditions>
 			<Switch>0:OFF</Switch>
-			<Variable>0:==:1</Variable>
+			<Variable>0:>=:0</Variable>
 		</Conditions>
 		<Movement>
 			<Type>None</Type>
@@ -22,10 +22,11 @@
 			<Commands>
 				<StartCutscene></StartCutscene>
 				<Wait>50</Wait>
-				<Message>-:Date and Time\c XX/XX/201X, 10\c00 AM\nLocation\c Outside of Perkins Hall:None:None:No</Message>
+				<Message>-:Date and TimeCOLON XX/XX/201X, 10COLON00 AMNEWSPACELocationCOLON Outside of Perkins Hall:None:None:No</Message>
 				<Message>-:You come back to Perkins Hall to find out that most of the door locks are malfunctioning. As a result, most of them will not open.:None:None:No</Message>
 				<Message>-:Fortunately enough, the door lock leading to the Trash Room on the Ground Floor works perfectly fine.:None:None:No</Message>
 				<Wait>20</Wait>
+				<PlayBGM>Perk Step.mp3</PlayBGM>
 				<Message>-:It seems like one of your cellphones is ringing. Do you want to take the call? It might be really important, you know.:None:None:Yes</Message>
 				<Conditional>
 					<Conditions>
@@ -49,12 +50,13 @@
 								<Display>Nahhhhhhhhhhhhh. D:</Display>
 								<Message>C. Kata:...:None:None:None</Message>
 								<Message>C. Kata.:Yeah I'm just going to assume you said you're going to help me...:None:None:None</Message>
-								<Message>C. Kata:You don't want me to die. \c|:None:None:None</Message>
+								<Message>C. Kata:You don't want me to die. COLON|:None:None:None</Message>
 							</Answer>
 						</Choices>
+						<Wait>20</Wait>
 						<Message>C. Kata:...I think the crazy bitch is coming back.:None:None:No</Message>
 						<Message>C. Kata:I'll try to deal with her myself, but you should find help or go to the second floor!:None:None:No</Message>
-						<Message>C. Kata:Thank you so much, guys! \3:None:None:No</Message>
+						<Message>C. Kata:Thank you so much, guys! LESSTHANTHREE:None:None:No</Message>
 					</Pass>
 					<Fail>
 						<Message>Huong V.:OH MY GOD SOMEONE FINALLY PICKED UP. DON'T HANG UP!:None:None:None</Message>	
@@ -69,16 +71,17 @@
 						<Choices>
 							<Answer>
 								<Display>Of course! Darkness is no laughing matter. :D</Display>
-								<Message>Huong V.:I knew I could count on you guys! \c):None:None:None</Message>
+								<Message>Huong V.:I knew I could count on you guys! COLON):None:None:None</Message>
 							</Answer>
 							<Answer>
 								<Display>Of course not! I shall turn the other way. :D</Display>
 								<Message>Huong V.:Hahaha, you're really funny.:None:None:None</Message>
 								<Message>Huong V.:Wait, you're kidding, right?:None:None:None</Message>
 								<Message>Huong V.:...:None:None:None</Message>
-								<Message>Huong V.:OH SCREW YOU. YOU DON'T HAVE A CHOICE IN THE MATTER.\nILLUSION OF FREEDOM, JERK.:None:None:None</Message>
+								<Message>Huong V.:OH SCREW YOU. YOU DON'T HAVE A CHOICE IN THE MATTER.NEWSPACEILLUSION OF FREEDOM, JERK.:None:None:None</Message>
 							</Answer>
 						</Choices>
+						<Wait>20</Wait>
 						<Message>Huong V.:...oh crap, I think she's coming back.:None:None:No</Message>
 						<Message>Huong V.:Get to the second floor! Hurry!!:None:None:No</Message>
 					</Fail>
@@ -87,7 +90,8 @@
 				<Message>-:It seems like the call has ended. You should probably go to the second floor.:None:None:No</Message>
 				<Message>-:Or I mean, you could go to the police and call for backup, but maybe you feel like that the power of friendship and the weapons you hide under your clothes right now might be more powerful or something.:None:None:No</Message>
 				<EndCutscene></EndCutscene>
-				<Message>-:If you're having trouble with the general control scheme of the game, please consult the tutorial! \cD:None:None:No</Message>
+				<StopBGM></StopBGM>
+				<Message>-:If you're having trouble with the general control scheme of the game, please consult the tutorial! COLOND:None:None:No</Message>
 				<Switch>0:TRUE</Switch>
 				<Variable>0:=:1</Variable>
 				<EraseObject></EraseObject>

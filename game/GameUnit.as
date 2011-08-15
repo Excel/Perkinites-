@@ -599,7 +599,12 @@ package game{
 		public function displayMessage(nameString:String = null, messageString:String = null, portrait = null, faceIcon = null, withChoices:String = "No") {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
-						
+				var pattern:RegExp = /COLON/g; 
+				messageString = messageString.replace(pattern, ":");
+				pattern = /NEWSPACE/g; 
+				messageString = messageString.replace(pattern, '\n');
+				pattern = /HEARTSIGN/g; 
+				messageString = messageString.replace(pattern, '<3');				
 				talking(nameString, messageString, portrait, faceIcon, fastforward);
 				//addEventListener(Event.ENTER_FRAME,talkingHandler);
 				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
@@ -649,6 +654,21 @@ package game{
 				moveCount++;
 			}
  		}
+		
+		public function playBGM(BGM:String) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				GameClient.playBGM(BGM);
+				moveCount++;
+			}
+		}
+		public function stopBGM() {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				GameClient.stopBGM();
+				moveCount++;
+			}
+		}
 		
 		public function useConditional(conditionsArray:Array, passArray:Array, failArray:Array) {
 			var check = MapObjectConditionChecker.checkCondition(conditionsArray);

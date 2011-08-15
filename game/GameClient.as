@@ -3,7 +3,12 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
+	import flash.net.URLRequest;
+	import flash.utils.Timer;
 
 	import abilities.*;
 	import actors.*;
@@ -26,20 +31,29 @@
 		public var stageRef:Stage;
 
 		public var actorDatabase;
+		public var bgmDatabase;
 		public var mapDatabase;
 
 		public var mainGame;
+		
+		public var gameTimer;
+		public static var soundTimer;
+		
+		public static var BGM:String;
+		public static var end;
 
 		public function GameClient(stageRef:Stage):void {
 			this.stageRef=stageRef;
 
 			//Create databases
 			actorDatabase = new ActorDatabase();
+			bgmDatabase = new BGMDatabase();
 			mapDatabase = new MapDatabase();
 
 			//Load XML Data in order!
 			AbilityDatabase.loadData();
 			actorDatabase.loadData();
+			bgmDatabase.loadData();
 			mapDatabase.addEventListener(MapDataEvent.MAPS_LOADED, startGame);
 			mapDatabase.loadData();
 
@@ -48,6 +62,8 @@
 				GameVariables.variablesArray[i] = 0;				
 			}
 			var mapClip = new MovieClip();
+			gameTimer = new Timer(1000);
+			soundTimer = new Timer(1);
 
 			mainGame = new Game(stageRef, mapClip);
 			mapDatabase.addEventListener(MapDataEvent.MAPS_LOADED, startGame);
@@ -78,6 +94,20 @@
 		public function changeMap():void {
 			mainGame.changeMap();
 		}
+		public function startTimer():void {
+			gameTimer.addEventListener(TimerEvent.TIMER, gameTimeHandler);
+			gameTimer.start();
+		}
+		public function gameTimeHandler(e:TimerEvent):void {
+			GameVariables.time++;
+		}
+		public static function BGMTimeHandler(e:Event):void {
+			if (int(GameVariables.bgmChannel.position) >= end) {
+				stopBGM();
+				playBGM(BGM, true);
+			}
+		}
+
 		public function saveGame():void {
 			var sObj=SharedObject.getLocal("savegame");
 			if (! sObj.data.name) {
@@ -95,6 +125,26 @@
 			var a=sObj.data.name;
 			trace(a);
 			showMap();
+		}
+		public static function playBGM(BGM:String, loop:Boolean = false):void {
+			GameClient.BGM = BGM;
+			stopBGM();
+			var sndUrl:URLRequest = new URLRequest("_music/BGM/" + BGM);		
+			var snd = new Sound(sndUrl);
+			if(loop){
+				GameVariables.bgmChannel = snd.play(BGMDatabase.getLoop(BGM), 9999);
+			}
+			else {
+				GameVariables.bgmChannel = snd.play(BGMDatabase.getOffset(BGM), 9999);
+			}
+			GameClient.end = BGMDatabase.getEnd(BGM);
+			soundTimer.addEventListener(TimerEvent.TIMER, BGMTimeHandler);
+			soundTimer.start();
+		}
+		public static function stopBGM():void {
+			GameVariables.bgmChannel.stop();
+			soundTimer.removeEventListener(TimerEvent.TIMER, BGMTimeHandler);
+			soundTimer.stop();
 		}
 	}
 }
