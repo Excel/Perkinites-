@@ -102,7 +102,7 @@
 			GameVariables.time++;
 		}
 		public static function BGMTimeHandler(e:Event):void {
-			if (int(GameVariables.bgmChannel.position) >= end) {
+			if (int(GameVariables.bgmChannel.position) >= end-20) {
 				stopBGM();
 				playBGM(BGM, true);
 			}

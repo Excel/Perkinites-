@@ -10,7 +10,6 @@
 	import attacks.*;
 	import enemies.*;
 	import game.*;
-	import items.*;
 	import maps.*;
 	import tileMapper.*;
 	import ui.*;
@@ -84,7 +83,7 @@
 		public var weapon:String;
 		static public var EXP=0;
 		static public var nextEXP=200;
-		static public var maxLP=1;
+		static public var maxLP=20;
 		static public var unitHUD=HUDManager.getUnitHUD();
 
 		public var path = new Array();
@@ -105,9 +104,9 @@
 		public var basicAbilities:Array;//the initial abilities
 		//public var commands:Array;
 
-		static public var abilityAmounts:Array=AbilityDatabase.amounts;
+		static public var abilityAmounts:Array=AbilityDatabase.abilityAmounts;
 		//work on implementing this
-		static public var itemAmounts:Array=ItemDatabase.uses;
+		static public var itemAmounts:Array = AbilityDatabase.itemAmounts;
 
 
 		public var passiveItems:Array;
@@ -174,9 +173,8 @@
 				basicAbilities=AbilityDatabase.getBasicAbilities(Name);
 				hotkeySet=new Array(basicAbilities[0],null);
 
-				powerpoints=1;
+				powerpoints=50;
 				knockout=24*30;
-				addEventListener(Event.ENTER_FRAME, detectHandler);
 				
 			}
 		}
@@ -221,7 +219,7 @@
 			range = 0;
 
 			unitHUD.updateHP();
-			knockout=24*5;
+			knockout=24*30;
 
 			if (Unit.currentUnit==this) {
 				Unit.setHotkey(4, hotkeySet[0]);
@@ -230,6 +228,7 @@
 				Unit.setHotkey(6, hotkeySet[0]);
 				Unit.setHotkey(7, hotkeySet[1]);
 			}
+			Unit.currentUnit.addEventListener(Event.ENTER_FRAME, detectHandler);
 
 		}
 		public function end() {
@@ -237,7 +236,8 @@
 		}
 
 		override public function detectHandler(e:Event):void{
-			if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)  && parent != null){
+			if ((Unit.currentUnit.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)  && Unit.currentUnit.parent != null)
+				|| (Unit.partnerUnit.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY)  && Unit.partnerUnit.parent != null)){
 				GameVariables.mouseUnit = true;
 			}
 			else{
@@ -255,14 +255,14 @@
 					movePlayer();
 					//moveDirection();
 					if (! disableHotkeys) {
-						useHotKey1();
+/*						useHotKey1();
 						useHotKey2();
 						useHotKey3();
 						useHotKey4();
 						useHotKey5();
 						useHotKey6();
 						useHotKey7();
-						updateDelays();
+						updateDelays();*/
 					}
 
 				}
@@ -403,9 +403,9 @@
 				Unit.nextEXP+=Unit.maxLP*200;
 				updateEXP(0);
 
-				for (var i = 0; i < Menu.sliderValueArray.length; i++) {
+/*				for (var i = 0; i < Menu.sliderValueArray.length; i++) {
 					Menu.sliderValueArray[i]+=1;
-				}
+				}*/
 				//change stats here
 			}
 		}

@@ -80,7 +80,7 @@
 					list=Enemy.list;
 					for (var i = 0; i < list.length; i++) {
 						if (this.hitTestObject(list[i].collision)) {
-							list[i].updateHP(ability.damage);
+							list[i].updateHP(ability.power);
 							kill();
 							return;
 						}
@@ -88,12 +88,12 @@
 
 				} else if (caster is Enemy) {
 					if (this.hitTestObject(Unit.currentUnit)) {
-						Unit.currentUnit.updateHP(ability.damage);
+						Unit.currentUnit.updateHP(ability.power);
 						kill();
 						return;
 					}
 					if (this.hitTestObject(Unit.partnerUnit)) {
-						Unit.partnerUnit.updateHP(ability.damage);
+						Unit.partnerUnit.updateHP(ability.power);
 						kill();
 						return;
 					}

@@ -65,6 +65,7 @@
 			addEventListener(MouseEvent.MOUSE_DOWN, dragMap);
 			stageRef.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
 
+			GameClient.playBGM("perkinite panic!!.mp3");
 			load();
 
 		}

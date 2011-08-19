@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <BGMs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<BGM>
+		<Name>Exceed the Sky.mp3</Name>
+		<Offset>21943</Offset>
+		<Loop>21943</Loop>
+		<End>61314</End>
+	</BGM>
+	<BGM>
+		<Name>Junk Stereo Concept.mp3</Name>
+		<Offset>20</Offset>
+		<Loop>15360</Loop>
+		<End>61440</End>
+	</BGM>
+	<BGM>
 		<Name>P.S.F. -Perkinite Strike Force-.mp3</Name>
 		<Offset>20</Offset>
 		<Loop>15000</Loop>
-		<End>61641</End>
+		<End>61875</End>
 	</BGM>
 	<BGM>
 		<Name>Perk Step.mp3</Name>
 		<Offset>20</Offset>
 		<Loop>20</Loop>
-		<End>42333</End>
+		<End>42667</End>
 	</BGM>
 	<BGM>
 		<Name>perkinite panic!!.mp3</Name>
 		<Offset>20</Offset>
 		<Loop>20</Loop>
-		<End>28647</End>
+		<End>28872</End>
 	</BGM>
 </BGMs>

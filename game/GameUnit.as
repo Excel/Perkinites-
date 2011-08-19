@@ -5,7 +5,6 @@ package game{
 
 	import actors.*;
 	import abilities.*;
-	import items.*;
 	import maps.*;
 	import tileMapper.*;
 	import ui.*;
@@ -552,12 +551,13 @@ package game{
 					var getDisplay=new GetDisplay(prizeID,amount,type,displayMode);
 					GameVariables.stageRef.addChild(getDisplay);
 				}
-				if (type=="Item") {
+				if (type == "Item") {
+					var maxUses = 9;
 					addUses=Unit.itemAmounts[prizeID]+amount;
-					if (addUses<ItemDatabase.getMaxUses(prizeID)) {
+					if (addUses<maxUses) {
 						Unit.itemAmounts[prizeID]=addUses;
 					} else {
-						Unit.itemAmounts[prizeID]=ItemDatabase.getMaxUses(prizeID);
+						Unit.itemAmounts[prizeID]=maxUses;
 					}
 				} else if (type == "Ability") {
 					addUses=Unit.abilityAmounts[prizeID]+amount;

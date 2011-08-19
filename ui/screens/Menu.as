@@ -16,7 +16,6 @@
 	import abilities.*;
 	import actors.*;
 	import game.*;
-	import items.*;
 	import maps.*;
 
 	public class Menu extends BaseScreen {
@@ -263,17 +262,14 @@
 		}
 
 		public function makeDescription(index:int, type:String, recycle:Boolean = true) {
+			var thing = AbilityDatabase.getAbility(index);
+			
 			if (currentFrame==2&&recycle) {
-				if (type=="Item"&&ItemDatabase.getValue(index)>0) {
+				if (thing.value>0) {
 					page2.recycleButton.visible=true;
 					page2.recycleButton.type=type;
 					page2.recycleButton.index=index;
-					page2.recycleButton.valueDisplay.text=ItemDatabase.getValue(index).toFixed(2);
-				} else if (type == "Ability" && AbilityDatabase.getValue(index)>0) {
-					page2.recycleButton.visible=true;
-					page2.recycleButton.type=type;
-					page2.recycleButton.index=index;
-					page2.recycleButton.valueDisplay.text=AbilityDatabase.getValue(index).toFixed(2);
+					page2.recycleButton.valueDisplay.text=thing.value.toFixed(2);
 				} else {
 					page2.recycleButton.visible=false;
 				}
@@ -282,36 +278,17 @@
 			}
 			thingIcon.visible=true;
 
-			if (type=="Item") {
-				thingIcon.gotoAndStop(ItemDatabase.getIndex(index));
-				thingName.text=ItemDatabase.getName(index);
-				useInfo.text=grabActivation(index,type);
-				effectInfo.text=grabSpec(index,type);
-				rangeInfo.text="RANGE: "+ItemDatabase.getRange(index);
-				cooldownInfo.text="COOLDOWN: "+ItemDatabase.getCooldown(index);
-				availabilityInfo.text="Available to "+ItemDatabase.getAvailability(index);
-				thingDescription.text=ItemDatabase.getDescription(index);
-			} else if (type == "Ability") {
-				thingIcon.gotoAndStop(AbilityDatabase.getIndex(index));
-				thingName.text=AbilityDatabase.getName(index);
-				useInfo.text=grabActivation(index,type);
-				if (AbilityDatabase.isBasicAbility(index)) {
-					var ability=getBasicAbility(index);
+			thingIcon.gotoAndStop(thing.index);
+			thingName.text=thing.Name;
 
-					effectInfo.text=ability.getSpecInfo();
-					rangeInfo.text="RANGE: "+ability.range;
-					cooldownInfo.text="COOLDOWN: "+ability.cooldown;
-				} else {
-					effectInfo.text=AbilityDatabase.getSpecInfo(index);
-					rangeInfo.text="RANGE: "+AbilityDatabase.getRange(index);
-					cooldownInfo.text="COOLDOWN: "+AbilityDatabase.getCooldown(index);
-				}
-				availabilityInfo.text="Available to "+AbilityDatabase.getAvailability(index);
-				thingDescription.text=AbilityDatabase.getDescription(index);
-			}
-
+			useInfo.text=grabActivation(thing.ID,type);
+			effectInfo.text=thing.getSpecInfo();
+			rangeInfo.text="RANGE: "+thing.range;
+			cooldownInfo.text="COOLDOWN: "+thing.maxCooldown;
+			
+			availabilityInfo.text="Available to "+thing.availability;
+			thingDescription.text=thing.getDescription();
 		}
-
 		public function updateEquippedBasicAbilities() {
 			var i;
 			var j;
@@ -319,7 +296,7 @@
 			var index;
 			for (i = 0; i < Unit.currentUnit.basicAbilities.length; i++) {
 				basicAbility=Unit.currentUnit.basicAbilities[i];
-				index=basicAbility.id;
+				index=basicAbility.ID;
 				for (j = 0; j < hotkeyArray.length; j++) {
 					if (hotkeyArray[j]!=null&&hotkeyArray[j].Name==basicAbility.Name) {
 						hotkeyArray[j]=getBasicAbility(index);
@@ -334,7 +311,7 @@
 			}
 			for (i = 0; i < Unit.partnerUnit.basicAbilities.length; i++) {
 				basicAbility=Unit.partnerUnit.basicAbilities[i];
-				index=basicAbility.id;
+				index=basicAbility.ID;
 				for (j = 0; j < hotkeyArray.length; j++) {
 					if (hotkeyArray[j]!=null&&hotkeyArray[j].Name==basicAbility.Name) {
 						hotkeyArray[j]=getBasicAbility(index);
@@ -352,18 +329,18 @@
 			var i;
 			var ability;
 			var basicAbilities;
-			if (Unit.currentUnit.Name==AbilityDatabase.getAvailability(index)) {
+			if (Unit.currentUnit.Name==AbilityDatabase.getAbility(index).availability) {
 				basicAbilities=Unit.currentUnit.basicAbilities;
 				for (i = 0; i < basicAbilities.length; i++) {
-					if (AbilityDatabase.getName(index)==basicAbilities[i].Name) {
+					if (AbilityDatabase.getAbility(index).Name==basicAbilities[i].Name) {
 						ability=basicAbilities[i];
 						break;
 					}
 				}
-			} else if (Unit.partnerUnit.Name == AbilityDatabase.getAvailability(index)) {
+			} else if (Unit.partnerUnit.Name == AbilityDatabase.getAbility(index).availability) {
 				basicAbilities=Unit.partnerUnit.basicAbilities;
 				for (i = 0; i < basicAbilities.length; i++) {
-					if (AbilityDatabase.getName(index)==basicAbilities[i].Name) {
+					if (AbilityDatabase.getAbility(index).Name==basicAbilities[i].Name) {
 						ability=basicAbilities[i];
 					}
 				}
@@ -372,7 +349,7 @@
 		}
 
 		public function basicCooldownNotActive(index) {
-			var Name=AbilityDatabase.getName(index);
+			var Name=AbilityDatabase.getAbility(index).name;
 			for (var i = 0; i < hotkeyArray.length; i++) {
 				if (hotkeyArray[i]!=null&&hotkeyArray[i].Name==Name) {
 					if (hotkeyArray[i].cooldown<hotkeyArray[i].maxCooldown) {
@@ -385,31 +362,9 @@
 			return true;
 		}
 
-		public function grabSpec(index:int, type:String) {
-			var spec="";
-			if (type=="Item") {
-				spec=ItemDatabase.getSpec(index);
-				switch (spec) {
-					case "Damage" :
-						spec="Damage = "+ItemDatabase.getDamage(index);
-						break;
-					case "Healing+" :
-						spec="Healing + "+ItemDatabase.getHPLumpChange(index);
-						break;
-					case "Healing%" :
-						spec="Healing + "+ItemDatabase.getHPPercChange(index)+"%";
-						break;
-				}
-			}
-			return spec;
-		}
 		public function grabActivation(index:int, type:String) {
 			var activation="USE: ";
-			if (type=="Item") {
-				activation=activation+ItemDatabase.getActivation(index);
-			} else if (type == "Ability") {
-				activation=activation+AbilityDatabase.getActivationLabel(index);
-			}
+			//activation=activation+AbilityDatabase.getActivationLabel(index);
 			return activation;
 		}
 		public function freezeHotkeys() {
@@ -450,11 +405,6 @@
 						}
 					} else {
 						hotkeyIconArray[i].gotoAndStop(1);
-						/*if (currentFrame!=3) {
-						hotkeyIconArray[i].visible=false;
-						} else {
-						hotkeyIconArray[i].visible=true;
-						}*/
 					}
 				}
 
@@ -462,7 +412,6 @@
 					updatePowerupPage();
 				}
 			}
-			//thingIcon.gotoAndStop(1);
 			thingIcon.useCount.visible=false;
 		}
 
@@ -546,12 +495,10 @@
 			var obj=e.target;
 			if (obj.type=="Item") {
 				Unit.itemAmounts[obj.index]-=1;
-				Unit.flexPoints+=ItemDatabase.getValue(obj.index);
-
 			} else if (obj.type == "Ability") {
 				Unit.abilityAmounts[obj.index]-=1;
-				Unit.flexPoints+=AbilityDatabase.getValue(obj.index);
 			}
+			Unit.flexPoints+=AbilityDatabase.getAbility(obj.index).value;			
 			update();
 			flexPointsDisplay.text=Unit.flexPoints.toFixed(2);
 
@@ -684,7 +631,7 @@
 				}
 				if (Unit.itemAmounts[i]>0) {
 					var itemIcon = new AbilityIcon();
-					itemIcon.gotoAndStop(ItemDatabase.getIndex(i));
+					itemIcon.gotoAndStop(AbilityDatabase.getAbility(i).index);
 					itemIcon.x=xOffset;
 					itemIcon.y=yOffset;
 					itemIcon.useCount.text=Unit.itemAmounts[i]+"";
@@ -723,12 +670,12 @@
 						confirm=false;
 					}
 					ability=unit.basicAbilities[i];
-					if (ability.min>0&&Unit.abilityAmounts[ability.id]>0) {
+					if (ability.min>0&&Unit.abilityAmounts[ability.ID]>0) {
 						abilityIcon = new AbilityIcon();
-						abilityIcon.gotoAndStop(AbilityDatabase.getIndex(ability.id));
+						abilityIcon.gotoAndStop(ability.index);
 						abilityIcon.x=xOffset;
 						abilityIcon.y=yOffset;
-						abilityIcon.useCount.text=Unit.abilityAmounts[ability.id]+"";
+						abilityIcon.useCount.text=Unit.abilityAmounts[ability.ID]+"";
 						abilityIcon.useCount.visible=true;
 						abilityIcon.type="Ability";
 						page2.inventoryList.addChild(abilityIcon);
@@ -758,7 +705,7 @@
 
 				if (Unit.abilityAmounts[i]>0&&! AbilityDatabase.isBasicAbility(i)) {
 					abilityIcon = new AbilityIcon();
-					abilityIcon.gotoAndStop(AbilityDatabase.getIndex(i));
+					abilityIcon.gotoAndStop(AbilityDatabase.getAbility(i).index);
 					abilityIcon.x=xOffset;
 					abilityIcon.y=yOffset;
 					abilityIcon.useCount.text=Unit.abilityAmounts[i]+"";
@@ -786,10 +733,10 @@
 			clearDisplayList(page2.passiveList1);
 			clearDisplayList(page2.passiveList2);
 
-			Unit.currentUnit.passiveItems.sortOn("id", Array.NUMERIC);
-			Unit.partnerUnit.passiveItems.sortOn("id", Array.NUMERIC);
-			Unit.currentUnit.passiveAbilities.sortOn("id", Array.NUMERIC);
-			Unit.partnerUnit.passiveAbilities.sortOn("id", Array.NUMERIC);
+			Unit.currentUnit.passiveItems.sortOn("ID", Array.NUMERIC);
+			Unit.partnerUnit.passiveItems.sortOn("ID", Array.NUMERIC);
+			Unit.currentUnit.passiveAbilities.sortOn("ID", Array.NUMERIC);
+			Unit.partnerUnit.passiveAbilities.sortOn("ID", Array.NUMERIC);
 
 			switch (option) {
 				case 0 :
@@ -984,11 +931,7 @@
 			}
 			var index;
 			if (obj.parent!=stageRef) {
-				if (obj.type=="Item") {
-					index=ItemDatabase.index.indexOf(obj.currentFrame);
-				} else if (obj.type == "Ability") {
-					index=AbilityDatabase.index.indexOf(obj.currentFrame);
-				}
+				index=obj.currentFrame-2;
 				makeDescription(index, obj.type);
 			}
 		}
@@ -1001,15 +944,10 @@
 			}
 			if (obj.parent!=stageRef) {
 				var index;
-				if (obj.type=="Item") {
-					index=ItemDatabase.index.indexOf(obj.currentFrame);
-					makeDescription(index, obj.type);
-					addCovers(index, obj.type);
-				} else {
-					index=AbilityDatabase.index.indexOf(obj.currentFrame);
-					makeDescription(index, obj.type);
-					addCovers(index, obj.type);
-				}
+				index=obj.currentFrame-2;
+				makeDescription(index, obj.type);
+				addCovers(index, obj.type);
+				
 				stageRef.addChild(obj);
 				obj.x=mouseX-16;
 				obj.y=mouseY-16;
@@ -1026,25 +964,25 @@
 
 			var obj=e.target;
 
+			index=obj.currentFrame-2;
+
 			//Assuming the icon holds an Item
 			if (obj.type=="Item") {
-				index=ItemDatabase.index.indexOf(obj.currentFrame);
-
 				//if it hits passiveList1
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
-					if (! ItemDatabase.getActive(index)) {
+					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.itemAmounts[index]--;
 						Unit.currentUnit.passiveItems.push(new Item(index, 1));
 					}
 					//if it hits passiveList2
 				} else if (obj.hitTestObject(page2.passiveList2)  && pCover2.parent != stageRef) {
-					if (! ItemDatabase.getActive(index)) {
+					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.itemAmounts[index]--;
 						Unit.partnerUnit.passiveItems.push(new Item(index, 1));
 					}
 					//if it hits nothing or a hotkeyIcon
 				} else {
-					if (ItemDatabase.getActive(index)) {
+					if (AbilityDatabase.getAbility(index).active) {
 						for (i = 0; i < hotkeyIconArray.length; i++) {
 							hkIcon=hotkeyIconArray[i];
 
@@ -1058,36 +996,36 @@
 									if (hotkeyArray[i] is Item) {
 										//nothing should really happen?
 									} else if (hotkeyArray[i] is Ability) {
-										Unit.abilityAmounts[hotkeyArray[i].id]+=1;
+										Unit.abilityAmounts[hotkeyArray[i].ID]+=1;
 									}
 								}
 
 								//continue processing
 								hkIcon.gotoAndStop(obj.currentFrame);
 								hkIcon.visible=true;
-								hkIcon.type="Item";
+								hkIcon.type = "Item";
+								
 								hotkeyArray[i]=new Item(index,0);
-								Unit.setHotkey(i+1, new Item(index, 0));
+								Unit.setHotkey(i+1, new Item(index,0));
 							}
 						}
 					}
 				}
 
 			} else if (obj.type == "Ability") {
-				index=AbilityDatabase.index.indexOf(obj.currentFrame);
 
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
-					if (! AbilityDatabase.getActive(index)) {
+					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.abilityAmounts[index]--;
 						Unit.currentUnit.passiveAbilities.push(new Ability(index, 1));
 					}
 				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
-					if (! AbilityDatabase.getActive(index)) {
+					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.abilityAmounts[index]--;
 						Unit.partnerUnit.passiveAbilities.push(new Ability(index, 1));
 					}
 				} else {
-					if (AbilityDatabase.getActive(index)) {
+					if (AbilityDatabase.getAbility(index).active) {
 
 						for (i = 0; i < hotkeyIconArray.length; i++) {
 							hkIcon=hotkeyIconArray[i];
@@ -1101,14 +1039,14 @@
 									if (hotkeyArray[i] is Item) {
 										//nothing should really happen?
 									} else if (hotkeyArray[i] is Ability) {
-										Unit.abilityAmounts[hotkeyArray[i].id]+=1;
+										Unit.abilityAmounts[hotkeyArray[i].ID]+=1;
 									}
 								}
 								hkIcon.gotoAndStop(obj.currentFrame);
 								hkIcon.visible=true;
 								hkIcon.type="Ability";
-								hotkeyArray[i]=new Ability(index,AbilityDatabase.getUses(index));
-								Unit.setHotkey(i+1, new Ability(index, AbilityDatabase.getUses(index)));
+								hotkeyArray[i]=new Ability(index,AbilityDatabase.getAbility(index).uses);
+								Unit.setHotkey(i+1, new Ability(index, AbilityDatabase.getAbility(index).uses));
 
 								Unit.abilityAmounts[index]--;
 								break;
@@ -1140,11 +1078,8 @@
 			if (hotkey!=null&&hotkey.cooldown>=hotkey.maxCooldown) {
 				var index;
 				if (obj.parent!=stageRef) {
-					if (obj.type=="Item") {
-						index=ItemDatabase.index.indexOf(obj.currentFrame);
-					} else if (obj.type == "Ability") {
-						index=AbilityDatabase.index.indexOf(obj.currentFrame);
-					}
+					index = obj.currentFrame-2;				
+					
 					makeDescription(index, obj.type);
 					addCovers(index, obj.type);
 
@@ -1157,24 +1092,17 @@
 				//make this easier to use when mouse goes off screen?
 				obj.startDrag(false, new Rectangle(8,8,592,432));
 			} else {
-				if (obj.type=="Item") {
-					index=ItemDatabase.index.indexOf(obj.currentFrame);
-				} else if (obj.type == "Ability") {
-					index=AbilityDatabase.index.indexOf(obj.currentFrame);
-				}
+				index=obj.currentFrame-2;
+				
 				makeDescription(index, obj.type, false);
 			}
 		}
 
 
 		public function releaseActiveIcon(e) {
-			var obj=e.target;
-			var index;
-			if (obj.type=="Item") {
-				index=ItemDatabase.index.indexOf(obj.currentFrame);
-			} else if (obj.type == "Ability") {
-				index=AbilityDatabase.index.indexOf(obj.currentFrame);
-			}
+			var obj = e.target;
+			var index = obj.currentFrame-2;
+			
 			var i;//the icon to switch to
 			var j;//the icon you're dragging
 
@@ -1242,10 +1170,7 @@
 					hotkeyIconArray[j].type=null;
 					hotkeyArray[j]=null;
 					Unit.setHotkey(j+1, null);
-
 				}
-
-
 			}
 
 			obj.y=16;
@@ -1264,20 +1189,16 @@
 
 			if (obj.parent!=stageRef) {
 				var passive;
-				var index;
+				var index=obj.currentFrame-2;
 				var i;
-				if (obj.type=="Item") {
-					index=ItemDatabase.index.indexOf(obj.currentFrame);
-				} else {
-					index=AbilityDatabase.index.indexOf(obj.currentFrame);
-				}
+				
 				addCovers(index, obj.type);
 
 				if (obj.type=="Item") {
 					if (obj.parent==page2.passiveList1) {
 						passive=Unit.currentUnit.passiveItems;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].id==index) {
+							if (passive[i].ID==index) {
 								passive.splice(i,1);
 								break;
 							}
@@ -1285,7 +1206,7 @@
 					} else if (obj.parent == page2.passiveList2) {
 						passive=Unit.partnerUnit.passiveItems;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].id==index) {
+							if (passive[i].ID==index) {
 								passive.splice(i,1);
 								break;
 							}
@@ -1295,7 +1216,7 @@
 					if (obj.parent==page2.passiveList1) {
 						passive=Unit.currentUnit.passiveAbilities;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].id==index) {
+							if (passive[i].ID==index) {
 								passive.splice(i,1);
 								break;
 							}
@@ -1304,7 +1225,7 @@
 					} else if (obj.parent == page2.passiveList2) {
 						passive=Unit.partnerUnit.passiveAbilities;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].id==index) {
+							if (passive[i].ID==index) {
 								passive.splice(i,1);
 								break;
 							}
@@ -1324,14 +1245,8 @@
 
 		public function releasePassiveIcon(e) {
 			var obj=e.target;
-			var index;
-
-			if (obj.type=="Item") {
-				index=ItemDatabase.index.indexOf(obj.currentFrame);
-			} else {
-				index=AbilityDatabase.index.indexOf(obj.currentFrame);
-			}
-
+			var index = obj.currentFrame - 2;
+			
 			if (obj.type=="Item") {
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					Unit.currentUnit.passiveItems.push(new Item(index, 1));
@@ -1364,14 +1279,10 @@
 		public function addCovers(index:int, type:String) {
 			var active;
 			var availability:String;
-			if (type=="Item") {
-				active=ItemDatabase.getActive(index);
-				availability=ItemDatabase.getAvailability(index);
-			} else if (type == "Ability") {
-				active=AbilityDatabase.getActive(index);
-				availability=AbilityDatabase.getAvailability(index);
-			}
-
+			var thing = AbilityDatabase.getAbility(index);
+			active = thing.active;
+			availability = thing.availability;
+			
 			//deal with A/P zones
 			if (active) {
 				stageRef.addChild(pCover1);
@@ -1504,7 +1415,7 @@
 					names[i].text=basicAbilities[i].Name;
 					descriptions[i].text=basicAbilities[i].getSpecInfo();
 					fractions[i].text=basicAbilities[i].min+"\n-\n"+basicAbilities[i].max;
-					hotkeyIconArray[i].gotoAndStop(AbilityDatabase.getIndex(basicAbilities[i].id));
+					//hotkeyIconArray[i].gotoAndStop(basicAbilities[i].index);
 
 
 					if (basicAbilities[i].min==basicAbilities[i].max) {
@@ -1517,7 +1428,7 @@
 						hotkeyIconArray[i].transform.colorTransform=redCover;
 						fractions[i].textColor=0xFF3333;
 					}
-					if (! basicCooldownNotActive(basicAbilities[i].id)) {
+					if (! basicCooldownNotActive(basicAbilities[i].ID)) {
 						hotkeyIconArray[i].transform.colorTransform=iconCover;
 						fractions[i].textColor=0x333333;
 					}
@@ -1606,10 +1517,10 @@
 
 			if (pp>0&&basicAbilities[index].min+1<Unit.maxLP/2+1 && 
 			   basicAbilities[index].min+1 <= basicAbilities[index].max &&
-			   basicCooldownNotActive(basicAbilities[index].id)) {
+			   basicCooldownNotActive(basicAbilities[index].ID)) {
 				pp--;
 				basicAbilities[index].min++;
-				basicAbilities[index].updateStats();
+				basicAbilities[index].updateAbility();
 			} else {
 				//do something
 			}
@@ -1618,7 +1529,7 @@
 			} else {
 				Unit.partnerUnit.powerpoints=pp;
 			}
-			makeDescription(basicAbilities[index].id, "Ability");
+			makeDescription(basicAbilities[index].ID, "Ability");
 			updatePowerupPage();
 		}
 		public function decreasePower(e) {
@@ -1634,12 +1545,12 @@
 				basicAbilities=Unit.partnerUnit.basicAbilities;
 				pp=Unit.partnerUnit.powerpoints;
 			}
-			makeDescription(basicAbilities[index].id, "Ability");
-			if (basicAbilities[index].min>AbilityDatabase.getMin(basicAbilities[index].id)
-			 &&   basicCooldownNotActive(basicAbilities[index].id)) {
+			makeDescription(basicAbilities[index].ID, "Ability");
+			if (basicAbilities[index].min>AbilityDatabase.getMinAbility(basicAbilities[index].ID).min
+			 &&   basicCooldownNotActive(basicAbilities[index].ID)) {
 				pp++;
 				basicAbilities[index].min--;
-				basicAbilities[index].updateStats();
+				basicAbilities[index].updateAbility();
 			} else {
 				//do something
 			}
@@ -1649,7 +1560,7 @@
 				Unit.partnerUnit.powerpoints=pp;
 			}
 
-			makeDescription(basicAbilities[index].id, "Ability");
+			makeDescription(basicAbilities[index].ID, "Ability");
 			updatePowerupPage();
 		}
 		public function resetPower(e) {
@@ -1666,18 +1577,18 @@
 				pp=Unit.partnerUnit.powerpoints;
 			}
 
-			if (basicCooldownNotActive(basicAbilities[index].id)) {
-				var difference=basicAbilities[index].min-AbilityDatabase.getMin(basicAbilities[index].id);
+			if (basicCooldownNotActive(basicAbilities[index].ID)) {
+				var difference=basicAbilities[index].min-AbilityDatabase.getMinAbility(basicAbilities[index].ID).min;
 				pp+=difference;
-				basicAbilities[index].min-=difference;
+				basicAbilities[index].min -= difference;
+				basicAbilities[index].updateAbility();
 				if (currentActivated) {
 					Unit.currentUnit.powerpoints=pp;
 				} else {
 					Unit.partnerUnit.powerpoints=pp;
 				}
-				basicAbilities[index].updateStats();
 			}
-			makeDescription(basicAbilities[index].id, "Ability");
+			makeDescription(basicAbilities[index].ID, "Ability");
 			updatePowerupPage();
 		}
 		public function maxPower(e) {
@@ -1694,13 +1605,14 @@
 				pp=Unit.partnerUnit.powerpoints;
 			}
 
-			if (basicCooldownNotActive(basicAbilities[index].id)) {
+			if (basicCooldownNotActive(basicAbilities[index].ID)) {
 				var confirm=true;
 				while (confirm) {
 					if (pp>0&&basicAbilities[index].min+1<Unit.maxLP/2+1 && 
 					   basicAbilities[index].min+1 <= basicAbilities[index].max) {
 						pp--;
 						basicAbilities[index].min++;
+						basicAbilities[index].updateAbility();
 					} else {
 						confirm=false;
 					}
@@ -1710,9 +1622,8 @@
 						Unit.partnerUnit.powerpoints=pp;
 					}
 				}
-				basicAbilities[index].updateStats();
 			}
-			makeDescription(basicAbilities[index].id, "Ability");
+			makeDescription(basicAbilities[index].ID, "Ability");
 			updatePowerupPage();
 		}
 	}

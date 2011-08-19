@@ -24,52 +24,51 @@ package abilities{
 		 * id - ID in the database or something
 		 * amount - Number of copies of the same ability given in a Prize Drop
 		 */
-		public var Name;
-		public var description;
-		public var index;
-
-		public var id;
-		public var amount;
-		public var spec;
-
-		public var hpPerc:int;
-		public var hpLump:int;
-		public var atkSpeed:int;
-		public var mvSpeedPerc:int;
-		public var atkDmgPerc:int;
-		public var atkDmgLump:int;
-		public var cdPercChange:int;
-
-		public var targetX:Number;
-		public var targetY:Number;
-
-		/**
-		 * Info
-		 */
-
+		public var Name:String;
+		public var description:String;
+		public var ID:int;
+		
+		public var index:int;
+		public var amount:int;
+		
+		public var availability:String;
+		public var spec:String;
 		public var aoe:String;
-		public var range:int;
-		public var cooldown:int;
-		public var maxCooldown:int;
-		public var activation:int;
-		public var activationLabel:String;
 		public var uses:int;
-		public var maxUses:int;//number of uses before cooldown
-		public var active:Boolean;//whether or not the ability can be equipped to a hotkey or passive
-		public var stand:int;//how long the unit is using the ability
-		public var delay:int;//wait time before actually activating ability
-
+		public var activation:int;
+		public var active:Boolean;
+		public var value:Number;
+		public var stand:int;
+		public var exist:int;
 		public var min:int;
 		public var max:int;
-
-		public var damage;
-
-		public var moveToTarget:int;
-
-		public var activating:Boolean=false;
-		public var finish:Boolean=true;
-		public var target:String="Team";
-
+		public var range:int;
+		public var rangeMod:Number;
+		public var cooldown:int;
+		public var cooldownMod:Number;
+		public var maxCooldown:int;
+		public var power:int;
+		public var powerMod:Number;
+		public var power2:int;
+		public var power2Mod:Number;
+		public var power3:int;
+		public var power3Mod:Number;
+		
+		/**
+		 * onActivation - general gameHandler of Ability when first activated
+		 * onCast - apply this gameHandler as well once bullets form
+		 * onMove - the movement gameHandler of the bullet
+		 * onDefend - what happens if attacked by another bullet
+		 * onHit - apply the effects when the bullet hits a target
+		 * onRemove - what happens when hotkey is moved from battle to inventory
+		 */		
+		public var onActivation:Array = new Array();
+		public var onCast:Array = new Array();
+		public var onMove:Array = new Array();
+		public var onDefend:Array = new Array();
+		public var onHit:Array = new Array();
+		public var onRemove:Array = new Array();
+		
 		public static var sd = new SelectDisplay();
 
 		/**
@@ -77,51 +76,29 @@ package abilities{
 		 */
 		public var targets:Array;
 
-		public function Ability(id:int, a:int) {
-			Name=AbilityDatabase.getName(id);
-			description=AbilityDatabase.getDescription(id);
-			index=AbilityDatabase.getIndex(id);
-			this.id=id;
-			spec=AbilityDatabase.getSpec(id);
-
-			damage=AbilityDatabase.getDamage(id);
-			hpPerc=AbilityDatabase.getHPPerc(id);
-			hpLump=AbilityDatabase.getHPLump(id);
-			atkSpeed=AbilityDatabase.getAtkSpeed(id);
-			mvSpeedPerc=AbilityDatabase.getMvSpeedPerc(id);
-			atkDmgPerc=AbilityDatabase.getAtkDmgPerc(id);
-			atkDmgLump=AbilityDatabase.getAtkDmgLump(id);
-			cdPercChange=AbilityDatabase.getCDPercChange(id);
-
-			aoe=AbilityDatabase.getAOE(id);
-			range=AbilityDatabase.getRange(id);
-			maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
-			activation=AbilityDatabase.getActivation(id);
-			activationLabel=AbilityDatabase.getActivationLabel(id);
-			amount=a;
-			maxUses=uses=AbilityDatabase.getUses(id);
-			active=AbilityDatabase.getActive(id);
-			stand=AbilityDatabase.getStand(id);
-			delay=AbilityDatabase.getDelay(id);
-			min=AbilityDatabase.getMin(id);
-			max=AbilityDatabase.getMax(id);
-
-			moveToTarget=AbilityDatabase.getMoveToTarget(id);
+		public function Ability(id:int = -1, a:int = 1) {
+			if (id != -1) {
+				AbilityDatabase.getAbilityStats(this, id);
+			}
+			this.amount = a;
 		}
-
-		public function updateStats() {
-			if (min==0) {
-				damage=AbilityDatabase.getDamage(id);
-				range=AbilityDatabase.getRange(id);
-				maxCooldown=cooldown=AbilityDatabase.getCooldown(id);
+		
+		public function updateAbility() {
+			var minAbility = AbilityDatabase.getMinAbility(ID);
+			if (min > 1) {
+				this.range = minAbility.range + rangeMod * (min - 1);
+				this.maxCooldown = this.cooldown = minAbility.cooldown + cooldownMod * (min - 1);
+				this.power = minAbility.power + powerMod * (min - 1);
+				this.power2 = minAbility.power2 + power2Mod * (min - 1);
+				this.power3 = minAbility.power3 + power3Mod * (min - 1);
 			} else {
-				damage = AbilityDatabase.getDamage(id) + (min-1)*AbilityDatabase.getDamageChange(id);
-				range = AbilityDatabase.getRange(id) + (min-1)*AbilityDatabase.getRangeChange(id);
-				maxCooldown = cooldown = AbilityDatabase.getCooldown(id) - (min-1)*AbilityDatabase.getCooldownChange(id);
+				this.range = minAbility.range;
+				this.maxCooldown = this.cooldown = minAbility.cooldown;
+				this.power = minAbility.power;
+				this.power2 = minAbility.power2;
+				this.power3 = minAbility.power3;
 			}
 		}
-
-
 		/**
 		 * Figure out what kind of activation it is.
 		 * 0 = You don't activate it. 
@@ -132,7 +109,7 @@ package abilities{
 		 **/
 
 		public function activate(xpos, ypos, unit) {
-			if (! activating) {
+/*			if (! activating) {
 				activating=true;
 
 				if (uses>0&&min>0) {
@@ -163,11 +140,11 @@ package abilities{
 					}
 
 				}
-			}
+			}*/
 		}
 
 		public function selectUnitHandler(e) {
-			if (e.keyCode=="X".charCodeAt(0)) {
+/*			if (e.keyCode=="X".charCodeAt(0)) {
 				target="Team";
 				finishSelection();
 			} else if (e.keyCode == "A".charCodeAt(0) || e.keyCode == "S".charCodeAt(0)) {
@@ -176,24 +153,24 @@ package abilities{
 			} else if (e.keyCode == "D".charCodeAt(0) || e.keyCode == "F".charCodeAt(0)) {
 				target="Partner";
 				finishSelection();
-			}
+			}*/
 		}
 		function finishSelection() {
-			GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
+/*			GameVariables.stageRef.removeEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
 			GameVariables.stageRef.removeChild(sd);
 			finish=true;
-			Unit.disableHotkeys=false;
+			Unit.disableHotkeys=false;*/
 
 		}
 		public function clickTargetHandler(e) {
-			targetX=mouseX+ScreenRect.getX();
-			targetY=mouseY+ScreenRect.getY();
+/*			targetX=mouseX+ScreenRect.getX();
+			targetY=mouseY+ScreenRect.getY();*/
 		}
 
 
 
 		public function moveAbilityHandler(e) {
-			var ax;
+			/*var ax;
 			var ay;
 			var obj=e.target;
 
@@ -240,10 +217,10 @@ package abilities{
 
 			obj.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
 			obj.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-
+*/
 		}
 		public function finishAbilityHandler(e) {
-			var obj=e.target;
+/*			var obj=e.target;
 			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range || finish) {
 				obj.mxpos=obj.x;
 				obj.mypos=obj.y;
@@ -272,7 +249,7 @@ package abilities{
 					delay--;
 				}
 
-			}
+			}*/
 		}
 
 		public function cancel() {
@@ -280,19 +257,19 @@ package abilities{
 
 
 		public function cooldownHandler(e) {
-			if (! GameUnit.menuPause&&! GameUnit.superPause) {
+/*			if (! GameUnit.menuPause&&! GameUnit.superPause) {
 				cooldown--;
 				if (cooldown<=0) {
 					removeEventListener(Event.ENTER_FRAME, cooldownHandler);
 					updateStats();
 					uses=maxUses;
 				}
-			}
+			}*/
 		}
 
 
 		private function sendAttacks(obj) {
-			var a;//the attack to send out
+/*			var a;//the attack to send out
 			var i;//the iterative variable
 
 			var ax=targetX;
@@ -317,7 +294,7 @@ package abilities{
 					obj.parent.addChild(a);
 					//obj.parent.setChildIndex(a, 0);
 					break;
-					/*case "Circle" :
+					case "Circle" :
 					radian=Math.atan2(ay-obj.y,ax-obj.x);
 					degree = (radian*180/Math.PI);
 					for (i = 0; i < 360; i+=360/numBullets) {
@@ -336,8 +313,8 @@ package abilities{
 					degree = (radian*180/Math.PI);
 					
 					}
-					break;*/
-					/*case "Cone" :
+					break;
+					case "Cone" :
 					radian=Math.atan2(ay-obj.y,ax-obj.x);
 					degree = (radian*180/Math.PI);
 					for (i = -numBullets/2; i < Math.ceil(numBullets/2); i++) {
@@ -373,14 +350,14 @@ package abilities{
 					
 					obj.parent.addChild(a);
 					//obj.parent.setChildIndex(a, 0);
-					break;*/
+					break;
 				default :
 					break;
-			}
+			}*/
 		}
 
 		private function sendMod(obj, target) {
-			switch (target) {
+/*			switch (target) {
 				case "Current" :
 					Unit.currentUnit.updateHP(1);
 					break;
@@ -393,11 +370,21 @@ package abilities{
 					Unit.partnerUnit.updateHP(10);
 					break;
 
-			}
+			}*/
+		}
+		public function getDescription():String {
+			var newDescription = description;
+			var pattern:RegExp = /POWER/g; 
+			newDescription = newDescription.replace(pattern, power);
+			pattern = /POWER2/g; 
+			newDescription = newDescription.replace(pattern, power2);
+			pattern = /POWER3/g; 
+			newDescription = newDescription.replace(pattern, power3);		
+			return newDescription;
 		}
 		public function getSpecInfo():String {
-			var spec2=spec;
-			if (spec=="Damage") {
+			var spec2 = spec;			
+/*			if (spec=="Damage") {
 				spec2="Damage = "+damage;
 			} else if (spec == "S-Damage") {
 				spec2="S-Damage = "+damage;
@@ -408,7 +395,7 @@ package abilities{
 			} else if (spec == "Healing%") {
 				spec2="Healing % "+hpPerc+"%";
 			}
-			spec2=spec2+"\n"+activationLabel;
+			spec2=spec2+"\n"+activationLabel;*/
 			return spec2;
 		}
 	}

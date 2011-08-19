@@ -4,7 +4,6 @@
 	import actors.*;
 	import abilities.*;
 	import game.GameUnit;
-	import items.*;
 	
 	import flash.display.MovieClip;
 	import flash.events.*;
@@ -150,7 +149,7 @@
 				}
 				if (itemArray[i].amount>0) {
 					var itemIcon = new AbilityIcon();
-					itemIcon.gotoAndStop(ItemDatabase.getIndex(i));
+					itemIcon.gotoAndStop(AbilityDatabase.getAbility(i).index);
 					itemIcon.x=xOffset;
 					itemIcon.y=yOffset;
 					//itemIcon.useCount.text=Unit.itemAmounts[i]+"";
@@ -173,7 +172,7 @@
 				}
 				if (abilityArray[i].amount>0) {
 					var abilityIcon = new AbilityIcon();
-					abilityIcon.gotoAndStop(AbilityDatabase.getIndex(i));
+					abilityIcon.gotoAndStop(AbilityDatabase.getAbility(i).index);
 					abilityIcon.x=xOffset;
 					abilityIcon.y=yOffset;
 					//abilityIcon.useCount.text=Unit.abilityAmounts[i]+"";

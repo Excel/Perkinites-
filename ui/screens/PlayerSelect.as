@@ -208,19 +208,19 @@
 				Unit.abilityAmounts[i]=0;
 			}
 			for (i = 0; i < Unit.currentUnit.basicAbilities.length; i++) {
-				id=Unit.currentUnit.basicAbilities[i].id;
+				id=Unit.currentUnit.basicAbilities[i].ID;
 				hotkeySet = Unit.currentUnit.hotkeySet;
 				
-				if ((hotkeySet[0] == null || (hotkeySet[0] != null && hotkeySet[0].id != id)) && 
-					(hotkeySet[1] == null || (hotkeySet[1] != null && hotkeySet[1].id != id))) {
+				if ((hotkeySet[0] == null || (hotkeySet[0] != null && hotkeySet[0].ID != id)) && 
+					(hotkeySet[1] == null || (hotkeySet[1] != null && hotkeySet[1].ID != id))) {
 					Unit.abilityAmounts[id]=1;
 				}
 			}
 			for (i = 0; i < Unit.partnerUnit.basicAbilities.length; i++) {
-				id=Unit.partnerUnit.basicAbilities[i].id;
+				id=Unit.partnerUnit.basicAbilities[i].ID;
 				hotkeySet = Unit.partnerUnit.hotkeySet;				
-				if ((hotkeySet[0] == null || (hotkeySet[0] != null && hotkeySet[0].id != id)) && 
-					(hotkeySet[1] == null || (hotkeySet[1] != null && hotkeySet[1].id != id))) {
+				if ((hotkeySet[0] == null || (hotkeySet[0] != null && hotkeySet[0].ID != id)) && 
+					(hotkeySet[1] == null || (hotkeySet[1] != null && hotkeySet[1].ID != id))) {
 					Unit.abilityAmounts[id]=1;
 				}
 

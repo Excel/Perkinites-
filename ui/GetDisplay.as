@@ -2,7 +2,6 @@
 	
 	import flash.text.TextField;
 	import abilities.*;
-	import items.*;
 
 	import flash.display.MovieClip;
 	import flash.events.*;
@@ -13,16 +12,10 @@
 		function GetDisplay(id:int, a:int, type:String, displayMode:String) {
 			x = -160;
 			frame = 0;
-			if(type == "Item"){
-			itemName.text = ItemDatabase.getName(id);
-			getIcon.gotoAndStop(ItemDatabase.getIndex(id));
-			typeName.text = "ITEM";
-			}
-			else{
-				itemName.text = AbilityDatabase.getName(id);
-				getIcon.gotoAndStop(AbilityDatabase.getIndex(id));
-				typeName.text = "ABILITY";
-			}
+			typeName.text = type;
+			itemName.text = AbilityDatabase.getAbility(id).Name;
+			getIcon.gotoAndStop(AbilityDatabase.getAbility(id).index);
+			
 			getIcon.useCount.visible = false;
 			amount.text = a+"X";
 			this.alpha = 0;

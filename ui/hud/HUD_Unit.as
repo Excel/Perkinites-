@@ -2,7 +2,6 @@
 	import flash.text.TextField;
 	import actors.*;
 	import abilities.*;
-	import items.*;
 	import util.*;
 
 	import flash.display.MovieClip;
@@ -79,12 +78,7 @@
 
 			if (hotkeyArray[index]!=null) {
 				var hotkey=hotkeyArray[index];
-				if (hotkey is Item) {
-					description.text="["+hotkeys[index]+"]: "+ItemDatabase.getDescription(hotkey.id);
-				} else if (hotkey is Ability) {
-					description.text="["+hotkeys[index]+"]: "+AbilityDatabase.getDescription(hotkey.id);
-				}
-
+				description.text="["+hotkeys[index]+"]: "+hotkey.description;
 			}
 		}
 		public function gameHandler(e) {

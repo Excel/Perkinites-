@@ -4,7 +4,6 @@ package collects{
 	import abilities.*;
 	import actors.*;
 	import game.*;
-	import items.*;
 	import ui.*;
 
 	import flash.events.Event;
@@ -59,18 +58,17 @@ package collects{
 				var getDisplay;
 				var addUses;
 				if (prize is Item) {
-					var i=ItemDatabase.getDatabaseIndex(prize.Name);
-					getDisplay=new GetDisplay(i,prize.amount, "Item", "Simple");
+					getDisplay=new GetDisplay(prize.id,prize.amount, "Item", "Simple");
 
-					addUses=Unit.itemAmounts[i]+prize.amount;
-					if (addUses<ItemDatabase.getMaxUses(i)) {
-						Unit.itemAmounts[i]=addUses;
+					addUses=Unit.itemAmounts[prize.id]+prize.amount;
+					if (addUses<9) {
+						Unit.itemAmounts[prize.id]=addUses;
 					} else {
-						Unit.itemAmounts[i]=ItemDatabase.getMaxUses(i);
+						Unit.itemAmounts[prize.id]=9;
 					}
 
 				} else if (prize is Ability) {
-					var a=AbilityDatabase.getName(prize.id);
+					//var a=AbilityDatabase.getName(prize.id);
 					getDisplay=new GetDisplay(prize.id,prize.amount, "Ability", "Simple");
 					addUses=Unit.abilityAmounts[prize.id]+prize.amount;
 					if (addUses<9) {

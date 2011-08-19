@@ -28,13 +28,12 @@
 			continueButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler2);
 			configButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler3);
 
-
+			GameClient.playBGM("Exceed the Sky.mp3");
 			load();
 		}
 
 		public function newGame(e:Event):void {
 			unload(new StageSelect(1, -1, stage));
-			GameClient.playBGM("perkinite panic!!.mp3");
 		}
 		public function continueGame(e:Event):void {
 			unload(new FileScreen(true,this,stage));

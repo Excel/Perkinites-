@@ -100,8 +100,7 @@
 					break;
 				case 3 :
 					//edit this later
-					var basicAbilities=AbilityDatabase.getBasicAbilities(
-					 ActorDatabase.getName(index));
+					var basicAbilities=AbilityDatabase.getBasicAbilities(ActorDatabase.getName(index));
 
 					for (var i = 0; i < icons.length; i++) {
 						if (i<basicAbilities.length) {
@@ -111,8 +110,8 @@
 							descriptions[i].visible=true;
 							icons[i].gotoAndStop(basicAbilities[i].index);
 							names[i].text=basicAbilities[i].Name;
-							descriptions[i].text=AbilityDatabase.getSpecInfo(basicAbilities[i].id);
-							icons[i].gotoAndStop(AbilityDatabase.getIndex(basicAbilities[i].id));
+							descriptions[i].text=basicAbilities[i].getSpecInfo();
+							icons[i].gotoAndStop(basicAbilities[i].index);
 						} else {
 							break;
 						}
