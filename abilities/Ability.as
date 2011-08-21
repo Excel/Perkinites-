@@ -93,11 +93,11 @@ package abilities{
 		public function updateAbility() {
 			var minAbility = AbilityDatabase.getMinAbility(ID);
 			if (min > 1) {
-				this.range = minAbility.range + rangeMod * (min - 1);
-				this.maxCooldown = this.cooldown = minAbility.cooldown + cooldownMod * (min - 1);
-				this.power = minAbility.power + powerMod * (min - 1);
-				this.power2 = minAbility.power2 + power2Mod * (min - 1);
-				this.power3 = minAbility.power3 + power3Mod * (min - 1);
+				this.range = Math.floor(minAbility.range + rangeMod * (min - 1));
+				this.maxCooldown = Math.floor(this.cooldown = minAbility.cooldown + cooldownMod * (min - 1));
+				this.power = Math.floor(minAbility.power + powerMod * (min - 1));
+				this.power2 = Math.floor(minAbility.power2 + power2Mod * (min - 1));
+				this.power3 = Math.floor(minAbility.power3 + power3Mod * (min - 1));
 			} else {
 				this.range = minAbility.range;
 				this.maxCooldown = this.cooldown = minAbility.cooldown;
@@ -107,6 +107,14 @@ package abilities{
 			}
 		}
 		/**
+		 * Figure out what kind of correction it is.
+		 * 0 = It's fine.
+		 * 1 = Make sure unit aligns horizontally/vertically with target.
+		 * 2 = Make sure unit to target is walkable.
+		 * 3 = Ignore the target.
+		 */
+
+		/**
 		 * Figure out what kind of activation it is.
 		 * 0 = You don't activate it. 
 		 * 1 = Start activating and get the target X/Y.
@@ -114,12 +122,11 @@ package abilities{
 		 * 3 = Bring up the Select Unit Display.
 		 * 4 = Hold Down. Essentially No. 1
 		 */
-
 		public function startAbility(xpos, ypos, unit) {
 			if (!unit.activating) {
 				unit.activating = true;
 				castingUnit = unit;
-				if (true && GameVariables.attackTarget.enemyRef != null) {
+				if (correct != 3 && GameVariables.attackTarget.enemyRef != null) {
 					targetX = GameVariables.attackTarget.enemyRef.x;
 					targetY = GameVariables.attackTarget.enemyRef.y;
 				}
@@ -160,7 +167,11 @@ package abilities{
 		public function moveAbilityHandler(e) {
 			var obj = e.target;
 			var radian;
+			var xTile;
+			var yTile;
 			
+			var txTile;
+			var tyTile;
 			if (true && GameVariables.attackTarget.enemyRef != null) {
 					targetX = GameVariables.attackTarget.enemyRef.x;
 					targetY = GameVariables.attackTarget.enemyRef.y;
@@ -169,16 +180,16 @@ package abilities{
 			obj.mypos=targetY;
 			obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
 				new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
-					  true, true);
-			obj.smoothPath();
+					  false, true);
+			obj.path = obj.smoothPath();
 			//obj.range = range;	
 			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range) {
 				if (correct == 1) {
-					var xTile = Math.floor(obj.x / 32);
-					var yTile = Math.floor(obj.y / 32);
+					xTile = Math.floor(obj.x / 32);
+					yTile = Math.floor(obj.y / 32);
 					
-					var txTile = Math.floor(targetX / 32);
-					var tyTile = Math.floor(targetY / 32);
+					txTile = Math.floor(targetX / 32);
+					tyTile = Math.floor(targetY / 32);
 					if (txTile - xTile == 0 || tyTile - yTile == 0) {
 						obj.mxpos=obj.x;
 						obj.mypos=obj.y;
@@ -190,26 +201,46 @@ package abilities{
 						activate();
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);						
 					} else if (Math.abs(txTile - xTile) < Math.abs(tyTile - yTile) && !TileMap.hitNonpass(txTile*32+16, yTile*32+16)) {
-						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), true, true);
+						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), false, true);
 						obj.mxpos=txTile*32+16;
 						obj.mypos=yTile*32+16;						
-						obj.smoothPath();
+						obj.path = obj.smoothPath();
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					} else if(!TileMap.hitNonpass(xTile*32+16, tyTile*32+16)){
-						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(xTile, tyTile), true, true);						
+						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(xTile, tyTile), false, true);						
 						obj.mxpos=xTile*32+16;
 						obj.mypos = tyTile * 32 + 16;
-						obj.smoothPath();
+						obj.path = obj.smoothPath();
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					} else if (!TileMap.hitNonpass(txTile * 32 + 16, yTile * 32 + 16)) {
-						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), true, true);
+						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), false, true);
 						obj.mxpos=txTile*32+16;
 						obj.mypos=yTile*32+16;						
-						obj.smoothPath();
+						obj.path = obj.smoothPath();
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
+					}
+					else {
+						cancel();
+					}
+				} else if (correct == 2) {
+					xTile = Math.floor(obj.x / 32);
+					yTile = Math.floor(obj.y / 32);
+					
+					txTile = Math.floor(targetX / 32);
+					tyTile = Math.floor(targetY / 32);					
+					if (TileMap.walkable(new Point(xTile, yTile), new Point(txTile, tyTile))) {
+						obj.mxpos=obj.x;
+						obj.mypos=obj.y;
+						obj.path=[];
+						obj.range = 0;	
+
+						radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);					
+						castingUnit.faceDirection(radian);
+						activate();
+						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);							
 					}
 					else {
 						cancel();
@@ -236,7 +267,6 @@ package abilities{
 			}			
 			var radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);
 			var degree = (radian * 180 / Math.PI);
-			trace(degree);
 			var tol = 20;
 			if (Math.abs(degree) < tol || Math.abs(degree - 90) < tol || Math.abs(degree - 180) < tol 
 				|| Math.abs(degree + 90) < tol || Math.abs(degree + 180) < tol) {
@@ -300,10 +330,114 @@ package abilities{
 			return s;
 		}
 		
+		override public function changeStat(unitType:String, statType:String, stat:String, popup:String) {
+			if (prevMoveCount!=moveCount) {
+				prevMoveCount = moveCount;
+				var newStat;
+				if (stat == "POWER") {
+					newStat = power;
+				} else if (stat == "POWER2") {
+					newStat = power2;
+				} else if (stat == "POWER3") {
+					newStat = power3;
+				} else{
+					var ns = separate(stat);
+					newStat = ns[0] + ns[1] * (min - 1);
+				}
+				if (statType=="Health") {
+					if (unitType=="Current") {
+						Unit.currentUnit.HP=newStat;
+						Unit.currentUnit.updateHP(0);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.HP=newStat;
+						Unit.partnerUnit.updateHP(0);
+					}
+				} else if (statType=="Health+") {
+					if (unitType=="Current") {
+						Unit.currentUnit.HP+=newStat;
+						Unit.currentUnit.updateHP(0);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.HP+=newStat;
+						Unit.partnerUnit.updateHP(0);
+					}
+				} 	else if (statType=="Health-") {
+					if (unitType=="Current") {
+						Unit.currentUnit.updateHP(newStat);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.updateHP(newStat);
+					}
+				} else if (statType == "MaxHealth") {
+					if (unitType=="Current") {
+						Unit.currentUnit.maxHP=newStat;
+						Unit.currentUnit.updateHP(0);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.maxHP=newStat;
+						Unit.partnerUnit.updateHP(0);
+					}
+				} else if (statType == "Attack") {
+					if (unitType=="Current") {
+						Unit.currentUnit.AP=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.AP=newStat;
+					}
+				} else if (statType == "Defense") {
+					if (unitType=="Current") {
+						Unit.currentUnit.DP=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.DP=newStat;
+					}
+				} else if (statType == "Defense+") {
+					if (unitType=="Current") {
+						Unit.currentUnit.DP+=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.DP+=newStat;
+					}
+				} else if (statType == "Defense-") {
+					if (unitType=="Current") {
+						Unit.currentUnit.DP-=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.DP-=newStat;
+					}
+				} else if (statType == "Speed") {
+					if (unitType=="Current") {
+						Unit.currentUnit.speed=newStat;
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.speed=newStat;
+					}
+				}
+				if (popup == "Yes") {
+					
+				}
+				moveCount++;
+				if (moveCount < onActivation.length) {
+					onActivation[moveCount]();
+				}				
+			}
+		}		
+		
+		public function teleportPlayers() {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				Unit.currentUnit.x = Unit.currentUnit.mxpos = targetX;
+				Unit.currentUnit.y = Unit.currentUnit.mypos = targetY;
+				Unit.partnerUnit.x = Unit.partnerUnit.mxpos = targetX;
+				Unit.partnerUnit.y = Unit.partnerUnit.mypos = targetY;			
+				
+				moveCount++;
+				if (moveCount < onActivation.length) {
+					onActivation[moveCount]();
+				}
+			}
+		}
 		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				
+				var i;
+				var a;
+				var om;
+				var od;
+				var oh;
 				var an = separate(attackNum);
 				var d = separate(distance);
 				var s = separate(speed);
@@ -319,25 +453,56 @@ package abilities{
 				var radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);
 				var degree = (radian*180/Math.PI);
 				
-				var a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
-				a.x=castingUnit.x+this.width*Math.cos(radian)/2;
-				a.y=castingUnit.y+this.height*Math.sin(radian)/2;
-				a.width = newWidth;
-				a.height = newHeight;
-				a.rotation=degree+90;
-				castingUnit.parent.addChild(a);	
-				
-				for (var om = 0; om < onMove.length; om++) {
-					a.commands.push(MapObjectParser.parseCommand(a, onMove[om]));
-				}
-				for (var od = 0; od < onDefend.length; od++) {
-					a.defendCommands.push(MapObjectParser.parseCommand(a, onDefend[od]));
-				}
-				for (var oh = 0; oh < onHit.length; oh++) {
-					a.hitCommands.push(MapObjectParser.parseCommand(a, onHit[oh]));
-				}
-				a.addEventListener(Event.ENTER_FRAME, a.gameHandler);
+				switch(AOE) {
+					case "Line": 
+						for (i = -newAttackNum/2; i < Math.ceil(newAttackNum/2); i++) {
+							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
+							a.x=castingUnit.x+this.width*Math.cos(radian)/2;
+							a.y=castingUnit.y+this.height*Math.sin(radian)/2;
+							a.width = newWidth;
+							a.height = newHeight;
+							a.rotation = degree + 90;
+							a.range = this.range;
+							castingUnit.parent.addChild(a);	
+							
+							for (om = 0; om < onMove.length; om++) {
+								a.commands.push(MapObjectParser.parseCommand(a, onMove[om]));
+							}
+							for (od = 0; od < onDefend.length; od++) {
+								a.defendCommands.push(MapObjectParser.parseCommand(a, onDefend[od]));
+							}
+							for (oh = 0; oh < onHit.length; oh++) {
+								a.hitCommands.push(MapObjectParser.parseCommand(a, onHit[oh]));
+							}
+							a.addEventListener(Event.ENTER_FRAME, a.gameHandler);
+						}							
+						break;
 					
+					case "Circle": 
+						for (i = degree; i < 360+degree; i += 360 / newAttackNum) {
+							radian = (i*Math.PI/180);
+							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
+							a.x=castingUnit.x+this.width*Math.cos(radian)/2;
+							a.y=castingUnit.y+this.height*Math.sin(radian)/2;
+							a.width = newWidth;
+							a.height = newHeight;
+							a.rotation = i + 90;
+							a.range = newDistance;
+							castingUnit.parent.addChild(a);	
+							
+							for (om = 0; om < onMove.length; om++) {
+								a.commands.push(MapObjectParser.parseCommand(a, onMove[om]));
+							}
+							for (od = 0; od < onDefend.length; od++) {
+								a.defendCommands.push(MapObjectParser.parseCommand(a, onDefend[od]));
+							}
+							for (oh = 0; oh < onHit.length; oh++) {
+								a.hitCommands.push(MapObjectParser.parseCommand(a, onHit[oh]));
+							}
+							a.addEventListener(Event.ENTER_FRAME, a.gameHandler);
+						}								
+					break;
+				}
 				moveCount++;
 				if (moveCount < onActivation.length) {
 					onActivation[moveCount]();

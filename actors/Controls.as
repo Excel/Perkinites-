@@ -101,32 +101,35 @@
 			if (GameVariables.mouseEnemy) {
 
 			} else if (GameVariables.mouseMapObject) {
-				Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
-				Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);				
-				if (! GameUnit.superPause&&! GameUnit.menuPause&&! GameUnit.objectPause&&mouseIsDown) {
-					Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
-					Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
-					Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
-					  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
-					  false, true);
-					Unit.currentUnit.path=Unit.currentUnit.smoothPath();
-					if (Unit.currentUnit.path.length==0) {
-						Unit.currentUnit.mxpos=Unit.currentUnit.x;
-						Unit.currentUnit.mypos=Unit.currentUnit.y;
-
+				if (! GameUnit.superPause && ! GameUnit.menuPause && ! GameUnit.objectPause && mouseIsDown) {
+					if (!Unit.currentUnit.activating) {
+						Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
+						Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
+						Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
+						Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
+						  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
+						  false, true);
+						Unit.currentUnit.path=Unit.currentUnit.smoothPath();
+						if (Unit.currentUnit.path.length==0) {
+							Unit.currentUnit.mxpos=Unit.currentUnit.x;
+							Unit.currentUnit.mypos=Unit.currentUnit.y;
+						}						
 					}
+					
+					if (!Unit.partnerUnit.activating) {
+						Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);							
+						Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
+						Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 
-					Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
-					Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
+						Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
+						  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
+						  false, true);
+						Unit.partnerUnit.path=Unit.partnerUnit.smoothPath();
 
-					Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
-					  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
-					  false, true);
-					Unit.partnerUnit.path=Unit.partnerUnit.smoothPath();
-
-					if (Unit.partnerUnit.path.length==0) {
-						Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
-						Unit.partnerUnit.mypos=Unit.partnerUnit.y;
+						if (Unit.partnerUnit.path.length==0) {
+							Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
+							Unit.partnerUnit.mypos=Unit.partnerUnit.y;
+						}
 					}
 				}
 			} else {
@@ -134,32 +137,34 @@
 					if (GameVariables.mapObject != null) {
 						GameVariables.mapObject.stopFocus();
 					}
-					Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
-					Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);				
-					
-					Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
-					Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
-					Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
-					  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
-					  false, true);
-					Unit.currentUnit.path=Unit.currentUnit.smoothPath();
-					if (Unit.currentUnit.path.length==0) {
-						Unit.currentUnit.mxpos=Unit.currentUnit.x;
-						Unit.currentUnit.mypos=Unit.currentUnit.y;
-
+					if (!Unit.currentUnit.activating) {
+						Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
+						Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
+						Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
+						Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
+						  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
+						  false, true);
+						Unit.currentUnit.path=Unit.currentUnit.smoothPath();
+						if (Unit.currentUnit.path.length==0) {
+							Unit.currentUnit.mxpos=Unit.currentUnit.x;
+							Unit.currentUnit.mypos=Unit.currentUnit.y;
+						}
 					}
+					
+					if (!Unit.partnerUnit.activating) {
+						Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);	
+						Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
+						Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 
-					Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
-					Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
+						Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
+						  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
+						  false, true);
+						Unit.partnerUnit.path=Unit.partnerUnit.smoothPath();
 
-					Unit.partnerUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.partnerUnit.x/32), Math.floor(Unit.partnerUnit.y/32)),
-					  new Point(Math.floor(Unit.partnerUnit.mxpos/32), Math.floor(Unit.partnerUnit.mypos/32)), 
-					  false, true);
-					Unit.partnerUnit.path=Unit.partnerUnit.smoothPath();
-
-					if (Unit.partnerUnit.path.length==0) {
-						Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
-						Unit.partnerUnit.mypos=Unit.partnerUnit.y;
+						if (Unit.partnerUnit.path.length==0) {
+							Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
+							Unit.partnerUnit.mypos=Unit.partnerUnit.y;
+						}						
 					}
 				}
 			}

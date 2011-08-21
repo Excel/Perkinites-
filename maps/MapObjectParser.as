@@ -16,6 +16,7 @@
 			var yTile;
 			var dir;
 			var ID;
+			var parameters;
 
 			if (command.name()=="Message") {//PAGE 1
 				//<Message>Name:Message:Portrait:FaceIcon</Message>
@@ -98,20 +99,22 @@
 				var value=parseInt(command.substring(ind+1,command.toString().length));
 				func=FunctionUtils.thunkify(mapEvent.changeVariable,ID, operation, value);			
 			} else if (command.name() == "ChangeFlexPoints") {
-				//<ChangeStat>ChangeType:ChangeValue</ChangeStat>
+				//<ChangeFlexPoints>ChangeType:ChangeValue</ChangeFlexPoints>
 				ind=command.indexOf(":");
 				var changeType=command.substring(0,ind);
 				var changeValue=parseFloat(command.substring(ind+1,command.toString().length));
 				func=FunctionUtils.thunkify(mapEvent.changeFlexPoints,changeType,changeValue);
 
 			} else if (command.name() == "ChangeStat") {
-				//<ChangeStat>UnitType:StatType:NewStat</ChangeStat>
+				//<ChangeStat>UnitType:StatType:NewStat:Popup</ChangeStat>
 				ind=command.indexOf(":");
 				var unitType=command.substring(0,ind);
 				var statType=command.substring(ind+1,command.indexOf(":",ind+1));
-				ind=command.indexOf(":",ind+1);
-				var newStat=parseInt(command.substring(ind+1,command.toString().length));
-				func=FunctionUtils.thunkify(mapEvent.changeStat,unitType,statType,newStat);
+				ind = command.indexOf(":", ind + 1);
+				var newStat = command.substring(ind + 1, command.indexOf(":", ind + 1));
+				ind = command.indexOf(":", ind + 1);
+				var popup=command.substring(ind+1,command.toString().length);
+				func=FunctionUtils.thunkify(mapEvent.changeStat,unitType,statType,newStat,popup);
 			
 			} else if (command.name() == "GetPrize") {
 				//<GetPrize>Type:PrizeID:Amount:DisplayType</GetPrize>
@@ -184,11 +187,15 @@
 			
 			//Battle System stuff
 			if (command.name() == "Cast") {
-				func = FunctionUtils.thunkify(mapEvent.cast, "1", "0", "Line", "32", "32", "80");
+				parameters = command.toString().split(":");
+				func = FunctionUtils.thunkify(mapEvent.cast, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5]);
+				//func = FunctionUtils.thunkify(mapEvent.cast, "1", "0", "Line", "32", "32", "80");
 			} else if (command.name() == "MoveForward") {
 				func = mapEvent.moveForward;
 			} else if (command.name() == "HitMode") {
 				func = FunctionUtils.thunkify(mapEvent.toggleHitMode, command);
+			} else if (command.name() == "TeleportPlayers") {
+				func = mapEvent.teleportPlayers;
 			}
 			return func;
 

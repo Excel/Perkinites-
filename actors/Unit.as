@@ -373,9 +373,9 @@
 			}
 		}
 		public function updateHP(damage) {
-			damage=Math.floor(damage);
+			damage = Math.floor(damage);
 			if (HP>0) {
-				HP-=damage;
+				HP -= damage;
 				if (HP>maxHP) {
 					HP=maxHP;
 				}
@@ -385,8 +385,9 @@
 				HPBar.update(HP, maxHP);
 				if (0>=HP) {
 					KO();
-				}
+				}							
 			}
+
 			unitHUD.updateHP();
 		}
 

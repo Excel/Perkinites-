@@ -172,7 +172,6 @@ package game{
 		 *
 		 */
 
-
 		public function detectHandler(e:Event):void {
 
 		}
@@ -352,7 +351,7 @@ package game{
 		}
 		public static function forceAction(action, f) {
 			action.prevMoveCount--;
-			f();
+			action[f]();
 			action.moveCount--;
 		}
 		//All possible sequential moves
@@ -502,15 +501,25 @@ package game{
 				moveCount++;
 			}
 		}
-		public function changeStat(unitType:String, statType:String, newStat:Number) {
+		public function changeStat(unitType:String, statType:String, stat:String, popup:String) {
 			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
+				prevMoveCount = moveCount;
+				
+				var newStat = parseInt(stat);
 				if (statType=="Health") {
 					if (unitType=="Current") {
 						Unit.currentUnit.HP=newStat;
 						Unit.currentUnit.updateHP(0);
 					} else if (unitType == "Partner") {
 						Unit.partnerUnit.HP=newStat;
+						Unit.partnerUnit.updateHP(0);
+					}
+				} else if (statType=="Health-") {
+					if (unitType=="Current") {
+						Unit.currentUnit.HP-=newStat;
+						Unit.currentUnit.updateHP(0);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.HP-=newStat;
 						Unit.partnerUnit.updateHP(0);
 					}
 				} else if (statType == "MaxHealth") {
@@ -539,6 +548,9 @@ package game{
 					} else if (unitType == "Partner") {
 						Unit.partnerUnit.speed=newStat;
 					}
+				}
+				if (popup == "Yes") {
+					
 				}
 				moveCount++;
 			}

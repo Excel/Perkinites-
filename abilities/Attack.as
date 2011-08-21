@@ -66,7 +66,12 @@
 				prevMoveCount = moveCount;
 				x += xspeed;
 				y += yspeed;
-				moveCount++;
+				totalRange += Math.sqrt(Math.pow(xspeed,2) + Math.pow(yspeed,2));				
+				if (totalRange >= range) {
+				moveCount++;		
+				} else {
+					prevMoveCount--;
+				}
 			}
 		}
 		public function toggleHitMode(toggle:String) {

@@ -21,7 +21,7 @@
     <Correct>1</Correct>
     <OnActivation>
       <Wait>2</Wait>
-      <Cast>1:0:Line:32:24:80</Cast>
+      <Cast>1:0:Line:32:32:80</Cast>
     </OnActivation>
     <OnMove>
       <MoveForward />
@@ -31,7 +31,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation />
-      <DamageTarget>10:5</DamageTarget>
+      <DamageTarget>10+5</DamageTarget>
     </OnHit>
     <OnRemove />
   </Ability>
@@ -53,7 +53,12 @@
     <Power>15+5</Power>
     <Power2>15+5</Power2>
     <Power3>15+5</Power3>
-    <Correct>1</Correct>
+    <Correct>2</Correct>
+    <OnActivation />
+    <OnMove />
+    <OnDefend />
+    <OnHit />
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Motivate</Name>
@@ -68,12 +73,21 @@
     <Exist>0</Exist>
     <Min>0</Min>
     <Max>10</Max>
-    <Range>140</Range>
+    <Range>800</Range>
     <Cooldown>200-5</Cooldown>
-    <Power>0</Power>
+    <Power>1+2</Power>
     <Power2>0</Power2>
-    <Power3>0</Power3>
+    <Power3>15+10</Power3>
     <Correct>0</Correct>
+    <OnActivation>
+      <Wait>8</Wait>
+      <ChangeStat>Current:Health-:POWER:Yes</ChangeStat>
+      <ChangeStat>Partner:Health-:POWER3:Yes</ChangeStat>
+    </OnActivation>
+    <OnMove />
+    <OnDefend />
+    <OnHit />
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Ninjutsu</Name>
@@ -84,16 +98,39 @@
     <Uses>1</Uses>
     <Activation>2</Activation>
     <Value>0</Value>
-    <Stand>12</Stand>
+    <Stand>24</Stand>
     <Exist>0</Exist>
     <Min>0</Min>
     <Max>10</Max>
-    <Range>30</Range>
+    <Range>200</Range>
     <Cooldown>150-10</Cooldown>
     <Power>1+0.5</Power>
     <Power2>1+0.5</Power2>
-    <Power3>1+0.5</Power3>
-    <Correct>0</Correct>
+    <Power3>4+0.5</Power3>
+    <Correct>3</Correct>
+    <OnActivation>
+      <ChangeStat>Current:Defense+:999:No</ChangeStat>
+      <ChangeStat>Partner:Defense+:999:No</ChangeStat>
+      <Wait>8</Wait>
+      <TeleportPlayers></TeleportPlayers>
+      <ChangeStat>Current:Defense-:999:No</ChangeStat>
+      <ChangeStat>Partner:Defense-:999:No</ChangeStat>
+      <Cast>4+1:150:Circle:32:16:28</Cast>
+    </OnActivation>
+    <OnMove>
+      <MoveForward />
+      <Wait>12</Wait>
+      <EraseObject />
+    </OnMove>
+    <OnDefend>
+      <EraseObject />
+    </OnDefend>
+    <OnHit>
+      <PlayAnimation />
+      <Damage />
+      <EraseObject />
+    </OnHit>
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Claw Attack</Name>
