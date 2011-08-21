@@ -179,6 +179,16 @@
 				//<EndCutscene></EndCutscene>
 				func = mapEvent.endCutscene;
 			
+			} 
+			
+			
+			//Battle System stuff
+			if (command.name() == "Cast") {
+				func = FunctionUtils.thunkify(mapEvent.cast, "1", "0", "Line", "32", "32", "80");
+			} else if (command.name() == "MoveForward") {
+				func = "moveForward";
+			} else if (command.name() == "HitMode") {
+				func = FunctionUtils.thunkify(mapEvent.toggleHitMode, command);
 			}
 			return func;
 

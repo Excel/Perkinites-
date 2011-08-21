@@ -13,7 +13,7 @@
 
 	public class Target extends MovieClip {
 
-		private var enemyRef;
+		public var enemyRef;
 
 		private var filter1=new GlowFilter(0xFF0000,250,3,3,3,10,false,false);
 		private var filter2=new GlowFilter(0x00FFCB,250,3,3,3,10,false,false);

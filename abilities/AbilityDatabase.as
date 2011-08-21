@@ -149,23 +149,21 @@
 					a.onActivation.push(action);
 					ma.onActivation.push(action);
 				}
-				for each (var onCastElement:XML in abilityElement.OnCast.children()) {
-					action=MapObjectParser.parseCommand(a,onCastElement);
-					a.onCast.push(action);
-					ma.onCast.push(action);
-				}
 				for each (var onMoveElement:XML in abilityElement.OnMove.children()) {
-					action=MapObjectParser.parseCommand(a,onMoveElement);
+					action = onMoveElement;
+					//action=MapObjectParser.parseCommand(a,onMoveElement);
 					a.onMove.push(action);
 					ma.onMove.push(action);
 				}
 				for each (var onDefendElement:XML in abilityElement.OnDefend.children()) {
-					action=MapObjectParser.parseCommand(a,onDefendElement);
+					action = onDefendElement;
+					//action=MapObjectParser.parseCommand(a,onDefendElement);
 					a.onDefend.push(action);
 					ma.onDefend.push(action);
 				}
 				for each (var onHitElement:XML in abilityElement.OnHit.children()) {
-					action=MapObjectParser.parseCommand(a,onHitElement);
+					action = onHitElement;
+					//action=MapObjectParser.parseCommand(a,onHitElement);
 					a.onHit.push(action);
 					ma.onHit.push(action);
 				}
@@ -227,7 +225,6 @@
 				a.power3 = abilityInfo[id].power3;
 				
 				a.onActivation = abilityInfo[id].onActivation;
-				a.onCast = abilityInfo[id].onCast;
 				a.onMove = abilityInfo[id].onMove;
 				a.onDefend = abilityInfo[id].onDefend;
 				a.onHit = abilityInfo[id].onHit;

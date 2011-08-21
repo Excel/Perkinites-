@@ -11,7 +11,5 @@
 		public function Item(id:int, a:int) {
 			super(id, 0);
 		}
-		override public function activate(xpos, ypos, unit) {
-		}
 	}
 }

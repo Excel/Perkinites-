@@ -18,6 +18,29 @@
     <Power>5+3</Power>
     <Power2>5+3</Power2>
     <Power3>5+3</Power3>
+    <OnActivation>
+      <Wait>3</Wait>
+      <Cast>1:0:Line:32:32:80</Cast>
+    </OnActivation>
+    <OnMove>
+      <MoveForward />
+      <Conditional>
+        <Conditions>
+          <FullRange />
+        </Conditions>
+        <Pass>
+          <Wait>6</Wait>
+          <EraseObject />
+        </Pass>
+        <Fail />
+      </Conditional>
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation />
+      <DamageTarget>10:5</DamageTarget>
+    </OnHit>
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Kendo Strike</Name>
@@ -37,6 +60,34 @@
     <Power>15+5</Power>
     <Power2>15+5</Power2>
     <Power3>15+5</Power3>
+    <OnActivation>
+      <PlayAnimation />
+      <Cast />
+    </OnActivation>
+    <OnCast>
+      <SetSpeed>32</SetSpeed>
+      <SetWidth>16</SetWidth>
+      <SetHeight>80</SetHeight>
+    </OnCast>
+    <OnMove>
+      <MoveForward />
+      <Conditional>
+        <Conditions>
+          <FullRange />
+        </Conditions>
+        <Pass>
+          <Wait>6</Wait>
+          <EraseObject />
+        </Pass>
+        <Fail />
+      </Conditional>
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation />
+      <DamageTarget>10:5</DamageTarget>
+    </OnHit>
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Motivate</Name>

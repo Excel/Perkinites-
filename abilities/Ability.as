@@ -11,11 +11,12 @@ package abilities{
 	import actors.*;
 	import attacks.*;
 	import game.*;
+	import maps.*;
 	import tileMapper.*;
 	import ui.*;
 	import util.*;
 
-	public class Ability extends MovieClip {
+	public class Ability extends GameUnit{
 
 		/**
 		 * Name - Name of the Ability
@@ -42,7 +43,7 @@ package abilities{
 		public var exist:int;
 		public var min:int;
 		public var max:int;
-		public var range:int;
+		//public var range:int;
 		public var rangeMod:Number;
 		public var cooldown:int;
 		public var cooldownMod:Number;
@@ -56,25 +57,29 @@ package abilities{
 		
 		/**
 		 * onActivation - general gameHandler of Ability when first activated
-		 * onCast - apply this gameHandler as well once bullets form
 		 * onMove - the movement gameHandler of the bullet
 		 * onDefend - what happens if attacked by another bullet
 		 * onHit - apply the effects when the bullet hits a target
 		 * onRemove - what happens when hotkey is moved from battle to inventory
 		 */		
 		public var onActivation:Array = new Array();
-		public var onCast:Array = new Array();
 		public var onMove:Array = new Array();
 		public var onDefend:Array = new Array();
 		public var onHit:Array = new Array();
 		public var onRemove:Array = new Array();
 		
 		public static var sd = new SelectDisplay();
+		public var activating:Boolean = false;
+		
+		public var castingUnit:Unit;
+		public var castCount = 0;
 
 		/**
 		 * Targets
 		 */
 		public var targets:Array;
+		public var targetX;
+		public var targetY;
 
 		public function Ability(id:int = -1, a:int = 1) {
 			if (id != -1) {
@@ -106,9 +111,23 @@ package abilities{
 		 * 2 = Let the user click first and then activate.
 		 * 3 = Bring up the Select Unit Display.
 		 * 4 = Hold Down. Essentially No. 1
-		 **/
+		 */
 
-		public function activate(xpos, ypos, unit) {
+		public function startAbility(xpos, ypos, unit) {
+			if (!unit.activating) {
+				unit.activating = true;
+				castingUnit = unit;
+				if (true && GameVariables.attackTarget.enemyRef != null) {
+					targetX = GameVariables.attackTarget.enemyRef.x;
+					targetY = GameVariables.attackTarget.enemyRef.y;
+				}
+				else {
+					targetX=mouseX+ScreenRect.getX();
+					targetY=mouseY+ScreenRect.getY();
+				}
+				unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
+			}
+
 /*			if (! activating) {
 				activating=true;
 
@@ -170,6 +189,26 @@ package abilities{
 
 
 		public function moveAbilityHandler(e) {
+			var obj = e.target;
+			if (true && GameVariables.attackTarget.enemyRef != null) {
+					targetX = GameVariables.attackTarget.enemyRef.x;
+					targetY = GameVariables.attackTarget.enemyRef.y;
+			}
+			obj.mxpos=targetX;
+			obj.mypos=targetY;
+			obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
+				new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
+					  true, true);
+			obj.range = range;
+			
+			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range) {
+				obj.mxpos=obj.x;
+				obj.mypos=obj.y;
+				obj.path=[];
+				obj.range = 0;	
+				activate();
+				removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+			}			
 			/*var ax;
 			var ay;
 			var obj=e.target;
@@ -220,6 +259,8 @@ package abilities{
 */
 		}
 		public function finishAbilityHandler(e) {
+			var obj = e.target;
+
 /*			var obj=e.target;
 			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range || finish) {
 				obj.mxpos=obj.x;
@@ -252,10 +293,95 @@ package abilities{
 			}*/
 		}
 
+		public function activate() {
+			this.activating = true;
+			this.addEventListener(Event.ENTER_FRAME, gameHandler); //onactivation	
+		}
+		
 		public function cancel() {
+			castingUnit.activating = false;
+			castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+			removeEventListener(Event.ENTER_FRAME, gameHandler);
+			this.activating = false;
 		}
 
+		override public function gameHandler(e) {
+			if (! pauseAction && ! superPause && ! menuPause) {
+				if (onActivation.length!=0&&moveCount<onActivation.length) {
+					onActivation[moveCount]();
+				}
+				stand--;				
+				if (stand == 0) {
+					prevMoveCount=-1;
+					moveCount = 0;
+					stand = AbilityDatabase.getAbility(ID).stand;
+					cancel();
+				}
+			}
+		}
 
+		public function separate(statChange) {
+			var s = new Array();
+			var sep=statChange.indexOf("+");
+			if (sep==-1) {
+				sep=statChange.toString().indexOf('-');
+			}
+
+			if (sep!=-1) {
+				s.push(parseFloat(statChange.substring(0,sep)));
+				s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
+			} else {
+				s.push(parseFloat(statChange));
+				s.push(0);
+			}
+			return s;
+		}
+		
+		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				
+				var an = separate(attackNum);
+				var d = separate(distance);
+				var s = separate(speed);
+				var w = separate(width);
+				var h = separate(height);
+				
+				var newAttackNum = an[0] + an[1] * (min - 1);
+				var newDistance = d[0] + d[1] * (min - 1);
+				var newSpeed = s[0] + s[1] * (min - 1);
+				var newWidth = w[0] + w[1] * (min - 1);
+				var newHeight = h[0] + h[1] * (min - 1);
+				
+				var radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);
+				var degree = (radian*180/Math.PI);
+				
+				var a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
+				a.x=castingUnit.x+this.width*Math.cos(radian)/2;
+				a.y=castingUnit.y+this.height*Math.sin(radian)/2;
+				a.width = newWidth;
+				a.height = newHeight;
+				a.rotation=degree+90;
+				castingUnit.parent.addChild(a);	
+				
+				for (var om = 0; i < onMove.length; i++) {
+					a.commands.push(MapObjectParser.parseCommand(a, onMove[om]));
+				}
+				for (var od = 0; i < onDefend.length; i++) {
+					a.defendCommands.push(MapObjectParser.parseCommand(a, onDefend[od]));
+				}
+				for (var oh = 0; i < onHit.length; i++) {
+					a.hitCommands.push(MapObjectParser.parseCommand(a, onHit[oh]));
+				}
+				a.addEventListener(Event.ENTER_FRAME, a.gameHandler);
+					
+				moveCount++;
+				if (moveCount < onActivation.length) {
+					onActivation[moveCount]();
+				}
+			}
+		}
+		
 		public function cooldownHandler(e) {
 /*			if (! GameUnit.menuPause&&! GameUnit.superPause) {
 				cooldown--;

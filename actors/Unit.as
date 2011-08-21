@@ -81,6 +81,7 @@
 		public var AP;
 		public var DP;
 		public var weapon:String;
+		public var carry:int;
 		static public var EXP=0;
 		static public var nextEXP=200;
 		static public var maxLP=20;
@@ -128,7 +129,7 @@
 		public var canUseHotkeys:Array;
 
 
-		public var attacking:Boolean=false;
+		public var activating:Boolean=false;
 		public var moving:Boolean=false;
 		public static var disableHotkeys:Boolean=false;
 
@@ -164,7 +165,7 @@
 				canOpenMenu=true;
 				canUseHotkeys=new Array(true,true,true,true,true,true);
 
-				attacking=false;
+				activating = false;
 				moving=false;
 				//gotoAndStop(1);
 
@@ -255,14 +256,14 @@
 					movePlayer();
 					//moveDirection();
 					if (! disableHotkeys) {
-/*						useHotKey1();
+						useHotKey1();
 						useHotKey2();
 						useHotKey3();
 						useHotKey4();
 						useHotKey5();
 						useHotKey6();
 						useHotKey7();
-						updateDelays();*/
+						//updateDelays();
 					}
 
 				}
@@ -305,47 +306,40 @@
 
 		public function useHotKey1() {
 			if (KeyDown.keyIsDown(hotKey1)&&hk1!=null&&hk1Delay>=0) {
-				hk1Delay=-1*hk1.delay;
-				hk1.activate(x, y, this);
+				hk1.startAbility(x, y, Unit.currentUnit);
 			}
 		}
 
 		public function useHotKey2() {
 			if (KeyDown.keyIsDown(hotKey2)&&hk2!=null&&hk2Delay>=0) {
-				hk2Delay=-1*hk2.delay;
-				hk2.activate(x, y, this);
+				hk2.startAbility(x, y, Unit.currentUnit);
 			}
 		}
 		public function useHotKey3() {
 			if (KeyDown.keyIsDown(hotKey3)&&hk3!=null&&hk3Delay>=0) {
-				hk3Delay=-1*hk3.delay;
-				hk3.activate(x, y, this);
+				hk3.startAbility(x, y, Unit.partnerUnit);
 			}
 		}
 
 		public function useHotKey4() {
-			if (KeyDown.keyIsDown(hotKey4)&&hk4!=null&&hk4Delay>=0) {
-				hk4Delay=-1*hk4.delay;
-				hk4.activate(x, y, Unit.currentUnit);
+			if (KeyDown.keyIsDown(hotKey4) && hk4 != null) {
+				hk4.startAbility(x, y, Unit.currentUnit);
 			}
 		}
 
 		public function useHotKey5() {
-			if (KeyDown.keyIsDown(hotKey5)&&hk5!=null&&hk5Delay>=0) {
-				hk5Delay=-1*hk5.delay;
-				hk5.activate(x, y, Unit.currentUnit);
+			if (KeyDown.keyIsDown(hotKey5)&&hk5!=null) {
+				hk5.startAbility(x, y, Unit.currentUnit);
 			}
 		}
 		public function useHotKey6() {
-			if (KeyDown.keyIsDown(hotKey6)&&hk6!=null&&hk6Delay>=0) {
-				hk6Delay=-1*hk6.delay;
-				hk6.activate(x, y, Unit.partnerUnit);
+			if (KeyDown.keyIsDown(hotKey6)&&hk6!=null) {
+				hk6.startAbility(x, y, Unit.partnerUnit);
 			}
 		}
 		public function useHotKey7() {
-			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null&&hk7Delay>=0) {
-				hk7Delay=-1*hk7.delay;
-				hk7.activate(x, y, Unit.partnerUnit);
+			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null) {
+				hk7.startAbility(x, y, Unit.partnerUnit);
 			}
 		}
 
