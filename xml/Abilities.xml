@@ -18,22 +18,15 @@
     <Power>5+3</Power>
     <Power2>5+3</Power2>
     <Power3>5+3</Power3>
+    <Correct>1</Correct>
     <OnActivation>
-      <Wait>3</Wait>
-      <Cast>1:0:Line:32:32:80</Cast>
+      <Wait>2</Wait>
+      <Cast>1:0:Line:32:24:80</Cast>
     </OnActivation>
     <OnMove>
       <MoveForward />
-      <Conditional>
-        <Conditions>
-          <FullRange />
-        </Conditions>
-        <Pass>
-          <Wait>6</Wait>
-          <EraseObject />
-        </Pass>
-        <Fail />
-      </Conditional>
+      <Wait>6</Wait>
+      <EraseObject />
     </OnMove>
     <OnDefend />
     <OnHit>
@@ -60,34 +53,7 @@
     <Power>15+5</Power>
     <Power2>15+5</Power2>
     <Power3>15+5</Power3>
-    <OnActivation>
-      <PlayAnimation />
-      <Cast />
-    </OnActivation>
-    <OnCast>
-      <SetSpeed>32</SetSpeed>
-      <SetWidth>16</SetWidth>
-      <SetHeight>80</SetHeight>
-    </OnCast>
-    <OnMove>
-      <MoveForward />
-      <Conditional>
-        <Conditions>
-          <FullRange />
-        </Conditions>
-        <Pass>
-          <Wait>6</Wait>
-          <EraseObject />
-        </Pass>
-        <Fail />
-      </Conditional>
-    </OnMove>
-    <OnDefend />
-    <OnHit>
-      <PlayAnimation />
-      <DamageTarget>10:5</DamageTarget>
-    </OnHit>
-    <OnRemove />
+    <Correct>1</Correct>
   </Ability>
   <Ability>
     <Name>Motivate</Name>
@@ -107,6 +73,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Ninjutsu</Name>
@@ -126,6 +93,7 @@
     <Power>1+0.5</Power>
     <Power2>1+0.5</Power2>
     <Power3>1+0.5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Claw Attack</Name>
@@ -145,6 +113,7 @@
     <Power>5+3.5</Power>
     <Power2>5+3.5</Power2>
     <Power3>5+3.5</Power3>
+    <Correct>1</Correct>
   </Ability>
   <Ability>
     <Name>Hulk Rage</Name>
@@ -164,6 +133,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>1</Correct>
   </Ability>
   <Ability>
     <Name>Stare Down</Name>
@@ -183,6 +153,7 @@
     <Power>5+5</Power>
     <Power2>5+5</Power2>
     <Power3>5+5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Enrage</Name>
@@ -202,10 +173,11 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Pressure Point</Name>
-    <Description>Deals damage. On the last hit, inflicts Stun. After rebooting, this ability is replaced with 'Enrage.'</Description>
+    <Description>Deals damage and inflicts Stun on the last hit. After rebooting or returning to the inventory, this ability is replaced with 'Enrage.'</Description>
     <Availability>Nate M.</Availability>
     <Spec>Damage</Spec>
     <AOE>Line</AOE>
@@ -221,6 +193,7 @@
     <Power>5+3.5</Power>
     <Power2>5+3.5</Power2>
     <Power3>5+3.5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Railgun Attack</Name>
@@ -240,6 +213,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Eyelash Batting</Name>
@@ -259,6 +233,7 @@
     <Power>3</Power>
     <Power2>3</Power2>
     <Power3>3</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Shoe Throwing</Name>
@@ -278,6 +253,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Death Shout</Name>
@@ -297,6 +273,7 @@
     <Power>30</Power>
     <Power2>30</Power2>
     <Power3>30</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>A. Mediation</Name>
@@ -316,6 +293,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Magic Wand Attack</Name>
@@ -335,6 +313,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Bling Bling</Name>
@@ -354,6 +333,7 @@
     <Power>2</Power>
     <Power2>2</Power2>
     <Power3>2</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Taking Heart</Name>
@@ -373,6 +353,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Logic Puzzle</Name>
@@ -392,6 +373,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Cheer</Name>
@@ -411,6 +393,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Tentacle Attack</Name>
@@ -430,6 +413,7 @@
     <Power>8</Power>
     <Power2>8</Power2>
     <Power3>8</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Perk-kulate</Name>
@@ -449,6 +433,7 @@
     <Power>24</Power>
     <Power2>24</Power2>
     <Power3>24</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>V.P.S.</Name>
@@ -468,6 +453,7 @@
     <Power>12</Power>
     <Power2>12</Power2>
     <Power3>12</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Awkward Stare</Name>
@@ -487,6 +473,7 @@
     <Power>6</Power>
     <Power2>6</Power2>
     <Power3>6</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Hoverpad Attack</Name>
@@ -506,6 +493,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Arrow Control</Name>
@@ -525,6 +513,7 @@
     <Power>3</Power>
     <Power2>3</Power2>
     <Power3>3</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>D4X</Name>
@@ -544,6 +533,7 @@
     <Power>10</Power>
     <Power2>10</Power2>
     <Power3>10</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Mediation</Name>
@@ -563,6 +553,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Apologizing</Name>
@@ -582,6 +573,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Megaphone Attack</Name>
@@ -601,6 +593,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Tickle Fight</Name>
@@ -620,6 +613,7 @@
     <Power>10</Power>
     <Power2>10</Power2>
     <Power3>10</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Awkward Turtle</Name>
@@ -639,6 +633,7 @@
     <Power>10</Power>
     <Power2>10</Power2>
     <Power3>10</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Ramen Boost</Name>
@@ -658,6 +653,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Microphone Attack</Name>
@@ -677,6 +673,7 @@
     <Power>5+3</Power>
     <Power2>5+3</Power2>
     <Power3>5+3</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Shout!</Name>
@@ -696,6 +693,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Bunny Guard</Name>
@@ -715,6 +713,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Hyper Friendship</Name>
@@ -734,6 +733,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Strength Attack</Name>
@@ -753,6 +753,7 @@
     <Power>8</Power>
     <Power2>8</Power2>
     <Power3>8</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Lung Crusher</Name>
@@ -772,6 +773,7 @@
     <Power>30</Power>
     <Power2>30</Power2>
     <Power3>30</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Deep Sleep</Name>
@@ -791,6 +793,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Sonic Laugh</Name>
@@ -810,6 +813,7 @@
     <Power>12</Power>
     <Power2>12</Power2>
     <Power3>12</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Charm Attack</Name>
@@ -829,6 +833,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Sideburnt</Name>
@@ -848,6 +853,7 @@
     <Power>10</Power>
     <Power2>10</Power2>
     <Power3>10</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Lift Lid</Name>
@@ -867,6 +873,7 @@
     <Power>20</Power>
     <Power2>20</Power2>
     <Power3>20</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Mom Swap</Name>
@@ -886,6 +893,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Troll</Name>
@@ -905,6 +913,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Staff Attack</Name>
@@ -924,6 +933,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Happy Healing</Name>
@@ -943,6 +953,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Shield</Name>
@@ -962,6 +973,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Healthy Explosion</Name>
@@ -981,6 +993,7 @@
     <Power>10</Power>
     <Power2>10</Power2>
     <Power3>10</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Orgo Book Attack</Name>
@@ -1000,6 +1013,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Maul</Name>
@@ -1019,6 +1033,7 @@
     <Power>15</Power>
     <Power2>15</Power2>
     <Power3>15</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>"That's What She Said"</Name>
@@ -1038,6 +1053,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Silent Treatment</Name>
@@ -1057,6 +1073,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Final Destination</Name>
@@ -1076,6 +1093,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Sunshine</Name>
@@ -1095,6 +1113,7 @@
     <Power>10</Power>
     <Power2>10</Power2>
     <Power3>10</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Happiness</Name>
@@ -1114,6 +1133,7 @@
     <Power>15</Power>
     <Power2>15</Power2>
     <Power3>15</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>M. Gun Attack</Name>
@@ -1133,6 +1153,7 @@
     <Power>2</Power>
     <Power2>2</Power2>
     <Power3>2</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Shockwave</Name>
@@ -1152,6 +1173,7 @@
     <Power>25</Power>
     <Power2>25</Power2>
     <Power3>25</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Bio-Leech</Name>
@@ -1171,6 +1193,7 @@
     <Power>5</Power>
     <Power2>5</Power2>
     <Power3>5</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Overload</Name>
@@ -1190,6 +1213,7 @@
     <Power>40</Power>
     <Power2>40</Power2>
     <Power3>40</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Break Time</Name>
@@ -1209,6 +1233,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Apologetic Decoy</Name>
@@ -1228,6 +1253,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Greedy</Name>
@@ -1247,6 +1273,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Popularity</Name>
@@ -1266,6 +1293,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Second Chance</Name>
@@ -1285,6 +1313,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Second World</Name>
@@ -1304,6 +1333,7 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Girly Swirl</Name>
@@ -1323,6 +1353,7 @@
     <Power>20</Power>
     <Power2>20</Power2>
     <Power3>20</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Gossip</Name>
@@ -1342,6 +1373,7 @@
     <Power>40</Power>
     <Power2>40</Power2>
     <Power3>40</Power3>
+    <Correct>0</Correct>
   </Ability>
   <Ability>
     <Name>Sassy Yet Unique</Name>
@@ -1361,5 +1393,6 @@
     <Power>0</Power>
     <Power2>0</Power2>
     <Power3>0</Power3>
+    <Correct>0</Correct>
   </Ability>
 </Abilities>

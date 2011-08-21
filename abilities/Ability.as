@@ -55,6 +55,8 @@ package abilities{
 		public var power3:int;
 		public var power3Mod:Number;
 		
+		public var correct:int;
+		
 		/**
 		 * onActivation - general gameHandler of Ability when first activated
 		 * onMove - the movement gameHandler of the bullet
@@ -127,39 +129,6 @@ package abilities{
 				}
 				unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 			}
-
-/*			if (! activating) {
-				activating=true;
-
-				if (uses>0&&min>0) {
-					switch (activation) {
-						case 1 :
-							targetX=mouseX+ScreenRect.getX();
-							targetY=mouseY+ScreenRect.getY();
-							unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-							break;
-						case 2 :
-							break;
-						case 3 :
-							if (sd.parent==null) {
-								GameVariables.stageRef.addChild(sd);
-							}
-							GameVariables.stageRef.addEventListener(KeyboardEvent.KEY_DOWN, selectUnitHandler);
-							Unit.disableHotkeys=true;
-							finish=false;			
-							unit.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
-							break;
-						default :
-							targetX=mouseX+ScreenRect.getX();
-							targetY=mouseY+ScreenRect.getY();
-							unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-							//unit.parent.parent.addEventListener(MouseEvent.MOUSE_DOWN, moveAbilityHandler);
-							break;
-
-					}
-
-				}
-			}*/
 		}
 
 		public function selectUnitHandler(e) {
@@ -190,6 +159,8 @@ package abilities{
 
 		public function moveAbilityHandler(e) {
 			var obj = e.target;
+			var radian;
+			
 			if (true && GameVariables.attackTarget.enemyRef != null) {
 					targetX = GameVariables.attackTarget.enemyRef.x;
 					targetY = GameVariables.attackTarget.enemyRef.y;
@@ -199,98 +170,85 @@ package abilities{
 			obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
 				new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
 					  true, true);
-			obj.range = range;
-			
+			obj.smoothPath();
+			//obj.range = range;	
 			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range) {
+				if (correct == 1) {
+					var xTile = Math.floor(obj.x / 32);
+					var yTile = Math.floor(obj.y / 32);
+					
+					var txTile = Math.floor(targetX / 32);
+					var tyTile = Math.floor(targetY / 32);
+					if (txTile - xTile == 0 || tyTile - yTile == 0) {
+						obj.mxpos=obj.x;
+						obj.mypos=obj.y;
+						obj.path=[];
+						obj.range = 0;	
+			
+						radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);		
+						castingUnit.faceDirection(radian);
+						activate();
+						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);						
+					} else if (Math.abs(txTile - xTile) < Math.abs(tyTile - yTile) && !TileMap.hitNonpass(txTile*32+16, yTile*32+16)) {
+						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), true, true);
+						obj.mxpos=txTile*32+16;
+						obj.mypos=yTile*32+16;						
+						obj.smoothPath();
+						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
+						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
+					} else if(!TileMap.hitNonpass(xTile*32+16, tyTile*32+16)){
+						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(xTile, tyTile), true, true);						
+						obj.mxpos=xTile*32+16;
+						obj.mypos = tyTile * 32 + 16;
+						obj.smoothPath();
+						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
+						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
+					} else if (!TileMap.hitNonpass(txTile * 32 + 16, yTile * 32 + 16)) {
+						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), true, true);
+						obj.mxpos=txTile*32+16;
+						obj.mypos=yTile*32+16;						
+						obj.smoothPath();
+						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
+						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
+					}
+					else {
+						cancel();
+					}
+				} else{
+					obj.mxpos=obj.x;
+					obj.mypos=obj.y;
+					obj.path=[];
+					obj.range = 0;	
+
+					radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);					
+					castingUnit.faceDirection(radian);
+					activate();
+					castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+				}			
+			}
+		}
+		
+		public function correctMovementHandler(e) {
+			var obj = e.target;
+			if (true && GameVariables.attackTarget.enemyRef != null) {
+					targetX = GameVariables.attackTarget.enemyRef.x;
+					targetY = GameVariables.attackTarget.enemyRef.y;
+			}			
+			var radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);
+			var degree = (radian * 180 / Math.PI);
+			trace(degree);
+			var tol = 20;
+			if (Math.abs(degree) < tol || Math.abs(degree - 90) < tol || Math.abs(degree - 180) < tol 
+				|| Math.abs(degree + 90) < tol || Math.abs(degree + 180) < tol) {
 				obj.mxpos=obj.x;
 				obj.mypos=obj.y;
 				obj.path=[];
 				obj.range = 0;	
+				castingUnit.faceDirection(radian);							
 				activate();
-				removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-			}			
-			/*var ax;
-			var ay;
-			var obj=e.target;
-
-			obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
-
-			targetX=mouseX+ScreenRect.getX();
-			targetY=mouseY+ScreenRect.getY();
-			switch (moveToTarget) {
-				case 1 :
-					ax=mouseX+ScreenRect.getX();
-					ay=mouseY+ScreenRect.getY();
-
-					obj.mxpos=ax;
-					obj.mypos=ay;
-
-					obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
-					  new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
-					  true, true);
-					obj.range=range;
-					break;
-				case 2:	
-					ax=mouseX+ScreenRect.getX();
-					ay=mouseY+ScreenRect.getY();
-
-					obj.mxpos=ax;
-					obj.mypos=ay;
-
-					obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
-					  new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
-					  true, true);
-					obj.range=range;
-					break;				
-				case 3 :
-					Unit.currentUnit.mxpos=mouseX+ScreenRect.getX();
-					Unit.currentUnit.mypos=mouseY+ScreenRect.getY();
-
-					Unit.partnerUnit.mxpos=mouseX+ScreenRect.getX();
-					Unit.partnerUnit.mypos=mouseY+ScreenRect.getY();
-
-					Unit.currentUnit.teleportToCoord(Unit.currentUnit.mxpos, Unit.currentUnit.mypos);
-					Unit.partnerUnit.teleportToCoord(Unit.partnerUnit.mxpos,Unit.partnerUnit.mypos)+Math.floor(Math.random()*64-32);
-					break;
+				castingUnit.removeEventListener(Event.ENTER_FRAME, correctMovementHandler);
+				castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
 			}
-
-			obj.addEventListener(Event.ENTER_FRAME, finishAbilityHandler);
-			obj.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-*/
-		}
-		public function finishAbilityHandler(e) {
-			var obj = e.target;
-
-/*			var obj=e.target;
-			if (Math.sqrt(Math.pow(obj.y-targetY,2)+Math.pow(obj.x-targetX,2))<=range || finish) {
-				obj.mxpos=obj.x;
-				obj.mypos=obj.y;
-				obj.path=[];
-				obj.range=0;
-
-				//sprite++;
-
-				if (delay==0) {
-					sendAttacks(obj);
-					sendMod(obj, target);
-					uses-=1;
-					if (uses<=0) {
-						addEventListener(Event.ENTER_FRAME, cooldownHandler);
-					}
-				}
-				if (stand<=0) {
-					obj.removeEventListener(Event.ENTER_FRAME, finishAbilityHandler);
-					activating=false;
-					finish = false;
-					stand=AbilityDatabase.getStand(id);
-					delay=AbilityDatabase.getDelay(id);
-
-				} else {
-					stand--;
-					delay--;
-				}
-
-			}*/
 		}
 
 		public function activate() {
@@ -301,7 +259,12 @@ package abilities{
 		public function cancel() {
 			castingUnit.activating = false;
 			castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
+			castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 			removeEventListener(Event.ENTER_FRAME, gameHandler);
+			castingUnit.mxpos=castingUnit.x;
+			castingUnit.mypos=castingUnit.y;
+			castingUnit.path=[];
+			castingUnit.range = 0;				
 			this.activating = false;
 		}
 
@@ -314,7 +277,7 @@ package abilities{
 				if (stand == 0) {
 					prevMoveCount=-1;
 					moveCount = 0;
-					stand = AbilityDatabase.getAbility(ID).stand;
+					stand = AbilityDatabase.getMinAbility(ID).stand;
 					cancel();
 				}
 			}
@@ -364,13 +327,13 @@ package abilities{
 				a.rotation=degree+90;
 				castingUnit.parent.addChild(a);	
 				
-				for (var om = 0; i < onMove.length; i++) {
+				for (var om = 0; om < onMove.length; om++) {
 					a.commands.push(MapObjectParser.parseCommand(a, onMove[om]));
 				}
-				for (var od = 0; i < onDefend.length; i++) {
+				for (var od = 0; od < onDefend.length; od++) {
 					a.defendCommands.push(MapObjectParser.parseCommand(a, onDefend[od]));
 				}
-				for (var oh = 0; i < onHit.length; i++) {
+				for (var oh = 0; oh < onHit.length; oh++) {
 					a.hitCommands.push(MapObjectParser.parseCommand(a, onHit[oh]));
 				}
 				a.addEventListener(Event.ENTER_FRAME, a.gameHandler);

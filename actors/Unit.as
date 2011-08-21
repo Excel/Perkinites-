@@ -456,7 +456,7 @@
 			}
 		}
 
-		function faceDirection(radian) {
+		public function faceDirection(radian) {
 			var degree = Math.round((radian*180/Math.PI));
 			if (degree>-45&&45>=degree) {
 				startAnimation(6);

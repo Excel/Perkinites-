@@ -45,7 +45,7 @@
 		override public function gameHandler(e) {
 			if (! pauseAction && ! superPause && ! menuPause) {
 				if (commands.length!=0&&moveCount<commands.length) {
-					this[commands[moveCount]]();
+					commands[moveCount]();
 				}
 				if (moveCount>=commands.length) {
 					prevMoveCount=-1;
@@ -61,7 +61,7 @@
 			}
 		}		
 
-		function moveForward() {
+		public function moveForward() {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				x += xspeed;
@@ -69,7 +69,7 @@
 				moveCount++;
 			}
 		}
-		function toggleHitMode(toggle:String) {
+		public function toggleHitMode(toggle:String) {
 			if (toggle == "ON") {
 				addEventListener(Event.ENTER_FRAME, hitHandler);
 			} else if (toggle == "OFF") {

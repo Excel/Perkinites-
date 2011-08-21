@@ -103,6 +103,7 @@
 				a.power3 = power3[0];
 				a.power3Mod = power3[1];
 				
+				a.correct = parseInt(abilityElement.Correct);
 				
 				ma.Name = abilityElement.Name;
 				ma.description = abilityElement.Description;
@@ -141,7 +142,9 @@
 				ma.power2 = power2[0];
 				ma.power2Mod = power3[1];
 				ma.power3 = power3[0];
-				ma.power3Mod = power3[1];	
+				ma.power3Mod = power3[1];
+				
+				ma.correct = parseInt(abilityElement.Correct);
 				
 				var action;
 				for each (var onActivationElement:XML in abilityElement.OnActivation.children()) {

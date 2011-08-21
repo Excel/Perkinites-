@@ -578,7 +578,7 @@ package game{
 			}
 		}
 		public function waitFor(wait:int) {
-			this.wait = wait;
+			this.wait = wait-1;
 			addEventListener(Event.ENTER_FRAME, waitHandler);
 			
 		}
