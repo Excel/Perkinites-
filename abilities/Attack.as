@@ -11,7 +11,7 @@
 	import flash.ui.*;
 	public class Attack extends GameUnit {
 
-		static public var list:Array=[];
+		static public var list:Array = new Array();
 		var xspeed:Number;
 		var yspeed:Number;
 		var ability:Ability;
@@ -23,6 +23,11 @@
 		public var pauseMovement:Boolean;
 		public var defendCommands:Array;
 		public var hitCommands:Array;
+		
+		public var targetedEnemies;
+		public var hitEnemies;
+		
+		public var hitMode:Boolean = false;
 
 		function Attack(xs:Number, ys:Number, a:Ability, c:GameUnit) {
 
@@ -36,16 +41,22 @@
 			
 			defendCommands = new Array();
 			hitCommands = new Array();
+			targetedEnemies = new Array();
+			hitEnemies = new Array();
 			list.push(this);
 			this.addEventListener(Event.ENTER_FRAME, gameHandler);
-			this.addEventListener(Event.ENTER_FRAME, defendHandler);
+			//this.addEventListener(Event.ENTER_FRAME, defendHandler);
+			
 
 		}
 		
 		override public function gameHandler(e) {
 			if (! pauseAction && ! superPause && ! menuPause) {
-				if (commands.length!=0&&moveCount<commands.length) {
-					commands[moveCount]();
+				if (commands.length != 0 && moveCount < commands.length) {
+					commands[moveCount]();					
+				}
+				if (hitMode) {
+					checkHit();
 				}
 				if (moveCount>=commands.length) {
 					prevMoveCount=-1;
@@ -61,91 +72,130 @@
 			}
 		}		
 
-		public function moveForward() {
+		public function moveForward(threshold:Number) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				x += xspeed;
 				y += yspeed;
-				totalRange += Math.sqrt(Math.pow(xspeed,2) + Math.pow(yspeed,2));				
-				if (totalRange >= range) {
-				moveCount++;		
+				totalRange += Math.sqrt(Math.pow(xspeed, 2) + Math.pow(yspeed, 2));	
+				if (totalRange >= range*threshold) {
+					moveCount++;		
+					totalRange = 0;
 				} else {
 					prevMoveCount--;
 				}
 			}
 		}
 		public function toggleHitMode(toggle:String) {
-			if (toggle == "ON") {
-				addEventListener(Event.ENTER_FRAME, hitHandler);
-			} else if (toggle == "OFF") {
-				removeEventListener(Event.ENTER_FRAME, hitHandler);				
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;			
+				if (toggle == "ON") {
+					hitMode = true;
+				} else if (toggle == "OFF") {
+					hitMode = false;
+				}
+				moveCount++;
+				if (moveCount < commands.length) {
+					commands[moveCount]();
+				}				
 			}
 		}
-		
+
 		function defendHandler(e:Event):void {
 			if (defendCommands.length > 0) {
-				for (var i = 0; i < list.length; i++) {
-					if (this.hitTestObject(list[i])) {
-						for (var j = 0; j < defendCommands.length; j++) {
-							defendCommands[j];
+				for (var d = 0; d < list.length; d++) {
+					if (this.hitTestObject(list[d]) && this != list[d]) {
+						for (var d2 = 0; d2 < defendCommands.length; d2++) {
+							defendCommands[d2];
 						}
 					}
 				}
 			}
 		}
-		function hitHandler(e:Event):void {
-			checkHit();
-		}
-		function update() {
-			if (! pauseAction&&! superPause&&! menuPause) {
-				x+=xspeed;
-				y+=yspeed;
-				totalRange += Math.sqrt(Math.pow(xspeed,2) + Math.pow(yspeed,2));
-				//exist--;
-				rotation+=rotate;
-			}
+		
+		public function playAnimation() {		
 		}
 
+		public function separate(statChange) {
+			var s = new Array();
+			var sep=statChange.indexOf("+");
+			if (sep==-1) {
+				sep=statChange.toString().indexOf('-');
+			}
+
+			if (sep!=-1) {
+				s.push(parseFloat(statChange.substring(0,sep)));
+				s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
+			} else {
+				s.push(parseFloat(statChange));
+				s.push(0);
+			}
+			return s;
+		}
+		
+		override public function changeStat(unitType:String, statType:String, stat:String, popup:String) {
+			var newStat;
+			var i;
+			if (stat == "POWER") {
+				newStat = ability.power;
+			} else if (stat == "POWER2") {
+				newStat = ability.power2;
+			} else if (stat == "POWER3") {
+				newStat = ability.power3;
+			} else{
+				var ns = separate(stat);
+				newStat = ns[0] + ns[1] * (ability.min - 1);
+			}
+			if (statType=="Health") {
+			} else if (statType=="Health+") {
+			} 	else if (statType=="Health-") {
+					for (i = 0; i < targetedEnemies.length; i++) {
+						if (hitEnemies.indexOf(targetedEnemies[i]) == -1) {
+							trace(targetedEnemies[i].HP);
+							targetedEnemies[i].updateHP(newStat);
+							trace(targetedEnemies[i].HP);
+							hitEnemies.push(targetedEnemies[i]);
+						}
+					}
+			} else if (statType == "MaxHealth") {
+				
+			} else if (statType == "Attack") {
+				
+			} else if (statType == "Defense") {
+				
+			} else if (statType == "Defense+") {
+				
+			} else if (statType == "Defense-") {
+				
+			} else if (statType == "Speed") {
+			} if (popup == "Yes") {
+				
+			}			
+		}				
+		
 		function checkExplode() {
 			if (! pauseAction&&! superPause&&! menuPause) {
 				if (TileMap.hitWall(x,y)) {
 					kill();
 					return;
 				}
-				/*if (exist<0) {
-					kill();
-					return;
-				}
-				if(totalRange <= 0){
-					kill();
-					return;
-				}*/
 			}
 		}
 		function checkHit() {
 			if (! pauseAction&&! superPause&&! menuPause) {
 				var list=[];
 				if (caster is Unit) {
-					list=Enemy.list;
-					for (var i = 0; i < list.length; i++) {
-						if (this.hitTestObject(list[i].collision)) {
-							list[i].updateHP(ability.power);
-							kill();
-							return;
+					list = Enemy.list;					
+					for (var i = 0; i < list.length; i++) {		
+						if (this.hitTestObject(list[i]) && targetedEnemies.indexOf(list[i]) == -1) {
+							targetedEnemies.push(list[i]);
+							for (var oh = 0; oh < hitCommands.length; oh++) {
+								hitCommands[oh]();
+							}
 						}
 					}
 
 				} else if (caster is Enemy) {
-					if (this.hitTestObject(Unit.currentUnit)) {
-						Unit.currentUnit.updateHP(ability.power);
-						kill();
-						return;
-					}
-					if (this.hitTestObject(Unit.partnerUnit)) {
-						Unit.partnerUnit.updateHP(ability.power);
-						kill();
-						return;
-					}
 				}
 			}
 		}
@@ -157,7 +207,7 @@
 		}
 		override public function eraseObject() {
 			kill();
-			removeEventListener(Event.ENTER_FRAME, hitHandler);
+			hitMode = false;
 			removeEventListener(Event.ENTER_FRAME, defendHandler);			
 		}		
 		

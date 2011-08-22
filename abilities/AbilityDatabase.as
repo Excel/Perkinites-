@@ -6,18 +6,21 @@
 
 	import flash.display.MovieClip;
 	import flash.display.Stage;
-	import flash.events.*;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.ui.*;
-	import flash.utils.ByteArray;
 	import flash.xml.*;
 	
-	public class AbilityDatabase {
+	public class AbilityDatabase extends EventDispatcher{
 
 
-		public static var xmlData:XML = new XML();
-		
+		public var xmlLoader:URLLoader = new URLLoader();
+
+		public const abilitiesURL:String="xml/Abilities.xml";
+		public const aEffectsURL:String="xml/Abilities2.xml";
+
 		public static var abilityInfo:Array = new Array();
 		public static var minAbilityInfo:Array = new Array();
 		public static var abilityAmounts:Array = new Array();
@@ -25,18 +28,35 @@
 		
 		public static var basicAbilityCutoff:int = -1;
 
-		public static function loadData() {
-			var xmlLoader:URLLoader = new URLLoader();
-
-			xmlLoader.addEventListener(Event.COMPLETE, LoadXML);
-			xmlLoader.load(new URLRequest("xml/Abilities.xml"));
+		public function AbilityDatabase() {
+			
+		}
+		public function loadData() {
+			this.loadObject(abilitiesURL, handleLoadedAbilities);
+			this.addEventListener(AbilityDataEvent.ABILITIES_LOADED, loadEffects);
 		}
 
-		public static function LoadXML(e:Event):void {
-			xmlData=new XML(e.target.data);
-			parseData(xmlData);
+		public function loadObject(url:String, handleFunction:Function):void {
+			var request:URLRequest=new URLRequest(url);
+			xmlLoader.addEventListener(Event.COMPLETE, handleFunction);
+			xmlLoader.load(request);
 		}
-		public static function separate(statChange) {
+		
+		public function handleLoadedAbilities(e:Event):void {
+			xmlLoader.removeEventListener(Event.COMPLETE, handleLoadedAbilities);
+			var xmlData=new XML(e.target.data);
+			parseAbilityData(xmlData);
+		}
+		
+		public function loadEffects(e:AbilityDataEvent):void {
+			loadObject(aEffectsURL, this.handleLoadedEffects);
+		}
+		public function handleLoadedEffects(e:Event):void {
+			xmlLoader.removeEventListener(Event.COMPLETE, handleLoadedEffects);
+			var xmlData=new XML(e.target.data);
+			parseAbilityEffectData(xmlData);
+		}		
+		public function separate(statChange) {
 			var s = new Array();
 			var sep=statChange.indexOf("+");
 			if (sep==-1) {
@@ -52,7 +72,7 @@
 			}
 			return s;
 		}
-		public static function parseData(input:XML):void {
+		public function parseAbilityData(input:XML):void {
 			
 			var id = 0;
 			for each (var abilityElement:XML in input.Ability) {
@@ -146,7 +166,7 @@
 				
 				ma.correct = parseInt(abilityElement.Correct);
 				
-				var action;
+				/*var action;
 				for each (var onActivationElement:XML in abilityElement.OnActivation.children()) {
 					action=MapObjectParser.parseCommand(a,onActivationElement);
 					a.onActivation.push(action);
@@ -174,7 +194,7 @@
 					action=MapObjectParser.parseCommand(a,onRemoveElement);
 					a.onRemove.push(action);
 					ma.onRemove.push(action);
-				}			
+				}			*/
 				
 				abilityInfo.push(a);
 				minAbilityInfo.push(ma);
@@ -183,14 +203,50 @@
 				id++;
 			}
 
+			this.dispatchEvent(new AbilityDataEvent(AbilityDataEvent.ABILITIES_LOADED, true));			
 		}
 		
-		public static function cloneAbility(o:Object):* {
-			var byteArray = new ByteArray();
-			byteArray.writeObject(o);
-			byteArray.position = 0;
-			return (byteArray.readObject()) as Array;
-		}
+		public function parseAbilityEffectData(input:XML):void {
+			
+			var id = 0;
+			for each (var abilityElement:XML in input.Ability) {
+				if (abilityElement.Name == abilityInfo[id].Name) {
+					var action;
+					for each (var onActivationElement:XML in abilityElement.OnActivation.children()) {
+						action = MapObjectParser.parseCommand(abilityInfo[id], onActivationElement);
+						abilityInfo[id].onActivation.push(action);
+						action = MapObjectParser.parseCommand(minAbilityInfo[id], onActivationElement);
+						minAbilityInfo[id].onActivation.push(action);
+					}
+					for each (var onMoveElement:XML in abilityElement.OnMove.children()) {
+						action = onMoveElement;
+						//action=MapObjectParser.parseCommand(a,onMoveElement);
+						abilityInfo[id].onMove.push(action);
+						minAbilityInfo[id].onMove.push(action);
+					}
+					for each (var onDefendElement:XML in abilityElement.OnDefend.children()) {
+						action = onDefendElement;
+						//action=MapObjectParser.parseCommand(a,onDefendElement);
+						abilityInfo[id].onDefend.push(action);
+						minAbilityInfo[id].onDefend.push(action);
+					}
+					for each (var onHitElement:XML in abilityElement.OnHit.children()) {
+						action = onHitElement;
+						//action=MapObjectParser.parseCommand(a,onHitElement);
+						abilityInfo[id].onHit.push(action);
+						minAbilityInfo[id].onHit.push(action);
+					}
+					for each (var onRemoveElement:XML in abilityElement.OnRemove.children()) {
+						action=MapObjectParser.parseCommand(abilityInfo[id],onRemoveElement);
+						abilityInfo[id].onRemove.push(action);
+						action=MapObjectParser.parseCommand(minAbilityInfo[id],onRemoveElement);
+						minAbilityInfo[id].onRemove.push(action);
+					}			
+					id++;	
+					}
+			}
+
+		}		
 		
 		public static function getAbility(id:int):Ability {
 			return abilityInfo[id];

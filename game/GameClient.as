@@ -30,6 +30,7 @@
 
 		public var stageRef:Stage;
 
+		public var abilityDatabase;
 		public var actorDatabase;
 		public var bgmDatabase;
 		public var mapDatabase;
@@ -46,12 +47,13 @@
 			this.stageRef=stageRef;
 
 			//Create databases
+			abilityDatabase = new AbilityDatabase();
 			actorDatabase = new ActorDatabase();
 			bgmDatabase = new BGMDatabase();
 			mapDatabase = new MapDatabase();
 
 			//Load XML Data in order!
-			AbilityDatabase.loadData();
+			abilityDatabase.loadData();
 			actorDatabase.loadData();
 			bgmDatabase.loadData();
 			mapDatabase.addEventListener(MapDataEvent.MAPS_LOADED, startGame);

@@ -455,7 +455,7 @@ package abilities{
 				
 				switch(AOE) {
 					case "Line": 
-						for (i = -newAttackNum/2; i < Math.ceil(newAttackNum/2); i++) {
+						for (i = -(newAttackNum - 1) / 2; i < Math.ceil(newAttackNum / 2); i++) { //FIX THIS
 							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
 							a.x=castingUnit.x+this.width*Math.cos(radian)/2;
 							a.y=castingUnit.y+this.height*Math.sin(radian)/2;

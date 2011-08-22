@@ -68,27 +68,34 @@
 			if (GameUnit.menuPause) {
 				this.filters = [];
 				this.type1.text = "Menu";
+				visible=false;
+				Mouse.show();
 			}
-			else if (GameUnit.objectPause || GameUnit.superPause) {
-				this.filters = [];
-				this.type1.text = "";
+			else {
+				visible=true;
+				Mouse.hide();
+				if (GameUnit.objectPause || GameUnit.superPause) {
+					this.filters = [];
+					this.type1.text = "";
+				}
+				else if (GameVariables.mouseEnemy) {
+					this.filters=[enemyFilter];
+					this.type1.text = "Enemy";
+				} else if (GameVariables.mouseAttack){
+					this.filters=[enemyFilter];
+					this.type1.text = "Warning";
+				}else if (GameVariables.mouseMapObject) {
+					this.filters=[talkFilter];
+					this.type1.text = "Talk";
+				} else if (GameVariables.mouseUnit) {
+					this.filters=[unitFilter];
+					this.type1.text = "Unit";
+				} else {
+					this.filters=[moveFilter];
+					this.type1.text = "Move";
+				}
 			}
-			else if (GameVariables.mouseEnemy) {
-				this.filters=[enemyFilter];
-				this.type1.text = "Enemy";
-			} else if (GameVariables.mouseAttack){
-				this.filters=[enemyFilter];
-				this.type1.text = "Warning";
-			}else if (GameVariables.mouseMapObject) {
-				this.filters=[talkFilter];
-				this.type1.text = "Talk";
-			} else if (GameVariables.mouseUnit) {
-				this.filters=[unitFilter];
-				this.type1.text = "Unit";
-			} else {
-				this.filters=[moveFilter];
-				this.type1.text = "Move";
-			}
+			
 		}
 
 	}

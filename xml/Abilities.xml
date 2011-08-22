@@ -19,21 +19,6 @@
     <Power2>5+3</Power2>
     <Power3>5+3</Power3>
     <Correct>1</Correct>
-    <OnActivation>
-      <Wait>2</Wait>
-      <Cast>1:0:Line:32:32:80</Cast>
-    </OnActivation>
-    <OnMove>
-      <MoveForward />
-      <Wait>6</Wait>
-      <EraseObject />
-    </OnMove>
-    <OnDefend />
-    <OnHit>
-      <PlayAnimation />
-      <DamageTarget>10+5</DamageTarget>
-    </OnHit>
-    <OnRemove />
   </Ability>
   <Ability>
     <Name>Kendo Strike</Name>
@@ -54,11 +39,6 @@
     <Power2>15+5</Power2>
     <Power3>15+5</Power3>
     <Correct>2</Correct>
-    <OnActivation />
-    <OnMove />
-    <OnDefend />
-    <OnHit />
-    <OnRemove />
   </Ability>
   <Ability>
     <Name>Motivate</Name>
@@ -79,15 +59,6 @@
     <Power2>0</Power2>
     <Power3>15+10</Power3>
     <Correct>0</Correct>
-    <OnActivation>
-      <Wait>8</Wait>
-      <ChangeStat>Current:Health-:POWER:Yes</ChangeStat>
-      <ChangeStat>Partner:Health-:POWER3:Yes</ChangeStat>
-    </OnActivation>
-    <OnMove />
-    <OnDefend />
-    <OnHit />
-    <OnRemove />
   </Ability>
   <Ability>
     <Name>Ninjutsu</Name>
@@ -98,7 +69,7 @@
     <Uses>1</Uses>
     <Activation>2</Activation>
     <Value>0</Value>
-    <Stand>24</Stand>
+    <Stand>10</Stand>
     <Exist>0</Exist>
     <Min>0</Min>
     <Max>10</Max>
@@ -108,29 +79,6 @@
     <Power2>1+0.5</Power2>
     <Power3>4+0.5</Power3>
     <Correct>3</Correct>
-    <OnActivation>
-      <ChangeStat>Current:Defense+:999:No</ChangeStat>
-      <ChangeStat>Partner:Defense+:999:No</ChangeStat>
-      <Wait>8</Wait>
-      <TeleportPlayers></TeleportPlayers>
-      <ChangeStat>Current:Defense-:999:No</ChangeStat>
-      <ChangeStat>Partner:Defense-:999:No</ChangeStat>
-      <Cast>4+1:150:Circle:32:16:28</Cast>
-    </OnActivation>
-    <OnMove>
-      <MoveForward />
-      <Wait>12</Wait>
-      <EraseObject />
-    </OnMove>
-    <OnDefend>
-      <EraseObject />
-    </OnDefend>
-    <OnHit>
-      <PlayAnimation />
-      <Damage />
-      <EraseObject />
-    </OnHit>
-    <OnRemove />
   </Ability>
   <Ability>
     <Name>Claw Attack</Name>

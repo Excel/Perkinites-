@@ -1,6 +1,7 @@
 ﻿package maps{
 
 	import actors.*;
+	import enemies.*;
 	import game.GameClient;
 	import game.GameUnit;
 	import game.GameVariables;
@@ -132,7 +133,10 @@
 			}
 		}
 		public static function setEnemies() {
-
+			var e = new Enemy(5);
+			mapClip.addChild(e);
+			e.x = 4 * 32 + 16;
+			e.y = 9 * 32 + 16;
 		}
 
 

@@ -109,7 +109,8 @@ package enemies{
 			addChild(eHPBar);
 			eHPBar.x=x-32;
 			eHPBar.y=y-height/2-20;
-
+			
+			addEventListener(MouseEvent.CLICK, clickHandler);
 
 		}
 		public function begin() {
@@ -118,6 +119,9 @@ package enemies{
 		}
 		public function end() {
 
+		}
+		public function clickHandler(e:MouseEvent):void {
+			GameVariables.attackTarget = new Target(this);				
 		}
 
 		override public function gameHandler(e) {
@@ -147,7 +151,10 @@ package enemies{
 			this.parent.removeChild(this);
 			list.splice(list.indexOf(this),1);
 			Unit.updateEXP(EXP);
-			Unit.flexPoints+=Value;
+			Unit.flexPoints += Value;
+			if (this == GameVariables.attackTarget.enemyRef) {
+				GameVariables.attackTarget.changeEnemy();
+			}
 		}
 
 		public function updateHP(damage) {

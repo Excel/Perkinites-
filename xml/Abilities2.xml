@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Abilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Ability>
+    <Name>Shinai Attack</Name>
+    <OnActivation>
+      <Wait>2</Wait>
+      <Cast>1:0:Line:40:32:80</Cast>
+    </OnActivation>
+    <OnMove>
+      <MoveForward>0.5</MoveForward>
+      <HitMode>ON</HitMode>
+      <Wait>2</Wait>
+      <HitMode>OFF</HitMode>
+      <Wait>4</Wait>
+      <EraseObject />
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation />
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+    </OnHit>
+    <OnRemove />
+  </Ability>
+  <Ability>
+    <Name>Kendo Strike</Name>
+    <OnActivation />
+    <OnMove />
+    <OnDefend />
+    <OnHit />
+    <OnRemove />
+  </Ability>
+  <Ability>
+    <Name>Motivate</Name>
+    <OnActivation>
+      <Wait>8</Wait>
+      <ChangeStat>Current:Health-:POWER:Yes</ChangeStat>
+      <ChangeStat>Partner:Health-:POWER3:Yes</ChangeStat>
+    </OnActivation>
+    <OnMove />
+    <OnDefend />
+    <OnHit />
+    <OnRemove />
+  </Ability>
+  <Ability>
+    <Name>Ninjutsu</Name>
+    <OnActivation>
+      <ChangeStat>Current:Defense+:999:No</ChangeStat>
+      <ChangeStat>Partner:Defense+:999:No</ChangeStat>
+      <Wait>8</Wait>
+      <TeleportPlayers></TeleportPlayers>
+      <ChangeStat>Current:Defense-:999:No</ChangeStat>
+      <ChangeStat>Partner:Defense-:999:No</ChangeStat>
+      <Cast>4+1:150:Circle:32:16:28</Cast>
+    </OnActivation>
+    <OnMove>
+      <MoveForward>1</MoveForward>
+      <Wait>5</Wait>
+      <EraseObject />
+    </OnMove>
+    <OnDefend>
+      <EraseObject />
+    </OnDefend>
+    <OnHit>
+      <PlayAnimation />
+      <Damage />
+      <EraseObject />
+    </OnHit>
+    <OnRemove />
+  </Ability>
+  <Ability>
+    <Name>Claw Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Hulk Rage</Name>
+  </Ability>
+  <Ability>
+    <Name>Stare Down</Name>
+  </Ability>
+  <Ability>
+    <Name>Enrage</Name>
+  </Ability>
+  <Ability>
+    <Name>Pressure Point</Name>
+  </Ability>
+  <Ability>
+    <Name>Railgun Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Eyelash Batting</Name>
+  </Ability>
+  <Ability>
+    <Name>Shoe Throwing</Name>
+  </Ability>
+  <Ability>
+    <Name>Death Shout</Name>
+  </Ability>
+  <Ability>
+    <Name>A. Mediation</Name>
+  </Ability>
+  <Ability>
+    <Name>Magic Wand Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Bling Bling</Name>
+  </Ability>
+  <Ability>
+    <Name>Taking Heart</Name>
+  </Ability>
+  <Ability>
+    <Name>Logic Puzzle</Name>
+  </Ability>
+  <Ability>
+    <Name>Cheer</Name>
+  </Ability>
+  <Ability>
+    <Name>Tentacle Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Perk-kulate</Name>
+  </Ability>
+  <Ability>
+    <Name>V.P.S.</Name>
+  </Ability>
+  <Ability>
+    <Name>Awkward Stare</Name>
+  </Ability>
+  <Ability>
+    <Name>Hoverpad Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Arrow Control</Name>
+  </Ability>
+  <Ability>
+    <Name>D4X</Name>
+  </Ability>
+  <Ability>
+    <Name>Mediation</Name>
+  </Ability>
+  <Ability>
+    <Name>Apologizing</Name>
+  </Ability>
+  <Ability>
+    <Name>Megaphone Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Tickle Fight</Name>
+  </Ability>
+  <Ability>
+    <Name>Awkward Turtle</Name>
+  </Ability>
+  <Ability>
+    <Name>Ramen Boost</Name>
+  </Ability>
+  <Ability>
+    <Name>Microphone Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Shout!</Name>
+  </Ability>
+  <Ability>
+    <Name>Bunny Guard</Name>
+  </Ability>
+  <Ability>
+    <Name>Hyper Friendship</Name>
+  </Ability>
+  <Ability>
+    <Name>Strength Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Lung Crusher</Name>
+  </Ability>
+  <Ability>
+    <Name>Deep Sleep</Name>
+  </Ability>
+  <Ability>
+    <Name>Sonic Laugh</Name>
+  </Ability>
+  <Ability>
+    <Name>Charm Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Sideburnt</Name>
+  </Ability>
+  <Ability>
+    <Name>Lift Lid</Name>
+  </Ability>
+  <Ability>
+    <Name>Mom Swap</Name>
+  </Ability>
+  <Ability>
+    <Name>Troll</Name>
+  </Ability>
+  <Ability>
+    <Name>Staff Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Happy Healing</Name>
+  </Ability>
+  <Ability>
+    <Name>Shield</Name>
+  </Ability>
+  <Ability>
+    <Name>Healthy Explosion</Name>
+  </Ability>
+  <Ability>
+    <Name>Orgo Book Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Maul</Name>
+  </Ability>
+  <Ability>
+    <Name>"That's What She Said"</Name>
+  </Ability>
+  <Ability>
+    <Name>Silent Treatment</Name>
+  </Ability>
+  <Ability>
+    <Name>Final Destination</Name>
+  </Ability>
+  <Ability>
+    <Name>Sunshine</Name>
+  </Ability>
+  <Ability>
+    <Name>Happiness</Name>
+  </Ability>
+  <Ability>
+    <Name>M. Gun Attack</Name>
+  </Ability>
+  <Ability>
+    <Name>Shockwave</Name>
+  </Ability>
+  <Ability>
+    <Name>Bio-Leech</Name>
+  </Ability>
+  <Ability>
+    <Name>Overload</Name>
+  </Ability>
+  <Ability>
+    <Name>Break Time</Name>
+  </Ability>
+  <Ability>
+    <Name>Apologetic Decoy</Name>
+  </Ability>
+  <Ability>
+    <Name>Greedy</Name>
+  </Ability>
+  <Ability>
+    <Name>Popularity</Name>
+  </Ability>
+  <Ability>
+    <Name>Second Chance</Name>
+  </Ability>
+  <Ability>
+    <Name>Second World</Name>
+  </Ability>
+  <Ability>
+    <Name>Girly Swirl</Name>
+  </Ability>
+  <Ability>
+    <Name>Gossip</Name>
+  </Ability>
+  <Ability>
+    <Name>Sassy Yet Unique</Name>
+  </Ability>
+</Abilities>
