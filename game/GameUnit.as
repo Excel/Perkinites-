@@ -693,7 +693,7 @@ package game{
 		}
 		
 		public function useConditional(conditionsArray:Array, passArray:Array, failArray:Array) {
-			var check = MapObjectConditionChecker.checkCondition(conditionsArray);
+			var check = MapObjectConditionChecker.checkCondition(this, conditionsArray);
 			var tempPrevMoveCount = prevMoveCount;
 			var tempMoveCount = moveCount+1;
 			var tempCommands = commands;

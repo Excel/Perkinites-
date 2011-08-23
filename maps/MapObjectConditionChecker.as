@@ -10,7 +10,7 @@ package maps{
 	 */
 	public class MapObjectConditionChecker {
 
-		public static function checkCondition(conditions:Array):Boolean {
+		public static function checkCondition(gameObject, conditions:Array):Boolean {
 			var ind = 0;
 			var idx = 0;
 			for (var i = 0; i < conditions.length; i++) {
@@ -64,6 +64,10 @@ package maps{
 							return false;
 						}					
 					}			
+				} else if ("HitWall") {
+					if (!gameObject.hitWall) {
+						return false;
+					}
 				}
 			}
 			return true;

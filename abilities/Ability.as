@@ -112,6 +112,7 @@ package abilities{
 		 * 1 = Make sure unit aligns horizontally/vertically with target.
 		 * 2 = Make sure unit to target is walkable.
 		 * 3 = Ignore the target.
+		 * 4 = Make sure unit aligns so that unit can shoot at target. All ranged attacks will use this.
 		 */
 
 		/**
@@ -183,7 +184,9 @@ package abilities{
 					  false, true);
 			obj.path = obj.smoothPath();
 			//obj.range = range;	
-			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range) {
+			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range
+					&& ((correct != 4) || (correct == 4 && TileMap.walkable(new Point(Math.floor(obj.x / 32), Math.floor(obj.y / 32)), 
+															new Point(Math.floor(targetX/32), Math.floor(targetY/32))))) ) {
 				if (correct == 1) {
 					xTile = Math.floor(obj.x / 32);
 					yTile = Math.floor(obj.y / 32);
@@ -429,7 +432,7 @@ package abilities{
 				}
 			}
 		}
-		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String) {
+		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String, attackGraphic:String) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				
@@ -638,18 +641,18 @@ package abilities{
 		}
 		public function getSpecInfo():String {
 			var spec2 = spec;			
-/*			if (spec=="Damage") {
-				spec2="Damage = "+damage;
+			if (spec=="Damage") {
+				spec2="Damage = "+power;
 			} else if (spec == "S-Damage") {
-				spec2="S-Damage = "+damage;
+				spec2="S-Damage = "+power;
 			} else if (spec=="Siphon") {
-				spec2="Siphon + "+damage;
+				spec2="Siphon + "+power;
 			} else if (spec == "Healing+") {
-				spec2="Healing + "+hpLump;
+				spec2="Healing + "+power;
 			} else if (spec == "Healing%") {
-				spec2="Healing % "+hpPerc+"%";
+				spec2="Healing % "+power+"%";
 			}
-			spec2=spec2+"\n"+activationLabel;*/
+			//spec2=spec2+"\n"+activationLabel;*/
 			return spec2;
 		}
 	}

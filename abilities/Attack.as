@@ -26,8 +26,10 @@
 		
 		public var targetedEnemies;
 		public var hitEnemies;
+		public var hitWall:Boolean = false; 
 		
-		public var hitMode:Boolean = false;
+		public var hitMode:Boolean = false; // true - hit enemies and activate
+		public var wallMode:Boolean = false; //true - hit walls and activate
 
 		function Attack(xs:Number, ys:Number, a:Ability, c:GameUnit) {
 
@@ -51,13 +53,22 @@
 		}
 		
 		override public function gameHandler(e) {
-			if (! pauseAction && ! superPause && ! menuPause) {
+			if (! pauseAction && ! superPause && ! menuPause) {		
 				if (commands.length != 0 && moveCount < commands.length) {
 					commands[moveCount]();					
 				}
 				if (hitMode) {
 					checkHit();
 				}
+				if (wallMode) {
+					if (TileMap.hitWall(x, y)) {
+						hitWall = true;
+						for (var oh = 0; oh < hitCommands.length; oh++) {
+							hitCommands[oh]();
+						}	
+						return;
+					}					
+				}						
 				if (moveCount>=commands.length) {
 					prevMoveCount=-1;
 					moveCount = 0;
@@ -72,6 +83,18 @@
 			}
 		}		
 
+		public function bounce() {	
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;			
+				trace("bounce");
+				hitWall = false;
+				eraseObject();
+				moveCount++;
+				if (moveCount < commands.length) {
+					commands[moveCount]();
+				}					
+			}
+		}
 		public function moveForward(threshold:Number) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
@@ -100,6 +123,20 @@
 				}				
 			}
 		}
+		public function toggleWallMode(toggle:String) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;			
+				if (toggle == "ON") {
+					wallMode = true;
+				} else if (toggle == "OFF") {
+					wallMode = false;
+				}
+				moveCount++;
+				if (moveCount < commands.length) {
+					commands[moveCount]();
+				}				
+			}
+		}		
 
 		function defendHandler(e:Event):void {
 			if (defendCommands.length > 0) {
@@ -113,7 +150,7 @@
 			}
 		}
 		
-		public function playAnimation() {		
+		public function playAnimation(animationGraphic:String, mode:String) {		
 		}
 
 		public function separate(statChange) {
@@ -146,6 +183,7 @@
 				var ns = separate(stat);
 				newStat = ns[0] + ns[1] * (ability.min - 1);
 			}
+			
 			if (statType=="Health") {
 			} else if (statType=="Health+") {
 			} 	else if (statType=="Health-") {
@@ -208,7 +246,9 @@
 		override public function eraseObject() {
 			kill();
 			hitMode = false;
-			removeEventListener(Event.ENTER_FRAME, defendHandler);			
+			wallMode = false;
+			removeEventListener(Event.ENTER_FRAME, defendHandler);	
+			
 		}		
 		
 	}

@@ -4,19 +4,17 @@
     <Name>Shinai Attack</Name>
     <OnActivation>
       <Wait>2</Wait>
-      <Cast>1:0:Line:40:32:80</Cast>
+      <Cast>1:0:Line:40:32:80:Invis</Cast>
     </OnActivation>
     <OnMove>
       <MoveForward>0.5</MoveForward>
       <HitMode>ON</HitMode>
-      <Wait>2</Wait>
-      <HitMode>OFF</HitMode>
-      <Wait>4</Wait>
+      <Wait>3</Wait>
       <EraseObject />
     </OnMove>
     <OnDefend />
     <OnHit>
-      <PlayAnimation />
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
       <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
     </OnHit>
     <OnRemove />
@@ -50,7 +48,7 @@
       <TeleportPlayers></TeleportPlayers>
       <ChangeStat>Current:Defense-:999:No</ChangeStat>
       <ChangeStat>Partner:Defense-:999:No</ChangeStat>
-      <Cast>4+1:150:Circle:32:16:28</Cast>
+      <Cast>4+1:150:Circle:32:16:28:Kunai</Cast>
     </OnActivation>
     <OnMove>
       <MoveForward>1</MoveForward>
@@ -61,7 +59,7 @@
       <EraseObject />
     </OnDefend>
     <OnHit>
-      <PlayAnimation />
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
       <Damage />
       <EraseObject />
     </OnHit>
@@ -69,6 +67,22 @@
   </Ability>
   <Ability>
     <Name>Claw Attack</Name>
+    <OnActivation>
+      <Wait>2</Wait>
+      <Cast>1:0:Line:20:56:40:Invis</Cast>
+    </OnActivation>
+    <OnMove>
+      <MoveForward>0.5</MoveForward>
+      <HitMode>ON</HitMode>
+      <Wait>3</Wait>
+      <EraseObject />
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+    </OnHit>
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Hulk Rage</Name>
@@ -84,12 +98,61 @@
   </Ability>
   <Ability>
     <Name>Railgun Attack</Name>
+    <OnActivation>
+      <Wait>2</Wait>
+      <Cast>1:0:Line:40:8:12:Invis</Cast>
+    </OnActivation>
+    <OnMove>
+      <WallMode>ON</WallMode>
+      <HitMode>ON</HitMode>
+      <MoveForward>1</MoveForward>
+      <EraseObject />
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <EraseObject />
+    </OnHit>
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Eyelash Batting</Name>
   </Ability>
   <Ability>
     <Name>Shoe Throwing</Name>
+    <OnActivation>
+      <Wait>2</Wait>
+      <Cast>1:0:Line:30:8:12:Invis</Cast>
+    </OnActivation>
+    <OnMove>
+      <WallMode>ON</WallMode>
+      <HitMode>ON</HitMode>
+      <MoveForward>3</MoveForward>
+      <HitMode>OFF</HitMode>
+      <PlayAnimation>Explode:Attack</PlayAnimation>
+      <Wait>6</Wait>
+      <EraseObject />
+    </OnMove>
+    <OnDefend>
+      <Bounce />
+    </OnDefend>
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Conditional>
+        <Conditions>
+          <HitWall />
+        </Conditions>
+        <Pass>
+          <Bounce />
+        </Pass>
+        <Fail>
+          <EraseObject />
+        </Fail>
+      </Conditional>
+    </OnHit>
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Death Shout</Name>
@@ -137,7 +200,7 @@
     <Name>Mediation</Name>
   </Ability>
   <Ability>
-    <Name>Apologizing</Name>
+    <Name>Apologetic</Name>
   </Ability>
   <Ability>
     <Name>Megaphone Attack</Name>

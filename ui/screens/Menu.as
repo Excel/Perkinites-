@@ -253,10 +253,7 @@
 			useInfo.text="";
 			effectInfo.text="";
 			rangeInfo.text="";
-			cooldownInfo.text="";
-			extraInfo4.text="";
-			extraInfo5.text="";
-			extraInfo6.text="";			
+			cooldownInfo.text="";		
 			availabilityInfo.text="";
 			thingDescription.text="";
 		}

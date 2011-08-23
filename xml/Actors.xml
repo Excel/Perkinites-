@@ -57,11 +57,11 @@
 		<Weapon>Megaphone</Weapon>
 	</Actor>
 	<Actor>
-		<Name>Sophie Q.</Name>
+		<Name>Huilian Q.</Name>
 		<Health>70+5.5</Health>
 		<Attack>3+1</Attack>
 		<Defense>0</Defense>
 		<Speed>336+5</Speed>
-		<Weapon>Voice</Weapon>
+		<Weapon>Microphone</Weapon>
 	</Actor>
 </Actors>

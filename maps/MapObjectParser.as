@@ -188,16 +188,21 @@
 			//Battle System stuff
 			if (command.name() == "Cast") {
 				parameters = command.toString().split(":");
-				func = FunctionUtils.thunkify(mapEvent.cast, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5]);
+				func = FunctionUtils.thunkify(mapEvent.cast, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]);
 				//func = FunctionUtils.thunkify(mapEvent.cast, "1", "0", "Line", "32", "32", "80");
 			} else if (command.name() == "MoveForward") {
 				func = FunctionUtils.thunkify(mapEvent.moveForward, parseFloat(command.toString()));
 			} else if (command.name() == "HitMode") {
 				func = FunctionUtils.thunkify(mapEvent.toggleHitMode, command);
+			} else if (command.name() == "WallMode") {
+				func = FunctionUtils.thunkify(mapEvent.toggleWallMode, command);
 			} else if (command.name() == "TeleportPlayers") {
 				func = mapEvent.teleportPlayers;
 			} else if (command.name() == "PlayAnimation") {
-				func = mapEvent.playAnimation;
+				parameters = command.toString().split(":");
+				func = FunctionUtils.thunkify(mapEvent.playAnimation, parameters[0], parameters[1]);
+			} else if (command.name() == "Bounce") {
+				func = mapEvent.bounce;
 			}
 			return func;
 

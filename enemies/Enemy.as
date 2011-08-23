@@ -111,6 +111,7 @@ package enemies{
 			eHPBar.y=y-height/2-20;
 			
 			addEventListener(MouseEvent.CLICK, clickHandler);
+			addEventListener(Event.ENTER_FRAME, detectHandler);
 
 		}
 		public function begin() {
@@ -121,11 +122,24 @@ package enemies{
 
 		}
 		public function clickHandler(e:MouseEvent):void {
-			GameVariables.attackTarget = new Target(this);				
+			if (this == GameVariables.attackTarget.enemyRef) {
+				GameVariables.attackTarget.changeEnemy();
+			}else{
+				GameVariables.attackTarget.changeEnemy(this);			
+			}
 		}
 
 		override public function gameHandler(e) {
 		}
+		
+		override public function detectHandler(e:Event):void {
+			if(this.hitTestPoint(GameVariables.stageRef.mouseX, GameVariables.stageRef.mouseY) && parent != null){
+				GameVariables.mouseEnemy = true;
+			}
+			else{
+				GameVariables.mouseEnemy = false;
+			}
+		}		
 
 		/*public function collideHandler(e) {
 			if (! superPause&&! menuPause) {
