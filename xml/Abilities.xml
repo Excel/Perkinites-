@@ -38,7 +38,7 @@
 		<Power>15+5</Power>
 		<Power2>15+5</Power2>
 		<Power3>15+5</Power3>
-		<Correct>1</Correct>
+		<Correct>5</Correct>
 	</Ability>
 	<Ability>
 		<Name>Motivate</Name>
@@ -478,7 +478,7 @@
 		<Power>5</Power>
 		<Power2>5</Power2>
 		<Power3>5</Power3>
-		<Correct>0</Correct>
+		<Correct>4</Correct>
 	</Ability>
 	<Ability>
 		<Name>Arrow Control</Name>
@@ -502,23 +502,23 @@
 	</Ability>
 	<Ability>
 		<Name>D4X</Name>
-		<Description>Dashes in a straight line, stunning any enemies in the way.</Description>
+		<Description>Dashes in a straight line, stunning any enemies in the way. Pick up special gems for extra bonuses!</Description>
 		<Availability>John T.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Line</AOE>
-		<Uses>5</Uses>
+		<Uses>1</Uses>
 		<Activation>2</Activation>
 		<Value>0</Value>
 		<Stand>8</Stand>
 		<Exist>0</Exist>
 		<Min>0</Min>
 		<Max>10</Max>
-		<Range>0</Range>
+		<Range>300</Range>
 		<Cooldown>120</Cooldown>
 		<Power>10</Power>
 		<Power2>10</Power2>
 		<Power3>10</Power3>
-		<Correct>0</Correct>
+		<Correct>5</Correct>
 	</Ability>
 	<Ability>
 		<Name>Mediation</Name>
@@ -542,7 +542,7 @@
 	</Ability>
 	<Ability>
 		<Name>Apologetic</Name>
-		<Description>Restores a small amount of Health per second. But really, he stopped doing this a few months ago. NO REALLY. OMG SHUT UP, YOU HATER.</Description>
+		<Description>Restores POWER Health per POWER2 seconds. But really, he stopped doing this a few months ago. NO REALLY. OH SCREW YOU MAN.</Description>
 		<Availability>John T.</Availability>
 		<Spec>Healing +</Spec>
 		<AOE>None</AOE>
@@ -555,8 +555,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
+		<Power>1+1</Power>
+		<Power2>5-0.2</Power2>
 		<Power3>0</Power3>
 		<Correct>0</Correct>
 	</Ability>

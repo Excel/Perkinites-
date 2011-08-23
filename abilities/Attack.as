@@ -189,9 +189,7 @@
 			} 	else if (statType=="Health-") {
 					for (i = 0; i < targetedEnemies.length; i++) {
 						if (hitEnemies.indexOf(targetedEnemies[i]) == -1) {
-							trace(targetedEnemies[i].HP);
 							targetedEnemies[i].updateHP(newStat);
-							trace(targetedEnemies[i].HP);
 							hitEnemies.push(targetedEnemies[i]);
 						}
 					}
@@ -248,7 +246,7 @@
 			hitMode = false;
 			wallMode = false;
 			removeEventListener(Event.ENTER_FRAME, defendHandler);	
-			
+			list.splice(list.indexOf(this),1);			
 		}		
 		
 	}

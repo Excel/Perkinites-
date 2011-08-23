@@ -735,8 +735,10 @@ package game{
 		//non-sequential moves
 
 		public function advanceMove() {
-			prevMoveCount++;
 			moveCount++;
+			if (moveCount < commands.length) {
+				commands[moveCount]();
+			}		
 		}
 		public function decreaseMove() {
 			prevMoveCount--;

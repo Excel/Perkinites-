@@ -28,7 +28,7 @@
 			continueButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler2);
 			configButton.addEventListener(MouseEvent.MOUSE_OUT, outHandler3);
 
-			GameClient.playBGM("Exceed the Sky.mp3");
+			//GameClient.playBGM("Exceed the Sky.mp3");
 			load();
 		}
 

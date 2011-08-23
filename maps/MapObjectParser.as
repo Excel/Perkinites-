@@ -203,6 +203,8 @@
 				func = FunctionUtils.thunkify(mapEvent.playAnimation, parameters[0], parameters[1]);
 			} else if (command.name() == "Bounce") {
 				func = mapEvent.bounce;
+			} else if (command.name() == "D4X") {
+				func = mapEvent.D4X;
 			}
 			return func;
 

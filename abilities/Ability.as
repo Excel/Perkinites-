@@ -3,6 +3,7 @@ Abilities are the special commands Perkinites can use. :)
 */
 package abilities{
 
+	import collects.Gem;
 	import flash.events.*;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
@@ -98,6 +99,7 @@ package abilities{
 				this.power = Math.floor(minAbility.power + powerMod * (min - 1));
 				this.power2 = Math.floor(minAbility.power2 + power2Mod * (min - 1));
 				this.power3 = Math.floor(minAbility.power3 + power3Mod * (min - 1));
+				//trace(minAbility.power2 + power2Mod * (min - 1) + " " + power2Mod);
 			} else {
 				this.range = minAbility.range;
 				this.maxCooldown = this.cooldown = minAbility.cooldown;
@@ -113,6 +115,7 @@ package abilities{
 		 * 2 = Make sure unit to target is walkable.
 		 * 3 = Ignore the target.
 		 * 4 = Make sure unit aligns so that unit can shoot at target. All ranged attacks will use this.
+		 * 5 = Make sure unit aligns so that unit can walk to target. Charge/tank attacks will use this.
 		 */
 
 		/**
@@ -185,8 +188,12 @@ package abilities{
 			obj.path = obj.smoothPath();
 			//obj.range = range;	
 			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range
-					&& ((correct != 4) || (correct == 4 && TileMap.walkable(new Point(Math.floor(obj.x / 32), Math.floor(obj.y / 32)), 
-															new Point(Math.floor(targetX/32), Math.floor(targetY/32))))) ) {
+					&& ((correct != 4) || (correct == 4 && TileMap.shootable(new Point(Math.floor(obj.x / 32), Math.floor(obj.y / 32)), 
+															new Point(Math.floor(targetX / 32), Math.floor(targetY / 32))))) 
+					&& ((correct != 5) || (correct == 5 && TileMap.walkable(new Point(Math.floor(obj.x / 32), Math.floor(obj.y / 32)), 
+															new Point(Math.floor(targetX/32), Math.floor(targetY/32)))))															
+															
+															) {
 				if (correct == 1) {
 					xTile = Math.floor(obj.x / 32);
 					yTile = Math.floor(obj.y / 32);
@@ -460,8 +467,8 @@ package abilities{
 					case "Line": 
 						for (i = -(newAttackNum - 1) / 2; i < Math.ceil(newAttackNum / 2); i++) { //FIX THIS
 							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
-							a.x=castingUnit.x+this.width*Math.cos(radian)/2;
-							a.y=castingUnit.y+this.height*Math.sin(radian)/2;
+							a.x=castingUnit.x+this.width*Math.cos(radian)/2 + Math.sin(radian)*newDistance * i;
+							a.y=castingUnit.y+this.height*Math.sin(radian)/2 + Math.cos(radian)*newDistance * i;
 							a.width = newWidth;
 							a.height = newHeight;
 							a.rotation = degree + 90;
@@ -629,14 +636,45 @@ package abilities{
 
 			}*/
 		}
+		
+		/**
+		 * Creates gems that pop up for JT's D4X attack.
+		 */
+		
+		public function D4X() {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				var rand = Math.floor(Math.random() * 2)+3; //not actually this, fix later
+				var gem;
+				for (var i = 0; i < rand; i++) {
+					gem = new Gem(1);
+					castingUnit.parent.addChild(gem);
+					gem.x = Math.floor(Math.random() * 20) * 32 + 4;
+					gem.y = Math.floor(Math.random() * 15) * 32 + 4;	
+				}
+				gem = new Gem(10);
+				castingUnit.parent.addChild(gem);
+				gem.x = Math.floor(Math.random() * 20) * 32 + 4;
+				gem.y = Math.floor(Math.random() * 15) * 32 + 4;
+				
+				advanceMove();			
+			}
+		}
+		
+		override public function advanceMove() {
+			moveCount++;
+			if (moveCount < onActivation.length) {
+				onActivation[moveCount]();
+			}		
+		}
 		public function getDescription():String {
 			var newDescription = description;
-			var pattern:RegExp = /POWER/g; 
-			newDescription = newDescription.replace(pattern, power);
-			pattern = /POWER2/g; 
-			newDescription = newDescription.replace(pattern, power2);
 			pattern = /POWER3/g; 
 			newDescription = newDescription.replace(pattern, power3);		
+			pattern = /POWER2/g; 
+			newDescription = newDescription.replace(pattern, power2);			
+			var pattern:RegExp = /POWER/g; 
+			newDescription = newDescription.replace(pattern, power);
 			return newDescription;
 		}
 		public function getSpecInfo():String {
@@ -647,10 +685,10 @@ package abilities{
 				spec2="S-Damage = "+power;
 			} else if (spec=="Siphon") {
 				spec2="Siphon + "+power;
-			} else if (spec == "Healing+") {
-				spec2="Healing + "+power;
-			} else if (spec == "Healing%") {
-				spec2="Healing % "+power+"%";
+			} else if (spec == "Healing +") {
+				spec2 = "Healing + " + power;
+			} else if (spec == "Healing %") {
+				spec2="Healing "+power+"%";
 			}
 			//spec2=spec2+"\n"+activationLabel;*/
 			return spec2;

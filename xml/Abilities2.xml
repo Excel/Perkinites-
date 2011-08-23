@@ -100,7 +100,7 @@
     <Name>Railgun Attack</Name>
     <OnActivation>
       <Wait>2</Wait>
-      <Cast>1:0:Line:40:8:12:Invis</Cast>
+      <Cast>1:0:Line:40:8:12:Bullet</Cast>
     </OnActivation>
     <OnMove>
       <WallMode>ON</WallMode>
@@ -189,12 +189,47 @@
   </Ability>
   <Ability>
     <Name>Hoverpad Attack</Name>
+    <OnActivation>
+      <Wait>2</Wait>
+      <Cast>2:16:Line:40:4:16:Laser</Cast>
+    </OnActivation>
+    <OnMove>
+      <WallMode>ON</WallMode>
+      <HitMode>ON</HitMode>
+      <MoveForward>1</MoveForward>
+      <EraseObject />
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <EraseObject />
+    </OnHit>
+    <OnRemove></OnRemove>
   </Ability>
   <Ability>
     <Name>Arrow Control</Name>
   </Ability>
   <Ability>
     <Name>D4X</Name>
+    <OnActivation>
+      <Cast>1:0:Line:40:4:16:Invis</Cast>
+      <Wait>2</Wait>
+      <D4X />
+    </OnActivation>
+    <OnMove>
+      <WallMode>ON</WallMode>
+      <HitMode>ON</HitMode>
+      <MoveForward>1</MoveForward>
+      <EraseObject />
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <EraseObject />
+    </OnHit>
+    <OnRemove></OnRemove>
   </Ability>
   <Ability>
     <Name>Mediation</Name>
