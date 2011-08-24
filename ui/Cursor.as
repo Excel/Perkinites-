@@ -47,9 +47,15 @@
 		}
 
 		private function mouseReturnHandler(e:Event):void {
+			if (GameUnit.menuPause) {
+				visible=false;
+				Mouse.show();
+			}
+			else{
 			visible=true;
 			Mouse.hide();//in case of right click
 			removeEventListener(MouseEvent.MOUSE_MOVE, mouseReturnHandler);
+			}
 		}
 
 		private function updateMouse(e:MouseEvent):void {

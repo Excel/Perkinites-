@@ -1088,7 +1088,7 @@
 				}
 				//make this easier to use when mouse goes off screen?
 				obj.startDrag(false, new Rectangle(8,8,592,432));
-			} else {
+			} else if(hotkey != null) {
 				index=obj.currentFrame-2;
 				
 				makeDescription(index, obj.type, false);
