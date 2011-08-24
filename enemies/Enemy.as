@@ -171,7 +171,22 @@ package enemies{
 			}
 		}
 
-		public function updateHP(damage) {
+		public function updateHP(damage, popup) {
+			if (popup == "Yes") {
+				var p;
+				if (damage >= 0) {
+					p = new PopUp(1, Math.abs(damage));
+					p.x = this.x + Math.random() * 20 - 10;
+					p.y = this.y;
+					GameVariables.stageRef.addChild(p);
+				}
+				else {
+					p = new PopUp(3, Math.abs(damage));
+					p.x = this.x + Math.random() * 20-10;
+					p.y = this.y;					
+					GameVariables.stageRef.addChild(p);
+				}
+			}						
 			if (barrier>0) {
 				barrier-=damage;
 			} else {
@@ -209,7 +224,7 @@ package enemies{
 			
 		}
 		public function shockTime(e) {
-			updateHP(Math.floor(Math.random()*3+1));
+			//updateHP(Math.floor(Math.random()*3+1));
 			shockTimes--;
 			if (shockTimes==0) {
 				shockTimer.stop();

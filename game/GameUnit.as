@@ -448,6 +448,7 @@ package game{
 			parent.removeChild(this);
 			removeEventListener(Event.ENTER_FRAME, detectHandler);
 			this.removeEventListener(Event.ENTER_FRAME, gameHandler);
+			this.removeEventListener(Event.ENTER_FRAME, waitHandler);
 		}
 		public function jumpTo(commandIndex:int) {
 			if (prevMoveCount!=moveCount) {
@@ -508,27 +509,29 @@ package game{
 				var newStat = parseInt(stat);
 				if (statType=="Health") {
 					if (unitType=="Current") {
-						Unit.currentUnit.HP=newStat;
-						Unit.currentUnit.updateHP(0);
+						Unit.currentUnit.updateHP(newStat-Unit.currentUnit.HP, popup);
 					} else if (unitType == "Partner") {
-						Unit.partnerUnit.HP=newStat;
-						Unit.partnerUnit.updateHP(0);
+						Unit.partnerUnit.updateHP(newStat-Unit.partnerUnit.HP, popup);
 					}
-				} else if (statType=="Health-") {
+				} else if (statType=="Health+") {
 					if (unitType=="Current") {
-						Unit.currentUnit.HP-=newStat;
-						Unit.currentUnit.updateHP(0);
+						Unit.currentUnit.updateHP(-1*newStat, popup);
 					} else if (unitType == "Partner") {
-						Unit.partnerUnit.HP-=newStat;
-						Unit.partnerUnit.updateHP(0);
+						Unit.partnerUnit.updateHP(-1*newStat, popup);
+					}
+				} 	else if (statType=="Health-") {
+					if (unitType=="Current") {
+						Unit.currentUnit.updateHP(newStat, popup);
+					} else if (unitType == "Partner") {
+						Unit.partnerUnit.updateHP(newStat, popup);
 					}
 				} else if (statType == "MaxHealth") {
 					if (unitType=="Current") {
 						Unit.currentUnit.maxHP=newStat;
-						Unit.currentUnit.updateHP(0);
+						Unit.currentUnit.updateHP(0, "No");
 					} else if (unitType == "Partner") {
 						Unit.partnerUnit.maxHP=newStat;
-						Unit.partnerUnit.updateHP(0);
+						Unit.partnerUnit.updateHP(0, "No");
 					}
 				} else if (statType == "Attack") {
 					if (unitType=="Current") {
@@ -548,9 +551,6 @@ package game{
 					} else if (unitType == "Partner") {
 						Unit.partnerUnit.speed=newStat;
 					}
-				}
-				if (popup == "Yes") {
-					
 				}
 				moveCount++;
 			}
@@ -870,15 +870,18 @@ package game{
 			}
 		}
 		public function waitHandler(e) {
-			if (waitCount<wait) {
-				waitCount++;
-			} else {
-				prevMoveCount = moveCount;
-				moveCount++;
-				waitCount = 0;
-				wait = 0;
-				addEventListener(Event.ENTER_FRAME, gameHandler);
-				removeEventListener(Event.ENTER_FRAME, waitHandler);
+			if (! pauseAction && ! superPause && ! menuPause) {			
+				if (waitCount<wait) {
+					waitCount++;
+					trace(waitCount);					
+				} else {
+					prevMoveCount = moveCount;
+					moveCount++;
+					waitCount = 0;
+					wait = 0;
+					addEventListener(Event.ENTER_FRAME, gameHandler);
+					removeEventListener(Event.ENTER_FRAME, waitHandler);
+				}
 			}
 		}
 		/*public function talkingHandler(e) {

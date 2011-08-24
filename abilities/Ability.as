@@ -3,7 +3,6 @@ Abilities are the special commands Perkinites can use. :)
 */
 package abilities{
 
-	import collects.Gem;
 	import flash.events.*;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
@@ -11,6 +10,7 @@ package abilities{
 
 	import actors.*;
 	import attacks.*;
+	import collects.Gem;
 	import game.*;
 	import maps.*;
 	import tileMapper.*;
@@ -107,6 +107,11 @@ package abilities{
 				this.power2 = minAbility.power2;
 				this.power3 = minAbility.power3;
 			}
+/*			if (this.castingUnit != null) {
+				var unit = this.castingUnit;
+				cancel();
+				startAbility(unit);
+			}*/
 		}
 		/**
 		 * Figure out what kind of correction it is.
@@ -126,20 +131,26 @@ package abilities{
 		 * 3 = Bring up the Select Unit Display.
 		 * 4 = Hold Down. Essentially No. 1
 		 */
-		public function startAbility(xpos, ypos, unit) {
-			if (!unit.activating) {
-				unit.activating = true;
-				castingUnit = unit;
-				if (correct != 3 && GameVariables.attackTarget.enemyRef != null) {
-					targetX = GameVariables.attackTarget.enemyRef.x;
-					targetY = GameVariables.attackTarget.enemyRef.y;
-				}
-				else {
-					targetX=mouseX+ScreenRect.getX();
-					targetY=mouseY+ScreenRect.getY();
-				}
-				unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
-			}
+		public function startAbility(unit) {
+			if (activation > 0) {
+				if (!unit.activating) {
+					unit.activating = true;
+					castingUnit = unit;
+					if (correct != 3 && GameVariables.attackTarget.enemyRef != null) {
+						targetX = GameVariables.attackTarget.enemyRef.x;
+						targetY = GameVariables.attackTarget.enemyRef.y;
+					}
+					else {
+						targetX=mouseX+ScreenRect.getX();
+						targetY=mouseY+ScreenRect.getY();
+					}
+					unit.addEventListener(Event.ENTER_FRAME, moveAbilityHandler);	
+				}												
+			} else {
+				castingUnit = unit;				
+				activate();
+			}			
+
 		}
 
 		public function selectUnitHandler(e) {
@@ -297,28 +308,34 @@ package abilities{
 		}
 		
 		public function cancel() {
-			castingUnit.activating = false;
-			castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);
-			castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
-			removeEventListener(Event.ENTER_FRAME, gameHandler);
-			castingUnit.mxpos=castingUnit.x;
-			castingUnit.mypos=castingUnit.y;
-			castingUnit.path=[];
-			castingUnit.range = 0;				
+			if (activation > 0) {
+				castingUnit.activating = false;		
+				castingUnit.mxpos=castingUnit.x;
+				castingUnit.mypos=castingUnit.y;
+				castingUnit.path=[];
+				castingUnit.range = 0;							
+				castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);					
+			}
+			stand = AbilityDatabase.getMinAbility(ID).stand;			
+			this.removeEventListener(Event.ENTER_FRAME, gameHandler);
+			this.removeEventListener(Event.ENTER_FRAME, waitHandler);			
 			this.activating = false;
+			this.castingUnit = null;
+			trace("cancel");
 		}
 
 		override public function gameHandler(e) {
-			if (! pauseAction && ! superPause && ! menuPause) {
-				if (onActivation.length!=0&&moveCount<onActivation.length) {
-					onActivation[moveCount]();
-				}
-				stand--;				
-				if (stand == 0) {
-					prevMoveCount=-1;
-					moveCount = 0;
-					stand = AbilityDatabase.getMinAbility(ID).stand;
-					cancel();
+			if(activating){
+				if (! pauseAction && ! superPause && ! menuPause) {
+					if (onActivation.length!=0&&moveCount<onActivation.length) {
+						onActivation[moveCount]();
+					}
+					stand--;				
+					if (stand == 0) {
+						prevMoveCount=-1;
+						moveCount = 0;
+						cancel();
+					}
 				}
 			}
 		}
@@ -356,33 +373,29 @@ package abilities{
 				}
 				if (statType=="Health") {
 					if (unitType=="Current") {
-						Unit.currentUnit.HP=newStat;
-						Unit.currentUnit.updateHP(0);
+						Unit.currentUnit.updateHP(newStat-Unit.currentUnit.HP, popup);
 					} else if (unitType == "Partner") {
-						Unit.partnerUnit.HP=newStat;
-						Unit.partnerUnit.updateHP(0);
+						Unit.partnerUnit.updateHP(newStat-Unit.partnerUnit.HP, popup);
 					}
 				} else if (statType=="Health+") {
 					if (unitType=="Current") {
-						Unit.currentUnit.HP+=newStat;
-						Unit.currentUnit.updateHP(0);
+						Unit.currentUnit.updateHP(-1*newStat, popup);
 					} else if (unitType == "Partner") {
-						Unit.partnerUnit.HP+=newStat;
-						Unit.partnerUnit.updateHP(0);
+						Unit.partnerUnit.updateHP(-1*newStat, popup);
 					}
 				} 	else if (statType=="Health-") {
 					if (unitType=="Current") {
-						Unit.currentUnit.updateHP(newStat);
+						Unit.currentUnit.updateHP(newStat, popup);
 					} else if (unitType == "Partner") {
-						Unit.partnerUnit.updateHP(newStat);
+						Unit.partnerUnit.updateHP(newStat, popup);
 					}
 				} else if (statType == "MaxHealth") {
 					if (unitType=="Current") {
 						Unit.currentUnit.maxHP=newStat;
-						Unit.currentUnit.updateHP(0);
+						Unit.currentUnit.updateHP(0, "No");
 					} else if (unitType == "Partner") {
 						Unit.partnerUnit.maxHP=newStat;
-						Unit.partnerUnit.updateHP(0);
+						Unit.partnerUnit.updateHP(0, "No");
 					}
 				} else if (statType == "Attack") {
 					if (unitType=="Current") {
@@ -415,9 +428,6 @@ package abilities{
 						Unit.partnerUnit.speed=newStat;
 					}
 				}
-				if (popup == "Yes") {
-					
-				}
 				moveCount++;
 				if (moveCount < onActivation.length) {
 					onActivation[moveCount]();
@@ -439,7 +449,7 @@ package abilities{
 				}
 			}
 		}
-		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String, attackGraphic:String) {
+		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String, attackGraphic:String, origin:String = null) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				
@@ -466,9 +476,18 @@ package abilities{
 				switch(AOE) {
 					case "Line": 
 						for (i = -(newAttackNum - 1) / 2; i < Math.ceil(newAttackNum / 2); i++) { //FIX THIS
-							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
-							a.x=castingUnit.x+this.width*Math.cos(radian)/2 + Math.sin(radian)*newDistance * i;
-							a.y=castingUnit.y+this.height*Math.sin(radian)/2 + Math.cos(radian)*newDistance * i;
+							a = new Attack(newSpeed * Math.cos(radian), newSpeed * Math.sin(radian), this, castingUnit);
+							
+							if (origin == null) { //Unit
+								a.x=castingUnit.x+this.width*Math.cos(radian)/2 + Math.sin(radian)*newDistance * i;
+								a.y=castingUnit.y+this.height*Math.sin(radian)/2 + Math.cos(radian)*newDistance * i;								
+							} else if (origin == "Cursor") {
+								a.x=mouseX+ScreenRect.getX();
+								a.y=mouseY+ScreenRect.getY();
+							} else if (origin == "Target") {
+								a.x=targetX;
+								a.y = targetY;
+							}
 							a.width = newWidth;
 							a.height = newHeight;
 							a.rotation = degree + 90;
@@ -492,8 +511,16 @@ package abilities{
 						for (i = degree; i < 360+degree; i += 360 / newAttackNum) {
 							radian = (i*Math.PI/180);
 							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
-							a.x=castingUnit.x+this.width*Math.cos(radian)/2;
-							a.y=castingUnit.y+this.height*Math.sin(radian)/2;
+							if (origin == null) { //Unit
+								a.x=castingUnit.x+this.width*Math.cos(radian)/2;
+								a.y=castingUnit.y+this.height*Math.sin(radian)/2;							
+							} else if (origin == "Cursor") {
+								a.x=mouseX+ScreenRect.getX();
+								a.y=mouseY+ScreenRect.getY();
+							} else if (origin == "Target") {
+								a.x=targetX;
+								a.y = targetY;
+							}							
 							a.width = newWidth;
 							a.height = newHeight;
 							a.rotation = i + 90;
@@ -644,19 +671,32 @@ package abilities{
 		public function D4X() {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
-				var rand = Math.floor(Math.random() * 2)+3; //not actually this, fix later
-				var gem;
-				for (var i = 0; i < rand; i++) {
-					gem = new Gem(1);
-					castingUnit.parent.addChild(gem);
-					gem.x = Math.floor(Math.random() * 20) * 32 + 4;
-					gem.y = Math.floor(Math.random() * 15) * 32 + 4;	
-				}
-				gem = new Gem(10);
-				castingUnit.parent.addChild(gem);
-				gem.x = Math.floor(Math.random() * 20) * 32 + 4;
-				gem.y = Math.floor(Math.random() * 15) * 32 + 4;
 				
+				var openTiles = new Array();
+				for (var a = Math.floor(ScreenRect.getX()/32)+2; a < Math.floor((ScreenRect.getX()+640)/32)-2; a++) {
+					for (var b = Math.floor(ScreenRect.getY()/32)+2; b < Math.floor((ScreenRect.getY()+480)/32)-2; b++) {
+						if (TileMap.getTile(a*32 + 16, b*32+16)== "p") {
+							openTiles.push(new Point(a * 32+4, b * 32+4));
+						}
+					}
+				}
+				
+				if(GameVariables.attackTarget.enemyRef != null){
+					var gem;
+					var openTile;
+					for (var i = 0; i < 4; i++) {
+						gem = new Gem(1);
+						castingUnit.parent.addChild(gem);
+						openTile = openTiles[Math.floor(Math.random() * openTiles.length)];
+						gem.x = openTile.x;
+						gem.y = openTile.y;
+					}
+					gem = new Gem(10);
+					castingUnit.parent.addChild(gem);
+					openTile = openTiles[Math.floor(Math.random() * openTiles.length)];				
+					gem.x = openTile.x;
+					gem.y = openTile.y;
+				}
 				advanceMove();			
 			}
 		}

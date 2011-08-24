@@ -118,7 +118,6 @@
 		public var mxpos=0;
 		public var mypos=0;
 		//public var range=0;
-		static public var level;
 
 		/**
 		 * Unit Booleans
@@ -150,7 +149,8 @@
 			this.id=id;
 			if (id!=-1) {
 				Name=ActorDatabase.getName(id);
-				maxHP=HP=ActorDatabase.getHP(id);
+				maxHP=ActorDatabase.getHP(id);
+				HP = 1;
 				AP=ActorDatabase.getDmg(id);
 				DP=ActorDatabase.getArmor(id);
 				speed=ActorDatabase.getSpeed(id);
@@ -179,7 +179,10 @@
 				
 			}
 		}
-
+		
+		static public function levelup() {
+			
+		}
 		static public function setHotkey(id:int, a:Ability, basicIndex:int = -1) {
 			switch (id) {
 				case 1 :
@@ -251,7 +254,6 @@
 			}
 			if (! pauseAction && ! superPause && ! menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
-					useComboAttack();
 
 					movePlayer();
 					//moveDirection();
@@ -306,73 +308,59 @@
 
 		public function useHotKey1() {
 			if (KeyDown.keyIsDown(hotKey1)&&hk1!=null&&hk1Delay>=0) {
-				hk1.startAbility(x, y, Unit.currentUnit);
+				hk1.startAbility(Unit.currentUnit);
 			}
 		}
 
 		public function useHotKey2() {
 			if (KeyDown.keyIsDown(hotKey2)&&hk2!=null&&hk2Delay>=0) {
-				hk2.startAbility(x, y, Unit.currentUnit);
+				hk2.startAbility(Unit.currentUnit);
 			}
 		}
 		public function useHotKey3() {
 			if (KeyDown.keyIsDown(hotKey3)&&hk3!=null&&hk3Delay>=0) {
-				hk3.startAbility(x, y, Unit.partnerUnit);
+				hk3.startAbility(Unit.partnerUnit);
 			}
 		}
 
 		public function useHotKey4() {
 			if (KeyDown.keyIsDown(hotKey4) && hk4 != null) {
-				hk4.startAbility(x, y, Unit.currentUnit);
+				hk4.startAbility(Unit.currentUnit);
 			}
 		}
 
 		public function useHotKey5() {
 			if (KeyDown.keyIsDown(hotKey5)&&hk5!=null) {
-				hk5.startAbility(x, y, Unit.currentUnit);
+				hk5.startAbility(Unit.currentUnit);
 			}
 		}
 		public function useHotKey6() {
 			if (KeyDown.keyIsDown(hotKey6)&&hk6!=null) {
-				hk6.startAbility(x, y, Unit.partnerUnit);
+				hk6.startAbility(Unit.partnerUnit);
 			}
 		}
 		public function useHotKey7() {
 			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null) {
-				hk7.startAbility(x, y, Unit.partnerUnit);
+				hk7.startAbility(Unit.partnerUnit);
 			}
 		}
 
-
-		public function useComboAttack() {
-			if (KeyDown.keyIsDown(attackKey)&&! KeyDown.keyIsDown(friendshipKey)&&attackDelay>=0) {
-				Unit.FP+=1000;
-				unitHUD.updateFP();
-				attackDelay=-5;
-				/*var ax=this.parent.mouseX;
-				var ay=this.parent.mouseY;
-				
-				for (var i = -1; i < 2; i++) {
-				var radian=Math.atan2(ay-this.y,ax-this.x);
-				
-				var degree = (radian*180/Math.PI);
-				degree+=5*i;
-				radian=degree*Math.PI/180;
-				var bxspeed=20;
-				var byspeed=20;
-				
-				var a=new Attack(bxspeed*Math.cos(radian),byspeed*Math.sin(radian),5,"PC");
-				a.x=x+width*Math.cos(radian)/2;
-				a.y=y+height*Math.sin(radian)/2;
-				
-				a.scaleX=0.40;
-				a.rotation=90+degree;
-				this.parent.addChild(a);
-				//this.parent.setChildIndex(a, 0);
-				}*/
-			}
-		}
-		public function updateHP(damage) {
+		public function updateHP(damage, popup) {
+			if (popup == "Yes") {
+				var p;
+				if (damage >= 0) {
+					p = new PopUp(1, Math.abs(damage));
+					p.x = this.x;
+					p.y = this.y;
+					GameVariables.stageRef.addChild(p);
+				}
+				else {
+					p = new PopUp(3, Math.abs(damage));
+					p.x = this.x;
+					p.y = this.y;					
+					GameVariables.stageRef.addChild(p);
+				}
+			}						
 			damage = Math.floor(damage);
 			if (HP>0) {
 				HP -= damage;
@@ -397,6 +385,7 @@
 				Unit.maxLP+=1;
 				Unit.nextEXP+=Unit.maxLP*200;
 				updateEXP(0);
+				levelup();
 
 /*				for (var i = 0; i < Menu.sliderValueArray.length; i++) {
 					Menu.sliderValueArray[i]+=1;
@@ -431,8 +420,10 @@
 				checkStop();
 				knockout--;
 				if (knockout<=0) {
-					HP=Math.floor(maxHP/2);
-					updateHP(0);
+					HP = 1;
+					updateHP(Math.floor(maxHP / 2), "Yes");
+					this.HP -= 1;
+					updateHP(0, "No");
 					begin();
 					removeEventListener(Event.ENTER_FRAME,reviveHandler);					
 				}

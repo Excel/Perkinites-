@@ -13,10 +13,11 @@
 		function PopUp(type:int, d:int) {
 			duration=24;
 			fadeSpeed=0.5;
-			fadeDir=1;
-			if (type==1) {
+			fadeDir = 1;
+
+			damage.text=String(d);			
+/*			if (type==1) {
 				//Enemy Damage
-				damage.text=String(d);
 				stop();
 			} else if (type == 2) {
 				//Player Damage
@@ -25,10 +26,11 @@
 			} else if (type == 3) {
 				//Healing Damage
 				gotoAndStop(3);
+				damage.text=String(d);				
 			} else if (type == 4) {
 				//Level Up!
 				gotoAndStop(4);
-			}
+			}*/
 
 			addEventListener(Event.ENTER_FRAME, gameHandler);
 			alpha=0;

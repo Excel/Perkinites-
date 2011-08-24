@@ -233,9 +233,34 @@
   </Ability>
   <Ability>
     <Name>Mediation</Name>
+    <OnActivation>
+      <Wait>4</Wait>
+      <Cast>1:0:Line:40:64:16:Wall:Cursor</Cast>
+    </OnActivation>
+    <OnMove>
+      <HitMode>ON</HitMode>
+      <Wait>96</Wait>
+      <EraseObject />
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <EraseObject />
+    </OnHit>
+    <OnRemove></OnRemove>
   </Ability>
   <Ability>
     <Name>Apologetic</Name>
+    <OnActivation>
+      <Wait>120</Wait>
+      <ChangeStat>Partner:Health+:POWER:Yes</ChangeStat>
+      <JumpTo>0</JumpTo>
+    </OnActivation>
+    <OnMove></OnMove>
+    <OnDefend />
+    <OnHit></OnHit>
+    <OnRemove></OnRemove>
   </Ability>
   <Ability>
     <Name>Megaphone Attack</Name>

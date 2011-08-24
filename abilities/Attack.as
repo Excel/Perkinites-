@@ -189,7 +189,7 @@
 			} 	else if (statType=="Health-") {
 					for (i = 0; i < targetedEnemies.length; i++) {
 						if (hitEnemies.indexOf(targetedEnemies[i]) == -1) {
-							targetedEnemies[i].updateHP(newStat);
+							targetedEnemies[i].updateHP(newStat, popup);
 							hitEnemies.push(targetedEnemies[i]);
 						}
 					}
@@ -204,9 +204,7 @@
 			} else if (statType == "Defense-") {
 				
 			} else if (statType == "Speed") {
-			} if (popup == "Yes") {
-				
-			}			
+			} 	
 		}				
 		
 		function checkExplode() {

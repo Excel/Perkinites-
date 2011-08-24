@@ -1,5 +1,6 @@
 ﻿package ui.screens{
 
+	import flash.display.InterpolationMethod;
 	import flash.text.TextField;
 	import flash.display.MovieClip;
 	import flash.display.Stage;
@@ -958,6 +959,7 @@
 			var hkIcon;//the icon that might collide with the dragged icon
 			var index;//the index of the item/ability in the Item/AbilityDatabase
 			var i;//for for loops
+			var thing;
 
 			var obj=e.target;
 
@@ -969,13 +971,17 @@
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.itemAmounts[index]--;
-						Unit.currentUnit.passiveItems.push(new Item(index, 1));
+						thing = new Item(index, 1);
+						thing.startAbility(Unit.currentUnit);
+						Unit.currentUnit.passiveItems.push(thing);
 					}
 					//if it hits passiveList2
 				} else if (obj.hitTestObject(page2.passiveList2)  && pCover2.parent != stageRef) {
 					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.itemAmounts[index]--;
-						Unit.partnerUnit.passiveItems.push(new Item(index, 1));
+						thing = new Item(index, 1);						
+						thing.startAbility(Unit.partnerUnit);						
+						Unit.partnerUnit.passiveItems.push(thing);
 					}
 					//if it hits nothing or a hotkeyIcon
 				} else {
@@ -1014,12 +1020,16 @@
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.abilityAmounts[index]--;
-						Unit.currentUnit.passiveAbilities.push(new Ability(index, 1));
+						thing = new Ability(index, 1);
+						thing.startAbility(Unit.currentUnit);
+						Unit.currentUnit.passiveAbilities.push(thing);
 					}
 				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.abilityAmounts[index]--;
-						Unit.partnerUnit.passiveAbilities.push(new Ability(index, 1));
+						thing = new Ability(index, 1);
+						thing.startAbility(Unit.partnerUnit);						
+						Unit.partnerUnit.passiveAbilities.push(thing);
 					}
 				} else {
 					if (AbilityDatabase.getAbility(index).active) {
@@ -1195,7 +1205,8 @@
 					if (obj.parent==page2.passiveList1) {
 						passive=Unit.currentUnit.passiveItems;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].ID==index) {
+							if (passive[i].ID == index) {
+								passive[i].cancel();
 								passive.splice(i,1);
 								break;
 							}
@@ -1203,7 +1214,8 @@
 					} else if (obj.parent == page2.passiveList2) {
 						passive=Unit.partnerUnit.passiveItems;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].ID==index) {
+							if (passive[i].ID == index) {
+								passive[i].cancel();								
 								passive.splice(i,1);
 								break;
 							}
@@ -1213,7 +1225,8 @@
 					if (obj.parent==page2.passiveList1) {
 						passive=Unit.currentUnit.passiveAbilities;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].ID==index) {
+							if (passive[i].ID == index) {
+								passive[i].cancel();									
 								passive.splice(i,1);
 								break;
 							}
@@ -1222,7 +1235,8 @@
 					} else if (obj.parent == page2.passiveList2) {
 						passive=Unit.partnerUnit.passiveAbilities;
 						for (i = 0; i < passive.length; i++) {
-							if (passive[i].ID==index) {
+							if (passive[i].ID == index) {
+								passive[i].cancel();
 								passive.splice(i,1);
 								break;
 							}
@@ -1250,7 +1264,8 @@
 				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					Unit.partnerUnit.passiveItems.push(new Item(index, 1));
 				} else {
-					Unit.itemAmounts[index]+=1;
+					Unit.itemAmounts[index] += 1;
+					
 				}
 			} else if (obj.type=="Ability") {
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {

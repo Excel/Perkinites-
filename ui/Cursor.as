@@ -52,9 +52,9 @@
 				Mouse.show();
 			}
 			else{
-			visible=true;
-			Mouse.hide();//in case of right click
-			removeEventListener(MouseEvent.MOUSE_MOVE, mouseReturnHandler);
+				visible=true;
+				Mouse.hide();//in case of right click
+				removeEventListener(MouseEvent.MOUSE_MOVE, mouseReturnHandler);
 			}
 		}
 

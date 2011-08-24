@@ -60,7 +60,8 @@ package collects{
 			if (this.parent != null &&
 			(this.hitTestObject(Unit.currentUnit) || this.hitTestObject(Unit.partnerUnit))) {
 				if (GameVariables.attackTarget.enemyRef != null) {
-					GameVariables.attackTarget.enemyRef.updateHP(pointValue);
+					GameVariables.attackTarget.enemyRef.updateHP(pointValue, "Yes");
+					Unit.flexPoints += pointValue / 100;					
 				}
 				if (pointValue == 10) {
 					for (var i = Attack.list.length-1; i >= 0; i--) {
@@ -69,7 +70,6 @@ package collects{
 						}
 					}
 				}
-				Unit.FP+=050;
 				this.removeEventListener(Event.ENTER_FRAME, gameHandler);
 				this.removeEventListener(Event.ENTER_FRAME, endHandler);
 

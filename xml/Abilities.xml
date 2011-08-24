@@ -542,7 +542,7 @@
 	</Ability>
 	<Ability>
 		<Name>Apologetic</Name>
-		<Description>Restores POWER Health per POWER2 seconds. But really, he stopped doing this a few months ago. NO REALLY. OH SCREW YOU MAN.</Description>
+		<Description>Restores POWER Health per 5 seconds. But really, he stopped doing this a few months ago. NO REALLY. OH SCREW YOU MAN.</Description>
 		<Availability>John T.</Availability>
 		<Spec>Healing +</Spec>
 		<AOE>None</AOE>
@@ -555,8 +555,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>1+1</Power>
-		<Power2>5-0.2</Power2>
+		<Power>1+4</Power>
+		<Power2>0</Power2>
 		<Power3>0</Power3>
 		<Correct>0</Correct>
 	</Ability>
