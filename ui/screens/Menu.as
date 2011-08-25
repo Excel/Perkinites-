@@ -21,6 +21,7 @@
 
 	public class Menu extends BaseScreen {
 
+		public var passiveThing;
 		static public var iaOption:int=-1;
 		static public var setUnitIndex:int=-1;
 		static public var currentActivated:Boolean=true;
@@ -302,8 +303,10 @@
 					}
 				}
 				for (j = 0; j < Unit.currentUnit.passiveAbilities.length; j++) {
-					if (Unit.currentUnit.passiveAbilities[j].Name==basicAbility.Name) {
-						Unit.currentUnit.passiveAbilities[j]=basicAbility;
+					if (Unit.currentUnit.passiveAbilities[j].Name == basicAbility.Name) {
+						Unit.currentUnit.passiveAbilities[j].cancel();
+						Unit.currentUnit.passiveAbilities[j] = basicAbility;
+						basicAbility.startAbility(Unit.currentUnit);						
 					}
 				}
 			}
@@ -318,7 +321,9 @@
 				}
 				for (j = 0; j < Unit.partnerUnit.passiveAbilities.length; j++) {
 					if (Unit.partnerUnit.passiveAbilities[j].Name==basicAbility.Name) {
-						Unit.partnerUnit.passiveAbilities[j]=basicAbility;
+						Unit.partnerUnit.passiveAbilities[j].cancel();
+						Unit.partnerUnit.passiveAbilities[j] = basicAbility;
+						basicAbility.startAbility(Unit.partnerUnit);
 					}
 				}
 			}
@@ -1192,8 +1197,7 @@
 
 
 		public function movePassiveIcon(e) {
-			var obj=e.target;
-
+			var obj = e.target;
 			if (obj.parent!=stageRef) {
 				var passive;
 				var index=obj.currentFrame-2;
@@ -1236,6 +1240,7 @@
 						passive=Unit.partnerUnit.passiveAbilities;
 						for (i = 0; i < passive.length; i++) {
 							if (passive[i].ID == index) {
+								passiveThing = passive[i];
 								passive[i].cancel();
 								passive.splice(i,1);
 								break;

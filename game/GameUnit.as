@@ -872,8 +872,7 @@ package game{
 		public function waitHandler(e) {
 			if (! pauseAction && ! superPause && ! menuPause) {			
 				if (waitCount<wait) {
-					waitCount++;
-					trace(waitCount);					
+					waitCount++;			
 				} else {
 					prevMoveCount = moveCount;
 					moveCount++;

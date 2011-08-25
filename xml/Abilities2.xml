@@ -177,6 +177,21 @@
   </Ability>
   <Ability>
     <Name>Tentacle Attack</Name>
+    <OnActivation>
+      <Wait>2</Wait>
+      <Cast>1:0:Line:50:32:50:Invis</Cast>
+    </OnActivation>
+    <OnMove>
+      <MoveForward>0.5</MoveForward>
+      <HitMode>ON</HitMode>
+      <Wait>3</Wait>
+      <EraseObject />
+    </OnMove>
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+    </OnHit>
+    <OnRemove />
   </Ability>
   <Ability>
     <Name>Perk-kulate</Name>

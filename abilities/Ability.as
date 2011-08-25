@@ -321,21 +321,18 @@ package abilities{
 			this.removeEventListener(Event.ENTER_FRAME, waitHandler);			
 			this.activating = false;
 			this.castingUnit = null;
-			trace("cancel");
 		}
 
 		override public function gameHandler(e) {
-			if(activating){
-				if (! pauseAction && ! superPause && ! menuPause) {
-					if (onActivation.length!=0&&moveCount<onActivation.length) {
-						onActivation[moveCount]();
-					}
-					stand--;				
-					if (stand == 0) {
-						prevMoveCount=-1;
-						moveCount = 0;
-						cancel();
-					}
+			if (! pauseAction && ! superPause && ! menuPause) {
+				if (onActivation.length!=0&&moveCount<onActivation.length) {
+					onActivation[moveCount]();
+				}
+				stand--;				
+				if (stand == 0) {
+					prevMoveCount=-1;
+					moveCount = 0;
+					cancel();
 				}
 			}
 		}
