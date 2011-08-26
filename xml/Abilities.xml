@@ -102,7 +102,7 @@
 	</Ability>
 	<Ability>
 		<Name>Hulk Rage</Name>
-		<Description>Strengthens Nate with extra Attack and Health restoration over time.</Description>
+		<Description>Strengthens Nate with POWER extra Attack and restores POWER2 Health every 5 seconds.</Description>
 		<Availability>Nate M.</Availability>
 		<Spec>Upgrade</Spec>
 		<AOE>None</AOE>
@@ -115,10 +115,10 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
+		<Power>4+1</Power>
+		<Power2>2+1</Power2>
 		<Power3>0</Power3>
-		<Correct>1</Correct>
+		<Correct>0</Correct>
 	</Ability>
 	<Ability>
 		<Name>Stare Down</Name>
@@ -362,7 +362,7 @@
 	</Ability>
 	<Ability>
 		<Name>Cheer</Name>
-		<Description>Restores some of Kata's Health every few seconds.</Description>
+		<Description>Motivates Kata to restore POWER Health and Cia to restore POWER2 Health every 4 seconds.</Description>
 		<Availability>Cia M.</Availability>
 		<Spec>Healing +</Spec>
 		<AOE>None</AOE>
@@ -375,8 +375,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
+		<Power>1+3</Power>
+		<Power2>2+3.5</Power2>
 		<Power3>0</Power3>
 		<Correct>0</Correct>
 	</Ability>
@@ -489,7 +489,7 @@
 		<Uses>8</Uses>
 		<Activation>4</Activation>
 		<Value>0</Value>
-		<Stand>2</Stand>
+		<Stand>12</Stand>
 		<Exist>0</Exist>
 		<Min>0</Min>
 		<Max>10</Max>
@@ -498,7 +498,7 @@
 		<Power>3</Power>
 		<Power2>3</Power2>
 		<Power3>3</Power3>
-		<Correct>0</Correct>
+		<Correct>4</Correct>
 	</Ability>
 	<Ability>
 		<Name>D4X</Name>
@@ -555,7 +555,7 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>1+4</Power>
+		<Power>2+4</Power>
 		<Power2>0</Power2>
 		<Power3>0</Power3>
 		<Correct>0</Correct>

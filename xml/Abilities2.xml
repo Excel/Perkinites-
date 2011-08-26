@@ -174,6 +174,16 @@
   </Ability>
   <Ability>
     <Name>Cheer</Name>
+    <OnActivation>
+      <Wait>96</Wait>
+      <ChangeStat>Current:Health+:POWER:Yes</ChangeStat>
+      <ChangeStat>Partner:Health+:POWER2:Yes</ChangeStat>
+      <JumpTo>0</JumpTo>
+    </OnActivation>
+    <OnMove></OnMove>
+    <OnDefend />
+    <OnHit></OnHit>
+    <OnRemove></OnRemove>
   </Ability>
   <Ability>
     <Name>Tentacle Attack</Name>
@@ -224,6 +234,25 @@
   </Ability>
   <Ability>
     <Name>Arrow Control</Name>
+    <OnActivation>
+      <Wait>3</Wait>
+      <Cast>4:16:Line:40:12:28:Arrow</Cast>
+      <Wait>2</Wait>
+      <RapidFire>1</RapidFire>
+    </OnActivation>
+    <OnMove>
+      <WallMode>ON</WallMode>
+      <HitMode>ON</HitMode>
+      <MoveForward>1</MoveForward>
+      <EraseObject />
+    </OnMove>
+    <OnDefend />
+    <OnHit>
+      <PlayAnimation>Hit:Midpoint</PlayAnimation>
+      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <EraseObject />
+    </OnHit>
+    <OnRemove></OnRemove>
   </Ability>
   <Ability>
     <Name>D4X</Name>

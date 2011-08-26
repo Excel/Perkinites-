@@ -79,9 +79,8 @@
 				//<EraseObject></EraseObject>
 				func=mapEvent.eraseObject;			
 			} else if (command.name() == "JumpTo") {
-				//<JumpTo>CommandIndex</JumpTo>
-				var commandIndex=parseInt(command.substring(0,command.toString().length));
-				func=FunctionUtils.thunkify(mapEvent.jumpTo,commandIndex);
+				//<JumpTo>CommandIndex:CheckLoop</JumpTo>
+				func = FunctionUtils.thunkify(mapEvent.jumpTo, parseInt(command));
 			
 			} else if (command.name() == "Switch") {
 				//<Switch>SwitchID:TRUE/FALSE</Switch>
@@ -208,6 +207,8 @@
 				func = mapEvent.bounce;
 			} else if (command.name() == "D4X") {
 				func = mapEvent.D4X;
+			} else if (command.name() == "RapidFire") {
+				func = FunctionUtils.thunkify(mapEvent.rapidFire, parseInt(command));
 			}
 			return func;
 

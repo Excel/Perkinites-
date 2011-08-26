@@ -1,6 +1,7 @@
 package maps{
 
 	import actors.Unit;
+	import game.GameConditionChecker;
 	import game.GameUnit;
 	import game.GameVariables;
 	import util.FunctionUtils;
@@ -8,66 +9,31 @@ package maps{
 	/**
 	 * In MapObject initialization, checks whether the Object can be created.
 	 */
-	public class MapObjectConditionChecker {
+	public class MapObjectConditionChecker extends GameConditionChecker{
 
 		public static function checkCondition(gameObject, conditions:Array):Boolean {
-			var ind = 0;
-			var idx = 0;
 			for (var i = 0; i < conditions.length; i++) {
 				var condition = conditions[i];
 				if (condition.name() == "Unit") {
 					//<Unit>Name</Unit>
-					if (Unit.currentUnit.Name != condition && Unit.partnerUnit.Name != condition) {
+					if (!checkUnit(condition)) {
 						return false;
 					}
+					
 				} else if (condition.name() == "Switch") {
 					//<Switch>ID:Value</Switch>
-					ind=condition.indexOf(":");
-					idx= parseInt(condition.substring(0, ind));
-					var binary= condition.substring(ind + 1, condition.toString().length);
-					
-					if (binary == "ON") {
-						if (!GameVariables.switchesArray[idx]){
-							return false;
-						}
-					} else if (binary == "OFF") {
-						if (GameVariables.switchesArray[idx]) {
-							return false;
-						}
+					if (!checkSwitch(condition)) {
+						return false;
 					}
 				} else if (condition.name() == "Variable") {
 					//<Variable>ID:Compare:Value</Variable>
-					ind=condition.indexOf(":");
-					idx = parseInt(condition.substring(0, ind));
-					var compare= condition.substring(ind+1, condition.indexOf(":", ind+1));					
-					ind=condition.indexOf(":", ind+1);
-					var value = parseInt(condition.substring(ind + 1, condition.toString().length));
-					
-					if (compare == ">") {
-						if (GameVariables.variablesArray[idx] <= value) {
-							return false;
-						}												
-					} else if (compare == "<") {
-						if (GameVariables.variablesArray[idx] >= value) {
-							return false;
-						}						
-					} else if (compare == "==") {
-						if (GameVariables.variablesArray[idx] != value) {
-							return false;
-						}						
-					} else if (compare == ">=") {
-						if (GameVariables.variablesArray[idx] < value) {
-							return false;
-						}						
-					} else if (compare == "<=") {
-						if (GameVariables.variablesArray[idx] > value) {
-							return false;
-						}					
-					}			
-				} else if ("HitWall") {
-					if (!gameObject.hitWall) {
+					if (!checkVariable(condition)) {
 						return false;
 					}
+				} else if (condition.name() == "HitWall") {
+					
+				} else if (condition.name() == "RapidFire") {
+					
 				}
 			}
 			return true;

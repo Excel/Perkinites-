@@ -239,13 +239,29 @@
 				this.parent.removeChild(this);
 			}
 		}
+		
+		override public function useConditional(conditionsArray:Array, passArray:Array, failArray:Array) {
+			var check = AttackConditionChecker.checkCondition(this, conditionsArray);
+			var tempPrevMoveCount = prevMoveCount;
+			var tempMoveCount = moveCount+1;
+			var tempCommands = commands;
+			
+			if (check) {
+				swapActions(-1, 0, passArray);
+			}
+			else {
+				swapActions(-1, 0, failArray);
+			}
+			var func = FunctionUtils.thunkify(swapActions, tempPrevMoveCount, tempMoveCount, tempCommands);
+			commands.push(func);
+		}		
 		override public function eraseObject() {
 			kill();
 			hitMode = false;
 			wallMode = false;
 			removeEventListener(Event.ENTER_FRAME, defendHandler);	
 			list.splice(list.indexOf(this),1);			
-		}		
+		}	
 		
 	}
 }

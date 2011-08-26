@@ -451,9 +451,9 @@ package game{
 			this.removeEventListener(Event.ENTER_FRAME, waitHandler);
 		}
 		public function jumpTo(commandIndex:int) {
-			if (prevMoveCount!=moveCount) {
+			if (prevMoveCount != moveCount) {
 				moveCount=commandIndex;
-				prevMoveCount=moveCount-1;
+				prevMoveCount = moveCount - 1;
 			}
 		}
 		public function changeObjectPosition(eventID:int, xTile:int, yTile:int, dir:int) {

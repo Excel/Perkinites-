@@ -172,7 +172,7 @@
 				HPBar=new HealthBar(HP,maxHP,this,48);
 
 				basicAbilities=AbilityDatabase.getBasicAbilities(Name);
-				hotkeySet=new Array(basicAbilities[0],null);
+				hotkeySet=new Array(basicAbilities[0],basicAbilities[1]);
 
 				powerpoints=50;
 				knockout=24*30;
@@ -195,16 +195,20 @@
 					hk3=a;
 					break;
 				case 4 :
-					hk4=a;
+					hk4 = a;
+					Unit.currentUnit.hotkeySet[0] = a;
 					break;
 				case 5 :
 					hk5=a;
+					Unit.currentUnit.hotkeySet[1] = a;
 					break;
 				case 6 :
-					hk6=a;
+					hk6 = a;
+					Unit.partnerUnit.hotkeySet[0] = a;					
 					break;
 				case 7 :
 					hk7=a;
+					Unit.partnerUnit.hotkeySet[1] = a;					
 					break;
 			}
 		}
@@ -212,13 +216,6 @@
 		public function begin() {
 			startAnimation(dir, true);
 			addEventListener(Event.ENTER_FRAME, gameHandler);
-/*			if (this == Unit.currentUnit) {
-			mxpos=Unit.partnerUnit.mxpos;
-			mypos=Unit.partnerUnit.mypos;
-			} else if (this == Unit.partnerUnit) {
-			mxpos=Unit.currentUnit.mxpos;
-			mypos=Unit.currentUnit.mypos;
-			}*/
 			moving = false;
 			range = 0;
 
@@ -232,6 +229,7 @@
 			} else if (Unit.partnerUnit == this) {
 				Unit.setHotkey(6, hotkeySet[0]);
 				Unit.setHotkey(7, hotkeySet[1]);
+				hotkeySet[1].min = 5;
 			}
 			Unit.currentUnit.addEventListener(Event.ENTER_FRAME, detectHandler);
 
@@ -266,7 +264,7 @@
 						useHotKey5();
 						useHotKey6();
 						useHotKey7();
-						//updateDelays();
+						updateDelays();
 					}
 
 				}
@@ -341,8 +339,9 @@
 			}
 		}
 		public function useHotKey7() {
-			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null) {
+			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null&&hk7Delay>=0) {
 				hk7.startAbility(Unit.partnerUnit);
+				hk7Delay = -13;
 			}
 		}
 

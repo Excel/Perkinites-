@@ -95,10 +95,11 @@ package abilities{
 			var minAbility = AbilityDatabase.getMinAbility(ID);
 			if (min > 1) {
 				this.range = Math.floor(minAbility.range + rangeMod * (min - 1));
-				this.maxCooldown = Math.floor(this.cooldown = minAbility.cooldown + cooldownMod * (min - 1));
+				this.maxCooldown = this.cooldown = Math.floor(this.cooldown = minAbility.cooldown + cooldownMod * (min - 1));
 				this.power = Math.floor(minAbility.power + powerMod * (min - 1));
 				this.power2 = Math.floor(minAbility.power2 + power2Mod * (min - 1));
 				this.power3 = Math.floor(minAbility.power3 + power3Mod * (min - 1));
+				this.uses = minAbility.uses;
 				//trace(minAbility.power2 + power2Mod * (min - 1) + " " + power2Mod);
 			} else {
 				this.range = minAbility.range;
@@ -106,6 +107,7 @@ package abilities{
 				this.power = minAbility.power;
 				this.power2 = minAbility.power2;
 				this.power3 = minAbility.power3;
+				this.uses = minAbility.uses;
 			}
 /*			if (this.castingUnit != null) {
 				var unit = this.castingUnit;
@@ -133,7 +135,7 @@ package abilities{
 		 */
 		public function startAbility(unit) {
 			if (activation > 0) {
-				if (!unit.activating) {
+				if (!unit.activating && cooldown == maxCooldown && uses > 0) {
 					unit.activating = true;
 					castingUnit = unit;
 					if (correct != 3 && GameVariables.attackTarget.enemyRef != null) {
@@ -303,18 +305,26 @@ package abilities{
 		}
 
 		public function activate() {
-			this.activating = true;
-			this.addEventListener(Event.ENTER_FRAME, gameHandler); //onactivation	
+			if (activation > 0) {
+				uses--;
+			}
+			if (uses >= 0) {
+				this.activating = true;
+				this.addEventListener(Event.ENTER_FRAME, gameHandler); //onactivation	
+			}
 		}
 		
 		public function cancel() {
 			if (activation > 0) {
+				if (uses <= 0) {
+				this.addEventListener(Event.ENTER_FRAME, cooldownHandler);					
+				}
 				castingUnit.activating = false;		
 				castingUnit.mxpos=castingUnit.x;
 				castingUnit.mypos=castingUnit.y;
 				castingUnit.path=[];
 				castingUnit.range = 0;							
-				castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);					
+				castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);	
 			}
 			stand = AbilityDatabase.getMinAbility(ID).stand;			
 			this.removeEventListener(Event.ENTER_FRAME, gameHandler);
@@ -324,12 +334,12 @@ package abilities{
 		}
 
 		override public function gameHandler(e) {
-			if (! pauseAction && ! superPause && ! menuPause) {
-				if (onActivation.length!=0&&moveCount<onActivation.length) {
+			if (! pauseAction && ! superPause && ! menuPause) {		
+				if (onActivation.length != 0 && moveCount < onActivation.length) {
 					onActivation[moveCount]();
 				}
 				stand--;				
-				if (stand == 0) {
+				if ((stand <=0 && moveCount >= onActivation.length) || (stand <=0 && uses < 0)) {
 					prevMoveCount=-1;
 					moveCount = 0;
 					cancel();
@@ -482,7 +492,7 @@ package abilities{
 								a.x=mouseX+ScreenRect.getX();
 								a.y=mouseY+ScreenRect.getY();
 							} else if (origin == "Target") {
-								a.x=targetX;
+								a.x = targetX;
 								a.y = targetY;
 							}
 							a.width = newWidth;
@@ -545,14 +555,13 @@ package abilities{
 		}
 		
 		public function cooldownHandler(e) {
-/*			if (! GameUnit.menuPause&&! GameUnit.superPause) {
+			if (! GameUnit.menuPause&&! GameUnit.superPause) {
 				cooldown--;
 				if (cooldown<=0) {
 					removeEventListener(Event.ENTER_FRAME, cooldownHandler);
-					updateStats();
-					uses=maxUses;
+					updateAbility();
 				}
-			}*/
+			}
 		}
 
 
@@ -698,12 +707,80 @@ package abilities{
 			}
 		}
 		
+		/**
+		 * Allows for abilities to be held down to shoot repeatedly.
+		 * THE CONDITIONAL + JUMPTO DO NOT WORK SO THIS HAD TO BE MADE ARGHHHHHHHHHHHHHHHHH
+		 * THAT WILL PROBABLY HAVE TO BE REWRITTEN LATER
+		 */
+		public function rapidFire(commandIndex:int) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;			
+				var key = checkHotkey();
+				if (uses > 0  && KeyDown.keyIsDown(key)) {
+					moveCount=commandIndex;
+					prevMoveCount = moveCount - 1;
+					activate();
+					if (GameVariables.attackTarget.enemyRef == null) {
+						targetX=mouseX+ScreenRect.getX();
+						targetY=mouseY+ScreenRect.getY();
+					}
+				}
+				else {
+					moveCount++;
+					advanceMove();
+				}
+			}
+		}
+		
+		public function checkHotkey() {
+			if (this == Unit.hk1) {
+				return Unit.hotKey1;
+			} else if (this == Unit.hk2) {
+				return Unit.hotKey2;
+			} else if (this == Unit.hk3) {
+				return Unit.hotKey3;
+			} else if (this == Unit.hk4) {
+				return Unit.hotKey4;
+			} else if (this == Unit.hk5) {
+				return Unit.hotKey5;
+			} else if (this == Unit.hk6) {
+				return Unit.hotKey6;
+			} else if (this == Unit.hk7) {
+				return Unit.hotKey7;
+			}
+			return Unit.hotKey1;
+		}
 		override public function advanceMove() {
 			moveCount++;
 			if (moveCount < onActivation.length) {
 				onActivation[moveCount]();
 			}		
 		}
+		
+		override public function useConditional(conditionsArray:Array, passArray:Array, failArray:Array) {
+			var check = AbilityConditionChecker.checkCondition(this, conditionsArray);
+			var tempPrevMoveCount = prevMoveCount;
+			var tempMoveCount = moveCount+1;
+			var tempCommands = onActivation;
+			
+			if (check) {
+				swapActions( -1, 0, passArray);
+			}
+			else {
+				swapActions( -1, 0, failArray);
+			}
+			var func = FunctionUtils.thunkify(swapActions, tempPrevMoveCount, tempMoveCount, tempCommands);
+			onActivation.push(func);
+		}
+	
+		override public function swapActions(prevMoveCount:int, moveCount:int, commands:Array) {
+			this.prevMoveCount = prevMoveCount;
+			this.moveCount = moveCount;
+			this.onActivation = commands;
+			addEventListener(Event.ENTER_FRAME, gameHandler);
+			
+		}
+		
 		public function getDescription():String {
 			var newDescription = description;
 			pattern = /POWER3/g; 
