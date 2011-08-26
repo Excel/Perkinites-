@@ -419,8 +419,8 @@
 		}
 
 		public function freezeFaces() {
-			page1.faceIcon1.gotoAndStop(1);
-			page1.faceIcon2.gotoAndStop(2);
+			page1.faceIcon1.gotoAndStop(Unit.currentUnit.id+2);
+			page1.faceIcon2.gotoAndStop(Unit.partnerUnit.id+2);
 		}
 
 

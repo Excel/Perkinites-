@@ -222,6 +222,7 @@
 			moving = false;
 			range = 0;
 
+			unitHUD.updateFaces();
 			unitHUD.updateHP();
 			knockout=24*30;
 

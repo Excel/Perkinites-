@@ -165,6 +165,10 @@
 			}
 		}
 
+		public function updateFaces(){
+			faceIcon1.gotoAndStop(Unit.currentUnit.id+2);
+			faceIcon2.gotoAndStop(Unit.partnerUnit.id+2);			
+		}
 		public function updateName() {
 			if (currentHP>=0) {
 				unitName1.text=Unit.currentUnit.Name;

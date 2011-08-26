@@ -21,6 +21,9 @@
 			this.stageRef=stageRef;
 
 
+			faceIcon1.gotoAndStop(1);
+			faceIcon2.gotoAndStop(1);			
+
 			entries = new Array();
 			pn1=Unit.currentUnit.id;
 
@@ -62,6 +65,9 @@
 
 				playerDisplay1.setUnitIndex(pn1);
 				playerDisplay2.setUnitIndex(pn1+1);
+				
+				faceIcon1.gotoAndStop(pn1+1);
+				faceIcon2.gotoAndStop(pn1+2);				
 
 				if (! playerDisplay1.visible) {
 					playerDisplay1.displayAgain();
@@ -70,7 +76,7 @@
 					playerDisplay2.displayAgain();
 				}
 			}
-
+			
 			load();
 
 		}
@@ -153,7 +159,9 @@
 
 			playerDisplay1.setUnitIndex(pn1);
 			playerDisplay2.setUnitIndex(pn1+1);
-
+			faceIcon1.gotoAndStop(pn1+2);
+			faceIcon2.gotoAndStop(pn1+3);				
+				
 			if (! playerDisplay1.visible) {
 				playerDisplay1.displayAgain();
 			}
