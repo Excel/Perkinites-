@@ -115,7 +115,7 @@
     </Activation>
     <Commands>
       <Message>Raven:cool:None:None:No</Message>
-      <Teleport>1(7,6):0:Yes</Teleport>
+      <Teleport>1(7,9):0:Yes</Teleport>
     </Commands>
   </MapObject>
 </MapObjects>

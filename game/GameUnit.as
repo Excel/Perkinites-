@@ -66,16 +66,18 @@ package game{
 		static public var superPause:Boolean;
 		static public var menuPause:Boolean=false;
 		static public var objectPause:Boolean=false;
-		static public var tileMap;
 
 		/**
 		 * Potential movement area
 		 */
-		public var pxpos:Number;
-		public var pypos:Number;
+		public var mxpos:Number;
+		public var mypos:Number;
 		public var speed:Number;
-		var rad;
+		public var path = new Array();
+		public var radian;		
+		public var moving:Boolean = false;
 
+		var rad;
 		public static var allAreas = new Array();
 		/**
 		 *
@@ -120,8 +122,8 @@ package game{
 			moveWaitCount = 0;
 			moveWait = 0;
 
-			pxpos=0;
-			pypos=0;
+			mxpos=0;
+			mypos=0;
 			speed=8;
 
 			dir = 0;
@@ -355,72 +357,7 @@ package game{
 			action.moveCount--;
 		}
 		//All possible sequential moves
-		public function moveLeft() {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=x-32;
-				pypos=y;
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
-		public function moveDown() {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=x;
-				pypos=y+32;
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
-		public function moveUp() {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=x;
-				pypos=y-32;
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
-		public function moveRight() {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=x+32;
-				pypos=y;
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
-		public function moveRandom() {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=x+Math.floor(Math.random()*64-32);
-				pypos=y+Math.floor(Math.random()*64-32);
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
 
-		public function moveRandomAndFace() {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=x+Math.floor(Math.random()*64-32);
-				pypos=y+Math.floor(Math.random()*64-32);
-				facePotentialDir();
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
-		public function moveBy(dx, dy) {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=x+dx;
-				pypos=y+dy;
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
-		public function moveTo(px, py) {
-			if (prevMoveCount!=moveCount) {
-				prevMoveCount=moveCount;
-				pxpos=px;
-				pypos=py;
-				addEventListener(Event.ENTER_FRAME, moveHandler);
-			}
-		}
 		public function teleportToMap(mapID:int, xTile:int, yTile:int, dir:int, transition:String) {
 			if (prevMoveCount!=moveCount) {
 				prevMoveCount=moveCount;
@@ -770,14 +707,6 @@ package game{
 			x=xpos;
 			y=ypos;
 		}
-		public function setPositionByTile(r, c) {
-			var mapWidth=tileMap[0].length;
-			var mapHeight=tileMap.length;
-			if (r>=0&&r<mapHeight&&c>=0&&c<mapWidth) {
-				x = (r+0.5) * 32;
-				y = (c+0.5) * 32;
-			}
-		}
 
 		public function turn() {
 			gotoAndStop(dir/2);
@@ -787,22 +716,6 @@ package game{
 		public function faceDir(dir) {
 			//chances are dir will be 2,4,6,8
 			this.dir=dir;
-			turn();
-		}
-
-		public function facePotentialDir() {
-			var radian=Math.atan2(pypos-y,pxpos-x);
-			var degree = Math.round((radian*180/Math.PI));
-			if (degree>-45&&45>=degree) {
-				dir=6;
-			} else if (degree > -135 && -45 >= degree) {
-				dir=8;
-			} else if (degree > 45 && 135 >= degree) {
-				dir=2;
-			} else if ((degree > 135 && 180 >= degree) || (degree >=-180 && -135 >= degree)) {
-				dir=4;
-			}
-
 			turn();
 		}
 
@@ -925,115 +838,5 @@ package game{
 				//dialogueIndex++;
 				}
 		}		
-
-		public function moveHandler(e) {
-			if (! pauseAction&&! superPause&&! menuPause) {
-				if (pxpos<0) {
-					pxpos=0;
-				}
-				if (pypos<0) {
-					pypos=0;
-				}
-				var pxtile=Math.floor(pxpos/32);
-				var pytile=Math.floor(pypos/32);
-				var xtile=Math.floor(x/32);
-				var ytile=Math.floor(y/32);
-				if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
-					if (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
-						while (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
-							if (pxpos>x) {
-								pxtile--;
-							} else if (x > pxpos) {
-								pxtile++;
-							}
-						}
-						if (pxpos>x) {
-							pxpos=(pxtile+1)*32-1;//-w_collision.x+width/2-4;
-						} else if (x > pxpos) {
-							pxpos=(pxtile)*32;
-						}
-					}
-					if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
-						while (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
-							if (pypos>y) {
-								pytile--;
-							} else if (y > pypos) {
-								pytile++;
-							}
-						}
-						if (pypos>y) {
-							//prevent bouncing
-							pypos=(pytile+1)*32-1;
-						} else if (y > pypos) {
-							pypos=(pytile)*32;
-						}
-					}
-
-
-
-				} else {
-					if (Math.sqrt(Math.pow(pxpos-x,2)+Math.pow(pypos-y,2))>speed) {
-						var radian=Math.atan2(pypos-y,pxpos-x);
-						var degree = Math.round((radian*180/Math.PI));
-						var px=x+speed*Math.cos(radian);
-						var py=y+speed*Math.sin(radian);
-
-						pxtile=Math.floor(px/32);
-						pytile=Math.floor(py/32);
-						if (! tileMap["t_"+pytile+"_"+pxtile].walkable) {
-							if (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
-								while (! tileMap["t_"+ytile+"_"+pxtile].walkable) {
-									if (px>x) {
-										pxtile--;
-									} else if (x > px) {
-										pxtile++;
-									}
-								}
-								if (px>x) {
-									px=(pxtile)*32;//-w_collision.x+width/2-4;
-								} else if (x > px) {
-									px=(pxtile)*32;
-								}
-
-								x=px;
-								y=py;
-
-							} else if (! tileMap["t_"+pytile+"_"+xtile].walkable) {
-								while (! tileMap["t_"+pytile+"_"+xtile].walkable) {
-									if (py>y) {
-										pytile--;
-									} else if (y > py) {
-										pytile++;
-									}
-								}
-								if (py>y) {
-									//prevent bouncing
-									py=(pytile+1)*32-1;//-w_collision.y+height/2-4;
-								} else if (y > py) {
-									py=(pytile)*32;
-								}
-								x=px;
-								y=py;
-							} else {
-								x=px;
-								y=py;
-							}
-						} else {
-							x=px;
-							y=py;
-						}
-					} else {
-						x=pxpos;
-						y=pypos;
-						removeEventListener(Event.ENTER_FRAME, moveHandler);
-						moveCount++;
-					}
-				}
-			}
-		}
-
-
-
-
 	}
 }

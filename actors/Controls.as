@@ -3,6 +3,7 @@
 	import game.Game;
 	import game.GameUnit;
 	import game.GameVariables;
+	import game.MovementManager;
 	import tileMapper.TileMap;
 	import tileMapper.ScreenRect;
 	import ui.screens.Menu;
@@ -147,12 +148,14 @@
 			mouseIsDown=false;
 		}
 		public function moveHandler(e:Event):void {
+			var targetX;
+			var targetY;
 			if (GameVariables.mouseEnemy) {
 
 			} else if (GameVariables.mouseMapObject) {
 				if (! GameUnit.superPause && ! GameUnit.menuPause && ! GameUnit.objectPause && mouseIsDown) {
 					if (!Unit.currentUnit.activating) {
-						Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
+/*						Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
 						Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
 						Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
 						Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
@@ -162,11 +165,14 @@
 						if (Unit.currentUnit.path.length==0) {
 							Unit.currentUnit.mxpos=Unit.currentUnit.x;
 							Unit.currentUnit.mypos=Unit.currentUnit.y;
-						}						
+						}	*/		
+						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
+						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;
+						MovementManager.moveObject(Unit.currentUnit, targetX, targetY);						
 					}
 					
 					if (!Unit.partnerUnit.activating) {
-						Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);							
+/*						Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);							
 						Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 						Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 
@@ -178,7 +184,10 @@
 						if (Unit.partnerUnit.path.length==0) {
 							Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
 							Unit.partnerUnit.mypos=Unit.partnerUnit.y;
-						}
+						}*/
+						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
+						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
+						MovementManager.moveObject(Unit.partnerUnit, targetX, targetY);						
 					}
 				}
 			} else {
@@ -187,21 +196,16 @@
 						GameVariables.mapObject.stopFocus();
 					}
 					if (!Unit.currentUnit.activating) {
-						Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
-						Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
-						Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
-						Unit.currentUnit.path = TileMap.findPath(TileMap.map, new Point(Math.floor(Unit.currentUnit.x/32), Math.floor(Unit.currentUnit.y/32)),
-						  new Point(Math.floor(Unit.currentUnit.mxpos/32), Math.floor(Unit.currentUnit.mypos/32)), 
-						  false, true);
-						Unit.currentUnit.path=Unit.currentUnit.smoothPath();
-						if (Unit.currentUnit.path.length==0) {
-							Unit.currentUnit.mxpos=Unit.currentUnit.x;
-							Unit.currentUnit.mypos=Unit.currentUnit.y;
-						}
+						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
+						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
+						MovementManager.moveObject(Unit.currentUnit, targetX, targetY);
 					}
 					
 					if (!Unit.partnerUnit.activating) {
-						Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);	
+						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
+						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
+						MovementManager.moveObject(Unit.partnerUnit, targetX, targetY);
+						/*Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);	
 						Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 						Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 
@@ -213,7 +217,7 @@
 						if (Unit.partnerUnit.path.length==0) {
 							Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
 							Unit.partnerUnit.mypos=Unit.partnerUnit.y;
-						}						
+						}*/						
 					}
 				}
 			}

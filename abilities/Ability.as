@@ -174,11 +174,7 @@ package abilities{
 			this.regenLump = Math.floor(minAbility.regenLump + regenLumpMod * (minMod - 1));			
 			this.regenPerc = Math.floor(minAbility.regenPerc + regenPercMod * (minMod - 1));
 			this.regenTime = Math.floor(minAbility.regenTime + regenTimeMod * (minMod - 1));
-/*			if (this.castingUnit != null) {
-				var unit = this.castingUnit;
-				cancel();
-				startAbility(unit);
-			}*/
+
 		}
 		/**
 		 * Figure out what kind of correction it is.
@@ -258,13 +254,8 @@ package abilities{
 					targetX = GameVariables.attackTarget.enemyRef.x;
 					targetY = GameVariables.attackTarget.enemyRef.y;
 			}
-			obj.mxpos=targetX;
-			obj.mypos=targetY;
-			obj.path = TileMap.findPath(TileMap.map, new Point(Math.floor(obj.x/32), Math.floor(obj.y/32)),
-				new Point(Math.floor(obj.mxpos/32), Math.floor(obj.mypos/32)), 
-					  false, true);
-			obj.path = obj.smoothPath();
-			//obj.range = range;	
+			MovementManager.moveObject(obj, targetX, targetY);
+
 			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range
 					&& ((correct != 4) || (correct == 4 && TileMap.shootable(new Point(Math.floor(obj.x / 32), Math.floor(obj.y / 32)), 
 															new Point(Math.floor(targetX / 32), Math.floor(targetY / 32))))) 
@@ -283,30 +274,22 @@ package abilities{
 						obj.mypos=obj.y;
 						obj.path=[];
 						obj.range = 0;	
-			
+						obj.stopAnimation();
+						
 						radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);		
 						castingUnit.faceDirection(radian);
 						activate();
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);						
 					} else if (Math.abs(txTile - xTile) < Math.abs(tyTile - yTile) && !TileMap.hitNonpass(txTile*32+16, yTile*32+16)) {
-						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), false, true);
-						obj.mxpos=txTile*32+16;
-						obj.mypos=yTile*32+16;						
-						obj.path = obj.smoothPath();
+						MovementManager.moveObject(obj, txTile*32+16, yTile*32+16);
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
-					} else if(!TileMap.hitNonpass(xTile*32+16, tyTile*32+16)){
-						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(xTile, tyTile), false, true);						
-						obj.mxpos=xTile*32+16;
-						obj.mypos = tyTile * 32 + 16;
-						obj.path = obj.smoothPath();
+					} else if (!TileMap.hitNonpass(xTile * 32 + 16, tyTile * 32 + 16)) {
+						MovementManager.moveObject(obj, xTile*32+16, tyTile*32+16);						
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					} else if (!TileMap.hitNonpass(txTile * 32 + 16, yTile * 32 + 16)) {
-						obj.path = TileMap.findPath(TileMap.map, new Point(xTile, yTile), new Point(txTile, yTile), false, true);
-						obj.mxpos=txTile*32+16;
-						obj.mypos=yTile*32+16;						
-						obj.path = obj.smoothPath();
+						MovementManager.moveObject(obj, txTile*32+16, yTile*32+16);							
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					}
@@ -324,7 +307,8 @@ package abilities{
 						obj.mypos=obj.y;
 						obj.path=[];
 						obj.range = 0;	
-
+						obj.stopAnimation();
+						
 						radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);					
 						castingUnit.faceDirection(radian);
 						activate();
@@ -338,7 +322,8 @@ package abilities{
 					obj.mypos=obj.y;
 					obj.path=[];
 					obj.range = 0;	
-
+					obj.stopAnimation();
+					
 					radian=Math.atan2(targetY-castingUnit.y,targetX-castingUnit.x);					
 					castingUnit.faceDirection(radian);
 					activate();
@@ -362,6 +347,7 @@ package abilities{
 				obj.mypos=obj.y;
 				obj.path=[];
 				obj.range = 0;	
+				obj.stopAnimation();
 				castingUnit.faceDirection(radian);							
 				activate();
 				castingUnit.removeEventListener(Event.ENTER_FRAME, correctMovementHandler);
@@ -370,6 +356,7 @@ package abilities{
 		}
 
 		public function activate() {
+			castingUnit.stopAnimation();
 			if (activation > 0) {
 				uses--;
 			}

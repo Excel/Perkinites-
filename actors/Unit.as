@@ -87,8 +87,7 @@
 		static public var maxLP=20;
 		static public var unitHUD=HUDManager.getUnitHUD();
 
-		public var path = new Array();
-		public var radian;
+
 
 		/**
 		 * Commands of the Unit
@@ -115,8 +114,8 @@
 		/**
 		 * Position of the Unit
 		 */
-		public var mxpos=0;
-		public var mypos=0;
+		//public var mxpos=0;
+		//public var mypos=0;
 		//public var range=0;
 
 		/**
@@ -129,7 +128,7 @@
 
 
 		public var activating:Boolean=false;
-		public var moving:Boolean=false;
+		//public var moving:Boolean=false;
 		public static var disableHotkeys:Boolean=false;
 
 
@@ -233,6 +232,7 @@
 				Unit.setHotkey(7, hotkeySet[1]);
 			}
 			Unit.currentUnit.addEventListener(Event.ENTER_FRAME, detectHandler);
+			stopAnimation();
 
 		}
 		public function end() {
@@ -255,13 +255,13 @@
 			if (! pauseAction && ! superPause && ! menuPause) {
 				if (Unit.currentUnit==this&&Unit.currentUnit.parent!=null) {
 
-					movePlayer();
+					//movePlayer();
 					//moveDirection();
 
 				}
 				if (Unit.partnerUnit==this&&Unit.partnerUnit.parent!=null) {
-					if (Unit.currentUnit.x!=pxpos&&Unit.currentUnit.y!=pypos) {
-						movePlayer();
+					if (Unit.currentUnit.x!=mxpos&&Unit.currentUnit.y!=mypos) {
+					//	movePlayer();
 					}
 				}
 				
@@ -447,46 +447,6 @@
 				y=mypos;
 				stopAnimation();
 			}
-		
-		}
-
-		public function smoothPath() {
-			if (path.length>0) {
-				var newPath=new Array(path[0]);
-
-				var currentIndex=0;
-				var pushIndex=0;
-				var nextIndex=1;
-
-				if (path[0]==path[path.length-1]) {
-					return newPath;
-				}
-				if (TileMap.walkable(path[0],path[path.length-1])) {
-					newPath=new Array(path[0],path[path.length-1]);
-					return newPath;
-
-				}
-				while (nextIndex < path.length) {
-
-					if (TileMap.walkable(path[nextIndex],path[path.length-1])) {
-						newPath.push(path[nextIndex]);
-						newPath.push(path[path.length-1]);
-						return newPath;
-					} else if (TileMap.walkable(path[currentIndex],path[nextIndex])) {
-						pushIndex=nextIndex;
-					} else {
-						if (currentIndex!=pushIndex) {
-							newPath.push(path[pushIndex]);
-						}
-						currentIndex=pushIndex;
-					}
-					nextIndex++;
-				}
-				newPath.push(path[path.length-1]);
-				return newPath;
-			} else {
-				return new Array();
-			}
 		}
 		
 		public function getHealth() {
@@ -608,7 +568,12 @@
 			}
 			totalSpeed *= 1 - (slowPerc / 100);
 			return Math.floor(totalSpeed);
-		}			
+		}	
+		
+		public function getDashSpeed() {
+			var totalDashSpeed = this.getSpeed();
+			return Math.floor(totalDashSpeed * 1.2);
+		}
 		public function isSlowed() {
 			for (var i = 0; i < buffs.length; i++) {
 				if (buffs[i].debuffType == "Slow") {
