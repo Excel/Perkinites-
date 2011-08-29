@@ -22,8 +22,9 @@
 	public class Menu extends BaseScreen {
 
 		public var passiveThing;
-		static public var iaOption:int=-1;
-		static public var setUnitIndex:int=-1;
+		static public var menuPage:int = -1;
+		static public var iaOption:int = -1;
+		static public var setUnitIndex:int = -1;
 		static public var currentActivated:Boolean=true;
 		static public var sliderValueArray:Array = new Array();
 
@@ -48,6 +49,9 @@
 
 			if (iaOption==-1) {
 				iaOption=1;
+			}
+			if (menuPage == -1) {
+				menuPage = 1;
 			}
 			if (Unit.currentUnit.id!=setUnitIndex&&Unit.partnerUnit.id!=setUnitIndex) {
 				setUnitIndex=Unit.currentUnit.id;
@@ -88,10 +92,20 @@
 
 			gf1=new GlowFilter(0xFF9900,100,20,20,1,5,true,false);
 
-			gotoPage(1);
+			gotoAndStop(1);
+			gotoPage(menuPage);
 
 			arrow.gotoAndStop(1);
-
+			if (currentFrame == 1) {
+				arrow.y = 71;
+				hover.y = 64;
+			} else if (currentFrame == 2) {
+				arrow.y = 71+64;
+				hover.y = 64+64;
+			} else if (currentFrame == 3) {
+				arrow.y = 71 + 32;
+				hover.y = 64 + 32;
+			}
 			statusOption.addEventListener(MouseEvent.CLICK, pageHandler);
 			setupOption.addEventListener(MouseEvent.CLICK, pageHandler3);
 			abilitiesOption.addEventListener(MouseEvent.CLICK, pageHandler2);
@@ -137,22 +151,24 @@
 		public function pageHandler(e) {
 			if (currentFrame!=1) {
 				arrow.y=71;
-				hover.y=64;
+				hover.y = 64;
+				menuPage = 1;
 				gotoPage(1);
-
 			}
 		}
 		public function pageHandler2(e) {
 			if (currentFrame!=2) {
 				arrow.y=71+32*2;
-				hover.y=64+32*2;
+				hover.y = 64 + 32 * 2;
+				menuPage = 2;
 				gotoPage(2);
 			}
 		}
 		public function pageHandler3(e) {
 			if (currentFrame!=3) {
 				arrow.y=71+32;
-				hover.y=64+32;
+				hover.y = 64 + 32;
+				menuPage = 3;
 				gotoPage(3);
 			}
 		}
@@ -213,13 +229,13 @@
 
 					page1.HPDisplay1.text=Unit.currentUnit.HP;
 					page1.maxHPDisplay1.text=Unit.currentUnit.maxHP;
-					page1.APDisplay1.text=Math.floor(Unit.currentUnit.AP);
-					page1.SPDisplay1.text=Math.floor(Unit.currentUnit.speed);
+					page1.APDisplay1.text = Unit.currentUnit.getAttack();
+					page1.SPDisplay1.text = Unit.currentUnit.getSpeed();
 
 					page1.HPDisplay2.text=Unit.partnerUnit.HP;
 					page1.maxHPDisplay2.text=Unit.partnerUnit.maxHP;
-					page1.APDisplay2.text=Math.floor(Unit.partnerUnit.AP);
-					page1.SPDisplay2.text=Math.floor(Unit.partnerUnit.speed);
+					page1.APDisplay2.text = Unit.partnerUnit.getAttack();
+					page1.SPDisplay2.text = Unit.partnerUnit.getSpeed();
 
 					freezeFaces();
 					eraseDescription();
@@ -987,7 +1003,6 @@
 						Unit.itemAmounts[index]--;
 						thing = new Item(index, 1);						
 						thing.startAbility(Unit.partnerUnit);
-						//trace(AbilityDatabase.getAbility(index).equipStatBuff);
 						unit = Unit.partnerUnit;	
 						Unit.partnerUnit.passiveItems.push(thing);
 					}
@@ -1019,9 +1034,9 @@
 								hotkeyArray[i]=new Item(index,0);
 								Unit.setHotkey(i + 1, new Item(index, 0));
 
-								if (i == 0 || i == 1 || i == 2 || i == 4 || i == 5) {
+								if (i == 0 || i == 1 || i == 3 || i == 4) {
 									unit = Unit.currentUnit;
-								} else if(i == 6 || i == 7) {
+								} else if(i == 2 || i == 7 || i == 5 || i == 6) {
 									unit = Unit.partnerUnit;
 								}								
 							}
@@ -1030,7 +1045,6 @@
 				}
 
 			} else if (obj.type == "Ability") {
-
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.abilityAmounts[index]--;
@@ -1069,11 +1083,11 @@
 								hkIcon.visible=true;
 								hkIcon.type="Ability";
 								hotkeyArray[i]=new Ability(index,AbilityDatabase.getAbility(index).uses);
-								Unit.setHotkey(i+1, new Ability(index, AbilityDatabase.getAbility(index).uses));
-
-								if (i == 0 || i == 1 || i == 2 || i == 4 || i == 5) {
+								Unit.setHotkey(i + 1, new Ability(index, AbilityDatabase.getAbility(index).uses));
+								
+								if (i == 0 || i == 1 || i == 3 || i == 4) {
 									unit = Unit.currentUnit;
-								} else if(i == 6 || i == 7) {
+								} else if(i == 2 || i == 7 || i == 5 || i == 6) {
 									unit = Unit.partnerUnit;
 								}	
 								Unit.abilityAmounts[index]--;
@@ -1085,9 +1099,7 @@
 
 			}
 
-			if (AbilityDatabase.getAbility(index).equipStatBuff == "Yes") {
-				unit.buffs.push(new Buff(AbilityDatabase.getAbility(index), "Ability", unit));
-			}	
+			createDebuffs(unit, index);
 			removeCovers();
 			updateEquippedBasicAbilities();
 			freezeHotkeys();
@@ -1100,12 +1112,14 @@
 		}
 
 		public function moveActiveIcon(e) {
-			var obj=e.target;
+			var obj = e.target;
+			var unit;
+			var j = hotkeyIconArray.indexOf(obj);
 
 			if (obj is TextField) {
 				obj=obj.parent;
 			}
-			var hotkey=hotkeyArray[hotkeyIconArray.indexOf(obj)];
+			var hotkey=hotkeyArray[j];
 			if (hotkey!=null&&hotkey.cooldown>=hotkey.maxCooldown) {
 				var index;
 				if (obj.parent!=stageRef) {
@@ -1118,9 +1132,21 @@
 					obj.x=mouseX-16;
 					obj.y=mouseY-16;
 					obj.addEventListener(MouseEvent.MOUSE_UP, releaseActiveIcon);
-
+					
+					//if the ability has a buff, remove it before moving
+					if (j == 0 || j == 1 || j == 3 || j == 4) {
+						unit = Unit.currentUnit;
+					} else if(j == 2 || j == 7 || j == 5 || j == 6) {
+						unit = Unit.partnerUnit;
+					}
+					for (var b = unit.buffs.length - 1; b >= 0 ; b--) {
+						if (unit.buffs[b].Name == AbilityDatabase.getAbility(index).Name) {
+							unit.buffs.splice(b, 1);
+						}
+					}	
+					unit = null;
 				}
-				//make this easier to use when mouse goes off screen?
+				
 				obj.startDrag(false, new Rectangle(8,8,592,432));
 			} else if(hotkey != null) {
 				index=obj.currentFrame-2;
@@ -1136,6 +1162,7 @@
 			
 			var i;//the icon to switch to
 			var j;//the icon you're dragging
+			var unit;
 
 			var backToInventory=true;
 
@@ -1145,20 +1172,48 @@
 				!blockedHotkeyArray[i] &&
 				(hotkeyArray[i] == null ||
 				(hotkeyArray[i] != null && hotkeyArray[i].cooldown >= hotkeyArray[i].maxCooldown))) {
-					backToInventory=false;
-
-
+					backToInventory = false;
+					
+					//if the ability to switch with has a buff, remove it
+					if (i == 0 || i == 1 || i == 3 || i == 4) {
+						unit = Unit.currentUnit;
+					} else if(i == 2 || i == 7 || i == 5 || i == 6) {
+						unit = Unit.partnerUnit;
+					}
+					for (var b = unit.buffs.length - 1; b >= 0 ; b--) {
+						if (unit.buffs[b].Name == AbilityDatabase.getAbility(hotkeyArray[i].ID).Name) {
+							unit.buffs.splice(b, 1);
+						}
+					}
+					unit = null;
+					
+					//now if that ability to switch has a buff, add it again in the right place
+					if (j == 0 || j == 1 || j == 3 || j == 4) {
+						unit = Unit.currentUnit;
+					} else if(j == 2 || j == 7 || j == 5 || j == 6) {
+						unit = Unit.partnerUnit;
+					}
+					createDebuffs(unit, index);					
+					unit = null;
 					if (hotkeyArray[i]!=null) {
 						//set the old icon to the new icon
 						j=hotkeyIconArray.indexOf(obj);
 						var tempFrame=obj.currentFrame;
 						var tempHotkey=hotkeyArray[j];
-						var tempType=obj.type;
-
+						var tempType = obj.type;
+						
+						if (j == 0 || j == 1 || j == 3 || j == 4) {
+							unit = Unit.currentUnit;
+						} else if(j == 2 || j == 7 || j == 5 || j == 6) {
+							unit = Unit.partnerUnit;
+						}
+						createDebuffs(unit, index);		
+						unit = null;							
+						
 						obj.gotoAndStop(hkIcon.currentFrame);
 						hotkeyArray[j]=hotkeyArray[i];
 						Unit.setHotkey(j+1, hotkeyArray[j]);
-						hotkeyIconArray[j].type=hotkeyIconArray[i].type;
+						hotkeyIconArray[j].type = hotkeyIconArray[i].type;					
 
 						//set the new icon to the old icon
 						hkIcon.gotoAndStop(tempFrame);
@@ -1200,7 +1255,17 @@
 					}
 					hotkeyIconArray[j].type=null;
 					hotkeyArray[j]=null;
-					Unit.setHotkey(j+1, null);
+					Unit.setHotkey(j + 1, null);
+				} else {
+					//add it again
+					unit = null;					
+					if (j == 0 || j == 1 || j == 3 || j == 4) {
+						unit = Unit.currentUnit;
+					} else if(j == 2 || j == 7 || j == 5 || j == 6) {
+						unit = Unit.partnerUnit;
+					}
+					createDebuffs(unit, index);		
+					unit = null;				
 				}
 			}
 
@@ -1217,6 +1282,7 @@
 
 		public function movePassiveIcon(e) {
 			var obj = e.target;
+			var unit;
 			if (obj.parent!=stageRef) {
 				var passive;
 				var index=obj.currentFrame-2;
@@ -1234,6 +1300,7 @@
 								break;
 							}
 						}
+						unit = Unit.currentUnit;
 					} else if (obj.parent == page2.passiveList2) {
 						passive=Unit.partnerUnit.passiveItems;
 						for (i = 0; i < passive.length; i++) {
@@ -1243,6 +1310,7 @@
 								break;
 							}
 						}
+						unit = Unit.partnerUnit;
 					}
 				} else if (obj.type == "Ability") {
 					if (obj.parent==page2.passiveList1) {
@@ -1254,6 +1322,7 @@
 								break;
 							}
 						}
+						unit = Unit.currentUnit;
 
 					} else if (obj.parent == page2.passiveList2) {
 						passive=Unit.partnerUnit.passiveAbilities;
@@ -1265,8 +1334,15 @@
 								break;
 							}
 						}
+						unit = Unit.partnerUnit;
 					}
 				}
+				
+				for (var b = unit.buffs.length - 1; b >= 0 ; b--) {
+					if (unit.buffs[b].Name == AbilityDatabase.getAbility(index).Name) {
+						unit.buffs.splice(b, 1);
+					}
+				}			
 				stageRef.addChild(obj);
 				obj.x=mouseX-16;
 				obj.y=mouseY-16;
@@ -1281,12 +1357,15 @@
 		public function releasePassiveIcon(e) {
 			var obj=e.target;
 			var index = obj.currentFrame - 2;
+			var unit;
 			
 			if (obj.type=="Item") {
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					Unit.currentUnit.passiveItems.push(new Item(index, 1));
+					unit = Unit.currentUnit;
 				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					Unit.partnerUnit.passiveItems.push(new Item(index, 1));
+					unit = Unit.partnerUnit;
 				} else {
 					Unit.itemAmounts[index] += 1;
 					
@@ -1294,13 +1373,18 @@
 			} else if (obj.type=="Ability") {
 				if (obj.hitTestObject(page2.passiveList1)&&pCover1.parent!=stageRef) {
 					Unit.currentUnit.passiveAbilities.push(new Ability(index, 1));
+					unit = Unit.currentUnit;					
 				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					Unit.partnerUnit.passiveAbilities.push(new Ability(index, 1));
+					unit = Unit.partnerUnit;					
 				} else {
 					Unit.abilityAmounts[index]+=1;
 				}
 
 			}
+			
+			//if the ability has a buff, equip it	
+			createDebuffs(unit, index);				
 			removeCovers();
 			updateEquippedBasicAbilities();
 			setPassives(iaOption);
@@ -1398,6 +1482,53 @@
 			}
 			blockedHotkeyArray=new Array(false,false,false,false,false,false,false);
 		}
+		
+		public function createDebuffs(unit, index) {
+			var a = AbilityDatabase.getAbility(index);			
+			if (unit != null && a.equipDebuff == "Yes") {
+					if (a.stunDuration != 0) {
+						unit.buffs.push(new Buff(a, "Stun", unit));	
+					} 
+					if (a.slowDuration != 0) {
+						unit.buffs.push(new Buff(a, "Slow", unit));	
+					}
+					if (a.sickDuration != 0) {
+						unit.buffs.push(new Buff(a, "Sick", unit));	
+					}
+					if (a.exhaustDuration != 0) {
+						unit.buffs.push(new Buff(a, "Exhaust", unit));	
+					} 
+					if (a.regenDuration != 0) {
+						unit.buffs.push(new Buff(a, "Regen", unit));						
+					}
+			}
+		}
+		public function replaceDebuffs(unit, index) {
+			var a = AbilityDatabase.getAbility(index);			
+			if (unit != null && a.equipDebuff == "Yes") {
+				for (var b = 0; b < unit.buffs.length; b++) {
+					if (unit.buffs[b].Name == a.Name) { 
+						if (a.stunDuration != 0) {
+							unit.buffs[b] = (new Buff(a, "Stun", unit));	
+						} 
+						if (a.slowDuration != 0) {
+							unit.buffs[b] = (new Buff(a, "Slow", unit));	
+						}
+						if (a.sickDuration != 0) {
+							unit.buffs[b] = (new Buff(a, "Sick", unit));	
+						}
+						if (a.exhaustDuration != 0) {
+							unit.buffs[b] = (new Buff(a, "Exhaust", unit));	
+						} 
+						if (a.regenDuration != 0) {
+							unit.buffs[b] = (new Buff(a, "Regen", unit));						
+						}					
+					
+					}
+				}
+
+			}
+		}			
 		/************************************************************************
 		PAGE 3 STUFF
 		************************************************************************/
@@ -1561,9 +1692,11 @@
 				//do something
 			}
 			if (currentActivated) {
-				Unit.currentUnit.powerpoints=pp;
+				Unit.currentUnit.powerpoints = pp;
+				replaceDebuffs(Unit.currentUnit, basicAbilities[index].ID);
 			} else {
-				Unit.partnerUnit.powerpoints=pp;
+				Unit.partnerUnit.powerpoints = pp;
+				replaceDebuffs(Unit.partnerUnit, basicAbilities[index].ID);				
 			}
 			makeDescription(basicAbilities[index].ID, "Ability");
 			updatePowerupPage();
@@ -1591,9 +1724,11 @@
 				//do something
 			}
 			if (currentActivated) {
-				Unit.currentUnit.powerpoints=pp;
+				Unit.currentUnit.powerpoints = pp;
+				replaceDebuffs(Unit.currentUnit, basicAbilities[index].ID);
 			} else {
-				Unit.partnerUnit.powerpoints=pp;
+				Unit.partnerUnit.powerpoints = pp;
+				replaceDebuffs(Unit.partnerUnit, basicAbilities[index].ID);				
 			}
 
 			makeDescription(basicAbilities[index].ID, "Ability");
@@ -1619,9 +1754,11 @@
 				basicAbilities[index].min -= difference;
 				basicAbilities[index].updateAbility();
 				if (currentActivated) {
-					Unit.currentUnit.powerpoints=pp;
+					Unit.currentUnit.powerpoints = pp;
+					replaceDebuffs(Unit.currentUnit, basicAbilities[index].ID);
 				} else {
-					Unit.partnerUnit.powerpoints=pp;
+					Unit.partnerUnit.powerpoints = pp;
+					replaceDebuffs(Unit.partnerUnit, basicAbilities[index].ID);				
 				}
 			}
 			makeDescription(basicAbilities[index].ID, "Ability");
@@ -1658,6 +1795,11 @@
 						Unit.partnerUnit.powerpoints=pp;
 					}
 				}
+				if (currentActivated) {
+					replaceDebuffs(Unit.currentUnit, basicAbilities[index].ID);
+				} else {
+					replaceDebuffs(Unit.partnerUnit, basicAbilities[index].ID);				
+				}				
 			}
 			makeDescription(basicAbilities[index].ID, "Ability");
 			updatePowerupPage();

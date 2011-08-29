@@ -21,8 +21,7 @@
 		public var stageRef:Stage;
 
 		public var menu:Menu;
-
-		public var lockableKeys:Array=new Array(72,88);
+		public var lockableKeys:Array=new Array(72,88, 81, 87, 69, 82, 65, 83, 68, 70, 32); // ??, X, Q, W, E, R, A, S, D, F, Space
 		public var lockedKeys:Array = new Array();
 		public var disabledKeys:Array = new Array();
 
@@ -77,6 +76,56 @@
 				} else {
 					menu=new Menu(stageRef);
 				}
+			}
+			
+			if (!Unit.disableHotkeys) {
+				// 81 = q
+				if (KeyDown.keyIsDown(81)&&! lockedKeys[81]&&! GameUnit.objectPause) {
+					if (Unit.hk1 != null && !Unit.currentUnit.isExhausted()) {
+						Unit.hk1.startAbility(Unit.currentUnit);
+					}
+				}			
+				// 87 = w
+				if (KeyDown.keyIsDown(87)&&! lockedKeys[87]&&! GameUnit.objectPause) {
+					if (Unit.hk2 != null&& !Unit.currentUnit.isExhausted()) {
+						Unit.hk2.startAbility(Unit.currentUnit);
+					}
+				}	
+				// 69 = e
+				if (KeyDown.keyIsDown(69)&&! lockedKeys[69]&&! GameUnit.objectPause) {
+					if (Unit.hk3 != null&& !Unit.partnerUnit.isExhausted()) {
+						Unit.hk3.startAbility(Unit.partnerUnit);
+					}
+				}
+				// 65 = a
+				if (KeyDown.keyIsDown(65)&&! lockedKeys[65]&&! GameUnit.objectPause) {
+					if (Unit.hk4 != null && !Unit.currentUnit.isExhausted()) {
+						Unit.hk4.startAbility(Unit.currentUnit);
+					}
+				}
+				// 83 = s
+				if (KeyDown.keyIsDown(83)&&! lockedKeys[83]&&! GameUnit.objectPause) {
+					if (Unit.hk5 != null && !Unit.currentUnit.isExhausted()) {
+						Unit.hk5.startAbility(Unit.currentUnit);
+					}
+				}
+				// 68 = d
+				if (KeyDown.keyIsDown(68)&&! lockedKeys[68]&&! GameUnit.objectPause) {
+					if (Unit.hk6 != null && !Unit.partnerUnit.isExhausted()) {
+						Unit.hk6.startAbility(Unit.partnerUnit);
+					}
+				}
+				// 70 = f
+				if (KeyDown.keyIsDown(70)&&! lockedKeys[70]&&! GameUnit.objectPause) {
+					if (Unit.hk7 != null && !Unit.partnerUnit.isExhausted()) {
+						Unit.hk7.startAbility(Unit.partnerUnit);
+					}
+				}
+				// 32 = Space
+				if (KeyDown.keyIsDown(32)&&! lockedKeys[32]&&! GameUnit.objectPause) {
+					//do friendship power
+				}			
+				
 			}
 
 			for each (var key:int in lockableKeys) {

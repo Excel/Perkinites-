@@ -174,7 +174,11 @@
 			for (var i = 0; i < targetedEnemies.length; i++) {
 				var buff:Buff;
 				if (hitEnemies.indexOf(targetedEnemies[i]) == -1) {
-					targetedEnemies[i].updateHP(ability.damage, "Yes");
+					if (ability.spec == "S-Damage") {
+						targetedEnemies[i].updateHP(ability.damage, "Yes");	
+					} else {
+						targetedEnemies[i].updateHP(ability.damage + ability.castingUnit.getAttack(), "Yes");
+					}
 					hitEnemies.push(targetedEnemies[i]);
 					if (applyStatBuff == "Yes") {
 						buff = new Buff(ability, "Ability", targetedEnemies[i]);					

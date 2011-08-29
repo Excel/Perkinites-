@@ -59,7 +59,9 @@
 		}		
 		public function separate(statChange) {
 			var s = new Array();
-			if (statChange.length() != 0) {
+			if (statChange.toString() == "-1") {
+				s = new Array( -1, 0);
+			} else if (statChange.length() != 0) {
 				var sep=statChange.indexOf("+");
 				if (sep==-1) {
 					sep=statChange.toString().indexOf('-');
@@ -176,7 +178,9 @@
 				var cooldownPerc = separate(abilityElement.CDPerc);
 				a.cooldownPerc = cooldownPerc[0];
 				a.cooldownPercMod = cooldownPerc[1];	
-
+				
+				a.equipDebuff = abilityElement.EquipDebuff.toString();					
+				
 				var stunDuration = separate(abilityElement.StunDuration);
 				a.stunDuration = stunDuration[0];
 				a.stunDurationMod = stunDuration[1];
@@ -208,6 +212,10 @@
 				var regenDuration = separate(abilityElement.RegenDuration);
 				a.regenDuration = regenDuration[0];
 				a.regenDurationMod = regenDuration[1];
+				
+				var regenLump = separate(abilityElement.RegenLump);
+				a.regenLump = regenLump[0];
+				a.regenLumpMod = regenLump[1];
 				
 				var regenPerc = separate(abilityElement.RegenPerc);
 				a.regenPerc = regenPerc[0];
@@ -280,6 +288,8 @@
 				ma.cooldownLumpMod = cooldownLump[1];
 				ma.cooldownPerc = cooldownPerc[0];
 				ma.cooldownPercMod = cooldownPerc[1];	
+				
+				ma.equipDebuff = abilityElement.EquipDebuff.toString();				
 				ma.stunDuration = stunDuration[0];
 				ma.stunDurationMod = stunDuration[1];
 				ma.slowDuration = slowDuration[0];
@@ -296,6 +306,8 @@
 				ma.exhaustDurationMod = exhaustDuration[1];
 				ma.regenDuration = regenDuration[0];
 				ma.regenDurationMod = regenDuration[1];
+				ma.regenLump = regenLump[0];
+				ma.regenLumpMod = regenLump[1];				
 				ma.regenPerc = regenPerc[0];
 				ma.regenPercMod = regenPerc[1];
 				ma.regenTime = regenTime[0];
@@ -426,19 +438,21 @@
 
 		public static function generateBasicMovement(a:Ability, ma:Ability) {
 			var action;
-			a.onActivation.push(FunctionUtils.thunkify(a.waitFor, 2));
-			ma.onActivation.push(FunctionUtils.thunkify(ma.waitFor, 2));
-			a.onActivation.push(FunctionUtils.thunkify(a.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
-			ma.onActivation.push(FunctionUtils.thunkify(ma.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
-			for each (var onMoveElement:XML in abilityInfo[0].onMove) {
-				action = onMoveElement;
-				a.onMove.push(action);
-				ma.onMove.push(action);
-			}
-			for each (var onHitElement:XML in abilityInfo[0].onHit) {
-				action = onHitElement;
-				a.onHit.push(action);
-				ma.onHit.push(action);
+			if (a.activation > 0) {
+				a.onActivation.push(FunctionUtils.thunkify(a.waitFor, 2));
+				ma.onActivation.push(FunctionUtils.thunkify(ma.waitFor, 2));
+				a.onActivation.push(FunctionUtils.thunkify(a.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
+				ma.onActivation.push(FunctionUtils.thunkify(ma.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
+				for each (var onMoveElement:XML in abilityInfo[0].onMove) {
+					action = onMoveElement;
+					a.onMove.push(action);
+					ma.onMove.push(action);
+				}
+				for each (var onHitElement:XML in abilityInfo[0].onHit) {
+					action = onHitElement;
+					a.onHit.push(action);
+					ma.onHit.push(action);
+				}	
 			}
 		}
 		public static function getBasicAbilities(name:String):Array {

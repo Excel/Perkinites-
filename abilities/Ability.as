@@ -81,6 +81,7 @@ package abilities{
 		public var cooldownLumpMod;
 		public var cooldownPercMod;
 		
+		public var equipDebuff;
 		public var stunDuration;
 		public var slowDuration;
 		public var slowPerc;
@@ -170,6 +171,7 @@ package abilities{
 			this.sickTime = Math.floor(minAbility.sickTime + sickTimeMod * (minMod - 1));
 			this.exhaustDuration = Math.floor(minAbility.exhaustDuration + exhaustDurationMod * (minMod - 1));
 			this.regenDuration = Math.floor(minAbility.regenDuration + regenDurationMod * (minMod - 1));
+			this.regenLump = Math.floor(minAbility.regenLump + regenLumpMod * (minMod - 1));			
 			this.regenPerc = Math.floor(minAbility.regenPerc + regenPercMod * (minMod - 1));
 			this.regenTime = Math.floor(minAbility.regenTime + regenTimeMod * (minMod - 1));
 /*			if (this.castingUnit != null) {
@@ -393,7 +395,6 @@ package abilities{
 			this.removeEventListener(Event.ENTER_FRAME, gameHandler);
 			this.removeEventListener(Event.ENTER_FRAME, waitHandler);			
 			this.activating = false;
-			this.castingUnit = null;
 		}
 
 		override public function gameHandler(e) {
@@ -815,7 +816,7 @@ package abilities{
 			pattern = /REGENPERC/g; 
 			newDescription = newDescription.replace(pattern, this.regenPerc);
 			pattern = /REGENTIME/g; 
-			newDescription = newDescription.replace(pattern, this.regenTime);		
+			newDescription = newDescription.replace(pattern, (this.regenTime/24).toFixed(1));		
 			return newDescription;
 		}
 		public function getSpecInfo():String {
@@ -827,9 +828,9 @@ package abilities{
 			} else if (spec=="Siphon") {
 				spec2="Siphon + "+damage;
 			} else if (spec == "Healing +") {
-				spec2 = "Healing + " + damage;
+				spec2 = "Healing + " + this.healthLump;
 			} else if (spec == "Healing %") {
-				spec2="Healing "+damage+"%";
+				spec2="Healing "+this.healthPerc+"%";
 			}
 			//spec2=spec2+"\n"+activationLabel;*/
 			return spec2;

@@ -51,7 +51,7 @@
 			actorDatabase = new ActorDatabase();
 			bgmDatabase = new BGMDatabase();
 			mapDatabase = new MapDatabase();
-
+			
 			//Load XML Data in order!
 			abilityDatabase.loadData();
 			actorDatabase.loadData();

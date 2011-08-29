@@ -110,9 +110,10 @@
 		<Damage>4+1</Damage>
 		<EquipStatBuff>Yes</EquipStatBuff>
 		<APLump>2+1</APLump>
+		<EquipDebuff>Yes</EquipDebuff>
 		<RegenDuration>-1</RegenDuration>
-		<RegenLump>5+5</RegenLump>
-		<RegenTime>120-1</RegenTime>
+		<RegenPerc>5+5</RegenPerc>
+		<RegenTime>120</RegenTime>
 	</Ability>
 	<Ability>
 		<Name>Stare Down</Name>
@@ -347,6 +348,10 @@
 		<Cooldown>0</Cooldown>
 		<Correct>0</Correct>
 		<Damage>1+3</Damage>
+		<HPLump>4+4</HPLump>
+		<EquipDebuff>Yes</EquipDebuff>
+		<RegenLump>4+4</RegenLump>
+		<RegenTime>120</RegenTime>
 	</Ability>
 	<Ability>
 		<Name>Tentacle Attack</Name>
@@ -508,7 +513,10 @@
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Correct>0</Correct>
-		<Damage>2+4</Damage>
+		<EquipDebuff>Yes</EquipDebuff>
+		<RegenDuration>-1</RegenDuration>
+		<RegenLump>1+4</RegenLump>
+		<RegenTime>120</RegenTime>
 	</Ability>
 	<Ability>
 		<Name>Megaphone Attack</Name>

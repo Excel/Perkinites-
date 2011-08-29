@@ -257,16 +257,6 @@
 
 					movePlayer();
 					//moveDirection();
-					if (! disableHotkeys) {
-						useHotKey1();
-						useHotKey2();
-						useHotKey3();
-						useHotKey4();
-						useHotKey5();
-						useHotKey6();
-						useHotKey7();
-						updateDelays();
-					}
 
 				}
 				if (Unit.partnerUnit==this&&Unit.partnerUnit.parent!=null) {
@@ -295,62 +285,11 @@
 			}
 		}
 
-		public function updateDelays() {
-			attackDelay++;
-			hk1Delay++;
-			hk2Delay++;
-			hk3Delay++;
-			hk4Delay++;
-			hk5Delay++;
-			hk6Delay++;
-			hk7Delay++;
-		}
-
 		public function switchUnits() {
 			var temp=Unit.currentUnit;
 			Unit.currentUnit=Unit.partnerUnit;
 			Unit.partnerUnit=temp;
 
-		}
-
-		public function useHotKey1() {
-			if (KeyDown.keyIsDown(hotKey1)&&hk1!=null&&hk1Delay>=0) {
-				hk1.startAbility(Unit.currentUnit);
-			}
-		}
-
-		public function useHotKey2() {
-			if (KeyDown.keyIsDown(hotKey2)&&hk2!=null&&hk2Delay>=0) {
-				hk2.startAbility(Unit.currentUnit);
-			}
-		}
-		public function useHotKey3() {
-			if (KeyDown.keyIsDown(hotKey3)&&hk3!=null&&hk3Delay>=0) {
-				hk3.startAbility(Unit.partnerUnit);
-			}
-		}
-
-		public function useHotKey4() {
-			if (KeyDown.keyIsDown(hotKey4) && hk4 != null) {
-				hk4.startAbility(Unit.currentUnit);
-			}
-		}
-
-		public function useHotKey5() {
-			if (KeyDown.keyIsDown(hotKey5)&&hk5!=null) {
-				hk5.startAbility(Unit.currentUnit);
-			}
-		}
-		public function useHotKey6() {
-			if (KeyDown.keyIsDown(hotKey6)&&hk6!=null) {
-				hk6.startAbility(Unit.partnerUnit);
-			}
-		}
-		public function useHotKey7() {
-			if (KeyDown.keyIsDown(hotKey7)&&hk7!=null&&hk7Delay>=0) {
-				hk7.startAbility(Unit.partnerUnit);
-				hk7Delay = -13;
-			}
 		}
 
 		public function updateHP(damage, popup) {
@@ -401,11 +340,7 @@
 				//change stats here
 			}
 		}
-		/*public function toggleAbilities(switchOn) {
-		for (var i = 0; i < commands.length; i++) {
-		commands[i].enable(switchOn);
-		}
-		}*/
+
 		public function KO() {
 			if (Unit.currentUnit.HP<=0&&Unit.partnerUnit.HP<=0) {
 				var gameover=new GameOverScreen(stage);
@@ -553,5 +488,166 @@
 				return new Array();
 			}
 		}
+		
+		public function getHealth() {
+			
+		}
+		public function getAttack() {
+			var totalAttack = this.AP;
+			var i = 0;
+			for (i = 0; i < passiveItems.length; i++) {
+				if(passiveItems[i].equipStatBuff == "Yes"){
+					totalAttack *= 1 + (passiveItems[i].attackPerc / 100);
+					totalAttack += passiveItems[i].attackLump;
+				}
+			}
+			for (i = 0; i < passiveAbilities.length; i++) {
+				if(passiveAbilities[i].equipStatBuff == "Yes"){
+					totalAttack *= 1 + (passiveAbilities[i].attackPerc / 100);
+					totalAttack += passiveAbilities[i].attackLump;
+				}
+			}
+			
+			var hotkeys;
+			if (this == Unit.currentUnit) {
+				hotkeys = new Array(Unit.hk1, Unit.hk2, Unit.hk4, Unit.hk5);
+			} else if (this == Unit.partnerUnit) {
+				hotkeys = new Array(Unit.hk3, Unit.hk6, Unit.hk7); //add hk8 here later, which is R				
+			}
+			
+			for (i = 0; i < hotkeys.length; i++) {
+				if(hotkeys[i] != null && hotkeys[i].equipStatBuff == "Yes"){
+					totalAttack *= 1 + (hotkeys[i].attackPerc / 100);
+					totalAttack += hotkeys[i].attackLump;
+				}
+			}
+			
+			for (i = 0; i < buffs.length; i++) {
+				totalAttack *= 1 + (buffs[i].attackPerc / 100);
+				totalAttack += buffs[i].attackLump;
+			}
+			return Math.floor(totalAttack);
+		}
+		public function getDefense() {
+			var totalDefense = this.DP;
+			
+			var i = 0;
+			for (i = 0; i < passiveItems.length; i++) {
+				if(passiveItems[i].equipStatBuff == "Yes"){
+					totalDefense *= 1 + (passiveItems[i].defensePerc / 100);
+					totalDefense += passiveItems[i].defenseLump;
+				}
+			}
+			for (i = 0; i < passiveAbilities.length; i++) {
+				if(passiveAbilities[i].equipStatBuff == "Yes"){
+					totalDefense *= 1 + (passiveAbilities[i].defensePerc / 100);
+					totalDefense += passiveAbilities[i].defenseLump;
+				}
+			}
+			
+			var hotkeys;
+			if (this == Unit.currentUnit) {
+				hotkeys = new Array(Unit.hk1, Unit.hk2, Unit.hk4, Unit.hk5);
+			} else if (this == Unit.partnerUnit) {
+				hotkeys = new Array(Unit.hk3, Unit.hk6, Unit.hk7); //add hk8 here later, which is R				
+			}
+			
+			for (i = 0; i < hotkeys.length; i++) {
+				if(hotkeys[i] != null && hotkeys[i].equipStatBuff == "Yes"){
+					totalDefense *= 1 + (hotkeys[i].defensePerc / 100);
+					totalDefense += hotkeys[i].defenseLump;
+				}
+			}			
+			
+			for (i = 0; i < buffs.length; i++) {
+				totalDefense *= 1 + (buffs[i].defensePerc / 100);
+				totalDefense += buffs[i].defenseLump;
+			}
+			return Math.floor(totalDefense);
+		}	
+		public function getSpeed() {
+			var totalSpeed = this.speed;
+			
+			var i = 0;
+			for (i = 0; i < passiveItems.length; i++) {
+				if(passiveItems[i].equipStatBuff == "Yes"){
+					totalSpeed *= 1 + (passiveItems[i].speedPerc / 100);
+					totalSpeed += passiveItems[i].speedLump;
+				}
+			}
+			for (i = 0; i < passiveAbilities.length; i++) {
+				if(passiveAbilities[i].equipStatBuff == "Yes"){
+					totalSpeed *= 1 + (passiveAbilities[i].speedPerc / 100);
+					totalSpeed += passiveAbilities[i].speedLump;
+				}
+			}
+			
+			var hotkeys;
+			if (this == Unit.currentUnit) {
+				hotkeys = new Array(Unit.hk1, Unit.hk2, Unit.hk4, Unit.hk5);
+			} else if (this == Unit.partnerUnit) {
+				hotkeys = new Array(Unit.hk3, Unit.hk6, Unit.hk7); //add hk8 here later, which is R				
+			}
+			
+			for (i = 0; i < hotkeys.length; i++) {
+				if(hotkeys[i] != null && hotkeys[i].equipStatBuff == "Yes"){
+					totalSpeed *= 1 + (hotkeys[i].speedPerc / 100);
+					totalSpeed += hotkeys[i].speedLump;
+				}
+			}					
+			
+			var slowPerc = 0;
+			for (i = 0; i < buffs.length; i++) {
+				totalSpeed *= 1 + (buffs[i].speedPerc / 100);
+				totalSpeed += buffs[i].speedLump;
+				if (buffs[i].debuffType == "Stun") {
+					return 0;
+				} else if (buffs[i].debuffType == "Slow") {
+					slowPerc = buffs[i].slowPerc;
+				}
+			}
+			totalSpeed *= 1 - (slowPerc / 100);
+			return Math.floor(totalSpeed);
+		}			
+		public function isSlowed() {
+			for (var i = 0; i < buffs.length; i++) {
+				if (buffs[i].debuffType == "Slow") {
+					return true;
+				}
+			}
+			return false;
+		}				
+		public function isStunned() {
+			for (var i = 0; i < buffs.length; i++) {
+				if (buffs[i].debuffType == "Stun") {
+					return true;
+				}
+			}
+			return false;
+		}		
+		public function isSick() {
+			for (var i = 0; i < buffs.length; i++) {
+				if (buffs[i].debuffType == "Sick") {
+					return true;
+				}
+			}
+			return false;
+		}						
+		public function isExhausted() {
+			for (var i = 0; i < buffs.length; i++) {
+				if (buffs[i].debuffType == "Exhaust") {
+					return true;
+				}
+			}
+			return false;
+		}
+		public function isRegen() {
+			for (var i = 0; i < buffs.length; i++) {
+				if (buffs[i].debuffType == "Regen") {
+					return true;
+				}
+			}
+			return false;
+		}		
 	}
 }

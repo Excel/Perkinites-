@@ -178,8 +178,7 @@
     <Name>Cheer</Name>
     <OnActivation>
       <Wait>96</Wait>
-      <ChangeStat>Current:Health+:POWER:Yes</ChangeStat>
-      <ChangeStat>Partner:Health+:POWER2:Yes</ChangeStat>
+      <Heal>Partner</Heal>
       <JumpTo>0</JumpTo>
     </OnActivation>
     <OnMove></OnMove>
@@ -229,7 +228,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
       <EraseObject />
     </OnHit>
     <OnRemove></OnRemove>
@@ -298,15 +297,6 @@
   </Ability>
   <Ability>
     <Name>Apologetic</Name>
-    <OnActivation>
-      <Wait>120</Wait>
-      <ChangeStat>Partner:Health+:POWER:Yes</ChangeStat>
-      <JumpTo>0</JumpTo>
-    </OnActivation>
-    <OnMove></OnMove>
-    <OnDefend />
-    <OnHit></OnHit>
-    <OnRemove></OnRemove>
   </Ability>
   <Ability>
     <Name>Megaphone Attack</Name>
