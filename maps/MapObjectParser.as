@@ -192,6 +192,11 @@
 				} else if (parameters.length == 8) {
 				func = FunctionUtils.thunkify(mapEvent.cast, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], parameters[7]);										
 				}
+			} else if (command.name() == "Damage") {
+				parameters = command.toString().split(":");
+				func = FunctionUtils.thunkify(mapEvent.damage, parameters[0], parameters[1]);
+			} else if (command.name() == "Heal") { 
+				func = FunctionUtils.thunkify(mapEvent.heal, command);
 			} else if (command.name() == "MoveForward") {
 				func = FunctionUtils.thunkify(mapEvent.moveForward, parseFloat(command.toString()));
 			} else if (command.name() == "HitMode") {

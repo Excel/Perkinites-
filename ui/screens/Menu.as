@@ -352,9 +352,9 @@
 		}
 
 		public function basicCooldownNotActive(index) {
-			var Name=AbilityDatabase.getAbility(index).name;
+			var Name=AbilityDatabase.getAbility(index).Name;
 			for (var i = 0; i < hotkeyArray.length; i++) {
-				if (hotkeyArray[i]!=null&&hotkeyArray[i].Name==Name) {
+				if (hotkeyArray[i] != null && hotkeyArray[i].Name == Name) {
 					if (hotkeyArray[i].cooldown<hotkeyArray[i].maxCooldown) {
 						return false;
 					} else {
@@ -965,7 +965,7 @@
 			var index;//the index of the item/ability in the Item/AbilityDatabase
 			var i;//for for loops
 			var thing;
-
+			var unit;
 			var obj=e.target;
 
 			index=obj.currentFrame-2;
@@ -979,13 +979,16 @@
 						thing = new Item(index, 1);
 						thing.startAbility(Unit.currentUnit);
 						Unit.currentUnit.passiveItems.push(thing);
+						unit = Unit.currentUnit;						
 					}
 					//if it hits passiveList2
 				} else if (obj.hitTestObject(page2.passiveList2)  && pCover2.parent != stageRef) {
 					if (! AbilityDatabase.getAbility(index).active) {
 						Unit.itemAmounts[index]--;
 						thing = new Item(index, 1);						
-						thing.startAbility(Unit.partnerUnit);						
+						thing.startAbility(Unit.partnerUnit);
+						//trace(AbilityDatabase.getAbility(index).equipStatBuff);
+						unit = Unit.partnerUnit;	
 						Unit.partnerUnit.passiveItems.push(thing);
 					}
 					//if it hits nothing or a hotkeyIcon
@@ -1014,7 +1017,13 @@
 								hkIcon.type = "Item";
 								
 								hotkeyArray[i]=new Item(index,0);
-								Unit.setHotkey(i+1, new Item(index,0));
+								Unit.setHotkey(i + 1, new Item(index, 0));
+
+								if (i == 0 || i == 1 || i == 2 || i == 4 || i == 5) {
+									unit = Unit.currentUnit;
+								} else if(i == 6 || i == 7) {
+									unit = Unit.partnerUnit;
+								}								
 							}
 						}
 					}
@@ -1028,6 +1037,7 @@
 						thing = new Ability(index, 1);
 						thing.startAbility(Unit.currentUnit);
 						Unit.currentUnit.passiveAbilities.push(thing);
+						unit = Unit.currentUnit;								
 					}
 				} else if (obj.hitTestObject(page2.passiveList2) && pCover2.parent != stageRef) {
 					if (! AbilityDatabase.getAbility(index).active) {
@@ -1035,6 +1045,7 @@
 						thing = new Ability(index, 1);
 						thing.startAbility(Unit.partnerUnit);						
 						Unit.partnerUnit.passiveAbilities.push(thing);
+						unit = Unit.partnerUnit;
 					}
 				} else {
 					if (AbilityDatabase.getAbility(index).active) {
@@ -1060,6 +1071,11 @@
 								hotkeyArray[i]=new Ability(index,AbilityDatabase.getAbility(index).uses);
 								Unit.setHotkey(i+1, new Ability(index, AbilityDatabase.getAbility(index).uses));
 
+								if (i == 0 || i == 1 || i == 2 || i == 4 || i == 5) {
+									unit = Unit.currentUnit;
+								} else if(i == 6 || i == 7) {
+									unit = Unit.partnerUnit;
+								}	
 								Unit.abilityAmounts[index]--;
 								break;
 							}
@@ -1069,6 +1085,9 @@
 
 			}
 
+			if (AbilityDatabase.getAbility(index).equipStatBuff == "Yes") {
+				unit.buffs.push(new Buff(AbilityDatabase.getAbility(index), "Ability", unit));
+			}	
 			removeCovers();
 			updateEquippedBasicAbilities();
 			freezeHotkeys();

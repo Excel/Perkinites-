@@ -15,7 +15,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
     </OnHit>
     <OnRemove />
   </Ability>
@@ -31,8 +31,8 @@
     <Name>Motivate</Name>
     <OnActivation>
       <Wait>8</Wait>
-      <ChangeStat>Current:Health-:POWER:Yes</ChangeStat>
-      <ChangeStat>Partner:Health-:POWER3:Yes</ChangeStat>
+      <Heal>Self</Heal>
+      <Heal>Partner</Heal>
     </OnActivation>
     <OnMove />
     <OnDefend />
@@ -51,6 +51,8 @@
       <Cast>4+1:150:Circle:32:16:28:Kunai</Cast>
     </OnActivation>
     <OnMove>
+      <WallMode>ON</WallMode>
+      <HitMode>ON</HitMode>
       <MoveForward>1</MoveForward>
       <Wait>5</Wait>
       <EraseObject />
@@ -60,8 +62,8 @@
     </OnDefend>
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <Damage />
-      <EraseObject />
+      <Damage>No:No</Damage>
+      <EraseObject></EraseObject>
     </OnHit>
     <OnRemove />
   </Ability>
@@ -80,7 +82,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
     </OnHit>
     <OnRemove />
   </Ability>
@@ -111,7 +113,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
       <EraseObject />
     </OnHit>
     <OnRemove />
@@ -139,7 +141,7 @@
     </OnDefend>
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
       <Conditional>
         <Conditions>
           <HitWall />
@@ -199,7 +201,7 @@
     </OnMove>
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
     </OnHit>
     <OnRemove />
   </Ability>
@@ -236,7 +238,7 @@
     <Name>Arrow Control</Name>
     <OnActivation>
       <Wait>3</Wait>
-      <Cast>4:16:Line:40:12:28:Arrow</Cast>
+      <Cast>3:55:Cone:40:12:28:Arrow</Cast>
       <Wait>2</Wait>
       <RapidFire>1</RapidFire>
     </OnActivation>
@@ -249,7 +251,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
       <EraseObject />
     </OnHit>
     <OnRemove></OnRemove>
@@ -270,7 +272,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
       <EraseObject />
     </OnHit>
     <OnRemove></OnRemove>
@@ -279,7 +281,7 @@
     <Name>Mediation</Name>
     <OnActivation>
       <Wait>4</Wait>
-      <Cast>1:0:Line:40:64:16:Wall:Cursor</Cast>
+      <Cast>1:0:Point:40:64:16:Wall</Cast>
     </OnActivation>
     <OnMove>
       <HitMode>ON</HitMode>
@@ -289,7 +291,7 @@
     <OnDefend />
     <OnHit>
       <PlayAnimation>Hit:Midpoint</PlayAnimation>
-      <ChangeStat>Target:Health-:POWER:Yes</ChangeStat>
+      <Damage>No:No</Damage>
       <EraseObject />
     </OnHit>
     <OnRemove></OnRemove>

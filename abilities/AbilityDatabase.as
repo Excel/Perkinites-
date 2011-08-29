@@ -2,6 +2,7 @@
 	import maps.*;
 	import ui.*;
 	import ui.screens.*;
+	import util.FunctionUtils;
 	import xml.*;
 
 	import flash.display.MovieClip;
@@ -58,17 +59,22 @@
 		}		
 		public function separate(statChange) {
 			var s = new Array();
-			var sep=statChange.indexOf("+");
-			if (sep==-1) {
-				sep=statChange.toString().indexOf('-');
-			}
+			if (statChange.length() != 0) {
+				var sep=statChange.indexOf("+");
+				if (sep==-1) {
+					sep=statChange.toString().indexOf('-');
+				}
 
-			if (sep!=-1) {
-				s.push(parseFloat(statChange.substring(0,sep)));
-				s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
-			} else {
-				s.push(parseFloat(statChange));
-				s.push(0);
+				if (sep!=-1) {
+					s.push(parseFloat(statChange.substring(0,sep)));
+					s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
+				} else {
+					s.push(parseFloat(statChange));
+					s.push(0);
+				}				
+			}
+			else {
+				s = new Array(0, 0);
 			}
 			return s;
 		}
@@ -112,18 +118,104 @@
 				a.maxCooldown = a.cooldown = cd[0];
 				a.cooldownMod = cd[1];
 
-				
-				var power1 = separate(abilityElement.Power);
-				var power2 = separate(abilityElement.Power2);
-				var power3 = separate(abilityElement.Power3);
-				a.power = power1[0];
-				a.powerMod = power1[1];
-				a.power2 = power2[0];
-				a.power2Mod = power3[1];
-				a.power3 = power3[0];
-				a.power3Mod = power3[1];
-				
 				a.correct = parseInt(abilityElement.Correct);
+				
+				var damage = separate(abilityElement.Damage);
+				a.damage = damage[0];
+				a.damageMod = damage[1];
+
+				a.equipStatBuff = abilityElement.EquipStatBuff.toString();
+				var bonusDuration = separate(abilityElement.BonusDuration);
+				a.bonusDuration = bonusDuration[0];
+				a.bonusDurationMod = bonusDuration[1];
+				
+				var healthLump = separate(abilityElement.HPLump);
+				a.healthLump = healthLump[0];
+				a.healthLumpMod = healthLump[1];
+				
+				var healthPerc = separate(abilityElement.HPPerc);
+				a.healthPerc = healthPerc[0];
+				a.healthPercMod = healthPerc[1];				
+				
+				var attackLump = separate(abilityElement.APLump);
+				a.attackLump = attackLump[0];
+				a.attackLumpMod = attackLump[1];
+				
+				var attackPerc = separate(abilityElement.APPerc);
+				a.attackPerc = attackPerc[0];
+				a.attackPercMod = attackPerc[1];
+
+				var defenseLump = separate(abilityElement.DPLump);
+				a.defenseLump = defenseLump[0];
+				a.defenseLumpMod = defenseLump[1];
+				
+				var defensePerc = separate(abilityElement.DPPerc);
+				a.defensePerc = defensePerc[0];
+				a.defensePercMod = defensePerc[1];	
+				
+				var speedLump = separate(abilityElement.SPLump);
+				a.speedLump = speedLump[0];
+				a.speedLumpMod = speedLump[1];
+				
+				var speedPerc = separate(abilityElement.SPPerc);
+				a.speedPerc = speedPerc[0];
+				a.speedPercMod = speedPerc[1];		
+
+				var rangeLump = separate(abilityElement.RangeLump);
+				a.rangeLump = rangeLump[0];
+				a.rangeLumpMod = rangeLump[1];
+				
+				var rangePerc = separate(abilityElement.RangePerc);
+				a.rangePerc = rangePerc[0];
+				a.rangePercMod = rangePerc[1];						
+
+				var cooldownLump = separate(abilityElement.CDLump);
+				a.cooldownLump = cooldownLump[0];
+				a.cooldownLumpMod = cooldownLump[1];
+				
+				var cooldownPerc = separate(abilityElement.CDPerc);
+				a.cooldownPerc = cooldownPerc[0];
+				a.cooldownPercMod = cooldownPerc[1];	
+
+				var stunDuration = separate(abilityElement.StunDuration);
+				a.stunDuration = stunDuration[0];
+				a.stunDurationMod = stunDuration[1];
+				
+				var slowDuration = separate(abilityElement.SlowDuration);
+				a.slowDuration = slowDuration[0];
+				a.slowDurationMod = slowDuration[1];
+
+				var slowPerc = separate(abilityElement.SlowPerc);
+				a.slowPerc = slowPerc[0];
+				a.slowPercMod = slowPerc[1];
+				
+				var sickDuration = separate(abilityElement.SickDuration);
+				a.sickDuration = sickDuration[0];
+				a.sickDurationMod = sickDuration[1];
+				
+				var sickPerc = separate(abilityElement.SickPerc);
+				a.sickPerc = sickPerc[0];
+				a.sickPercMod = sickPerc[1];
+				
+				var sickTime = separate(abilityElement.SickTime);
+				a.sickTime = sickTime[0];
+				a.sickTimeMod = sickTime[1];				
+				
+				var exhaustDuration = separate(abilityElement.ExhaustDuration);
+				a.exhaustDuration = exhaustDuration[0];
+				a.exhaustDurationMod = exhaustDuration[1];
+
+				var regenDuration = separate(abilityElement.RegenDuration);
+				a.regenDuration = regenDuration[0];
+				a.regenDurationMod = regenDuration[1];
+				
+				var regenPerc = separate(abilityElement.RegenPerc);
+				a.regenPerc = regenPerc[0];
+				a.regenPercMod = regenPerc[1];
+				
+				var regenTime = separate(abilityElement.RegenTime);
+				a.regenTime = regenTime[0];
+				a.regenTimeMod = regenTime[1];					
 				
 				ma.Name = abilityElement.Name;
 				ma.description = abilityElement.Description;
@@ -156,45 +248,58 @@
 				
 				ma.maxCooldown = ma.cooldown = cd[0];
 				ma.cooldownMod = cd[1];
-				
-				ma.power = power1[0];
-				ma.powerMod = power1[1];
-				ma.power2 = power2[0];
-				ma.power2Mod = power3[1];
-				ma.power3 = power3[0];
-				ma.power3Mod = power3[1];
-				
+
 				ma.correct = parseInt(abilityElement.Correct);
 				
-				/*var action;
-				for each (var onActivationElement:XML in abilityElement.OnActivation.children()) {
-					action=MapObjectParser.parseCommand(a,onActivationElement);
-					a.onActivation.push(action);
-					ma.onActivation.push(action);
-				}
-				for each (var onMoveElement:XML in abilityElement.OnMove.children()) {
-					action = onMoveElement;
-					//action=MapObjectParser.parseCommand(a,onMoveElement);
-					a.onMove.push(action);
-					ma.onMove.push(action);
-				}
-				for each (var onDefendElement:XML in abilityElement.OnDefend.children()) {
-					action = onDefendElement;
-					//action=MapObjectParser.parseCommand(a,onDefendElement);
-					a.onDefend.push(action);
-					ma.onDefend.push(action);
-				}
-				for each (var onHitElement:XML in abilityElement.OnHit.children()) {
-					action = onHitElement;
-					//action=MapObjectParser.parseCommand(a,onHitElement);
-					a.onHit.push(action);
-					ma.onHit.push(action);
-				}
-				for each (var onRemoveElement:XML in abilityElement.OnRemove.children()) {
-					action=MapObjectParser.parseCommand(a,onRemoveElement);
-					a.onRemove.push(action);
-					ma.onRemove.push(action);
-				}			*/
+				ma.damage = damage[0];
+				ma.damageMod = damage[1];
+				ma.equipStatBuff = abilityElement.EquipStatBuff.toString();
+				ma.bonusDuration = bonusDuration[0];
+				ma.bonusDurationMod = bonusDuration[1];
+				ma.healthLump = healthLump[0];
+				ma.healthLumpMod = healthLump[1];
+				ma.healthPerc = healthPerc[0];
+				ma.healthPercMod = healthPerc[1];				
+				ma.attackLump = attackLump[0];
+				ma.attackLumpMod = attackLump[1];
+				ma.attackPerc = attackPerc[0];
+				ma.attackPercMod = attackPerc[1];
+				ma.defenseLump = defenseLump[0];
+				ma.defenseLumpMod = defenseLump[1];
+				ma.defensePerc = defensePerc[0];
+				ma.defensePercMod = defensePerc[1];	
+				ma.speedLump = speedLump[0];
+				ma.speedLumpMod = speedLump[1];
+				ma.speedPerc = speedPerc[0];
+				ma.speedPercMod = speedPerc[1];		
+				ma.rangeLump = rangeLump[0];
+				ma.rangeLumpMod = rangeLump[1];
+				ma.rangePerc = rangePerc[0];
+				ma.rangePercMod = rangePerc[1];						
+				ma.cooldownLump = cooldownLump[0];
+				ma.cooldownLumpMod = cooldownLump[1];
+				ma.cooldownPerc = cooldownPerc[0];
+				ma.cooldownPercMod = cooldownPerc[1];	
+				ma.stunDuration = stunDuration[0];
+				ma.stunDurationMod = stunDuration[1];
+				ma.slowDuration = slowDuration[0];
+				ma.slowDurationMod = slowDuration[1];
+				ma.slowPerc = slowPerc[0];
+				ma.slowPercMod = slowPerc[1];
+				ma.sickDuration = sickDuration[0];
+				ma.sickDurationMod = sickDuration[1];
+				ma.sickPerc = sickPerc[0];
+				ma.sickPercMod = sickPerc[1];
+				ma.sickTime = sickTime[0];
+				ma.sickTimeMod = sickTime[1];				
+				ma.exhaustDuration = exhaustDuration[0];
+				ma.exhaustDurationMod = exhaustDuration[1];
+				ma.regenDuration = regenDuration[0];
+				ma.regenDurationMod = regenDuration[1];
+				ma.regenPerc = regenPerc[0];
+				ma.regenPercMod = regenPerc[1];
+				ma.regenTime = regenTime[0];
+				ma.regenTimeMod = regenTime[1];		
 				
 				abilityInfo.push(a);
 				minAbilityInfo.push(ma);
@@ -207,45 +312,52 @@
 		}
 		
 		public function parseAbilityEffectData(input:XML):void {
-			
 			var id = 0;
 			for each (var abilityElement:XML in input.Ability) {
 				if (abilityElement.Name == abilityInfo[id].Name) {
 					var action;
-					for each (var onActivationElement:XML in abilityElement.OnActivation.children()) {
-						action = MapObjectParser.parseCommand(abilityInfo[id], onActivationElement);
-						abilityInfo[id].onActivation.push(action);
-						action = MapObjectParser.parseCommand(minAbilityInfo[id], onActivationElement);
-						minAbilityInfo[id].onActivation.push(action);
+					
+					if (abilityElement.OnActivation.length() == 0
+						&& abilityElement.OnMove.length() == 0
+						&& abilityElement.OnDefend.length() == 0
+						&& abilityElement.OnHit.length() == 0
+						&& abilityElement.OnRemove.length() == 0) {
+							generateBasicMovement(abilityInfo[id], minAbilityInfo[id]);
+					} else {
+						for each (var onActivationElement:XML in abilityElement.OnActivation.children()) {
+							action = MapObjectParser.parseCommand(abilityInfo[id], onActivationElement);
+							abilityInfo[id].onActivation.push(action);
+							action = MapObjectParser.parseCommand(minAbilityInfo[id], onActivationElement);
+							minAbilityInfo[id].onActivation.push(action);
+						}
+						for each (var onMoveElement:XML in abilityElement.OnMove.children()) {
+							action = onMoveElement;
+							//action=MapObjectParser.parseCommand(a,onMoveElement);
+							abilityInfo[id].onMove.push(action);
+							minAbilityInfo[id].onMove.push(action);
+						}
+						for each (var onDefendElement:XML in abilityElement.OnDefend.children()) {
+							action = onDefendElement;
+							//action=MapObjectParser.parseCommand(a,onDefendElement);
+							abilityInfo[id].onDefend.push(action);
+							minAbilityInfo[id].onDefend.push(action);
+						}
+						for each (var onHitElement:XML in abilityElement.OnHit.children()) {
+							action = onHitElement;
+							//action=MapObjectParser.parseCommand(a,onHitElement);
+							abilityInfo[id].onHit.push(action);
+							minAbilityInfo[id].onHit.push(action);
+						}
+						for each (var onRemoveElement:XML in abilityElement.OnRemove.children()) {
+							action=MapObjectParser.parseCommand(abilityInfo[id],onRemoveElement);
+							abilityInfo[id].onRemove.push(action);
+							action=MapObjectParser.parseCommand(minAbilityInfo[id],onRemoveElement);
+							minAbilityInfo[id].onRemove.push(action);
+						}			
 					}
-					for each (var onMoveElement:XML in abilityElement.OnMove.children()) {
-						action = onMoveElement;
-						//action=MapObjectParser.parseCommand(a,onMoveElement);
-						abilityInfo[id].onMove.push(action);
-						minAbilityInfo[id].onMove.push(action);
-					}
-					for each (var onDefendElement:XML in abilityElement.OnDefend.children()) {
-						action = onDefendElement;
-						//action=MapObjectParser.parseCommand(a,onDefendElement);
-						abilityInfo[id].onDefend.push(action);
-						minAbilityInfo[id].onDefend.push(action);
-					}
-					for each (var onHitElement:XML in abilityElement.OnHit.children()) {
-						action = onHitElement;
-						//action=MapObjectParser.parseCommand(a,onHitElement);
-						abilityInfo[id].onHit.push(action);
-						minAbilityInfo[id].onHit.push(action);
-					}
-					for each (var onRemoveElement:XML in abilityElement.OnRemove.children()) {
-						action=MapObjectParser.parseCommand(abilityInfo[id],onRemoveElement);
-						abilityInfo[id].onRemove.push(action);
-						action=MapObjectParser.parseCommand(minAbilityInfo[id],onRemoveElement);
-						minAbilityInfo[id].onRemove.push(action);
-					}			
 					id++;	
-					}
+				}
 			}
-
 		}		
 		
 		public static function getAbility(id:int):Ability {
@@ -255,6 +367,7 @@
 			return minAbilityInfo[id];
 		}
 		public static function getAbilityStats(a:Ability, id:int) {
+			
 				a.Name = abilityInfo[id].Name;
 				a.description = abilityInfo[id].description;
 				a.index = id + 2;
@@ -279,9 +392,30 @@
 				a.max = abilityInfo[id].max;
 				a.range = abilityInfo[id].range;
 				a.maxCooldown = a.cooldown = abilityInfo[id].cooldown;
-				a.power = abilityInfo[id].power;
-				a.power2 = abilityInfo[id].power2;
-				a.power3 = abilityInfo[id].power3;
+				
+				a.damage = abilityInfo[id].damage;
+				a.healthLump = abilityInfo[id].healthLump;
+				a.healthPerc = abilityInfo[id].healthPerc;
+				a.attackLump = abilityInfo[id].attackLump;
+				a.attackPerc = abilityInfo[id].attackPerc;
+				a.defenseLump = abilityInfo[id].defenseLump;
+				a.defensePerc = abilityInfo[id].defensePerc;
+				a.speedLump = abilityInfo[id].speedLump;
+				a.speedPerc = abilityInfo[id].speedPerc;
+				a.rangeLump = abilityInfo[id].rangeLump;
+				a.rangePerc = abilityInfo[id].rangePerc;
+				a.cooldownLump = abilityInfo[id].cooldownLump;
+				a.cooldownPerc = abilityInfo[id].cooldownPerc;
+				a.stunDuration = abilityInfo[id].stunDuration;
+				a.slowDuration = abilityInfo[id].slowDuration;
+				a.slowPerc = abilityInfo[id].slowPerc;
+				a.sickDuration = abilityInfo[id].sickDuration;
+				a.sickPerc = abilityInfo[id].sickPerc;
+				a.sickTime = abilityInfo[id].sickTime;
+				a.exhaustDuration = abilityInfo[id].exhaustDuration;
+				a.regenDuration = abilityInfo[id].regenDuration;
+				a.regenPerc = abilityInfo[id].regenPerc;
+				a.regenTime = abilityInfo[id].regenTime;
 				
 				a.onActivation = abilityInfo[id].onActivation;
 				a.onMove = abilityInfo[id].onMove;
@@ -290,6 +424,23 @@
 				a.onRemove = abilityInfo[id].onRemove;	
 		}
 
+		public static function generateBasicMovement(a:Ability, ma:Ability) {
+			var action;
+			a.onActivation.push(FunctionUtils.thunkify(a.waitFor, 2));
+			ma.onActivation.push(FunctionUtils.thunkify(ma.waitFor, 2));
+			a.onActivation.push(FunctionUtils.thunkify(a.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
+			ma.onActivation.push(FunctionUtils.thunkify(ma.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
+			for each (var onMoveElement:XML in abilityInfo[0].onMove) {
+				action = onMoveElement;
+				a.onMove.push(action);
+				ma.onMove.push(action);
+			}
+			for each (var onHitElement:XML in abilityInfo[0].onHit) {
+				action = onHitElement;
+				a.onHit.push(action);
+				ma.onHit.push(action);
+			}
+		}
 		public static function getBasicAbilities(name:String):Array {
 			var commands = new Array();
 			for(var i = 0; i < abilityInfo.length; i++){;

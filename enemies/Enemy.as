@@ -42,6 +42,7 @@ package enemies{
 		public var collideCountC;
 		public var collideCountP;*/
 		public var eHPBar;
+		public var buffs;
 
 		/*public var pxpos;
 		public var pypos;
@@ -87,7 +88,8 @@ package enemies{
 			Value=100.50;
 			HUDOn=false;
 
-			pauseAction=false;
+			pauseAction = false;
+			buffs = new Array();
 
 			switch (GameVariables.difficulty) {
 				case 0 :

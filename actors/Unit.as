@@ -109,7 +109,7 @@
 		//work on implementing this
 		static public var itemAmounts:Array = AbilityDatabase.itemAmounts;
 
-
+		public var buffs:Array;
 		public var passiveItems:Array;
 		public var passiveAbilities:Array;
 		/**
@@ -172,10 +172,12 @@
 				HPBar=new HealthBar(HP,maxHP,this,48);
 
 				basicAbilities=AbilityDatabase.getBasicAbilities(Name);
-				hotkeySet=new Array(basicAbilities[0],basicAbilities[1]);
+				hotkeySet=new Array(basicAbilities[0]);
 
 				powerpoints=50;
-				knockout=24*30;
+				knockout = 24 * 30;
+				
+				buffs = new Array();
 				
 			}
 		}
@@ -229,7 +231,6 @@
 			} else if (Unit.partnerUnit == this) {
 				Unit.setHotkey(6, hotkeySet[0]);
 				Unit.setHotkey(7, hotkeySet[1]);
-				hotkeySet[1].min = 5;
 			}
 			Unit.currentUnit.addEventListener(Event.ENTER_FRAME, detectHandler);
 
@@ -271,6 +272,13 @@
 				if (Unit.partnerUnit==this&&Unit.partnerUnit.parent!=null) {
 					if (Unit.currentUnit.x!=pxpos&&Unit.currentUnit.y!=pypos) {
 						movePlayer();
+					}
+				}
+				
+				for (var i = buffs.length-1; i >=0; i--) {
+					buffs[i].tick();
+					if (buffs[i].duration == 0) {
+						buffs.splice(i, 1);
 					}
 				}
 

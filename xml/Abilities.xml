@@ -15,10 +15,8 @@
 		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>16-1</Cooldown>
-		<Power>5+3</Power>
-		<Power2>5+3</Power2>
-		<Power3>5+3</Power3>
 		<Correct>1</Correct>
+		<Damage>5+3</Damage>
 	</Ability>
 	<Ability>
 		<Name>Kendo Strike</Name>
@@ -35,10 +33,8 @@
 		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>200-5</Cooldown>
-		<Power>15+5</Power>
-		<Power2>15+5</Power2>
-		<Power3>15+5</Power3>
 		<Correct>5</Correct>
+		<Damage>15+5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Motivate</Name>
@@ -55,10 +51,9 @@
 		<Max>10</Max>
 		<Range>140</Range>
 		<Cooldown>200-5</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
+		<HPLump>15+5</HPLump>
 	</Ability>
 	<Ability>
 		<Name>Ninjutsu</Name>
@@ -75,10 +70,8 @@
 		<Max>10</Max>
 		<Range>30</Range>
 		<Cooldown>150-10</Cooldown>
-		<Power>1+0.5</Power>
-		<Power2>1+0.5</Power2>
-		<Power3>1+0.5</Power3>
 		<Correct>0</Correct>
+		<Damage>1+0.5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Claw Attack</Name>
@@ -95,14 +88,12 @@
 		<Max>10</Max>
 		<Range>40</Range>
 		<Cooldown>12-0.5</Cooldown>
-		<Power>5+3.5</Power>
-		<Power2>5+3.5</Power2>
-		<Power3>5+3.5</Power3>
 		<Correct>1</Correct>
+		<Damage>5+3.5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Hulk Rage</Name>
-		<Description>Strengthens Nate with POWER extra Attack and restores POWER2 Health every 5 seconds.</Description>
+		<Description>Strengthens Nate with APLUMP extra Attack and restores REGENPERC % Health every REGENTIME seconds.</Description>
 		<Availability>Nate M.</Availability>
 		<Spec>Upgrade</Spec>
 		<AOE>None</AOE>
@@ -115,10 +106,13 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>4+1</Power>
-		<Power2>2+1</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>4+1</Damage>
+		<EquipStatBuff>Yes</EquipStatBuff>
+		<APLump>2+1</APLump>
+		<RegenDuration>-1</RegenDuration>
+		<RegenLump>5+5</RegenLump>
+		<RegenTime>120-1</RegenTime>
 	</Ability>
 	<Ability>
 		<Name>Stare Down</Name>
@@ -135,10 +129,8 @@
 		<Max>10</Max>
 		<Range>120</Range>
 		<Cooldown>100-5</Cooldown>
-		<Power>5+5</Power>
-		<Power2>5+5</Power2>
-		<Power3>5+5</Power3>
 		<Correct>0</Correct>
+		<Damage>5+5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Enrage</Name>
@@ -155,10 +147,8 @@
 		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>120-5</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Pressure Point</Name>
@@ -175,10 +165,8 @@
 		<Max>0</Max>
 		<Range>20</Range>
 		<Cooldown>12-0.5</Cooldown>
-		<Power>5+3.5</Power>
-		<Power2>5+3.5</Power2>
-		<Power3>5+3.5</Power3>
 		<Correct>0</Correct>
+		<Damage>5+3.5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Railgun Attack</Name>
@@ -195,10 +183,8 @@
 		<Max>10</Max>
 		<Range>400</Range>
 		<Cooldown>16</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>4</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Eyelash Batting</Name>
@@ -215,10 +201,8 @@
 		<Max>10</Max>
 		<Range>500</Range>
 		<Cooldown>150</Cooldown>
-		<Power>3</Power>
-		<Power2>3</Power2>
-		<Power3>3</Power3>
 		<Correct>0</Correct>
+		<Damage>3</Damage>
 	</Ability>
 	<Ability>
 		<Name>Shoe Throwing</Name>
@@ -235,10 +219,8 @@
 		<Max>10</Max>
 		<Range>500</Range>
 		<Cooldown>72</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Death Shout</Name>
@@ -255,10 +237,8 @@
 		<Max>10</Max>
 		<Range>200</Range>
 		<Cooldown>120</Cooldown>
-		<Power>30</Power>
-		<Power2>30</Power2>
-		<Power3>30</Power3>
 		<Correct>0</Correct>
+		<Damage>30</Damage>
 	</Ability>
 	<Ability>
 		<Name>A. Mediation</Name>
@@ -275,10 +255,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>240</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Magic Wand Attack</Name>
@@ -295,10 +273,8 @@
 		<Max>10</Max>
 		<Range>400</Range>
 		<Cooldown>12</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Bling Bling</Name>
@@ -315,10 +291,8 @@
 		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>120</Cooldown>
-		<Power>2</Power>
-		<Power2>2</Power2>
-		<Power3>2</Power3>
 		<Correct>0</Correct>
+		<Damage>2</Damage>
 	</Ability>
 	<Ability>
 		<Name>Taking Heart</Name>
@@ -335,10 +309,8 @@
 		<Max>10</Max>
 		<Range>800</Range>
 		<Cooldown>120</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Logic Puzzle</Name>
@@ -355,14 +327,12 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>120</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Cheer</Name>
-		<Description>Motivates Kata to restore POWER Health and Cia to restore POWER2 Health every 4 seconds.</Description>
+		<Description>Motivates Kata and Cia to restore REGENLUMP Health every REGENTIME seconds.</Description>
 		<Availability>Cia M.</Availability>
 		<Spec>Healing +</Spec>
 		<AOE>None</AOE>
@@ -375,10 +345,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>1+3</Power>
-		<Power2>2+3.5</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>1+3</Damage>
 	</Ability>
 	<Ability>
 		<Name>Tentacle Attack</Name>
@@ -395,10 +363,8 @@
 		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>12</Cooldown>
-		<Power>8</Power>
-		<Power2>8</Power2>
-		<Power3>8</Power3>
 		<Correct>0</Correct>
+		<Damage>8</Damage>
 	</Ability>
 	<Ability>
 		<Name>Perk-kulate</Name>
@@ -415,10 +381,8 @@
 		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>60</Cooldown>
-		<Power>24</Power>
-		<Power2>24</Power2>
-		<Power3>24</Power3>
 		<Correct>0</Correct>
+		<Damage>24</Damage>
 	</Ability>
 	<Ability>
 		<Name>V.P.S.</Name>
@@ -435,10 +399,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>70</Cooldown>
-		<Power>12</Power>
-		<Power2>12</Power2>
-		<Power3>12</Power3>
 		<Correct>0</Correct>
+		<Damage>12</Damage>
 	</Ability>
 	<Ability>
 		<Name>Awkward Stare</Name>
@@ -455,10 +417,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>80</Cooldown>
-		<Power>6</Power>
-		<Power2>6</Power2>
-		<Power3>6</Power3>
 		<Correct>0</Correct>
+		<Damage>6</Damage>
 	</Ability>
 	<Ability>
 		<Name>Hoverpad Attack</Name>
@@ -475,10 +435,8 @@
 		<Max>10</Max>
 		<Range>300</Range>
 		<Cooldown>12</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>4</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Arrow Control</Name>
@@ -495,10 +453,8 @@
 		<Max>10</Max>
 		<Range>200</Range>
 		<Cooldown>80</Cooldown>
-		<Power>3</Power>
-		<Power2>3</Power2>
-		<Power3>3</Power3>
 		<Correct>4</Correct>
+		<Damage>3</Damage>
 	</Ability>
 	<Ability>
 		<Name>D4X</Name>
@@ -515,10 +471,8 @@
 		<Max>10</Max>
 		<Range>300</Range>
 		<Cooldown>120</Cooldown>
-		<Power>10</Power>
-		<Power2>10</Power2>
-		<Power3>10</Power3>
 		<Correct>5</Correct>
+		<Damage>10</Damage>
 	</Ability>
 	<Ability>
 		<Name>Mediation</Name>
@@ -535,14 +489,12 @@
 		<Max>10</Max>
 		<Range>300</Range>
 		<Cooldown>90</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Apologetic</Name>
-		<Description>Restores POWER Health per 5 seconds. But really, he stopped doing this a few months ago. NO REALLY. OH SCREW YOU MAN.</Description>
+		<Description>Restores REGENLUMP Health every REGENTIME seconds. But really, he stopped doing this a few months ago. NO REALLY. OH SCREW YOU MAN.</Description>
 		<Availability>John T.</Availability>
 		<Spec>Healing +</Spec>
 		<AOE>None</AOE>
@@ -555,10 +507,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>2+4</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>2+4</Damage>
 	</Ability>
 	<Ability>
 		<Name>Megaphone Attack</Name>
@@ -575,10 +525,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>16</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Tickle Fight</Name>
@@ -595,10 +543,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>55</Cooldown>
-		<Power>10</Power>
-		<Power2>10</Power2>
-		<Power3>10</Power3>
 		<Correct>0</Correct>
+		<Damage>10</Damage>
 	</Ability>
 	<Ability>
 		<Name>Awkward Turtle</Name>
@@ -615,10 +561,8 @@
 		<Max>10</Max>
 		<Range>150</Range>
 		<Cooldown>24</Cooldown>
-		<Power>10</Power>
-		<Power2>10</Power2>
-		<Power3>10</Power3>
 		<Correct>0</Correct>
+		<Damage>10</Damage>
 	</Ability>
 	<Ability>
 		<Name>Ramen Boost</Name>
@@ -635,10 +579,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>110</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Microphone Attack</Name>
@@ -655,10 +597,8 @@
 		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>16-1</Cooldown>
-		<Power>5+3</Power>
-		<Power2>5+3</Power2>
-		<Power3>5+3</Power3>
 		<Correct>0</Correct>
+		<Damage>5+3</Damage>
 	</Ability>
 	<Ability>
 		<Name>Shout!</Name>
@@ -675,10 +615,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>65</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Bunny Guard</Name>
@@ -695,10 +633,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>120</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Hyper Friendship</Name>
@@ -715,10 +651,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Strength Attack</Name>
@@ -735,10 +669,8 @@
 		<Max>10</Max>
 		<Range>30</Range>
 		<Cooldown>24</Cooldown>
-		<Power>8</Power>
-		<Power2>8</Power2>
-		<Power3>8</Power3>
 		<Correct>0</Correct>
+		<Damage>8</Damage>
 	</Ability>
 	<Ability>
 		<Name>Lung Crusher</Name>
@@ -755,10 +687,8 @@
 		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>50</Cooldown>
-		<Power>30</Power>
-		<Power2>30</Power2>
-		<Power3>30</Power3>
 		<Correct>0</Correct>
+		<Damage>30</Damage>
 	</Ability>
 	<Ability>
 		<Name>Deep Sleep</Name>
@@ -775,10 +705,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>230</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Sonic Laugh</Name>
@@ -795,10 +723,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>48</Cooldown>
-		<Power>12</Power>
-		<Power2>12</Power2>
-		<Power3>12</Power3>
 		<Correct>0</Correct>
+		<Damage>12</Damage>
 	</Ability>
 	<Ability>
 		<Name>Charm Attack</Name>
@@ -815,10 +741,8 @@
 		<Max>10</Max>
 		<Range>120</Range>
 		<Cooldown>12</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Sideburnt</Name>
@@ -835,10 +759,8 @@
 		<Max>10</Max>
 		<Range>800</Range>
 		<Cooldown>48</Cooldown>
-		<Power>10</Power>
-		<Power2>10</Power2>
-		<Power3>10</Power3>
 		<Correct>0</Correct>
+		<Damage>10</Damage>
 	</Ability>
 	<Ability>
 		<Name>Lift Lid</Name>
@@ -855,10 +777,8 @@
 		<Max>10</Max>
 		<Range>250</Range>
 		<Cooldown>96</Cooldown>
-		<Power>20</Power>
-		<Power2>20</Power2>
-		<Power3>20</Power3>
 		<Correct>0</Correct>
+		<Damage>20</Damage>
 	</Ability>
 	<Ability>
 		<Name>Mom Swap</Name>
@@ -875,10 +795,8 @@
 		<Max>10</Max>
 		<Range>0</Range>
 		<Cooldown>360</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Troll</Name>
@@ -895,10 +813,8 @@
 		<Max>10</Max>
 		<Range>150</Range>
 		<Cooldown>72</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Staff Attack</Name>
@@ -915,10 +831,8 @@
 		<Max>10</Max>
 		<Range>60</Range>
 		<Cooldown>8</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Happy Healing</Name>
@@ -935,10 +849,8 @@
 		<Max>10</Max>
 		<Range>70</Range>
 		<Cooldown>720</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Shield</Name>
@@ -955,10 +867,8 @@
 		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>720</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Healthy Explosion</Name>
@@ -975,10 +885,8 @@
 		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>100</Cooldown>
-		<Power>10</Power>
-		<Power2>10</Power2>
-		<Power3>10</Power3>
 		<Correct>0</Correct>
+		<Damage>10</Damage>
 	</Ability>
 	<Ability>
 		<Name>Orgo Book Attack</Name>
@@ -995,10 +903,8 @@
 		<Max>10</Max>
 		<Range>30</Range>
 		<Cooldown>16</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Maul</Name>
@@ -1015,10 +921,8 @@
 		<Max>10</Max>
 		<Range>40</Range>
 		<Cooldown>48</Cooldown>
-		<Power>15</Power>
-		<Power2>15</Power2>
-		<Power3>15</Power3>
 		<Correct>0</Correct>
+		<Damage>15</Damage>
 	</Ability>
 	<Ability>
 		<Name>"That's What She Said"</Name>
@@ -1035,10 +939,8 @@
 		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>120</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Silent Treatment</Name>
@@ -1055,10 +957,8 @@
 		<Max>10</Max>
 		<Range>150</Range>
 		<Cooldown>120</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Final Destination</Name>
@@ -1075,10 +975,8 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Sunshine</Name>
@@ -1095,10 +993,8 @@
 		<Max>10</Max>
 		<Range>800</Range>
 		<Cooldown>12</Cooldown>
-		<Power>10</Power>
-		<Power2>10</Power2>
-		<Power3>10</Power3>
 		<Correct>0</Correct>
+		<Damage>10</Damage>
 	</Ability>
 	<Ability>
 		<Name>Happiness</Name>
@@ -1115,10 +1011,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>64</Cooldown>
-		<Power>15</Power>
-		<Power2>15</Power2>
-		<Power3>15</Power3>
 		<Correct>0</Correct>
+		<Damage>15</Damage>
 	</Ability>
 	<Ability>
 		<Name>M. Gun Attack</Name>
@@ -1135,10 +1029,8 @@
 		<Max>10</Max>
 		<Range>300</Range>
 		<Cooldown>16</Cooldown>
-		<Power>2</Power>
-		<Power2>2</Power2>
-		<Power3>2</Power3>
 		<Correct>0</Correct>
+		<Damage>2</Damage>
 	</Ability>
 	<Ability>
 		<Name>Shockwave</Name>
@@ -1155,10 +1047,8 @@
 		<Max>10</Max>
 		<Range>100</Range>
 		<Cooldown>72</Cooldown>
-		<Power>25</Power>
-		<Power2>25</Power2>
-		<Power3>25</Power3>
 		<Correct>0</Correct>
+		<Damage>25</Damage>
 	</Ability>
 	<Ability>
 		<Name>Bio-Leech</Name>
@@ -1175,10 +1065,8 @@
 		<Max>10</Max>
 		<Range>50</Range>
 		<Cooldown>48</Cooldown>
-		<Power>5</Power>
-		<Power2>5</Power2>
-		<Power3>5</Power3>
 		<Correct>0</Correct>
+		<Damage>5</Damage>
 	</Ability>
 	<Ability>
 		<Name>Overload</Name>
@@ -1195,10 +1083,8 @@
 		<Max>10</Max>
 		<Range>80</Range>
 		<Cooldown>120</Cooldown>
-		<Power>40</Power>
-		<Power2>40</Power2>
-		<Power3>40</Power3>
 		<Correct>0</Correct>
+		<Damage>40</Damage>
 	</Ability>
 	<Ability>
 		<Name>Break Time</Name>
@@ -1215,10 +1101,8 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>720</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Apologetic Decoy</Name>
@@ -1235,10 +1119,8 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>360</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Greedy</Name>
@@ -1255,10 +1137,8 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Popularity</Name>
@@ -1275,10 +1155,8 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Second Chance</Name>
@@ -1295,10 +1173,8 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Second World</Name>
@@ -1315,10 +1191,8 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 	<Ability>
 		<Name>Girly Swirl</Name>
@@ -1335,10 +1209,8 @@
 		<Max>1</Max>
 		<Range>400</Range>
 		<Cooldown>48</Cooldown>
-		<Power>20</Power>
-		<Power2>20</Power2>
-		<Power3>20</Power3>
 		<Correct>0</Correct>
+		<Damage>20</Damage>
 	</Ability>
 	<Ability>
 		<Name>Gossip</Name>
@@ -1355,10 +1227,8 @@
 		<Max>1</Max>
 		<Range>400</Range>
 		<Cooldown>48</Cooldown>
-		<Power>40</Power>
-		<Power2>40</Power2>
-		<Power3>40</Power3>
 		<Correct>0</Correct>
+		<Damage>40</Damage>
 	</Ability>
 	<Ability>
 		<Name>Sassy Yet Unique</Name>
@@ -1375,9 +1245,7 @@
 		<Max>1</Max>
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
-		<Power>0</Power>
-		<Power2>0</Power2>
-		<Power3>0</Power3>
 		<Correct>0</Correct>
+		<Damage>0</Damage>
 	</Ability>
 </Abilities>

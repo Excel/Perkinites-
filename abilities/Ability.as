@@ -49,15 +49,61 @@ package abilities{
 		public var cooldown:int;
 		public var cooldownMod:Number;
 		public var maxCooldown:int;
-		public var power:int;
-		public var powerMod:Number;
-		public var power2:int;
-		public var power2Mod:Number;
-		public var power3:int;
-		public var power3Mod:Number;
-		
 		public var correct:int;
+
+		public var damage:int;
+		public var damageMod:Number;
+		public var equipStatBuff:String;
+		public var bonusDuration:int;
+		public var bonusDurationMod;
+		public var healthLump;
+		public var healthPerc;
+		public var healthLumpMod;
+		public var healthPercMod;
+		public var attackLump;
+		public var attackPerc;
+		public var attackLumpMod;
+		public var attackPercMod;		
+		public var defenseLump;
+		public var defensePerc;
+		public var defenseLumpMod;
+		public var defensePercMod;		
+		public var speedLump;
+		public var speedPerc;
+		public var speedLumpMod;
+		public var speedPercMod;		
+		public var rangeLump;
+		public var rangePerc;
+		public var rangeLumpMod;
+		public var rangePercMod;		
+		public var cooldownLump;
+		public var cooldownPerc;	
+		public var cooldownLumpMod;
+		public var cooldownPercMod;
 		
+		public var stunDuration;
+		public var slowDuration;
+		public var slowPerc;
+		public var sickDuration;
+		public var sickPerc;
+		public var sickTime;
+		public var exhaustDuration;
+		public var regenDuration;
+		public var regenLump;
+		public var regenPerc;
+		public var regenTime;
+
+		public var stunDurationMod;
+		public var slowDurationMod;
+		public var slowPercMod;
+		public var sickDurationMod;
+		public var sickPercMod;
+		public var sickTimeMod;
+		public var exhaustDurationMod;
+		public var regenDurationMod;
+		public var regenLumpMod;
+		public var regenPercMod;
+		public var regenTimeMod;
 		/**
 		 * onActivation - general gameHandler of Ability when first activated
 		 * onMove - the movement gameHandler of the bullet
@@ -93,22 +139,39 @@ package abilities{
 		
 		public function updateAbility() {
 			var minAbility = AbilityDatabase.getMinAbility(ID);
+			var minMod;
 			if (min > 1) {
-				this.range = Math.floor(minAbility.range + rangeMod * (min - 1));
-				this.maxCooldown = this.cooldown = Math.floor(this.cooldown = minAbility.cooldown + cooldownMod * (min - 1));
-				this.power = Math.floor(minAbility.power + powerMod * (min - 1));
-				this.power2 = Math.floor(minAbility.power2 + power2Mod * (min - 1));
-				this.power3 = Math.floor(minAbility.power3 + power3Mod * (min - 1));
-				this.uses = minAbility.uses;
-				//trace(minAbility.power2 + power2Mod * (min - 1) + " " + power2Mod);
+				minMod = min;
 			} else {
-				this.range = minAbility.range;
-				this.maxCooldown = this.cooldown = minAbility.cooldown;
-				this.power = minAbility.power;
-				this.power2 = minAbility.power2;
-				this.power3 = minAbility.power3;
-				this.uses = minAbility.uses;
+				minMod = 1;
 			}
+			this.range = Math.floor(minAbility.range + rangeMod * (minMod - 1));
+			this.maxCooldown = this.cooldown = Math.floor(this.cooldown = minAbility.cooldown + cooldownMod * (minMod - 1));
+			this.uses = minAbility.uses;
+			this.damage = Math.floor(minAbility.damage + damageMod * (minMod - 1));	
+			this.bonusDuration = Math.floor(minAbility.bonusDuration + bonusDurationMod * (minMod - 1));				
+			this.healthLump = Math.floor(minAbility.healthLump + healthLumpMod * (minMod - 1));
+			this.healthPerc = Math.floor(minAbility.healthPerc + healthPercMod * (minMod - 1));
+			this.attackLump = Math.floor(minAbility.attackLump + attackLumpMod * (minMod - 1));
+			this.attackPerc = Math.floor(minAbility.attackPerc + attackPercMod * (minMod - 1));
+			this.defenseLump = Math.floor(minAbility.defenseLump + defenseLumpMod * (minMod - 1));
+			this.defensePerc = Math.floor(minAbility.defensePerc + defensePercMod * (minMod - 1));
+			this.speedLump = Math.floor(minAbility.speedLump + speedLumpMod * (minMod - 1));
+			this.speedPerc = Math.floor(minAbility.speedPerc + speedPercMod * (minMod - 1));
+			this.rangeLump = Math.floor(minAbility.rangeLump + rangeLumpMod * (minMod - 1));
+			this.rangePerc = Math.floor(minAbility.rangePerc + rangePercMod * (minMod - 1));
+			this.cooldownLump = Math.floor(minAbility.cooldownLump + cooldownLumpMod * (minMod - 1));
+			this.cooldownPerc = Math.floor(minAbility.cooldownPerc + cooldownPercMod * (minMod - 1));
+			this.stunDuration = Math.floor(minAbility.stunDuration + stunDurationMod * (minMod - 1));
+			this.slowDuration = Math.floor(minAbility.slowDuration + slowDurationMod * (minMod - 1));
+			this.slowPerc = Math.floor(minAbility.slowPerc + slowPercMod * (minMod - 1));
+			this.sickDuration = Math.floor(minAbility.sickDuration + sickDurationMod * (minMod - 1));
+			this.sickPerc = Math.floor(minAbility.sickPerc + sickPercMod * (minMod - 1));
+			this.sickTime = Math.floor(minAbility.sickTime + sickTimeMod * (minMod - 1));
+			this.exhaustDuration = Math.floor(minAbility.exhaustDuration + exhaustDurationMod * (minMod - 1));
+			this.regenDuration = Math.floor(minAbility.regenDuration + regenDurationMod * (minMod - 1));
+			this.regenPerc = Math.floor(minAbility.regenPerc + regenPercMod * (minMod - 1));
+			this.regenTime = Math.floor(minAbility.regenTime + regenTimeMod * (minMod - 1));
 /*			if (this.castingUnit != null) {
 				var unit = this.castingUnit;
 				cancel();
@@ -349,17 +412,22 @@ package abilities{
 
 		public function separate(statChange) {
 			var s = new Array();
-			var sep=statChange.indexOf("+");
-			if (sep==-1) {
-				sep=statChange.toString().indexOf('-');
-			}
+			if (statChange != null) {
+				var sep=statChange.indexOf("+");
+				if (sep==-1) {
+					sep=statChange.toString().indexOf('-');
+				}
 
-			if (sep!=-1) {
-				s.push(parseFloat(statChange.substring(0,sep)));
-				s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
-			} else {
-				s.push(parseFloat(statChange));
-				s.push(0);
+				if (sep!=-1) {
+					s.push(parseFloat(statChange.substring(0,sep)));
+					s.push(parseFloat(statChange.substring(sep, statChange.toString().length)));
+				} else {
+					s.push(parseFloat(statChange));
+					s.push(0);
+				}				
+			}
+			else {
+				s = new Array(0, 0);
 			}
 			return s;
 		}
@@ -369,11 +437,7 @@ package abilities{
 				prevMoveCount = moveCount;
 				var newStat;
 				if (stat == "POWER") {
-					newStat = power;
-				} else if (stat == "POWER2") {
-					newStat = power2;
-				} else if (stat == "POWER3") {
-					newStat = power3;
+					newStat = damage;
 				} else{
 					var ns = separate(stat);
 					newStat = ns[0] + ns[1] * (min - 1);
@@ -456,7 +520,7 @@ package abilities{
 				}
 			}
 		}
-		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String, attackGraphic:String, origin:String = null) {
+		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String, attackGraphic:String) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				
@@ -482,19 +546,10 @@ package abilities{
 				
 				switch(AOE) {
 					case "Line": 
-						for (i = -(newAttackNum - 1) / 2; i < Math.ceil(newAttackNum / 2); i++) { //FIX THIS
+						for (i = -(newAttackNum - 1) / 2; i < Math.ceil(newAttackNum / 2); i++) {
 							a = new Attack(newSpeed * Math.cos(radian), newSpeed * Math.sin(radian), this, castingUnit);
-							
-							if (origin == null) { //Unit
-								a.x=castingUnit.x+this.width*Math.cos(radian)/2 + Math.sin(radian)*newDistance * i;
-								a.y=castingUnit.y+this.height*Math.sin(radian)/2 + Math.cos(radian)*newDistance * i;								
-							} else if (origin == "Cursor") {
-								a.x=mouseX+ScreenRect.getX();
-								a.y=mouseY+ScreenRect.getY();
-							} else if (origin == "Target") {
-								a.x = targetX;
-								a.y = targetY;
-							}
+							a.x=castingUnit.x+this.width*Math.cos(radian)/2 + Math.sin(radian)*newDistance * i;
+							a.y=castingUnit.y+this.height*Math.sin(radian)/2 + Math.cos(radian)*newDistance * i;								
 							a.width = newWidth;
 							a.height = newHeight;
 							a.rotation = degree + 90;
@@ -518,16 +573,8 @@ package abilities{
 						for (i = degree; i < 360+degree; i += 360 / newAttackNum) {
 							radian = (i*Math.PI/180);
 							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
-							if (origin == null) { //Unit
-								a.x=castingUnit.x+this.width*Math.cos(radian)/2;
-								a.y=castingUnit.y+this.height*Math.sin(radian)/2;							
-							} else if (origin == "Cursor") {
-								a.x=mouseX+ScreenRect.getX();
-								a.y=mouseY+ScreenRect.getY();
-							} else if (origin == "Target") {
-								a.x=targetX;
-								a.y = targetY;
-							}							
+							a.x=castingUnit.x+this.width*Math.cos(radian)/2;
+							a.y=castingUnit.y+this.height*Math.sin(radian)/2;													
 							a.width = newWidth;
 							a.height = newHeight;
 							a.rotation = i + 90;
@@ -546,6 +593,60 @@ package abilities{
 							a.addEventListener(Event.ENTER_FRAME, a.gameHandler);
 						}								
 					break;
+					case "Cone":
+						degree = (radian*180/Math.PI);
+						for (i = -(newAttackNum - 1) / 2; i < Math.ceil(newAttackNum / 2); i++){
+							degree += (newDistance / newAttackNum) * (i*2);
+							radian = degree * Math.PI / 180;
+							
+							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
+							a.x = castingUnit.x + this.width * Math.cos(radian) / 2;
+							a.y = castingUnit.y + this.height * Math.sin(radian) / 2;	
+							a.width = newWidth;
+							a.height = newHeight;							
+							a.rotation = degree + 90;							
+							a.range = this.range;						
+							
+							castingUnit.parent.addChild(a);	
+							
+							for (om = 0; om < onMove.length; om++) {
+								a.commands.push(MapObjectParser.parseCommand(a, onMove[om]));
+							}
+							for (od = 0; od < onDefend.length; od++) {
+								a.defendCommands.push(MapObjectParser.parseCommand(a, onDefend[od]));
+							}
+							for (oh = 0; oh < onHit.length; oh++) {
+								a.hitCommands.push(MapObjectParser.parseCommand(a, onHit[oh]));
+							}
+							a.addEventListener(Event.ENTER_FRAME, a.gameHandler);
+							radian = Math.atan2(targetY - castingUnit.y, targetX - castingUnit.x);
+							degree = (radian * 180 / Math.PI);
+						}					
+					break;
+					case "Point":
+						for (i = degree; i < 360+degree; i += 360 / newAttackNum) {
+							radian = (i*Math.PI/180);
+							a = new Attack(newSpeed*Math.cos(radian), newSpeed*Math.sin(radian), this, castingUnit);
+							a.x=mouseX+ScreenRect.getX();
+							a.y=mouseY+ScreenRect.getY();													
+							a.width = newWidth;
+							a.height = newHeight;
+							a.rotation = i + 90;
+							a.range = this.range;
+							castingUnit.parent.addChild(a);	
+							
+							for (om = 0; om < onMove.length; om++) {
+								a.commands.push(MapObjectParser.parseCommand(a, onMove[om]));
+							}
+							for (od = 0; od < onDefend.length; od++) {
+								a.defendCommands.push(MapObjectParser.parseCommand(a, onDefend[od]));
+							}
+							for (oh = 0; oh < onHit.length; oh++) {
+								a.hitCommands.push(MapObjectParser.parseCommand(a, onHit[oh]));
+							}
+							a.addEventListener(Event.ENTER_FRAME, a.gameHandler);
+						}									
+					break;
 				}
 				moveCount++;
 				if (moveCount < onActivation.length) {
@@ -563,112 +664,31 @@ package abilities{
 				}
 			}
 		}
-
-
-		private function sendAttacks(obj) {
-/*			var a;//the attack to send out
-			var i;//the iterative variable
-
-			var ax=targetX;
-			var ay=targetY;
-
-			var radian=Math.atan2(ay-obj.y,ax-obj.x);
-			var degree = (radian*180/Math.PI);
-
-			var aspeed=15;
-
-			//variables to incorporate into main Ability code
-			var numBullets=8;
-			var radius=50;
-
-			switch (aoe) {
-				case "Line" :
-					//a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
-					a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), this, obj);
-					a.x=obj.x+width*Math.cos(radian)/2;
-					a.y=obj.y+height*Math.sin(radian)/2;
-					a.rotation=degree;
-					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);
-					break;
-					case "Circle" :
-					radian=Math.atan2(ay-obj.y,ax-obj.x);
-					degree = (radian*180/Math.PI);
-					for (i = 0; i < 360; i+=360/numBullets) {
-					degree+=i;
-					radian=degree*Math.PI/180;
-					
-					a = new Attack(aspeed*Math.cos(radian), aspeed*Math.sin(radian), damage, range,"PC");
-					a.x=obj.x+width*Math.cos(radian)/2;
-					a.y=obj.y+height*Math.sin(radian)/2;
-					
-					a.rotation=degree;
-					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);
-					
-					radian=Math.atan2(ay-obj.y,ax-obj.x);
-					degree = (radian*180/Math.PI);
-					
+		
+		public function heal(target:String) {
+			if (prevMoveCount != moveCount) {
+				prevMoveCount = moveCount;
+				
+				var healthBonus;
+				var unit;
+				
+				if (target == "Self") {
+					unit = this.castingUnit;
+				} else if (target == "Partner") {
+					if (this.castingUnit == Unit.currentUnit) {
+						unit = Unit.partnerUnit;
 					}
-					break;
-					case "Cone" :
-					radian=Math.atan2(ay-obj.y,ax-obj.x);
-					degree = (radian*180/Math.PI);
-					for (i = -numBullets/2; i < Math.ceil(numBullets/2); i++) {
-					degree+=5*i;
-					radian=degree*Math.PI/180;
-					
-					a=new Attack(aspeed*Math.cos(radian),aspeed*Math.sin(radian),damage,range,obj);
-					a.setMods(this);
-					a.x=obj.x+width*Math.cos(radian)/2;
-					a.y=obj.y+height*Math.sin(radian)/2;
-					
-					a.rotation=degree;
-					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);
-					
-					radian=Math.atan2(ay-obj.y,ax-obj.x);
-					degree = (radian*180/Math.PI);
-					
+					else if (this.castingUnit == Unit.partnerUnit) {
+						unit = Unit.currentUnit;
 					}
-					break;
-					case "Point" :
-					a=new Attack(aspeed/2, aspeed/2,damage,radius,"Unit", true);
-					a.x=ax;
-					a.y=ay;
-					
-					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);
-					break;
-					case "Aura" :
-					a=new Attack(aspeed/2,aspeed/2,damage,radius,"Unit", true);
-					a.x=obj.x;
-					a.y=obj.y;
-					
-					obj.parent.addChild(a);
-					//obj.parent.setChildIndex(a, 0);
-					break;
-				default :
-					break;
-			}*/
-		}
+				}
+				healthBonus = unit.maxHP * (this.healthPerc / 100) + this.healthLump;
+				unit.updateHP( -1 * healthBonus, "Yes");							
+				
+				advanceMove();
+			}
 
-		private function sendMod(obj, target) {
-/*			switch (target) {
-				case "Current" :
-					Unit.currentUnit.updateHP(1);
-					break;
-				case "Partner" :
-					Unit.partnerUnit.updateHP(10);
-					break;
-				case "Team" :
-					Unit.currentUnit.updateHP(1);
-					break;
-					Unit.partnerUnit.updateHP(10);
-					break;
-
-			}*/
-		}
+		}		
 		
 		/**
 		 * Creates gems that pop up for JT's D4X attack.
@@ -726,7 +746,6 @@ package abilities{
 					}
 				}
 				else {
-					moveCount++;
 					advanceMove();
 				}
 			}
@@ -782,27 +801,35 @@ package abilities{
 		}
 		
 		public function getDescription():String {
-			var newDescription = description;
-			pattern = /POWER3/g; 
-			newDescription = newDescription.replace(pattern, power3);		
-			pattern = /POWER2/g; 
-			newDescription = newDescription.replace(pattern, power2);			
-			var pattern:RegExp = /POWER/g; 
-			newDescription = newDescription.replace(pattern, power);
+			var newDescription = description;		
+			var pattern:RegExp = /DAMAGE/g; 
+			newDescription = newDescription.replace(pattern, this.damage);
+			pattern= /APLUMP/g; 
+			newDescription = newDescription.replace(pattern, this.attackLump);
+			pattern = /APPERC/g; 
+			newDescription = newDescription.replace(pattern, this.attackPerc);
+			pattern = /REGENDURATION/g; 
+			newDescription = newDescription.replace(pattern, this.regenDuration);			
+			pattern = /REGENLUMP/g; 
+			newDescription = newDescription.replace(pattern, this.regenLump);
+			pattern = /REGENPERC/g; 
+			newDescription = newDescription.replace(pattern, this.regenPerc);
+			pattern = /REGENTIME/g; 
+			newDescription = newDescription.replace(pattern, this.regenTime);		
 			return newDescription;
 		}
 		public function getSpecInfo():String {
 			var spec2 = spec;			
 			if (spec=="Damage") {
-				spec2="Damage = "+power;
+				spec2="Damage = "+damage;
 			} else if (spec == "S-Damage") {
-				spec2="S-Damage = "+power;
+				spec2="S-Damage = "+damage;
 			} else if (spec=="Siphon") {
-				spec2="Siphon + "+power;
+				spec2="Siphon + "+damage;
 			} else if (spec == "Healing +") {
-				spec2 = "Healing + " + power;
+				spec2 = "Healing + " + damage;
 			} else if (spec == "Healing %") {
-				spec2="Healing "+power+"%";
+				spec2="Healing "+damage+"%";
 			}
 			//spec2=spec2+"\n"+activationLabel;*/
 			return spec2;

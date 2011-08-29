@@ -170,15 +170,73 @@
 			return s;
 		}
 		
+		public function damage(applyStatBuff:String, applyDebuff:String) {
+			for (var i = 0; i < targetedEnemies.length; i++) {
+				var buff:Buff;
+				if (hitEnemies.indexOf(targetedEnemies[i]) == -1) {
+					targetedEnemies[i].updateHP(ability.damage, "Yes");
+					hitEnemies.push(targetedEnemies[i]);
+					if (applyStatBuff == "Yes") {
+						buff = new Buff(ability, "Ability", targetedEnemies[i]);					
+						targetedEnemies[i].buffs.push(buff);
+					} 
+					if (applyDebuff == "Yes") {
+						if (ability.stunDuration > 0) {
+							buff = new Buff(ability, "Stun", targetedEnemies[i]);					
+							targetedEnemies[i].buffs.push(buff);							
+						}
+						if (ability.slowDuration > 0) {
+							buff = new Buff(ability, "Slow", targetedEnemies[i]);					
+							targetedEnemies[i].buffs.push(buff);								
+						}
+						if (ability.sickDuration > 0) {
+							buff = new Buff(ability, "Sick", targetedEnemies[i]);					
+							targetedEnemies[i].buffs.push(buff);								
+						}
+						if (ability.exhaustDuration > 0) {
+							buff = new Buff(ability, "Exhaust", targetedEnemies[i]);					
+							targetedEnemies[i].buffs.push(buff);								
+						}
+						if (ability.regenDuration > 0) {
+							buff = new Buff(ability, "Regen", targetedEnemies[i]);					
+							targetedEnemies[i].buffs.push(buff);								
+						}
+					}
+				}
+			}
+		}
+		
+		public function heal(target:String) {
+			var healthBonus;
+			var unit;
+				
+			if (target == "Self") {
+				unit = ability.castingUnit;
+				healthBonus = unit.maxHP * (ability.healthPerc / 100) + ability.healthLump;
+				unit.updateHP( -1 * healthBonus, "Yes");													
+			} else if (target == "Partner") {
+				if (ability.castingUnit == Unit.currentUnit) {
+					unit = Unit.partnerUnit;
+				}
+				else if (ability.castingUnit == Unit.partnerUnit) {
+					unit = Unit.currentUnit;
+				}
+				healthBonus = unit.maxHP * (ability.healthPerc / 100) + ability.healthLump;
+				unit.updateHP( -1 * healthBonus, "Yes");																	
+			} else if (target == "Target") {
+				for (var i = 0; i < targetedEnemies.length; i++) {
+					if (hitEnemies.indexOf(targetedEnemies[i]) == -1) {
+						healthBonus = targetedEnemies[i].maxHP * (ability.healthPerc / 100) + ability.healthLump;
+						targetedEnemies[i].updateHP( -1 * healthBonus, "Yes");		
+					}
+				}	
+			}
+		}
 		override public function changeStat(unitType:String, statType:String, stat:String, popup:String) {
 			var newStat;
 			var i;
 			if (stat == "POWER") {
-				newStat = ability.power;
-			} else if (stat == "POWER2") {
-				newStat = ability.power2;
-			} else if (stat == "POWER3") {
-				newStat = ability.power3;
+				newStat = ability.damage;
 			} else{
 				var ns = separate(stat);
 				newStat = ns[0] + ns[1] * (ability.min - 1);
