@@ -1,4 +1,4 @@
-package game{
+﻿package game{
 
 	import actors.Unit;
 	import enemies.Enemy;
@@ -47,7 +47,7 @@ package game{
 			//really big bug to fix - hitting nonpassable tiles causes crappy movement.
 			//hackhackhack
 			if (TileMap.hitNonpass(targetX, targetY)) {
-				teleportObject(object, targetX, targetY);
+				//teleportObject(object, targetX, targetY);
 			} else{
 				path = TileMap.findPath(TileMap.map, new Point(Math.floor(object.x/32), Math.floor(object.y/32)),
 				  new Point(Math.floor(object.mxpos/32), Math.floor(object.mypos/32)), 

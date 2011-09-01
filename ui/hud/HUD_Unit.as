@@ -30,7 +30,7 @@
 			iconCover=new ColorTransform(0.3,0.3,0.3,0.5,0,0,0,0);
 			redCover=new ColorTransform(0.75,0.3,0.3,0.5,0,0,0,0);
 
-			var hotkeyIconArray = [hotkeyHolder.qIcon,
+			/*var hotkeyIconArray = [hotkeyHolder.qIcon,
 			   hotkeyHolder.wIcon,
 			   hotkeyHolder.eIcon,
 			   hotkeyHolder.aIcon,
@@ -42,7 +42,7 @@
 				hotkeyIconArray[i].gotoAndStop(1);
 				hotkeyIconArray[i].addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
 				hotkeyIconArray[i].addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
-			}
+			}*/
 			ffIcon.gotoAndStop(1);
 
 			/*healthBar1=new HealthBar(Unit.currentUnit.HP,Unit.currentUnit.maxHP);
@@ -56,7 +56,7 @@
 			*/
 			addEventListener(Event.ENTER_FRAME, gameHandler);
 		}
-		public function mouseOutHandler(e) {
+		/*public function mouseOutHandler(e) {
 			description.text="";
 		}
 		public function mouseOverHandler(e) {
@@ -80,17 +80,17 @@
 				var hotkey=hotkeyArray[index];
 				description.text="["+hotkeys[index]+"]: "+hotkey.description;
 			}
-		}
+		}*/
 		public function gameHandler(e) {
 			collide();
 
 			updateName();
 			//updateFP();
-			updateHKeys();
+			//updateHKeys();
 			//updateProfile();
 		}
 
-		public function updateHKeys() {
+		/*public function updateHKeys() {
 			var hotkeyArray =[Unit.hk1, Unit.hk2, Unit.hk3, 
 			  Unit.hk4, Unit.hk5, Unit.hk6, 
 			  Unit.hk7];
@@ -132,7 +132,7 @@
 					hotkeyIconArray[i].useCount.visible=false;
 				}
 			}
-		}
+		}*/
 		public function updateHP() {
 
 			if (Unit.currentUnit!=null&&Unit.currentUnit.id!=-1) {

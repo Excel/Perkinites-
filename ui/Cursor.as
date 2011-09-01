@@ -8,6 +8,7 @@
 	import flash.filters.GlowFilter;
 	import flash.geom.Point;
 	import flash.ui.Mouse;
+	import flash.text.TextField;
 
 
 	public class Cursor extends MovieClip {
