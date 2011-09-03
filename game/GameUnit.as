@@ -149,6 +149,141 @@ package game{
 			
 		}
 
+		/**
+		 * 
+		 * Teleports the passed GameUnit to its destination.
+		 * @param	object
+		 * @param	targetX
+		 * @param	targetY
+		 */
+		public function teleportObject(targetX:Number, targetY:Number):void {
+			
+		}
+		/**
+		 * 
+		 * Moves the passed GameUnit to its destination.
+		 * 
+		 * @param	object
+		 * @param	targetX
+		 * @param	targetY
+		 */
+		 public function moveObject(targetX:Number, targetY:Number):void {
+			var p = new Array();
+			startAnimation(dir);
+			mxpos = targetX;
+			mypos = targetY;			
+			
+			//really big bug to fix - hitting nonpassable tiles causes crappy movement.
+			//hackhackhack
+			if (TileMap.hitNonpass(targetX, targetY)) {
+				//teleportObject(object, targetX, targetY);
+			} else{
+				p = TileMap.findPath(TileMap.map, new Point(Math.floor(x/32), Math.floor(y/32)),
+				  new Point(Math.floor(mxpos/32), Math.floor(mypos/32)), 
+				  false, true);
+				p = smoothPath(path);
+				
+				path = p;
+				//object.addEventListener(Event.ENTER_FRAME, moveHandler);
+			}
+        }
+		
+		/**
+		 * 
+		 * Ignores some of the intermediate tile destinations for more realistic movement.
+		 * @param	path - the path to modify
+		 * @return the smoothed path
+		 */
+		
+		public function smoothPath(path:Array):Array {
+			if (path.length>0) {
+				var newPath=new Array(path[0]);
+
+				var currentIndex=0;
+				var pushIndex=0;
+				var nextIndex=1;
+
+				if (path[0]==path[path.length-1]) {
+					return newPath;
+				}
+				if (TileMap.walkable(path[0],path[path.length-1])) {
+					newPath=new Array(path[0],path[path.length-1]);
+					return newPath;
+
+				}
+				while (nextIndex < path.length) {
+
+					if (TileMap.walkable(path[nextIndex],path[path.length-1])) {
+						newPath.push(path[nextIndex]);
+						newPath.push(path[path.length-1]);
+						return newPath;
+					} else if (TileMap.walkable(path[currentIndex],path[nextIndex])) {
+						pushIndex=nextIndex;
+					} else {
+						if (currentIndex!=pushIndex) {
+							newPath.push(path[pushIndex]);
+						}
+						currentIndex=pushIndex;
+					}
+					nextIndex++;
+				}
+				newPath.push(path[path.length-1]);
+				return newPath;
+			} else {
+				return new Array();
+			}
+		}
+		
+		/**
+		 * 
+		 * the movement handler. 
+		 * @param	e - Event.ENTER_FRAME
+		 */
+		public function moveHandler(e:Event):void {
+			if (path.length > 0) {
+				var dist=Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
+				checkLoop();
+				if (dist>0&&dist>range) {
+					var xtile=Math.floor(x/32);
+					var ytile=Math.floor(y/32);
+					if (xtile==path[0].x&&ytile==path[0].y) {
+						path.splice(0, 1);
+
+						if (path.length>0) {
+							var xdest=path[0].x*32+16;
+							var ydest=path[0].y*32+16;
+							radian=Math.atan2(ydest-y,xdest-x);
+							faceDirection(radian);
+						}
+					}
+					if (path.length>0) {
+						moving=true;
+						var speed;
+						/*if (this is Unit || this is Enemy) {
+							speed = getSpeed();
+						}
+						else {
+							speed = speed;
+						}*/
+						speed = getSpeed();
+						
+						x+=speed*Math.cos(radian)/24;
+						y+=speed*Math.sin(radian)/24;
+
+					} else {
+						moving=false;
+					}
+				}				
+			} else {
+				moving=false;
+			}
+			if (! moving && range == 0) {
+				x=mxpos;
+				y=mypos;
+				//object.stopAnimation();
+				//object.removeEventListener(Event.ENTER_FRAME, moveHandler);
+			}
+		}
 
 		/**
 		 * All Possible Commands
@@ -330,7 +465,7 @@ package game{
 			if(this.moveDir != moveDir || auto || KO){
 				var animLabel:String = this.getAnimLabel(moveDir, KO);
 				this.currentAnimLabel = animLabel;
-                this.gotoAndPlay(this.getFrameNumber(animLabel));
+                this.gotoAndStop(this.getFrameNumber(animLabel));
 				this.dir = moveDir;
 				this.moveDir = moveDir;
 			}
