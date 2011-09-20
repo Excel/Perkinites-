@@ -20,8 +20,6 @@ collects
 	PrizeDrop
 com
 	EnemySetup
-effects
-	TransitionScreen
 enemies
 	Enemy
 	EnemyDatabase

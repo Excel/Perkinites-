@@ -146,7 +146,7 @@ package game{
 			rad = Math.pow(width >> 1, 2);
 			
 			setLengths();
-			
+			addEventListener(Event.ENTER_FRAME, moveHandler);
 		}
 
 		/**
@@ -167,9 +167,9 @@ package game{
 		 * @param	targetX
 		 * @param	targetY
 		 */
-		 public function moveObject(targetX:Number, targetY:Number):void {
+		 public function moveTo(targetX:Number, targetY:Number):void {
 			var p = new Array();
-			startAnimation(dir);
+			//startAnimation(dir);
 			mxpos = targetX;
 			mypos = targetY;			
 			
@@ -241,6 +241,7 @@ package game{
 		 */
 		public function moveHandler(e:Event):void {
 			if (path.length > 0) {
+				trace(path);
 				var dist=Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
 				checkLoop();
 				if (dist>0&&dist>range) {
@@ -253,7 +254,7 @@ package game{
 							var xdest=path[0].x*32+16;
 							var ydest=path[0].y*32+16;
 							radian=Math.atan2(ydest-y,xdest-x);
-							faceDirection(radian);
+							faceDir(radian);
 						}
 					}
 					if (path.length>0) {
@@ -265,7 +266,7 @@ package game{
 						else {
 							speed = speed;
 						}*/
-						speed = getSpeed();
+						//speed = getSpeed();
 						
 						x+=speed*Math.cos(radian)/24;
 						y+=speed*Math.sin(radian)/24;

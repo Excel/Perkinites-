@@ -189,7 +189,7 @@
 						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
 						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
 						//MovementManager.moveObject(Unit.partnerUnit, targetX, targetY);
-						Unit.partnerUnit.moveObject(targetX, targetY);
+						Unit.partnerUnit.moveTo(targetX, targetY);
 					}
 				}
 			} else {
@@ -201,14 +201,14 @@
 						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
 						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
 						//MovementManager.moveObject(Unit.currentUnit, targetX, targetY);
-						Unit.currentUnit.moveObject(targetX, targetY);
+						Unit.currentUnit.moveTo(targetX, targetY);
 					}
 					
 					if (!Unit.partnerUnit.activating) {
 						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
 						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
 						//MovementManager.moveObject(Unit.partnerUnit, targetX, targetY);
-						Unit.partnerUnit.moveObject(targetX, targetY);
+						Unit.partnerUnit.moveTo(targetX, targetY);
 						/*Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);	
 						Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 						Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);

@@ -254,7 +254,7 @@ package abilities{
 					targetX = GameVariables.attackTarget.enemyRef.x;
 					targetY = GameVariables.attackTarget.enemyRef.y;
 			}
-			MovementManager.moveObject(obj, targetX, targetY);
+			obj.moveTo(targetX, targetY);
 
 			if (Math.sqrt(Math.pow(obj.y - targetY, 2) + Math.pow(obj.x - targetX, 2)) <= range
 					&& ((correct != 4) || (correct == 4 && TileMap.shootable(new Point(Math.floor(obj.x / 32), Math.floor(obj.y / 32)), 
@@ -281,15 +281,15 @@ package abilities{
 						activate();
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);						
 					} else if (Math.abs(txTile - xTile) < Math.abs(tyTile - yTile) && !TileMap.hitNonpass(txTile*32+16, yTile*32+16)) {
-						MovementManager.moveObject(obj, txTile*32+16, yTile*32+16);
+						obj.moveTo(txTile*32+16, yTile*32+16);
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					} else if (!TileMap.hitNonpass(xTile * 32 + 16, tyTile * 32 + 16)) {
-						MovementManager.moveObject(obj, xTile*32+16, tyTile*32+16);						
+						obj.moveTo(xTile*32+16, tyTile*32+16);						
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					} else if (!TileMap.hitNonpass(txTile * 32 + 16, yTile * 32 + 16)) {
-						MovementManager.moveObject(obj, txTile*32+16, yTile*32+16);							
+						obj.moveTo(txTile*32+16, yTile*32+16);							
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					}
