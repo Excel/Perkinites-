@@ -51,8 +51,14 @@ package abilities{
 		public var maxCooldown:int;
 		public var correct:int;
 
+		public var allowCustom:String;
+		public var wait:int;
+		public var cast:String;
+		public var moveForward:Number;
+		
 		public var damage:int;
 		public var damageMod:Number;
+		public var damageRatio:int;
 		public var equipStatBuff:String;
 		public var bonusDuration:int;
 		public var bonusDurationMod;
@@ -285,7 +291,7 @@ package abilities{
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					} else if (!TileMap.hitNonpass(xTile * 32 + 16, tyTile * 32 + 16)) {
-						obj.moveTo(xTile*32+16, tyTile*32+16);						
+						obj.moveTo(xTile*32+16, tyTile*32+16);     			
 						castingUnit.removeEventListener(Event.ENTER_FRAME, moveAbilityHandler);			
 						castingUnit.addEventListener(Event.ENTER_FRAME, correctMovementHandler);
 					} else if (!TileMap.hitNonpass(txTile * 32 + 16, yTile * 32 + 16)) {

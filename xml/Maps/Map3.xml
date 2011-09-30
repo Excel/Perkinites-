@@ -8,7 +8,7 @@
     </Graphic>
     <Conditions>
       <Switch>0:OFF</Switch>
-      <Variable>0:&gt;=:1</Variable>
+      <Variable>0:==:0</Variable>
     </Conditions>
     <Movement>
       <Type>None</Type>

@@ -16,6 +16,9 @@
 		<Range>80</Range>
 		<Cooldown>16-1</Cooldown>
 		<Correct>1</Correct>
+		<Wait>2</Wait>
+		<Cast>1:0:Line:40:32:80:Invis</Cast>
+		<MoveForward>0.5</MoveForward>
 		<Damage>5+3</Damage>
 	</Ability>
 	<Ability>
@@ -132,6 +135,7 @@
 		<Cooldown>100-5</Cooldown>
 		<Correct>0</Correct>
 		<Damage>5+5</Damage>
+		<StunDuration>48+1</StunDuration>
 	</Ability>
 	<Ability>
 		<Name>Enrage</Name>
@@ -153,7 +157,7 @@
 	</Ability>
 	<Ability>
 		<Name>Pressure Point</Name>
-		<Description>Deals damage and inflicts Stun on the last hit. After rebooting or returning to the inventory, this ability is replaced with 'Enrage.'</Description>
+		<Description>Deals damage and inflicts Stun on the last hit. After rebooting, this ability is replaced with 'Enrage.'</Description>
 		<Availability>Nate M.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Line</AOE>
@@ -207,7 +211,7 @@
 	</Ability>
 	<Ability>
 		<Name>Shoe Throwing</Name>
-		<Description>Throws a magical shoe to a target out of anger. Each time it hits the wall or an enemy attack, it bounces and gains more damage and speed.</Description>
+		<Description>On every sixth attack or on every Lucky Shot, throws a magical shoe to a target out of anger.</Description>
 		<Availability>C. Kata</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Line</AOE>
@@ -225,7 +229,7 @@
 	</Ability>
 	<Ability>
 		<Name>Death Shout</Name>
-		<Description>Stuns all enemies within the shout's range for a second. #loudwhitegirl</Description>
+		<Description>On every third attack, stuns all enemies within the shout's range for a second. #loudwhitegirl</Description>
 		<Availability>C. Kata</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Cone</AOE>
@@ -315,7 +319,7 @@
 	</Ability>
 	<Ability>
 		<Name>Logic Puzzle</Name>
-		<Description>Nearby enemies surrounding Cia are slowed for a few seconds.</Description>
+		<Description>Nearby enemies hit by "Bling Bling" are slowed for a few seconds.</Description>
 		<Availability>Cia M.</Availability>
 		<Spec>Downgrade</Spec>
 		<AOE>Circle</AOE>
@@ -391,7 +395,7 @@
 	</Ability>
 	<Ability>
 		<Name>V.P.S.</Name>
-		<Description>[Violation of Personal Space] Charges in and deals damage to surrounding enemies, slowing them at an uncomfortable distance.</Description>
+		<Description>[Violation of Personal Space] Slows enemies attacked by "Perk-kulate."</Description>
 		<Availability>Eric H.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Aura</AOE>
@@ -409,7 +413,7 @@
 	</Ability>
 	<Ability>
 		<Name>Awkward Stare</Name>
-		<Description>Charges in and stuns himself and nearby enemies.</Description>
+		<Description>On every sixth attack, stuns himself and target enemies.</Description>
 		<Availability>Eric H.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Aura</AOE>
@@ -445,7 +449,7 @@
 	</Ability>
 	<Ability>
 		<Name>Arrow Control</Name>
-		<Description>Shoots arrows in a direction. Hold down to shoot more arrows.</Description>
+		<Description>On every Lucky Shot, shoots eight arrows at a target.</Description>
 		<Availability>John T.</Availability>
 		<Spec>S-Damage</Spec>
 		<AOE>Line</AOE>
@@ -481,7 +485,7 @@
 	</Ability>
 	<Ability>
 		<Name>Mediation</Name>
-		<Description>Creates a magic and apologetic wall that lasts for four seconds.</Description>
+		<Description>Creates a magic and apologetic shield to John T. or Eric H. if they get any debuffs.</Description>
 		<Availability>John T.</Availability>
 		<Spec>Obstacle</Spec>
 		<AOE>Wall</AOE>
@@ -513,6 +517,7 @@
 		<Range>0</Range>
 		<Cooldown>0</Cooldown>
 		<Correct>0</Correct>
+		<HPLump>1+4</HPLump>
 		<EquipDebuff>Yes</EquipDebuff>
 		<RegenDuration>-1</RegenDuration>
 		<RegenLump>1+4</RegenLump>
@@ -574,7 +579,7 @@
 	</Ability>
 	<Ability>
 		<Name>Ramen Boost</Name>
-		<Description>Restores Health to any Unit. </Description>
+		<Description>Restores Health to Huong V. or Huilian Q. when they get below 25% Health.</Description>
 		<Availability>Huong V.</Availability>
 		<Spec>Healing %</Spec>
 		<AOE>None</AOE>
@@ -610,7 +615,7 @@
 	</Ability>
 	<Ability>
 		<Name>Shout!</Name>
-		<Description>Creates a sound shockwave and deals damage to surrounding enemies.</Description>
+		<Description>On every second attack, creates a sound shockwave and deals damage to surrounding enemies.</Description>
 		<Availability>Huilian Q.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Aura</AOE>
@@ -772,7 +777,7 @@
 	</Ability>
 	<Ability>
 		<Name>Lift Lid</Name>
-		<Description>Unleashes a magical elongated surprise from a magical box. ;D</Description>
+		<Description>On every tenth attack, unleashes a magical elongated surprise from a magical box. ;D</Description>
 		<Availability>Chris P.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Line</AOE>
@@ -1042,7 +1047,7 @@
 	</Ability>
 	<Ability>
 		<Name>Shockwave</Name>
-		<Description>Creates an energy wave that damages enemies in its path.</Description>
+		<Description>On every last hit of "M. Gun Attack," creates an energy wave that damages enemies in its path.</Description>
 		<Availability>Raymon B.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Cone</AOE>
@@ -1060,7 +1065,7 @@
 	</Ability>
 	<Ability>
 		<Name>Bio-Leech</Name>
-		<Description>Siphons Health from target enemy.</Description>
+		<Description>Siphons Health from target enemy on each attack.</Description>
 		<Availability>Raymon B.</Availability>
 		<Spec>Siphon</Spec>
 		<AOE>Point</AOE>
@@ -1078,7 +1083,7 @@
 	</Ability>
 	<Ability>
 		<Name>Overload</Name>
-		<Description>Powers up Raymon on first time activation. Unleashes a destructive attack to nearby enemies on second activation, powering down Raymon.</Description>
+		<Description>Powers up Raymon on first time activation. This ability is replaced with "Insanity."</Description>
 		<Availability>Raymon B.</Availability>
 		<Spec>Damage</Spec>
 		<AOE>Circle</AOE>
@@ -1093,6 +1098,44 @@
 		<Cooldown>120</Cooldown>
 		<Correct>0</Correct>
 		<Damage>40</Damage>
+	</Ability>
+	<Ability>
+		<Name>Insanity</Name>
+		<Description>Unleashes a destructive attack to nearby enemies. After rebooting, this ability is replaced with "Overload."</Description>
+		<Availability>Raymon B.</Availability>
+		<Spec>Damage</Spec>
+		<AOE>Circle</AOE>
+		<Uses>1</Uses>
+		<Activation>1</Activation>
+		<Value>0</Value>
+		<Stand>12</Stand>
+		<Exist>0</Exist>
+		<Min>0</Min>
+		<Max>10</Max>
+		<Range>80</Range>
+		<Cooldown>120</Cooldown>
+		<Correct>0</Correct>
+		<Damage>40</Damage>
+	</Ability>
+	<Ability>
+		<Name>PB+J Attack</Name>
+		<Description>Basic Attack: Charges towards a target with peanut butter and jelly toast.</Description>
+		<Availability>Kade W.</Availability>
+	</Ability>
+	<Ability>
+		<Name>Hibernate</Name>
+		<Description>Prevents Kade from moving/attacking. Increases defense and creates a continuous toxic saliva attack.</Description>
+		<Availability>Kade W.</Availability>
+	</Ability>
+	<Ability>
+		<Name>Sleepwalking</Name>
+		<Description>Allows her to move and attack during Hibernation for X seconds, and then be immobilized again for X seconds. Increases damage dealt by Hibernate.</Description>
+		<Availability>Kade W.</Availability>
+	</Ability>
+	<Ability>
+		<Name>Tummy Poking</Name>
+		<Description>Poke people in the tummy until they have a hole in their stomach.</Description>
+		<Availability>Kade W.</Availability>
 	</Ability>
 	<Ability>
 		<Name>Break Time</Name>
@@ -1255,5 +1298,88 @@
 		<Cooldown>0</Cooldown>
 		<Correct>0</Correct>
 		<Damage>0</Damage>
+	</Ability>
+	<Ability>
+		<Name>Ice Cream</Name>
+		<Description>Restores 10% Health. If Kade W. uses this, this item restores 25% Health instead.</Description>
+		<Availability>All Perkinites</Availability>
+	</Ability>
+	<Ability>
+		<Name>Frozen Yogurt</Name>
+		<Description>Restores 15% Health.</Description>
+		<Availability>All Perkinites</Availability>
+	</Ability>
+	<Ability>
+		<Name>Quesadilla</Name>
+		<Description>Restores 10% Health. </Description>
+		<Availability>All Perkinites</Availability>
+	</Ability>
+	<Ability>
+		<Name>Toaster Cannon</Name>
+		<Description>Grants +5 Attack. On every fifth attack, sends out a burst of energy.</Description>
+		<Availability>All Perkinites</Availability>
+	</Ability>
+	<Ability>
+		<Name>Hairpin</Name>
+		<Description>Grants +5 Attack and +1 Defense. Debuff durations are reduced by 20%. If Eric H. equips this, Eric H. restores 5 Health every 5 seconds.</Description>
+		<Availability>All Perkinites</Availability>
+	</Ability>
+	<Ability>
+		<Name>Runic Anterior</Name>
+		<Description>CORPORATION: Creates a shield granting + 50 Health, +10 Attack, and +5 Defense.</Description>
+		<Availability>All Perkinites</Availability>
+		<Spec>Upgrade</Spec>
+		<AOE>None</AOE>
+		<Uses>0</Uses>
+		<Activation>0</Activation>
+		<Value>0</Value>
+		<Stand>0</Stand>
+		<Exist>0</Exist>
+		<Min>1</Min>
+		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Correct>0</Correct>
+		<Damage>0</Damage>
+	</Ability>
+	<Ability>
+		<Name>Dualgazer C</Name>
+		<Description>CORPORATION: Grants +5 Attack. Reload Times for Ranged Attacks are reduced by 10%.</Description>
+		<Availability>All Perkinites</Availability>
+		<Spec>Upgrade</Spec>
+		<AOE>None</AOE>
+		<Uses>0</Uses>
+		<Activation>0</Activation>
+		<Value>0</Value>
+		<Stand>0</Stand>
+		<Exist>0</Exist>
+		<Min>1</Min>
+		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Correct>0</Correct>
+		<Damage>0</Damage>
+	</Ability>
+	<Ability>
+		<Name>Triplegazer C++</Name>
+		<Description>CORPORATION: Grants +15 Attack. Reload Times for Ranged Attacks are reduced by 25%.</Description>
+		<Availability>All Perkinites</Availability>
+		<Spec>Upgrade</Spec>
+		<AOE>None</AOE>
+		<Uses>0</Uses>
+		<Activation>0</Activation>
+		<Value>0</Value>
+		<Stand>0</Stand>
+		<Exist>0</Exist>
+		<Min>1</Min>
+		<Max>1</Max>
+		<Range>0</Range>
+		<Cooldown>0</Cooldown>
+		<Correct>0</Correct>
+		<Damage>0</Damage>
+	</Ability>
+	<Ability>
+		<Name>Shadow Exterior</Name>
+		<Description>CORPORATION: Grants +25 Speed. Debuff durations are reduced by 20%.</Description>
 	</Ability>
 </Abilities>

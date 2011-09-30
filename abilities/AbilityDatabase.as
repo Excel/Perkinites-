@@ -122,6 +122,11 @@
 
 				a.correct = parseInt(abilityElement.Correct);
 				
+				a.allowCustom = abilityElement.AllowCustom;
+				a.wait = parseInt(abilityElement.Wait);
+				a.cast = abilityElement.Cast;
+				a.moveForward = parseFloat(abilityElement.Float);
+				
 				var damage = separate(abilityElement.Damage);
 				a.damage = damage[0];
 				a.damageMod = damage[1];
@@ -258,6 +263,11 @@
 				ma.cooldownMod = cd[1];
 
 				ma.correct = parseInt(abilityElement.Correct);
+				
+				ma.allowCustom = abilityElement.AllowCustom;
+				ma.wait = parseInt(abilityElement.Wait);
+				ma.cast = abilityElement.Cast;
+				ma.moveForward = parseFloat(abilityElement.Float);
 				
 				ma.damage = damage[0];
 				ma.damageMod = damage[1];
