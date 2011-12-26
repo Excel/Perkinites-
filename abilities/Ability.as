@@ -52,7 +52,7 @@ package abilities{
 		public var correct:int;
 
 		public var allowCustom:String;
-		public var wait:int;
+		//public var wait:int;
 		public var cast:String;
 		public var moveForward:Number;
 		
@@ -514,7 +514,7 @@ package abilities{
 				}
 			}
 		}
-		public function cast(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String, attackGraphic:String) {
+		public function castAttack(attackNum:String, distance:String, AOE:String, speed:String, width:String, height:String, attackGraphic:String) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
 				

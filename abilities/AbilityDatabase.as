@@ -451,8 +451,8 @@
 			if (a.activation > 0) {
 				a.onActivation.push(FunctionUtils.thunkify(a.waitFor, 2));
 				ma.onActivation.push(FunctionUtils.thunkify(ma.waitFor, 2));
-				a.onActivation.push(FunctionUtils.thunkify(a.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
-				ma.onActivation.push(FunctionUtils.thunkify(ma.cast, 1, 0, "Line", 40, 8, 12, "Invis"));
+				a.onActivation.push(FunctionUtils.thunkify(a.castAttack, 1, 0, "Line", 40, 8, 12, "Invis"));
+				ma.onActivation.push(FunctionUtils.thunkify(ma.castAttack, 1, 0, "Line", 40, 8, 12, "Invis"));
 				for each (var onMoveElement:XML in abilityInfo[0].onMove) {
 					action = onMoveElement;
 					a.onMove.push(action);
@@ -462,7 +462,7 @@
 					action = onHitElement;
 					a.onHit.push(action);
 					ma.onHit.push(action);
-				}	
+				}
 			}
 		}
 		public static function getBasicAbilities(name:String):Array {

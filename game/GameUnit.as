@@ -241,9 +241,9 @@ package game{
 		 */
 		public function moveHandler(e:Event):void {
 			if (path.length > 0) {
-				trace(path);
 				var dist=Math.sqrt(Math.pow(mxpos-x,2)+Math.pow(mypos-y,2));
 				checkLoop();
+				
 				if (dist>0&&dist>range) {
 					var xtile=Math.floor(x/32);
 					var ytile=Math.floor(y/32);
@@ -259,7 +259,7 @@ package game{
 					}
 					if (path.length>0) {
 						moving=true;
-						var speed;
+						//var speed;
 						/*if (this is Unit || this is Enemy) {
 							speed = getSpeed();
 						}
@@ -267,7 +267,6 @@ package game{
 							speed = speed;
 						}*/
 						//speed = getSpeed();
-						
 						x+=speed*Math.cos(radian)/24;
 						y+=speed*Math.sin(radian)/24;
 

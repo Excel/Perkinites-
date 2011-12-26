@@ -318,6 +318,7 @@
 			while (ts != te) {
 				for (i=ts+1; i<te; i += 2) {
 					if (tiles[i]==endy&&tiles[i-1]==endx) {
+						trace("HI");
 						found=true;
 						break;
 					}
@@ -395,6 +396,7 @@
 			if (TileMap.getTile(endx*32,endy*32)=="p") {
 				while (px != startx || py != starty) {
 					path.unshift(new Point(map[py][px].x, map[py][px].y));
+					//path.unshift(new Point(px, py));
 					px=path[0].x;
 					py=path[0].y;
 				}

@@ -151,10 +151,11 @@
 			var targetX;
 			var targetY;
 			if (GameVariables.mouseEnemy) {
-
-			} else if (GameVariables.mouseMapObject) {
+			} else {
+			/*} else if (GameVariables.mouseMapObject) {
+				// clicking on map object
 				if (! GameUnit.superPause && ! GameUnit.menuPause && ! GameUnit.objectPause && mouseIsDown) {
-					if (!Unit.currentUnit.activating) {
+					if (!Unit.currentUnit.activating) {*/
 /*						Unit.currentUnit.startAnimation(Unit.currentUnit.dir);
 						Unit.currentUnit.mxpos=Math.floor( (stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;
 						Unit.currentUnit.mypos=Math.floor( (stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;
@@ -165,14 +166,15 @@
 						if (Unit.currentUnit.path.length==0) {
 							Unit.currentUnit.mxpos=Unit.currentUnit.x;
 							Unit.currentUnit.mypos=Unit.currentUnit.y;
-						}	*/		
-						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
+						}	*/
+						/*targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
 						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;
 						//MovementManager.moveObject(Unit.currentUnit, targetX, targetY);						
 						Unit.currentUnit.moveObject(targetX, targetY);
 					}
 					
 					if (!Unit.partnerUnit.activating) {
+						trace("HI");*/
 /*						Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);							
 						Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 						Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
@@ -186,13 +188,14 @@
 							Unit.partnerUnit.mxpos=Unit.partnerUnit.x;
 							Unit.partnerUnit.mypos=Unit.partnerUnit.y;
 						}*/
-						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
+						/*targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
 						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
 						//MovementManager.moveObject(Unit.partnerUnit, targetX, targetY);
 						Unit.partnerUnit.moveTo(targetX, targetY);
 					}
 				}
-			} else {
+			} else {*/
+				// clicking on empty tile
 				if (! GameUnit.superPause&&! GameUnit.menuPause&&! GameUnit.objectPause&&mouseIsDown) {
 					if (GameVariables.mapObject != null) {
 						GameVariables.mapObject.stopFocus();
@@ -200,15 +203,15 @@
 					if (!Unit.currentUnit.activating) {
 						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
 						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
-						//MovementManager.moveObject(Unit.currentUnit, targetX, targetY);
-						Unit.currentUnit.moveTo(targetX, targetY);
+						MovementManager.moveObject(Unit.currentUnit, targetX, targetY);
+						//Unit.currentUnit.moveTo(targetX, targetY);
 					}
 					
 					if (!Unit.partnerUnit.activating) {
 						targetX = Math.floor( (GameVariables.stageRef.mouseX + ScreenRect.getX()) / 32) * 32 + 16;
 						targetY = Math.floor( (GameVariables.stageRef.mouseY + ScreenRect.getY()) / 32) * 32 + 16;						
-						//MovementManager.moveObject(Unit.partnerUnit, targetX, targetY);
-						Unit.partnerUnit.moveTo(targetX, targetY);
+						MovementManager.moveObject(Unit.partnerUnit, targetX, targetY);
+						//Unit.partnerUnit.moveTo(targetX, targetY);
 						/*Unit.partnerUnit.startAnimation(Unit.partnerUnit.dir);	
 						Unit.partnerUnit.mxpos=Math.floor((stageRef.mouseX+ScreenRect.getX())/32)*32 + 16;//+Math.floor(Math.random()*64-32);
 						Unit.partnerUnit.mypos=Math.floor((stageRef.mouseY+ScreenRect.getY())/32)*32 + 16;//+Math.floor(Math.random()*64-32);

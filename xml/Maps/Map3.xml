@@ -7,8 +7,8 @@
       <Position>(0,0)</Position>
     </Graphic>
     <Conditions>
-      <Switch>0:OFF</Switch>
-      <Variable>0:==:0</Variable>
+      <Switch>0:ON</Switch>
+      <Variable>0:==:1</Variable>
     </Conditions>
     <Movement>
       <Type>None</Type>
@@ -16,7 +16,7 @@
       <Wait>20</Wait>
     </Movement>
     <Activation>
-      <Trigger>Auto</Trigger>
+      <Trigger>None</Trigger>
       <Range>800</Range>
     </Activation>
     <Commands>
@@ -93,7 +93,7 @@
       <StopBGM></StopBGM>
       <Message>-:If you're having trouble with the general control scheme of the game, please consult the tutorial! COLOND:None:None:No</Message>
       <Switch>0:TRUE</Switch>
-      <Variable>0:=:1</Variable>
+      <Variable>0:=:0</Variable>
       <EraseObject></EraseObject>
     </Commands>
   </MapObject>

@@ -188,9 +188,9 @@
 			if (command.name() == "Cast") {
 				parameters = command.toString().split(":");
 				if (parameters.length == 7) {
-				func = FunctionUtils.thunkify(mapEvent.cast, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]);					
+				func = FunctionUtils.thunkify(mapEvent.castAttack, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]);					
 				} else if (parameters.length == 8) {
-				func = FunctionUtils.thunkify(mapEvent.cast, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], parameters[7]);										
+				func = FunctionUtils.thunkify(mapEvent.castAttack, parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], parameters[7]);										
 				}
 			} else if (command.name() == "Damage") {
 				parameters = command.toString().split(":");
