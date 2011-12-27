@@ -7,6 +7,31 @@ stop();
 var STAGE_WIDTH=1000;
 var STAGE_HEIGHT=700;
 
+//main editor 2
+var mag = 0.5;
+var drawMode = "Pencil";
+var editMode = "Layer 1"; //layer 2, layer 3, map object
+var eventArray;
+var editorMode = false;
+
+var contX;
+var contY;
+
+
+//object editor
+var objectID = -1;
+var flashClass = "";
+var dir = 2;
+var objectX = 0;
+var objectY = 0;
+var conditionsArray = new Array();
+var objectMove = "None";
+var objectSpeed = 0;
+var objectWait = 0;
+var objectTrigger = "None";
+var objectRange = 0;
+var commandsArray = new Array();
+
 var sObj=SharedObject.getLocal("PERKINITESEDITOR");
 
 if (! sObj.data.savedLevels||sObj.data.savedLevels.length==0) {
@@ -205,6 +230,7 @@ function clearCustomMenu() {
 }
 function showEditor() {
 	clearCustomMenu();
+	eventArray = ExternalMapDatabase.getMapObjects(ID);
 	gotoAndStop("editor");
 }
 function saveClicked(e){
@@ -226,5 +252,5 @@ function saveClicked(e){
 	}
 	System.setClipboard(xml.toXMLString());
 
-	trace("Saved! Please re-copy the xml string into the xml. :)");
+	trace("Saved! Please re-copy the xml string into the xml. It's already on the clipboard. :)");
 }

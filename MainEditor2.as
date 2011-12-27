@@ -2,6 +2,7 @@
 import tileMapper.*;
 
 import flash.xml.XMLDocument;
+import flash.geom.Point;
 
 var shortCuts = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -16,117 +17,17 @@ var editorETypes = new Array();//new Array("Chip", "Key", "Goal", "Swimming Fish
 //---------------DOODADS----------------
 var editorDTypes = new Array();//new Array("Clamshell", "Grass", "Coral Tree");
 
-objectEditor.visible = false;
-var eventArray = ExternalMapDatabase.getMapObjects(ID);
+//objectEditor.visible = false;
 var changedTiles = new Array();
 var mouseIsDown = false;
-var mag = 0.5;
-var drawMode = "Pencil";
-var editMode = "Layer 1"; //layer 2, layer 3, map object
+
+drawModeBox.text = drawMode;
+editModeBox.text = editMode;
 var point1 = new Point(-1, -1);
-setUpEditorButtons();
 
-function setUpEditorButtons(){
-pencilbutton.gotoAndStop(2);
-rectbutton.gotoAndStop(1);
-fillbutton.gotoAndStop(1);
-selectbutton.gotoAndStop(1);
-pencilbutton.drawMode = "Pencil";
-rectbutton.drawMode = "Rect";
-fillbutton.drawMode = "Fill";
-pencilbutton.mouseChildren = false;
-rectbutton.mouseChildren = false;
-fillbutton.mouseChildren = false;
-selectbutton.mouseChildren = false;
-pencilbutton.addEventListener(MouseEvent.CLICK, setMode);
-rectbutton.addEventListener(MouseEvent.CLICK, setMode);
-fillbutton.addEventListener(MouseEvent.CLICK, setMode);
-
-
-l1button.gotoAndStop(2);
-l2button.gotoAndStop(1);
-l3button.gotoAndStop(1);
-mapobjectbutton.gotoAndStop(1);
-l1button.mouseChildren = false;
-l2button.mouseChildren = false;
-l3button.mouseChildren = false;
-mapobjectbutton.mouseChildren = false;
-l1button.editMode = "Layer 1";
-l2button.editMode = "Layer 2";
-l3button.editMode = "Layer 3";
-mapobjectbutton.editMode = "Map Object";
-l1button.addEventListener(MouseEvent.CLICK, setEdit);
-l2button.addEventListener(MouseEvent.CLICK, setEdit);
-l3button.addEventListener(MouseEvent.CLICK, setEdit);
-mapobjectbutton.addEventListener(MouseEvent.CLICK, setEdit);
-
-mag1.gotoAndStop(2);
-mag15.gotoAndStop(1);
-mag2.gotoAndStop(1);
-mag1.magnifier.text = "1x";
-mag15.magnifier.text = "1.5x";
-mag2.magnifier.text = "2x";
-mag1.mouseChildren = false;
-mag15.mouseChildren = false;
-mag2.mouseChildren = false;
-mag1.addEventListener(MouseEvent.CLICK, changeZoom);
-mag15.addEventListener(MouseEvent.CLICK, changeZoom);
-mag2.addEventListener(MouseEvent.CLICK, changeZoom);
-}
-
-function changeZoom(e){
-	if(e.target.magnifier.text == "1x"){
-		mag = 0.5;
-	} else if (e.target.magnifier.text == "1.5x"){
-		mag = 0.75;
-	} else if (e.target.magnifier.text == "2x"){
-		mag = 1;
-	}
-	editorClip.scaleX = mag;
-	editorClip.scaleY = mag;				
-	mag1.gotoAndStop(1);
-	mag15.gotoAndStop(1);
-	mag2.gotoAndStop(1);
-	e.target.gotoAndStop(2);
-}
-
-function setMode(e){
-	drawMode = e.target.drawMode;
-	if(drawMode == "Rect"){
-		point1 = new Point(-1, -1);
-	}
-	pencilbutton.gotoAndStop(1);
-	rectbutton.gotoAndStop(1);
-	fillbutton.gotoAndStop(1);
-	e.target.gotoAndStop(2);
-}
-
-function setEdit(e){
-	var i;
-	editMode= e.target.editMode;
-	l1button.gotoAndStop(1);
-	l2button.gotoAndStop(1);
-	l3button.gotoAndStop(1);
-	mapobjectbutton.gotoAndStop(1);
-	e.target.gotoAndStop(2);
-	
-	if(editMode == "Map Object"){
-		for(i = 0;i < eventArray.length; i++){
-			editorClip.addChild(eventArray[i]);
-			eventArray[i].x=eventArray[i].xTile*32+16;
-			eventArray[i].y=eventArray[i].yTile*32+16;
-			eventArray[i].addEventListener(MouseEvent.CLICK, openObjectEditor);
-		}
-	}
-	else{
-		for(i = 0;i < eventArray.length; i++){
-			editorClip.removeChild(eventArray[i]);
-		}
-	}
-
-}
+var editorClip = new MovieClip();
 TileMap.createTileMap(editorCode, 32, editorTiles2, clings, "com.EditorTile");
-
+trace(editorCode);
 
 tilesetbox2.text = tilesetID;
 rowsbox2.text = ROWS;
@@ -134,7 +35,6 @@ colsbox2.text = COLS;
 namebox2.text = mapName;
 BGMbox2.text = BGM;
 BGSbox2.text = BGS; 
-var editorClip = new MovieClip();
 editorClip.x = 245;
 editorClip.y = 115;
 editorClip.scaleX = 0.5;
@@ -154,7 +54,7 @@ addEventListener(Event.ENTER_FRAME, editorHandler);
 addEventListener(Event.ENTER_FRAME, clickHandler);
 addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-addEventListener(MouseEvent.MOUSE_UP, clickHandler);
+editorClip.addEventListener(MouseEvent.MOUSE_UP, clickHandler);
 stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
 savebtn.addEventListener(MouseEvent.CLICK, saveHandler);
 saveObjectsbtn.addEventListener(MouseEvent.CLICK, saveMapObjects);
@@ -162,6 +62,155 @@ custommenubtn.addEventListener(MouseEvent.CLICK, customReturnHandler);
 btnmodify.addEventListener(MouseEvent.CLICK, modify);
 
 addEventListener(Event.ENTER_FRAME, mapScroller);
+resume();
+function resume(){
+pencilbutton.gotoAndStop(1);
+rectbutton.gotoAndStop(1);
+fillbutton.gotoAndStop(1);
+selectbutton.gotoAndStop(1);
+pencilbutton.drawMode = "Pencil";
+rectbutton.drawMode = "Rect";
+fillbutton.drawMode = "Fill";
+pencilbutton.mouseChildren = false;
+rectbutton.mouseChildren = false;
+fillbutton.mouseChildren = false;
+selectbutton.mouseChildren = false;
+pencilbutton.addEventListener(MouseEvent.CLICK, setMode);
+rectbutton.addEventListener(MouseEvent.CLICK, setMode);
+fillbutton.addEventListener(MouseEvent.CLICK, setMode);
+
+if(drawMode == "Pencil"){
+	pencilbutton.gotoAndStop(2);
+}
+else if (drawMode == "Rect"){
+	rectbutton.gotoAndStop(2);
+}
+else if(drawMode == "Fill"){
+	fillbutton.gotoAndStop(2);
+}
+l1button.gotoAndStop(1);
+l2button.gotoAndStop(1);
+l3button.gotoAndStop(1);
+mapobjectbutton.gotoAndStop(1);
+l1button.mouseChildren = false;
+l2button.mouseChildren = false;
+l3button.mouseChildren = false;
+mapobjectbutton.mouseChildren = false;
+l1button.editMode = "Layer 1";
+l2button.editMode = "Layer 2";
+l3button.editMode = "Layer 3";
+mapobjectbutton.editMode = "Map Object";
+l1button.addEventListener(MouseEvent.CLICK, setEdit);
+l2button.addEventListener(MouseEvent.CLICK, setEdit);
+l3button.addEventListener(MouseEvent.CLICK, setEdit);
+mapobjectbutton.addEventListener(MouseEvent.CLICK, setEdit);
+
+if(editMode == "Layer 1"){
+	l1button.gotoAndStop(2);
+}
+else if (editMode == "Layer 2"){
+	l2button.gotoAndStop(2);
+}
+else if (editMode == "Layer 3"){
+	l3button.gotoAndStop(2);
+}
+else if(editMode == "Map Object"){
+	mapobjectbutton.gotoAndStop(2);
+}
+	if(editMode == "Map Object"){
+		for(var i = 0;i < eventArray.length; i++){
+			editorClip.addChild(eventArray[i]);
+			eventArray[i].x=eventArray[i].xTile*32+16;
+			eventArray[i].y=eventArray[i].yTile*32+16;
+			eventArray[i].addEventListener(MouseEvent.CLICK, openObjectEditor);
+		}
+	}
+
+
+mag1.magnifier.text = "1x";
+mag15.magnifier.text = "1.5x";
+mag2.magnifier.text = "2x";
+mag1.mouseChildren = false;
+mag15.mouseChildren = false;
+mag2.mouseChildren = false;
+mag1.addEventListener(MouseEvent.CLICK, changeZoom);
+mag15.addEventListener(MouseEvent.CLICK, changeZoom);
+mag2.addEventListener(MouseEvent.CLICK, changeZoom);
+
+mag1.gotoAndStop(1);
+mag15.gotoAndStop(1);
+mag2.gotoAndStop(1);
+	if(mag == 0.5){
+		mag1.gotoAndStop(2);
+	}
+	else if(mag == 0.75){
+		mag15.gotoAndStop(2);
+	}
+	else if(mag == 1){
+		mag2.gotoAndStop(2);
+	}
+	editorClip.scaleX = mag;
+	editorClip.scaleY = mag;	
+	
+	cont2.x = contX;
+	cont2.y = contY;
+}
+function changeZoom(e){
+	if(e.target.magnifier.text == "1x"){
+		mag = 0.5;
+	} else if (e.target.magnifier.text == "1.5x"){
+		mag = 0.75;
+	} else if (e.target.magnifier.text == "2x"){
+		mag = 1;
+	}
+	editorClip.scaleX = mag;
+	editorClip.scaleY = mag;				
+	mag1.gotoAndStop(1);
+	mag15.gotoAndStop(1);
+	mag2.gotoAndStop(1);
+	e.target.gotoAndStop(2);
+}
+
+
+function setMode(e){
+	drawMode = e.target.drawMode;
+	drawModeBox.text = drawMode;
+	if(drawMode == "Rect"){
+		point1 = new Point(-1, -1);
+	}
+	pencilbutton.gotoAndStop(1);
+	rectbutton.gotoAndStop(1);
+	fillbutton.gotoAndStop(1);
+	e.target.gotoAndStop(2);
+}
+
+function setEdit(e){
+	var i;
+
+	l1button.gotoAndStop(1);
+	l2button.gotoAndStop(1);
+	l3button.gotoAndStop(1);
+	mapobjectbutton.gotoAndStop(1);
+	e.target.gotoAndStop(2);
+	
+	if(e.target.editMode == "Map Object" && editMode != "Map Object"){
+		for(i = 0;i < eventArray.length; i++){
+			editorClip.addChild(eventArray[i]);
+			eventArray[i].x=eventArray[i].xTile*32+16;
+			eventArray[i].y=eventArray[i].yTile*32+16;
+			eventArray[i].addEventListener(MouseEvent.CLICK, openObjectEditor);
+		}
+	}
+	else if(editMode == "Map Object" && e.target.editMode != "Map Object"){
+		for(i = 0;i < eventArray.length; i++){
+			editorClip.removeChild(eventArray[i]);
+		}
+	}
+	editMode= e.target.editMode;
+	editModeBox.text = editMode;
+
+}
+
 
 function mouseDownHandler(e){
 	mouseIsDown = true;
@@ -171,7 +220,27 @@ function mouseUpHandler(e){
 }
 
 function openObjectEditor(e){
-	objectEditor.visible = true;
+	clearEditor();
+	var objectID = eventArray.indexOf(e.target);
+/*	var flashClass = "";
+	var dir = 2;
+	var objectX = 0;
+	var objectY = 0;
+	var conditionsArray = new Array();
+	var objectMove = "None";
+	var objectSpeed = 0;
+	var objectWait = 0;
+	var objectTrigger = "None";
+	var objectRange = 0;
+	var commandsArray = new Array();*/
+	
+	for(var i = 0; i < eventArray.length; i++){
+		editorClip.removeChild(eventArray[i]);
+	}
+	
+	contX = cont2.x;
+	contY = cont2.y;
+	gotoAndStop("object_editor");
 }
 
 function mapScroller(e) {
@@ -206,10 +275,11 @@ function modify(e) {
 	var dr = ROWS2 - ROWS;
 	var dc = COLS2 - COLS;
 	
-	var count = 6;
+	var count = 0;
 	var newCode= "";
 	if(dr != 0 || dc != 0){
 		newCode = ROWS2 + ":" + COLS2 + ":";
+		count = (ROWS+":"+COLS+":").length; 
 		for(var r = 0; r < Math.min(ROWS, ROWS2); r++){
 			newCode+=editorCode.substring(count, count + Math.min(COLS, COLS2));
 			count+=Math.min(COLS, COLS2);
@@ -230,7 +300,8 @@ function modify(e) {
 			}
 		}
 	
-	trace(editorCode);
+		//trace(editorCode);
+		trace(newCode);
 		cont2.removeChild(editorClip);
 		cont2.mask = mapmask;
 		
@@ -378,6 +449,7 @@ function clickHandler(e){
 						}
 						point1 = new Point(-1, -1);
 						drawMode = "Pencil";
+						drawModeBox.text = drawMode;
 						pencilbutton.gotoAndStop(2);
 						rectbutton.gotoAndStop(1);
 						fillbutton.gotoAndStop(1);
@@ -433,19 +505,28 @@ function clickHandler(e){
 				}
 				
 				var tileValue = TileMap.map[yp][xp];				
+				trace(buildType);
 				floodFill(tileValue, buildType, yp, xp);
 				
 
 			
 				for(i = 0; i < changedTiles.length; i++){
 					var tile = changedTiles[i];
-					trace(changedTiles[i]);
+					//trace(changedTiles[i]);
 					var ind = editorCode.lastIndexOf(":") + tile.x + tile.y * COLS + 1;
 					editorCode = editorCode.substr(0, ind) + buildType + editorCode.substr(ind + 1, editorCode.length);
 				
 					TileMap.updateTile(tile.y, tile.x, editorCode);
 					
 				}
+				
+				/*for(var r = 0; r < TileMap.ROWS; r++){
+					for(var c = 0; c < TileMap.COLS; c++){
+						trace("okay");
+					}
+					trace("\n");
+				}*/
+				trace(editorCode);
 				changedTiles = new Array();
 		}				
 	}
@@ -457,8 +538,14 @@ function floodFill(tileValue, buildType, yp, xp){
 		return;
 	}
 	
+	for(var i = 0; i < changedTiles.length; i++){
+		var tile = changedTiles[i];
+		if(tile.x == xp && tile.y == yp){
+			return;
+		}
+	}
+	
 	TileMap.map[yp][xp] = buildType;
-	trace(TileMap.map[yp][xp] + " " + tileValue + " " + buildType);
 	changedTiles.push(new Point(xp, yp));
 	
 	if(yp - 1 >= 0){
@@ -697,6 +784,7 @@ function saveMapObjects(e){
 }
 function customReturnHandler(e){
 	clearEditor();
+	editorMode = false;
 	gotoAndStop(1);
 }
 
