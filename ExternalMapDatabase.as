@@ -124,7 +124,8 @@
 
 			for each (var eventElement:XML in input.MapObject) {
 				var mapEvent = new ExternalMapObject();
-
+				
+				mapEvent.graphic = eventElement.Graphic.FlashClass;
 				mapEvent.dir=eventElement.Graphic.Dir;
 
 				var posString=eventElement.Graphic.Position;

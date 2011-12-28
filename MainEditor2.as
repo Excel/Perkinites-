@@ -27,7 +27,6 @@ var point1 = new Point(-1, -1);
 
 var editorClip = new MovieClip();
 TileMap.createTileMap(editorCode, 32, editorTiles2, clings, "com.EditorTile");
-trace(editorCode);
 
 tilesetbox2.text = tilesetID;
 rowsbox2.text = ROWS;
@@ -221,25 +220,28 @@ function mouseUpHandler(e){
 
 function openObjectEditor(e){
 	clearEditor();
-	var objectID = eventArray.indexOf(e.target);
-/*	var flashClass = "";
-	var dir = 2;
-	var objectX = 0;
-	var objectY = 0;
-	var conditionsArray = new Array();
-	var objectMove = "None";
-	var objectSpeed = 0;
-	var objectWait = 0;
-	var objectTrigger = "None";
-	var objectRange = 0;
-	var commandsArray = new Array();*/
 	
+	var object = e.target;
+	objectID = eventArray.indexOf(e.target);
+	flashClass = object.graphic;
+	dir = object.dir;
+	objectX = object.xTile;
+	objectY = object.yTile;
+	conditionsArray = object.conditions;
+	objectMove = object.movement;
+	objectSpeed = object.speed;
+	objectWait = object.wait;
+	objectTrigger = object.aTrigger;
+	objectRange = object.range;
+	commandsArray = object.commands;
+
 	for(var i = 0; i < eventArray.length; i++){
 		editorClip.removeChild(eventArray[i]);
 	}
 	
 	contX = cont2.x;
 	contY = cont2.y;
+	
 	gotoAndStop("object_editor");
 }
 
@@ -300,8 +302,7 @@ function modify(e) {
 			}
 		}
 	
-		//trace(editorCode);
-		trace(newCode);
+		//trace(newCode);
 		cont2.removeChild(editorClip);
 		cont2.mask = mapmask;
 		
@@ -505,27 +506,16 @@ function clickHandler(e){
 				}
 				
 				var tileValue = TileMap.map[yp][xp];				
-				trace(buildType);
 				floodFill(tileValue, buildType, yp, xp);
 				
 
 			
 				for(i = 0; i < changedTiles.length; i++){
 					var tile = changedTiles[i];
-					//trace(changedTiles[i]);
 					var ind = editorCode.lastIndexOf(":") + tile.x + tile.y * COLS + 1;
 					editorCode = editorCode.substr(0, ind) + buildType + editorCode.substr(ind + 1, editorCode.length);
-				
 					TileMap.updateTile(tile.y, tile.x, editorCode);
-					
 				}
-				
-				/*for(var r = 0; r < TileMap.ROWS; r++){
-					for(var c = 0; c < TileMap.COLS; c++){
-						trace("okay");
-					}
-					trace("\n");
-				}*/
 				trace(editorCode);
 				changedTiles = new Array();
 		}				
@@ -647,6 +637,9 @@ function clearEditor(){
 	this.savebtn.removeEventListener(MouseEvent.CLICK, saveHandler);
 	this.custommenubtn.removeEventListener(MouseEvent.CLICK, customReturnHandler);
 	removeEventListener(Event.ENTER_FRAME, mapScroller);	
+	
+	TileMap.removeTiles(editorClip);
+	editorClip.removeChild(sMarker);
 }
 function saveHandler(e){
 	var sx = (sMarker.x) / tileSize;

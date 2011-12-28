@@ -20,7 +20,7 @@ var contY;
 
 //object editor
 var objectID = -1;
-var flashClass = "";
+var flashClass = "None";
 var dir = 2;
 var objectX = 0;
 var objectY = 0;
