@@ -227,15 +227,22 @@ function openObjectEditor(e){
 	dir = object.dir;
 	objectX = object.xTile;
 	objectY = object.yTile;
-	conditionsArray = object.conditions;
+	
+	conditionsArray = new Array();
+	for(var i = 0; i < object.conditions.length; i++){
+		conditionsArray.push(object.conditions[i]);
+	}
 	objectMove = object.movement;
 	objectSpeed = object.speed;
 	objectWait = object.wait;
 	objectTrigger = object.aTrigger;
 	objectRange = object.range;
-	commandsArray = object.commands;
 
-	for(var i = 0; i < eventArray.length; i++){
+	commandsArray = new Array();
+	for(i = 0; i < object.commands.length; i++){
+		commandsArray.push(object.commands[i]);
+	}
+	for(i = 0; i < eventArray.length; i++){
 		editorClip.removeChild(eventArray[i]);
 	}
 	

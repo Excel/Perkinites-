@@ -149,6 +149,18 @@ var sMarker = new StartMarker();
 sMarker.x=0;
 sMarker.y=0;
 
+//strange null cases
+if(btncreate == null){
+	btncreate = new MovieClip();
+}
+if(rowsbox == null){
+	rowsbox = new TextField();
+	rowsbox.text = "20";
+}
+if(colsbox == null){
+	colsbox = new TextField();
+	colsbox.text = "20";
+}
 btncreate.addEventListener(MouseEvent.CLICK, clicked);
 btnsave.addEventListener(MouseEvent.CLICK, saveClicked);
 
