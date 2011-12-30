@@ -15,6 +15,24 @@ var availableCommands = new Array("Message", "Choices",	"Wait",	"Conditional",
 								  "ChangeFlexPoints", "ChangeStat",	"GetPrize", "Teleport",
 								  "ChangeObjectPosition", "ScrollMap",	"PlayBGM",	"StopBGM",
 								  "Shop", "StartCutscene", "EndCutscene");
+var availableBoxes = new Array(flashclassbox,
+							   directionbox,
+							   xbox,
+							   ybox,
+							   movementbox,
+							   speedbox,
+							   waitbox,
+							   triggerbox,
+							   rangebox);
+var availableDescriptions = new Array("Determines what sprite this object looks like. Choose a sprite name that actually exists.",
+							   "Determines how the object is initially facing. USE NUMBERS. 2 is Down, 4 is Left, 6 is Right, 8 is Up.",
+							   "Determines the X-coordinate of this object in terms of tiles.",
+							   "Determines the Y-coordinate of this object in terms of tiles.",
+							   "Determines the movement pattern of this object. Can be None, Follow, Evade, or Random.",
+							   "Determines the speed of the object.",
+							   "Determines the waiting time between commands and movement.",
+							   "Determines how to activate the object. None (Cannot be activated...), SOME MORE OTHER THINGS HERE, Collide (Unit must collide with the object), Auto (Automatically starts).",
+							   "Determines the range of the object for activation.");
 
 var current;
 
@@ -25,13 +43,15 @@ optionsList.exit.addEventListener(MouseEvent.CLICK, exitOptionsList);
 var cond = new MovieClip();
 var comd = new MovieClip();
 
-var insert = false;
+var insert = -1;
+var insertType;
 
 setupObject();
+setupBoxes();
 setupConditions();
 setupCommands();
 
-
+okayButton.addEventListener(MouseEvent.CLICK, okayHandler);
 saveButton.addEventListener(MouseEvent.CLICK, saveObjectHandler);
 exitButton.addEventListener(MouseEvent.CLICK, exitHandler);
 
@@ -51,6 +71,12 @@ function setupObject(){
 	rangebox.text = objectRange;
 //	commandsArray = object.commands;
 }
+
+function setupBoxes(){
+	for(var i = 0; i < availableBoxes.length; i++){
+		availableBoxes[i].addEventListener(MouseEvent.CLICK, descriptionHandler);
+	}
+}
 function setupConditions(){
 	if(cond.parent == this){
 		removeChild(cond);
@@ -62,7 +88,7 @@ function setupConditions(){
 	
 	for(var i = 0; i < conditionsArray.length; i++){
 		var conditional = new ConditionOption();
-		conditional.command.text = conditionsArray[i].name();
+		conditional.command.text = conditionsArray[i].name().localName;
 		conditional.command2.text = conditionsArray[i];
 		cond.addChild(conditional);
 		conditional.x = 55.05;
@@ -72,6 +98,13 @@ function setupConditions(){
 		conditional.command.addEventListener(MouseEvent.CLICK, insertConditionHandler);
 		conditional.command2.addEventListener(MouseEvent.CLICK, editConditionHandler);
 	}
+		var conditional = new ConditionOption();
+		cond.addChild(conditional);
+		conditional.x = 55.05;
+		conditional.y = 275.15+conditionsArray.length*13;
+		conditional.i = conditionsArray.length;
+		
+		conditional.addEventListener(MouseEvent.CLICK, insertConditionHandler);
 }
 function setupCommands(){
 	if(comd.parent == this){
@@ -94,8 +127,20 @@ function setupCommands(){
 		com.command.addEventListener(MouseEvent.CLICK, insertCommandHandler);
 		com.command2.addEventListener(MouseEvent.CLICK, editCommandHandler);
 	}
+	var com = new CommandOption();
+	comd.addChild(com);
+	com.x = 230;
+	com.y = 131+commandsArray.length*13;
+	com.i = commandsArray.length;
+	
+	com.addEventListener(MouseEvent.CLICK, insertCommandHandler);
 }
-function saveObjectHandler(e){
+
+function descriptionHandler(e){
+	var index = availableBoxes.indexOf(e.target);
+	description.text = availableDescriptions[index];
+}
+function okayHandler(e){
 	var object = eventArray[objectID];
 	object.graphic = flashclassbox.text;
 	object.dir = directionbox.text;
@@ -120,34 +165,43 @@ function saveObjectHandler(e){
 	for(i = 0; i < commandsArray.length; i++){
 		object.commands.push(commandsArray[i]);
 	}
-	/*object.graphic = flashClass;
-	object.dir = dir;
+	
+	eventArray[objectID] = object;
+	removeChild(cond);
+	removeChild(comd);
+	gotoAndStop("editor");
+}
+function saveObjectHandler(e){
+	var object = eventArray[objectID];
+	object.graphic = flashclassbox.text;
+	object.dir = directionbox.text;
 	
 	object.conditions = new Array();
-	for(var i = 0; i < conditionsArray.length; i++){
+	for(var i = 0; i < conditionsArray.length-1; i++){
 		object.conditions.push(conditionsArray[i]);
 	}
 
-	object.movement = objectMove;
-	object.speed = objectSpeed;
-	object.wait = objectWait;
+	object.movement = movementbox.text;
+	object.speed = speedbox.text;
+	object.wait = waitbox.text;
 	object.moveWait = object.wait; //differentiate and fix
 	
-	object.xTile = objectX;
-	object.yTile = objectY;
+	object.xTile = xbox.text;
+	object.yTile = ybox.text;
 	
-	object.aTrigger = objectTrigger;
-	object.range = objectRange;
+	object.aTrigger = triggerbox.text;
+	object.range = rangebox.text;
 	
 	object.commands = new Array();
 	for(i = 0; i < commandsArray.length; i++){
 		object.commands.push(commandsArray[i]);
-	}*/
+	}
 	
 	eventArray[objectID] = object;
 }
 function insertConditionHandler(e){
-	insert = true;
+	insert = e.target.parent.i;
+	insertType = "Condition";
 	for(var i = 0; i < availableOptions.length; i++){
 		availableOptions[i].visible = false;
 	}
@@ -161,7 +215,13 @@ function insertConditionHandler(e){
 	
 }
 function insertCommandHandler(e){
-	insert = true;
+	if(e.target == comd){
+		insert = commandsArray.length;
+	}
+	else{
+		insert = e.target.parent.i;
+	}
+	insertType = "Command";
 	for(var i = 0; i < availableOptions.length; i++){
 		availableOptions[i].visible = false;
 	}
@@ -175,6 +235,7 @@ function insertCommandHandler(e){
 }
 function editConditionHandler(e){
 	current = e.target.parent.i;
+	insertType = "Condition";
 	inputList.visible = true;
 	inputList.updateInputs(e.target.parent.command.text, e.target.text);
 
@@ -185,6 +246,7 @@ function editConditionHandler(e){
 }
 function editCommandHandler(e){
 	current = e.target.parent.i;
+	insertType = "Command";
 	inputList.visible = true;
 	inputList.updateInputs(e.target.parent.command.text, e.target.text);
 	
@@ -210,8 +272,42 @@ function addCommandHandler(e){
 	inputList.deleteButton.visible = false;
 }
 function exitInputList(e){
+	var c:XML = inputList.getCommand();
+	trace(insertType);
+	if(insert > -1){
+		//insert
+		
+		if(insertType == "Condition"){
+			conditionsArray.splice(insert,0,c);
+			setupConditions();
+		}
+		else if (insertType == "Command"){
+			commandsArray.splice(insert,0,c);
+			setupCommands();
+		}
+	}
+	else{
+		//might be an edit
+		if(insertType == "Condition"){
+			conditionsArray[current] = c;
+			trace(current);
+			setupConditions();
+		}
+		else if (insertType == "Command"){
+			commandsArray[current] = c;
+			setupCommands();
+		}
+	}
+	insert = -1;
+	current = -1;
 	inputList.turnOff();
 	inputList.visible = false;
+	optionsList.visible = false;
+	for(var i = 0; i < availableOptions.length; i++){
+		availableOptions[i].visible = false;
+		availableOptions[i].removeEventListener(MouseEvent.CLICK, exitOptionsList);
+	}
+	
 }
 function exitOptionsList(e){
 	inputList.turnOff();
@@ -221,7 +317,7 @@ function exitOptionsList(e){
 	}
 	optionsList.visible = false;
 	inputList.visible = false;
-	insert = false;	
+	insert = -1;
 }
 function deleteCondition(e){
 	conditionsArray.splice(current, 1);

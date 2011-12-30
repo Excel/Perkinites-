@@ -10,16 +10,18 @@
 	{
 		var cs;
 		var ps;
+		var inputType;
 		public function InputList()
 		{
 			cs = new Array(c1,c2,c3,c4,c5,c6,c7);
 			ps = new Array(p1,p2,p3,p4,p5,p6,p7);
+			
 		}
 
 		public function updateInputs(type:String, fields:String)
 		{
 			hideFields();
-			trace(type);
+			inputType = type;
 			switch (type)
 			{
 				case "Unit" :
@@ -30,8 +32,7 @@
 					c1.text = "Unit's Name:";
 					break;
 				case "Switch" :
-					description.text = "This object will only appear if the numbered switch is ON (true) or OFF(false)."
-					;
+					description.text = "This object will only appear if the numbered switch is ON (true) or OFF(false).";
 					c1.visible = true;
 					p1.visible = true;
 					c1.text = "Switch Number:";
@@ -69,6 +70,26 @@
 			for(var i = 0; i < parameters.length; i++){
 				ps[i].text = parameters[i];
 			}
+		}
+		public function getCommand(){
+			var commandXML;
+			var count = 0;
+			var command = "";
+			for (var i = 0; i < cs.length; i++){
+				if(ps[i].visible){
+					count++;
+				}
+			}		
+			for(i = 0; i < count; i++){
+				command = command.concat(ps[i].text);
+				if(i != count-1){
+					command = command.concat(":");
+				}
+			}
+			
+			commandXML = <item>{command}</item>;
+			commandXML.setName(inputType);
+			return commandXML;
 		}
 		public function turnOff()
 		{
