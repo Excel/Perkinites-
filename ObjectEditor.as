@@ -11,7 +11,7 @@ var availableOptions = new Array(optionsList.command0, optionsList.command1, opt
 								 optionsList.command16,  optionsList.command17, optionsList.command18);
 var availableConditions = new Array("Unit", "Switch", "Variable");
 var availableCommands = new Array("Message", "Choices",	"Wait",	"Conditional",
-								  "EraseObject", "JumpTo", "Switch", "Variable",
+								  "EraseObject", "JumpTo", "SwitchOp", "VariableOp",
 								  "ChangeFlexPoints", "ChangeStat",	"GetPrize", "Teleport",
 								  "ChangeObjectPosition", "ScrollMap",	"PlayBGM",	"StopBGM",
 								  "Shop", "StartCutscene", "EndCutscene");
@@ -54,6 +54,7 @@ setupCommands();
 okayButton.addEventListener(MouseEvent.CLICK, okayHandler);
 saveButton.addEventListener(MouseEvent.CLICK, saveObjectHandler);
 exitButton.addEventListener(MouseEvent.CLICK, exitHandler);
+deleteObjectButton.addEventListener(MouseEvent.CLICK, deleteObjectHandler);
 
 function setupObject(){
 	objectIDLabel.text = objectID;
@@ -202,6 +203,7 @@ function saveObjectHandler(e){
 function insertConditionHandler(e){
 	insert = e.target.parent.i;
 	insertType = "Condition";
+	inputList.visible = false;
 	for(var i = 0; i < availableOptions.length; i++){
 		availableOptions[i].visible = false;
 	}
@@ -215,13 +217,9 @@ function insertConditionHandler(e){
 	
 }
 function insertCommandHandler(e){
-	if(e.target == comd){
-		insert = commandsArray.length;
-	}
-	else{
-		insert = e.target.parent.i;
-	}
+	insert = e.target.parent.i;
 	insertType = "Command";
+	inputList.visible = false;
 	for(var i = 0; i < availableOptions.length; i++){
 		availableOptions[i].visible = false;
 	}
@@ -234,8 +232,10 @@ function insertCommandHandler(e){
 	}	
 }
 function editConditionHandler(e){
+	insert = -1;	
 	current = e.target.parent.i;
 	insertType = "Condition";
+	optionsList.visible = false;
 	inputList.visible = true;
 	inputList.updateInputs(e.target.parent.command.text, e.target.text);
 
@@ -245,8 +245,10 @@ function editConditionHandler(e){
 	inputList.deleteButton.addEventListener(MouseEvent.CLICK, deleteCondition);
 }
 function editCommandHandler(e){
+	insert = -1;	
 	current = e.target.parent.i;
 	insertType = "Command";
+	optionsList.visible = false;
 	inputList.visible = true;
 	inputList.updateInputs(e.target.parent.command.text, e.target.text);
 	
@@ -273,7 +275,6 @@ function addCommandHandler(e){
 }
 function exitInputList(e){
 	var c:XML = inputList.getCommand();
-	trace(insertType);
 	if(insert > -1){
 		//insert
 		
@@ -290,7 +291,6 @@ function exitInputList(e){
 		//might be an edit
 		if(insertType == "Condition"){
 			conditionsArray[current] = c;
-			trace(current);
 			setupConditions();
 		}
 		else if (insertType == "Command"){
@@ -330,7 +330,7 @@ function deleteCondition(e){
 	}
 	optionsList.visible = false;
 	inputList.visible = false;
-	insert = false;	
+	insert = -1;	
 }
 function deleteCommand(e){
 	commandsArray.splice(current, 1);
@@ -345,6 +345,13 @@ function deleteCommand(e){
 	insert = false;	
 }
 function exitHandler(e){
+	removeChild(cond);
+	removeChild(comd);
+	gotoAndStop("editor");
+}
+
+function deleteObjectHandler(e){
+	eventArray.splice(objectID, 1);
 	removeChild(cond);
 	removeChild(comd);
 	gotoAndStop("editor");

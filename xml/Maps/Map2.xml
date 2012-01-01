@@ -1,3 +1,42 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<MapObjects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<MapObjects>
+  <MapObject>
+    <Graphic>
+      <FlashClass>None</FlashClass>
+      <Dir>2</Dir>
+      <Position>(16,10)</Position>
+    </Graphic>
+    <Conditions/>
+    <Movement>
+      <Type>None</Type>
+      <Speed>0</Speed>
+      <Wait>0</Wait>
+    </Movement>
+    <Activation>
+      <Trigger>Collide</Trigger>
+      <Range>32</Range>
+    </Activation>
+    <Commands>
+      <Wait>40</Wait>
+    </Commands>
+  </MapObject>
+  <MapObject>
+    <Graphic>
+      <FlashClass>None</FlashClass>
+      <Dir>2</Dir>
+      <Position>(16,10)</Position>
+    </Graphic>
+    <Conditions/>
+    <Movement>
+      <Type>None</Type>
+      <Speed>0</Speed>
+      <Wait>0</Wait>
+    </Movement>
+    <Activation>
+      <Trigger>Collide</Trigger>
+      <Range>32</Range>
+    </Activation>
+    <Commands>
+      <Message>Raven:cool:None:None:No</Message>
+    </Commands>
+  </MapObject>
 </MapObjects>

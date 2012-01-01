@@ -382,9 +382,52 @@ function typeClicked(e){
 }
 function clickHandler(e){
 	if(editMode == "Map Object"){
+		if(mouseIsDown){
+			var xp = Math.floor((mouseX + cont2.x*-1 - 245) / (32*mag));
+			var yp = Math.floor((mouseY + cont2.y*-1 - 115) / (32*mag));
+			if(xp < 0 || yp < 0 || xp >= COLS || yp >= ROWS)
+				return;
+				
+			for(var i = 0; i < eventArray.length; i++){
+				if(xp == eventArray[i].xTile && yp == eventArray[i].yTile){
+					return;
+				}
+			}
+			clearEditor();
+			
+			var object = new ExternalMapObject();
+			object.xTile = xp;
+			object.yTile = yp;
+			eventArray.push(object);
+			objectID = eventArray.length-1;
+			flashClass = object.graphic;
+			dir = object.dir;
+			objectX = object.xTile;
+			objectY = object.yTile;
+			
+			conditionsArray = new Array();
+			for(i = 0; i < object.conditions.length; i++){
+				conditionsArray.push(object.conditions[i]);
+			}
+			objectMove = object.movement;
+			objectSpeed = object.speed;
+			objectWait = object.wait;
+			objectTrigger = object.aTrigger;
+			objectRange = object.range;
 		
-		
-		
+			commandsArray = new Array();
+			for(i = 0; i < object.commands.length; i++){
+				commandsArray.push(object.commands[i]);
+			}
+			for(i = 0; i < eventArray.length-1; i++){
+				editorClip.removeChild(eventArray[i]);
+			}
+			
+			contX = cont2.x;
+			contY = cont2.y;
+			
+			gotoAndStop("object_editor");	
+		}
 	} else{
 			if(drawMode == "Pencil"){
 		if(mouseIsDown){
@@ -561,7 +604,7 @@ function floodFill(tileValue, buildType, yp, xp){
 
 function editorHandler(e){
 	//ScreenRect.easeScreen(new Point((mouseX / STAGE_WIDTH) * (COLS * tileSize) - STAGE_WIDTH / 2, (mouseY / STAGE_HEIGHT) * (ROWS * tileSize) - STAGE_HEIGHT / 2));
-	
+/*	
 	if(mouseX < STAGE_WIDTH - 150)
 		selectType = -1;
 	
@@ -583,7 +626,7 @@ function editorHandler(e){
 					sbtn.x += 15;
 			}
 		}
-	}
+	}*/
 }
 function changeHandler(e){
 	var row = e.target.id;
@@ -639,7 +682,8 @@ function clearEditor(){
 	removeChild(cont2);
 	
 	removeEventListener(Event.ENTER_FRAME, editorHandler);
-	removeEventListener(MouseEvent.MOUSE_UP, clickHandler);
+	removeEventListener(Event.ENTER_FRAME, clickHandler);
+	editorClip.removeEventListener(MouseEvent.MOUSE_UP, clickHandler);	
 	stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
 	this.savebtn.removeEventListener(MouseEvent.CLICK, saveHandler);
 	this.custommenubtn.removeEventListener(MouseEvent.CLICK, customReturnHandler);
@@ -749,32 +793,55 @@ createTypeButton(3, STAGE_WIDTH - 85, 70, -2, "Start Point");*/
 
 function saveMapObjects(e){
 	var xml:XML = 
-		<Maps>
-		</Maps>;
-	for(var i = 0; i < savedLevels.length; i++){
-		var mapXML:XML;
-		if(i == ID){
-			mapXML = 
-				<Map>
-					<ID>{i}</ID>
-					<MapCode>111</MapCode>
-					<MapName>{mapName}</MapName>
-					<TilesetID>{tilesetID}</TilesetID>
-					<BGM>{BGM}</BGM>
-					<BGS>{BGS}</BGS>
-				</Map>		
-		} else{
-			mapXML = 
-				<Map>
-					<ID>{i}</ID>
-					<MapCode>{savedLevels[i].mapCode}</MapCode>
-					<MapName>{savedLevels[i].mapName}</MapName>
-					<TilesetID>{savedLevels[i].tilesetID}</TilesetID>
-					<BGM>{savedLevels[i].BGM}</BGM>
-					<BGS>{savedLevels[i].BGS}</BGS>
-				</Map>
+		<MapObjects>
+		</MapObjects>;
+	for(var i = 0; i < eventArray.length; i++){
+		var graphicXML:XML;
+		var conditionsXML:XML;
+		var movementXML:XML;
+		var activationXML:XML;
+		var commandsXML:XML;
+		
+		graphicXML = 
+				<Graphic>
+					<FlashClass>{flashClass}</FlashClass>
+					<Dir>{dir}</Dir>
+					<Position>({objectX},{objectY})</Position>
+				</Graphic>;
+		conditionsXML =
+				<Conditions>
+				</Conditions>;
+		for(var j = 0; j < eventArray[i].conditions.length; j++){
+			conditionsXML.appendChild(eventArray[i].conditions[j]);
 		}
-		xml.appendChild(mapXML);
+		movementXML = 
+				<Movement>
+					<Type>{objectMove}</Type>
+					<Speed>{objectSpeed}</Speed>
+					<Wait>{objectWait}</Wait>
+				</Movement>;
+		activationXML = 
+				<Activation>
+					<Trigger>{objectTrigger}</Trigger>
+					<Range>{objectRange}</Range>
+				</Activation>;
+		commandsXML = 
+				<Commands>
+				</Commands>;
+		for(var j = 0; j < eventArray[i].commands.length; j++){
+			commandsXML.appendChild(eventArray[i].commands[j]);
+		}		
+		
+		var mapObjectXML:XML;
+		mapObjectXML = 
+			<MapObject>
+			</MapObject>;
+		mapObjectXML.appendChild(graphicXML);
+		mapObjectXML.appendChild(conditionsXML);
+		mapObjectXML.appendChild(movementXML);
+		mapObjectXML.appendChild(activationXML);		
+		mapObjectXML.appendChild(commandsXML);
+		xml.appendChild(mapObjectXML);
 		
 	}
 	System.setClipboard(xml.toXMLString());

@@ -30,18 +30,21 @@
 		public var range;
 		
 		public var commands;
-		/**
-		 * How to activate the GameUnit
-		 * 0 - Click on it/press C
-		 * 1 - Run over it
-		 * 2 - Automatically activates
-		 * 3 - Runs in parallel
-		 */
+		
 		//public var range:int;
 
 		//public var commands:Array;
 		public function ExternalMapObject() {
+			graphic = "None";
+			dir = 2;
 			conditions = new Array();
+			speed = 0;
+			wait = 0;
+			xTile = 0;
+			yTile = 0;
+			moveWait = 0;
+			aTrigger = "None";
+			range = 0;
 			commands = new Array();
 			movement="None";
 		}

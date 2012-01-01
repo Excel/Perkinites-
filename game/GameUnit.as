@@ -692,7 +692,7 @@ package game{
 				messageString = messageString.replace(pattern, '<3');				
 				talking(nameString, messageString, portrait, faceIcon, fastforward);
 				//addEventListener(Event.ENTER_FRAME,talkingHandler);
-				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
+				GameVariables.stageRef.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 			}
 		}
 		public function displayChoices(answersArray:Array, commandsArray:Array) {
@@ -790,9 +790,10 @@ package game{
 			if (charIndex==0) {
 				messagebox.x=mbx;
 				messagebox.y=mby;
-				stage.addChild(messagebox);
+				trace(GameVariables.stageRef);
+				GameVariables.stageRef.addChild(messagebox);
 				//addEventListener(Event.ENTER_FRAME,talkingHandler);
-				stage.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
+				GameVariables.stageRef.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);
 			}
 
 			if (charIndex==messageString.length||fastforward) {

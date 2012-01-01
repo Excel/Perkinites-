@@ -27,34 +27,119 @@
 				case "Unit" :
 					description.text = "This object will only appear if the following Unit is active."
 					;
-					c1.visible = true;
-					p1.visible = true;
+					showFields(1);
 					c1.text = "Unit's Name:";
 					break;
 				case "Switch" :
 					description.text = "This object will only appear if the numbered switch is ON (true) or OFF(false).";
-					c1.visible = true;
-					p1.visible = true;
+					showFields(2);
 					c1.text = "Switch Number:";
-					c2.visible = true;
-					p2.visible = true;
 					c2.text = "ON or OFF:";
 					break;
 				case "Variable" :
 					description.text = "This object will only appear if the numbered variable is </<=/==/>/>= to the given value."
 					;
-					c1.visible = true;
-					p1.visible = true;
+					showFields(3);
 					c1.text = "Variable Number:";
-					c2.visible = true;
-					p2.visible = true;
 					c2.text = "<, <=, ==, >, >=:";
-					c3.visible = true;
-					p3.visible = true;
 					c3.text = "Value to Compare:";
 					break;
+				case "Message": //somehow deal with COLON, NEWSPACE, AND LESSTHANTHREE
+					description.text = "";
+					showFields(5);
+					c1.text = "Name:";
+					c2.text = "Actual Message:";
+					c3.text = "Include Portrait (Filename or None)";
+					c4.text = "Include Face Icon (Name or None)";
+					c5.text = "Included in Choices (No)";
+					p5.text = "No";
+					break;
+				//choices
+				case "Wait":
+					description.text = "Wait for this many frames before going to the next command.";
+					showFields(1);
+					c1.text = "Waiting Time (in frames)";
+					break;
+				//conditional
+				case "EraseObject":
+					description.text = "Erase this object. Will reappear when you teleport to this map later."
+					break;
+				case "JumpTo":
+					description.text = "Jump to this command.";
+					showFields(1);
+					c1.text = "Number of Command to jump to.";
+					break;
+				case "SwitchOp":
+					description.text = "Turns ON/OFF a specific switch.";
+					showFields(2);
+					c1.text = "Switch Number:";
+					c2.text = "ON or OFF:"; //this was originally true/false. change gameunit
+					break;					
+				case "VariableOp":
+					description.text = "Changes a specific variable.";
+					showFields(3);
+					c1.text = "Variable Number:";
+					c2.text = "+, -, *, /, =, or RAND";
+					c3.text = "Value:";
+					break;
+				case "ChangeFlexPoints":
+					description.text = "Change the amount of FlexPoints the Perkinites have.";
+					showFields(2);
+					c1.text = "Increase, Decrease, or Set:";
+					c2.text = "FlexPoint Amount:";
+					break;
+				case "ChangeStat":
+					description.text = "Changes an active unit's stat. Stat Types are Health, Health+, Health-, MaxHealth, Attack, Defense, Speed. This list will definitely change, just give me some time.";
+					showFields(4);
+					c1.text = "Unit Type (Current or Partner):";
+					c2.text = "Stat Type:";
+					c3.text = "Value of the New Stat:";
+					c4.text = "Display Change on-screen (Yes or No):";
+					break;
+				case "GetPrize":
+					description.text = "Gives the Perkinites a Prize! Simple Mode is displaying a simple popup in the top left corner. Cutscene Mode is displaying the item popup in the middle.";
+					showFields(4);
+					c1.text = "Item or Ability:";
+					c2.text = "ID of the Item/Ability:";
+					c3.text = "Amount Received:";
+					c4.text = "Simple or Cutscene:";
+					break;
+				case "Teleport":
+					description.text = "Teleports the Perkinites to a different map.";
+					showFields(3);
+					c1.text = "MapID(xTile,yTile):";
+					c2.text = "Direction (2,4,6,8):";
+					c3.text = "Show Transition (Yes or No):"
+					break;
+				case "ChangeObjectPosition":
+					description.text = "Teleports the MapObject to a different set of coordinates on the same map.";
+					showFields(2);
+					c1.text = "ObjectID(xTile,yTile):"
+					c2.text = "Direction (2,4,6,8):";
+					break;
+				case "ScrollMap":
+					description.text = "Scrolls the camera in a given direction, length, and speed. They are all Numbers. If you want to return to the original, you have to make another ScrollMap command.";
+					showFields(3);
+					c1.text = "Scroll Direction (2/4/6/8):";
+					c2.text = "Number of Tiles to Scroll:";
+					c3.text = "Speed:";
+					break;
+				case "PlayBGM":
+					description.text = "Plays a BGM. Eventually this will also have volume control if I can figure that out.";
+					showFields(1);
+					c1.text = "BGM Name:";
+					break;
+				case "StopBGM":
+					description.text = "Stops a BGM from playing. Now it is just silence...and BGS noises.";
+					break;				
+				//shop;
+				case "StartCutscene":
+					description.text = "Note when the cutscene starts. Cutscenes can be skipped. When skipped, all the commands in between StartCutscene and EndCutscene are ignored.";
+					break;
+				case "EndCutscene":
+					description.text = "Note when the cutscene ends. Cutscenes can be skipped. When skipped, all the commands in between StartCutscene and EndCutscene are ignored.";
+					break;					
 			}
-			
 			fillFields(fields);
 		}
 		public function hideFields()
@@ -63,6 +148,12 @@
 			{
 				cs[i].visible = false;
 				ps[i].visible = false;
+			}
+		}
+		public function showFields(numFields:int){
+			for(var i = 0; i < numFields; i++){
+				cs[i].visible = true;
+				ps[i].visible = true;
 			}
 		}
 		public function fillFields(fields:String){

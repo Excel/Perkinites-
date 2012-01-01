@@ -82,15 +82,15 @@
 				//<JumpTo>CommandIndex:CheckLoop</JumpTo>
 				func = FunctionUtils.thunkify(mapEvent.jumpTo, parseInt(command));
 			
-			} else if (command.name() == "Switch") {
-				//<Switch>SwitchID:TRUE/FALSE</Switch>
+			} else if (command.name() == "SwitchOp") {
+				//<SwitchOp>SwitchID:ON/OFF</SwitchOp>
 				ind=command.indexOf(":");
 				ID = parseInt(command.substring(0,ind));
 				var binary=command.substring(ind + 1, command.toString().length);
 				func = FunctionUtils.thunkify(mapEvent.changeSwitch, ID, binary);
 				
-			} else if (command.name() == "Variable") {
-				//<Variable>VariableID:Operation:Value</Variable>
+			} else if (command.name() == "VariableOp") {
+				//<VariableOp>VariableID:Operation:Value</VariableOp>
 				ind=command.indexOf(":");
 				ID=parseInt(command.substring(0,ind));
 				var operation=command.substring(ind+1,command.indexOf(":",ind+1));
