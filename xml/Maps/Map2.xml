@@ -13,19 +13,22 @@
     </Movement>
     <Activation>
       <Trigger>Collide</Trigger>
-      <Range>32</Range>
+      <Range>2</Range>
     </Activation>
     <Commands>
-      <Wait>40</Wait>
+      <Message>Chelsea:ugh:None:None:No</Message>
+      <SwitchOp>1:ON</SwitchOp>
     </Commands>
   </MapObject>
   <MapObject>
     <Graphic>
       <FlashClass>None</FlashClass>
       <Dir>2</Dir>
-      <Position>(16,10)</Position>
+      <Position>(6,10)</Position>
     </Graphic>
-    <Conditions/>
+    <Conditions>
+      <Switch>1:ON</Switch>
+    </Conditions>
     <Movement>
       <Type>None</Type>
       <Speed>0</Speed>
@@ -33,10 +36,11 @@
     </Movement>
     <Activation>
       <Trigger>Collide</Trigger>
-      <Range>32</Range>
+      <Range>0</Range>
     </Activation>
     <Commands>
-      <Message>Raven:cool:None:None:No</Message>
+      <Message>Raven:cool:No:No:No</Message>
+      <SwitchOp>1:OFF</SwitchOp>
     </Commands>
   </MapObject>
 </MapObjects>

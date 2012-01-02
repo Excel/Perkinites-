@@ -131,6 +131,9 @@
 				ind2=posString.indexOf(")");
 				mapEvent.yTile=parseInt(posString.substring(ind1,ind2));
 				mapEvent.y=mapEvent.yTile*32+16;
+				
+				mapEvent.mxpos = mapEvent.x; //ugh this stupid bug took forever to find 
+				mapEvent.mypos = mapEvent.y;
 
 				for each (var conditionElement:XML in eventElement.Conditions.children()) {
 					mapEvent.conditions.push(conditionElement);
@@ -141,7 +144,6 @@
 				mapEvent.moveWait=eventElement.Movement.Wait;
 
 				mapEvent.aTrigger=eventElement.Activation.Trigger;
-				mapEvent.determineActivation();
 				mapEvent.range=eventElement.Activation.Range;
 
 				for each (var commandElement:XML in eventElement.Commands.children()) {

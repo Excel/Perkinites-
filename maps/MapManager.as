@@ -40,7 +40,7 @@
 			loadMapData(mapNumber);
 			setHeroPosition();
 			setMapObjects(mapNumber);
-			setEnemies();
+			//setEnemies();
 
 			ScreenRect.createScreenRect(new Array(mapClip),640,480);
 			stageRef.addEventListener(Event.ENTER_FRAME, VCamHandler);
@@ -122,8 +122,12 @@
 			var mapObjects = MapDatabase.getMapObjects(mapNumber);
 			var auto = -1;
 			for (var i = 0; i < mapObjects.length; i++) {
+				if(mapObjects[i].parent == mapClip){
+					mapClip.removeChild(mapObjects[i]);
+				}
 				if (MapObjectConditionChecker.checkCondition(mapObjects[i], mapObjects[i].conditions)) {
 					mapClip.addChild(mapObjects[i]);
+					mapObjects[i].determineActivation();
 					if (mapObjects[i].aTrigger == "Auto" && auto == -1) {
 						mapObjects[i].addEventListener(Event.ENTER_FRAME, mapObjects[i].gameHandler);
 						auto = i;

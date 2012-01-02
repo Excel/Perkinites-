@@ -39,10 +39,10 @@ package maps{
 		public function MapObject() {
 			conditions = new Array();
 			movement="None";
-			addEventListener(Event.ENTER_FRAME, detectHandler);
 		}
 
 		public function determineActivation():void {
+			addEventListener(Event.ENTER_FRAME, detectHandler);
 			switch (aTrigger) {
 				case "Click" :
 					addEventListener(MouseEvent.MOUSE_DOWN, clickHandler);

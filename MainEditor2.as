@@ -804,9 +804,9 @@ function saveMapObjects(e){
 		
 		graphicXML = 
 				<Graphic>
-					<FlashClass>{flashClass}</FlashClass>
-					<Dir>{dir}</Dir>
-					<Position>({objectX},{objectY})</Position>
+					<FlashClass>{eventArray[i].graphic}</FlashClass>
+					<Dir>{eventArray[i].dir}</Dir>
+					<Position>({eventArray[i].xTile},{eventArray[i].yTile})</Position>
 				</Graphic>;
 		conditionsXML =
 				<Conditions>
@@ -816,14 +816,14 @@ function saveMapObjects(e){
 		}
 		movementXML = 
 				<Movement>
-					<Type>{objectMove}</Type>
-					<Speed>{objectSpeed}</Speed>
-					<Wait>{objectWait}</Wait>
+					<Type>{eventArray[i].movement}</Type>
+					<Speed>{eventArray[i].speed}</Speed>
+					<Wait>{eventArray[i].wait}</Wait>
 				</Movement>;
 		activationXML = 
 				<Activation>
-					<Trigger>{objectTrigger}</Trigger>
-					<Range>{objectRange}</Range>
+					<Trigger>{eventArray[i].aTrigger}</Trigger>
+					<Range>{eventArray[i].range}</Range>
 				</Activation>;
 		commandsXML = 
 				<Commands>

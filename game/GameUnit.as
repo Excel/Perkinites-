@@ -714,12 +714,14 @@ package game{
 		public function changeSwitch(ID:int, binary:String) {
 			if (prevMoveCount != moveCount) {
 				prevMoveCount = moveCount;
-				if (binary == "TRUE") {
+				if (binary == "ON") {
 					GameVariables.switchesArray[ID] = true;
-				} else if (binary == "FALSE") {
+				} else if (binary == "OFF") {
 					GameVariables.switchesArray[ID] = false;
 				}
+				MapManager.setMapObjects(GameVariables.nextMapID);
 				moveCount++;
+				
 			}
  		}
 
@@ -790,7 +792,6 @@ package game{
 			if (charIndex==0) {
 				messagebox.x=mbx;
 				messagebox.y=mby;
-				trace(GameVariables.stageRef);
 				GameVariables.stageRef.addChild(messagebox);
 				//addEventListener(Event.ENTER_FRAME,talkingHandler);
 				GameVariables.stageRef.addEventListener(KeyboardEvent.KEY_DOWN,talkingConfirmHandler);

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <MapObjects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <MapObject>
     <Graphic>
@@ -111,11 +111,11 @@
     </Movement>
     <Activation>
       <Trigger>Collide</Trigger>
-      <Range>12</Range>
+      <Range>0</Range>
     </Activation>
     <Commands>
       <Message>Raven:cool:None:None:No</Message>
-      <Teleport>1(7,9):0:Yes</Teleport>
+      <Teleport>1(4,4):0:Yes</Teleport>
     </Commands>
   </MapObject>
 </MapObjects>
